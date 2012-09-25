@@ -1,0 +1,9 @@
+[submodule "slides/nuxeo-slide-template"]
+	path = slides/nuxeo-slide-template
+	url = https://github.com/nuxeo/nuxeo-slide-template.git
+[submodule "slides/deck.js"]
+	path = slides/deck.js
+	url = https://github.com/imakewebthings/deck.js.git
+[submodule "slides/deck.js-markdown"]
+	path = slides/deck.js-markdown
+	url = https://github.com/tmbrggmn/deck.js-markdown.git
