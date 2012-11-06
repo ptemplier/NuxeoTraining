@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Nuxeo Distribution 1</title>
+
+<meta name="description" content="Nuxeo Training - Nuxeo Distribution 1">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+
+  <section class="no-md slide" id="nuxeo-training-day-5">
+    <h3>Nuxeo Training – day 5</h3>
+    <ul>
+      <li>Server Structure, configuration templates</li>
+      <li>Market place package</li>
+      <li>Nuxeo distribution tools</li>
+      <li>Functional tests </li>
+    </ul>
+  </section>
+  <section class="no-md slide"
+    id="nuxeo-training---nuxeo-distribution-1:-server-structure-configuration-templates">
+    <h1>Nuxeo Training - Nuxeo Distribution 1: Server structure,
+      Configuration templates</h1>
+    <h6>Sun Seng David TAN</h6>
+  </section>
+  <section class="no-md slide" id="server-structure">
+    <h3>Server structure</h3>
+    <pre>
+      <code>
+    ├── bin
+    ├── client
+    ├── conf
+    │   └── Catalina
+    │       └── localhost
+    ├── doc-tomcat
+    ├── lib
+    ├── nxserver
+    │   ├── bundles
+    │   ├── config
+    │   ├── data
+    │   ├── lib
+    │   ├── nuxeo.war
+    │   │   └── WEB-INF
+    │   ├── plugins
+    │   ├── repos
+    │   │   └── default
+    │   ├── schemas
+    │   ├── tmp
+    │   │   └── nested-jars
+    │   └── web
+    │       └── root.war
+    ├── sdk
+    ├── setupWizardDownloads
+    ├── templates
+    │   ├── common
+    │   ├── common-base
+    │   ├── custom
+    │   ├── default
+    │   ├── https
+    │   ├── mssql
+    │   ├── mssql-quartz-cluster
+    │   ├── mysql
+    │   ├── oracle
+    │   ├── oracle-quartz-cluster
+    │   ├── postgresql
+    │   ├── postgresql-quartz-cluster
+    │   └── sdk
+    └── tmp
+</code>
+    </pre>
+  </section>
+  <section class="no-md slide" id="server-folders:">
+    <h3>Server Folders:</h3>
+    <p>Nuxeo server folders:</p>
+    <ul>
+      <li>bin: contain the binaries
+        <ul>
+          <li>nuxeoctl: to manage the server</li>
+          <li>nuxeo.conf: Nuxeo server configuration</li>
+          <li>nuxeo-sdk.conf: nuxeo.conf generated and use by Nuxeo IDE</li>
+        </ul>
+      </li>
+      <li>log: contains the logs
+        <ul>
+          <li>server.log: the main Nuxeo log file</li>
+          <li>console.log, nuxeo-error.log, nuxeo.pid,
+            nuxeoctl.log, server.log, stderr.log</li>
+        </ul>
+      </li>
+      <li>sdk: additional files used by Nuxeo IDE</li>
+      <li>lib: application server libraries
+        <ul>
+          <li>log4j.xml : the log configuration file</li>
+        </ul>
+      </li>
+      <li>conf: Application server (Tomcat) configuration files</li>
+      <li>templates: configuration files using template mechanism.</li>
+      <li>nxserver: see next page</li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="nxserver">
+    <h3>nxserver</h3>
+    <ul>
+      <li>nxserver/bundles: all Nuxeo plugins</li>
+      <li>nxserver/lib: third party libraries used by Nuxeo</li>
+      <li>nxserver/plugins: works like bundles, for customers</li>
+      <li>nxserver/config: configuration extension components and
+        properties files
+        <ul>
+          <li>Extension: -bundle.xml or -config.xml</li>
+          <li>Properties: Framework.getProperty</li>
+        </ul>
+      </li>
+      <li>nuxeo.war: generated war</li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="data-and-binaries-store">
+    <h3>Data and binaries store</h3>
+    <ul>
+      <li>Binaries stored: nxserver/data/binaries.
+        <ul>
+          <li>To be shared in a cluster</li>
+          <li>Override with repository.binary.store (in nuxeo.conf)</li>
+        </ul>
+      </li>
+      <li>The nxserver/data folder contains specific files of the
+        tomcat instance.
+        <ul>
+          <li>tmp folder used by Nuxeo</li>
+          <li>Installed and downloaded marketplace packages of the
+            instance</li>
+          <li>Override with nuxeo.data.dir (in nuxeo.conf)</li>
+        </ul>
+      </li>
+      <li>A Data backup consists of
+        <ul>
+          <li>Making a dump of the database</li>
+          <li>Saving the repository.binary.store folder (if the
+            location has been overridden)</li>
+          <li>Stopping the server is not necessary for the backup</li>
+          <li><a href="http://doc.nuxeo.com/x/D4Ke">http://doc.nuxeo.com/x/D4Ke</a> </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="configuration-templates">
+    <h3>Configuration templates</h3>
+    <ul>
+      <li>Since 5.3.2, new configuration mechanism based on
+        templates.
+        <ul>
+          <li>Easier updates without changing the configuration
+            files in the ear</li>
+          <li>Templates are extensible and overrides are possible</li>
+        </ul>
+      </li>
+      <li>See &quot;templates&quot; folder in Nuxeo root folder</li>
+      <li>Since 5.6, templates use FreeMarker </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="a-long-time-ago">
+    <h3>A long time ago</h3>
+    <ul>
+      <li>In the past, a delivery was done providing all the folder
+        &quot;config&quot; 
+        <ul>
+          <li>Including defaults config files from Nuxeo</li>
+          <li>Including custom config file according to the target</li>
+          <li>Excluding defaults config files from Nuxeo according
+            to the target </li>
+        </ul>
+      </li>
+      <li>For each targets :
+        <ul>
+          <li>Dev1, dev2</li>
+          <li>Qualification servers</li>
+          <li>Production servers</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="why-templates">
+    <h3>Why templates ?</h3>
+    <ul>
+      <li>It was hard to maintain </li>
+      <li>No more resources duplication 
+        <ul>
+          <li>without templates, administrators had to add or
+            modify some files in the server structure. </li>
+        </ul>
+      </li>
+      <li>Customized files located outside of the server
+        structure. 
+        <ul>
+          <li>nuxeo.conf, </li>
+          <li>custom templates. </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="behind-the-template-mechanism">
+    <h3>Behind the template mechanism</h3>
+    <ul>
+      <li>A delivery provides :
+        <ul>
+          <li>1 configuration file for each target environment </li>
+          <li>1 delivery package for all the target instances </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="configuration-templates-1">
+    <h3>Configuration templates</h3>
+    <ul>
+      <li>Identified with their path </li>
+      <li>Paths are absolute or relative to $NUXEO_HOME/templates/ </li>
+      <li>nuxeo.defaults </li>
+      <li>Inheritance </li>
+      <li>Customization</li>
+      <li>File parsing and renaming capabilities </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="configuration-templates-2">
+    <h3>Configuration templates</h3>
+    <p>nuxeo.conf</p>
+    <ul>
+      <li>Deployed templates </li>
+      <li>Configuration variables to override </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="nuxeo.conf-location">
+    <h3>nuxeo.conf location</h3>
+    <p>nuxeo.conf location defined with a environment variable :</p>
+    <pre>
+      <code>
+$ export NUXEO_CONF=/etc/nuxeo/nuxeo.conf
+$ NUXEO_CONF=/etc/nuxeo/nuxeo.conf nuxeo-cap-5.6/bin/nuxeoctl console 
+</code>
+    </pre>
+  </section>
+  <section class="no-md slide" id="demo-configuration-templates">
+    <h2>Demo Configuration Templates</h2>
+  </section>
+  <section class="no-md slide"
+    id="exercise---nuxeo-distribution-1:-server-structure-configuration-templates">
+    <h2>Exercise - Nuxeo Distribution 1 : Server structure,
+      Configuration templates</h2>
+    <h6>Sun Seng David TAN</h6>
+  </section>
+  <section class="no-md slide" id="configuration-template-for">
+    <h3>Configuration template for ?</h3>
+    <ul>
+      <li>Example of custom template configuration :
+        <ul>
+          <li>Virtual user (Administrator) that won't be in the
+            Ldap</li>
+          <li>Ldap configuration</li>
+          <li>Postgres VCS
+            <ul>
+              <li>Fulltext search on a specific metadata</li>
+              <li>unaccent in fulltext search</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="configuration-templates-3">
+    <h3>Configuration templates</h3>
+    <ul>
+      <li>Here are 4 templates we could create 
+        <ul>
+          <li>book-management-common</li>
+          <li>book-management-postgres</li>
+          <li>book-management-ldap</li>
+          <li>book-management-production (postgres + ldap) </li>
+        </ul>
+      </li>
+      <li>We will define nuxeo.conf for each machine
+        <ul>
+          <li>Dev : use book-management-common</li>
+          <li>Dev postgres : use book-management-postgres</li>
+          <li>Qualification : use book-management-production</li>
+          <li>Production : use book-management-production</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="book-management-common">
+    <h3>book-management-common</h3>
+    <ul>
+      <li>Create the extension point without using templates
+        mechanism
+        <ul>
+          <li>Create the configuration xml file in it for setting a
+            new Virtual user user the extension point : <a
+            href="http://bit.ly/JctzDt">http://bit.ly/JctzDt</a>
+          </li>
+          <li>In nxserver/config</li>
+          <li>Remember : your xml file needs to finish with
+            -config.xml or -bundle.xml</li>
+          <li>Remember : you component needs to have a unique name
+            and surround with the &lt;component&gt; tag </li>
+        </ul>
+      </li>
+      <li>Once it's working, create your template
+        <ul>
+          <li>Create an empty book-management-common folder</li>
+          <li>Create an empty nuxeo.defaults in it</li>
+          <li>Create an empty config folder</li>
+          <li>Add your configuration file</li>
+          <li>Externalize the password so it can be configured in
+            the nuxeo.conf</li>
+          <li><p>Test it by including your template to your
+              nuxeo.conf and restarting the server. For instance : </p>nuxeo.templates=postgresql,collaboration,/home/stan/templates/book-management-common</li>
+          <li><p>Test a password modification in nuxeo.conf </p></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="postgres-template-overrides-optional">
+    <h3>Postgres template overrides (optional)</h3>
+    <ul>
+      <li>An good example is to activate unaccent fulltext search
+        with postgres
+        <ul>
+          <li>You can test it right know … fulltext search is
+            accent sensitive</li>
+          <li>Create a book-management-postgres template</li>
+          <li>This template should include the nuxeo postgres one</li>
+          <li>Override the config/default-sql-repository-config.xml</li>
+          <li>Replace french with fr following the documentation</li>
+          <li>Configure postgres with the following : <a
+            href="http://doc.nuxeo.com/x/fwQz#ConfiguringPostgreSQL-Accentinsensitivefulltextsearch">http://doc.nuxeo.com/x/fwQz#ConfiguringPostgreSQL-Accentinsensitivefulltextsearch</a></li>
+          <li>In nuxeo.conf, remove the uses of postgres usage and
+            add the full path to your template </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="no-md slide" id="more-templates-optional">
+    <h3>More templates (optional)</h3>
+    <ul>
+      <li>book-management-ldap will contain the configuration for
+        your ldap
+        <ul>
+          <li>Follow the documentation <a
+            href="http://doc.nuxeo.com/x/TwFV">http://doc.nuxeo.com/x/TwFV</a></li>
+          <li>Server to connect to can be customized</li>
+          <li>We don't want it to be activated when installing our
+            market place package (manual activation in nuxeo.conf) </li>
+        </ul>
+      </li>
+      <li>book-management-prod
+        <ul>
+          <li>A template that includes postgres AND ldap</li>
+          <li>We won't activate it by default neither </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Unit test</title>
+
+<meta name="description" content="Nuxeo slides - Create your own set">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+  <!-- Begin slides -->
+  <section class="slide no-md" id="nuxeo-slides">
+    <h1>Nuxeo Training - Unit testing</h1>
+    <h6>Sun Seng David TAN</h6>
+  </section>
+
+  <section class="slide no-md" id="why-unit-test">
+    <h3>Why unit test ?</h3>
+    <ul>
+      <li>Detect regressions 
+        <ul>
+          <li>The faster we detect a bug, the easier it is to fix
+            it </li>
+        </ul>
+      </li>
+      <li>Avoid over design 
+        <ul>
+          <li>Test Driven Development</li>
+          <li>Developer user friendly</li>
+        </ul>
+      </li>
+      <li>Step by step validation
+        <div class="further-info">Don't need to wait for the end
+          of all the layers (core/services/ui ...etc ) to make sure your
+          code is working</div>
+      </li>
+      <li>Refactoring friendly</li>
+    </ul>
+  </section>
+
+  <section class="slide no-md" id="test-driven-development">
+    <h3>Test Driven Development</h3>
+    <blockquote>
+      <p>Write the test first,</p>
+      <p>Implement after</p>
+      <p>
+        <cite>Sun TAN</cite>
+      </p>
+    </blockquote>
+    <ul>
+      <li>Help to design nice API </li>
+      <li>Test our development without having to restart Tomcat</li>
+
+    </ul>
+    
+  </section>
+
+  <section class="slide no-md" id="how-to-unit-test-with-nuxeo">
+    <h3>Nuxeo provides</h3>
+    <p>A custom Nuxeo JUnit4 runner that</p>
+    <ul>
+      <li>Launch a real Nuxeo Document Repository</li>
+      <li>Deploy Nuxeo bundles,components and extension points</li>
+    </ul>
+  </section>
+
+
+  <section class="slide no-md" id="first-demo-junit">
+    <h2>Demo</h2>
+  </section>
+
+  <section class="slide no-md" id="unit-testing">
+    <h3>Unit testing</h3>
+    <ul>
+      <li>Unit test classes
+        </p>
+        <ul>
+          <li>Should be located in <code>src/test/java</code></li>
+          <li>Should start with Test for instance <code>TestBookType.java</code></li>
+        </ul>
+      </li>
+      <li>Annotations Needed
+        </p>
+        <ul>
+          <li>Use the Nuxeo <code>FeatureRunner</code> junit 4
+            runner to handle <code>@Features</code>, <code>@Deploy</code>
+            and <code>@LocalDeploy</code> annotations
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <pre>
+			<code>
+@RunWith(FeaturesRunner.class)
+@Features(CoreFeature.class)
+@Deploy({"an.existing.bundle","another.one"})
+@LocalDeploy({"bundle.name:/OSGI-INF/file.xml"})
+</code>
+		</pre>
+
+  </section>
+
+  <section class="slide no-md" id="unit-testing:-features">
+    <h3>
+      Unit testing :
+      <code>@Features</code>
+    </h3>
+    <ul>
+      <li>A feature deploys a list of pre defined bundles 
+        </p>
+        <ul>
+          <li>Runtime feature</li>
+          <li>Core feature</li>
+          <li>Platform feature</li>
+          <li>Rest feature</li>
+          <li>Custom feature</li>
+        </ul>
+      </li>
+      <li><code>@Deploy</code> annotation deploys specified bundles
+        <ul>
+          <li>Use symbolic name of the MANIFEST.MF</li>
+          <li>Maven Sync: The bundle need to be in the Maven
+            dependency. That's why we prefere to use features </li>
+          <li><code>@Deploy("org.nuxeo.training.symbolicname")</code></li>
+        </ul></li>
+    </ul>
+  </section>
+
+  <section class="slide no-md">
+    <h3>
+      <code>@Deploy</code>
+      : use
+      <code>Bundle-SymbolicName</code>
+      of your bundle MANIFEST.MF file
+    </h3>
+    <pre>
+			<code>
+Manifest-Version: 1.0
+Require-Bundle: org.nuxeo.runtime
+Bundle-Vendor: Nuxeo
+Bundle-Version: 1.0.0
+Bundle-Name: Nuxeo Studio Extension - studio.extensions.SunTraining_Nu
+ xeo
+Nuxeo-Component: OSGI-INF/extensions.xml
+Bundle-ManifestVersion: 2
+Created-By: Nuxeo Studio
+<span class="bold">Bundle-SymbolicName: studio.extensions.SunTraining_Nuxeo</span>
+</code>
+</pre>
+
+    <pre>
+      <code>@Deploy("studio.extensions.SunTraining_Nuxeo")</code>
+    </pre>
+
+  </section>
+
+  <section class="slide no-md" id="injection">
+    <h3>Injection</h3>
+    <p>Nuxeo services and CoreSession can be injected with Google
+      Juice injection mechanism</p>
+    <pre>
+      <code>@Inject CoreSession session</code>
+    </pre>
+    <pre>
+      <code>@Inject AutomationService automationService</code>
+    </pre>
+    <p>More generic way to get a service:
+    <pre>
+              <code>
+AutomationService automationService =
+  Framework.getLocalService(AutomationService.class)</code>
+            </pre>
+    </p>
+
+  </section>
+
+  <section class="slide no-md" id="junit">
+    <h3>JUnit test method</h3>
+    <ul>
+      <li><code>@Test</code> annotation on a method will run it as
+        a test</li>
+      <li>Use <code>org.junit.Assert</code> static method to assert
+        values is right 
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md" id="unit-testing-2">
+    <h3>Unit Testing</h3>
+    <p>Add log4j configuration for your test
+      (src/test/resources/log4j.xml)</p>
+
+    <pre>
+			<code>
+ &lt;?xml version="1.0"?&gt;
+ &lt;!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"&gt;
+ &lt;log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+   debug="false"&gt;    
+   &lt;appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender"&gt;
+     &lt;param name="Target" value="System.out" /&gt;
+     &lt;layout class="org.apache.log4j.PatternLayout"&gt;
+       &lt;param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p [%C{1}] %m%n" /&gt;
+     &lt;/layout&gt;
+   &lt;/appender&gt;
+   &lt;root&gt;
+     &lt;priority value="ERROR" /&gt;
+     &lt;appender-ref ref="CONSOLE" /&gt;
+   &lt;/root&gt;
+   &lt;category name="org.nuxeo.training"&gt;
+     &lt;priority value="INFO" /&gt;
+   &lt;/category&gt;
+ &lt;/log4j:configuration&gt;</code>
+		</pre>
+
+
+
+  </section>
+
+  <section class="slide no-md" id="nuxeo-core-api">
+    <h3>Nuxeo Core API</h3>
+    <ul>
+      <li>CoreSession :
+        <ul>
+          <li>the access point to the repository</li>
+          <li>A connection to the database, a connected user</li>
+        </ul>
+      </li>
+      <li>DocumentModel :
+        <ul>
+          <li>Access and update the document properties</li>
+          <li>A data model that will be used to exchange the
+            document information to the coreSession</li>
+        </ul>
+      </li>
+      <li>DocumentRef : a document reference 
+        </p>
+        <ul>
+          <li><code>new PathRef(String path)</code></li>
+          <li><code>new IdRef(String uid)</code></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md" id="useful-methods">
+    <h3>Useful methods</h3>
+    <h5>CoreSession</h5>
+    <p>
+      <code>DocumentModel createDocumentModel(String parentPath,
+        String id, String typeName)</code>
+    <div class="further-info">
+      Creates the DocumentModel object. Not stored nor created in the
+      repository. We can use the DocumentModel object to set properties
+      to the document with
+      <code>DocumentModel#setPropertyValue</code>
+      . Document will be created in the repository with
+      <code>createDocument(DocumentModel)</code>
+      .
+    </div>
+    <div class="further-info">This method calls the
+      EmptyDocumentCreated event we have seen previously in Studio</div>
+    </p>
+    <p>
+      <code>DocumentModel createDocument(DocumentModel model)</code>
+    <div class="further-info">Create the document in the
+      repository using the provided DocumentModel (instantiated with
+      createDocumentModel)</div>
+    <div class="further-info">This method calls both AboutToCreate
+      and DocumentCreated events</div>
+
+    </p>
+    <p>
+      <code>DocumentModel getDocument(DocumentRef docRef)</code>
+    <div class="further-info">Get a documentModel object from its
+      ref (IdRef or PathRef)</div>
+    </p>
+    <p>
+      <code>DocumentModel saveDocument(DocumentModel docModel)</code>
+    <div class="further-info">Save a doc from its model</div>
+    <div class="further-info">This method calls beforeDocumentModification and documentModified events</div>
+    </p>
+
+    <h5>
+      DocumentModel
+      </h4>
+      <p>
+        <code>Serializable getPropertyValue(String xpath)</code>
+      </p>
+      For instance:
+      <pre>
+          <code>String title = (String) doc.getPropertyValue("dc:title");</code>
+        </pre>
+      <p>
+        <code>void setPropertyValue(String xpath, Serializable
+          value)</code>
+      </p>
+  </section>
+
+  <section class="slide no-md" id="test-existing-automation-chains">
+    <h3>Test existing automation chains</h3>
+    <ul>
+      <li>Use AutomationService 
+        <ul>
+          <li>In JUnit4, Nuxeo services injected with Google Juice
+            <code>@Inject</code> annotation<pre>
+              <code>
+@inject AutomationService automationService</code>
+						</pre>
+          </li>
+          <li>Or<pre>
+              <code>
+AutomationService automationService =
+  Framework.getLocalService(AutomationService.class)</code>
+            </pre>
+          </li>
+        </ul>
+      </li>
+      <li>Create an <code>OperationContext</code> with the <code>CoreSession</code>
+        and a document input and call the operation with <pre>
+          <code>
+AutomationService automationService = Framework.getLocalService(AutomationService.class);
+OperationContext ctx = new OperationContext();
+ctx.setCoreSession(session);
+ctx.setInput(bookDoc);
+automationService.run(ctx, "borrowChain");
+            </code> </pre>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md" id="test-your-studio-dev">
+    <h3>Test your studio dev</h3>
+    <ul>
+      <li>Deploy Studio bundle with <code>@Deploy</code>
+        <ul>
+          <li>Studio project needs to be bound to the project</li>
+          <li>Nuxeo IDE Studio view to reload the Studio project</li>
+        </ul></li>
+      <li>TDD: Test w/o restarting the server 
+        <ul>
+          <li>Write your test </li>
+          <li>Create/modify the needed stuff in studio </li>
+          <li>Refresh the studio project </li>
+          <li>Run and fix the test </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="slide no-md" id="maven:-integrate-your-studio-project">
+    <h3>Maven : Integrate your Studio project</h3>
+    <p>In ~/.m2/settings.xml&nbsp;
+    <pre>
+			<code>
+&lt;settings&gt;
+  &lt;servers&gt;
+    &lt;server&gt;
+      &lt;id&gt;nuxeo-studio&lt;/id&gt;
+      &lt;username&gt;your_studio_username&lt;/username&gt;
+      &lt;password&gt;your_studio_password&lt;/password&gt;
+    &lt;/server&gt;
+  &lt;/servers&gt;
+&lt;/settings&gt;</code>
+		</pre>
+
+    <p>Or in parent pom.xml&nbsp;</p>
+
+    <pre>
+			<code>
+&lt;repositories&gt;
+  &lt;repository&gt;
+    &lt;id&gt;nuxeo-studio&lt;/id&gt;
+    &lt;url&gt;https://connect.nuxeo.com/nuxeo/site/studio/maven&lt;/url&gt;
+  &lt;/repository&gt;
+&lt;/repositories&gt;
+</code>
+		</pre>
+
+  </section>
+  <section class="slide no-md" id="maven-integrate-your-studio-project">
+    <h3>Maven Integrate your Studio project</h3>
+    <ul>
+      <li>Tag your studio project or use 0.0.0-SNAPSHOT 
+        </p>
+        <ul>
+          <li>In Studio → Versioning → Tag </li>
+          <li>Specify a version in Tag Name (1.0 for example) </li>
+        </ul>
+      </li>
+      <li>Retrieve your project setting from Studio → Application
+        Settings and add a new dependency in your poms : 
+        </p>
+        <ul>
+          <li>GroupId : Maven Group </li>
+          <li>ArtifactId : Project Id </li>
+          <li>Version : The one you have tagged or 0.0.0-SNAPSHOT
+            for the last version </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md"
+    id="maven-integrate-your-studio-project-1">
+    <h3>Maven Integrate your Studio project</h3>
+    <ul>
+      <li>Tag your studio project or use 0.0.0-SNAPSHOT 
+        </p>
+        <ul>
+          <li>In Studio → Versioning → Tag </li>
+          <li>Specify a version in Tag Name (1.0 for example) </li>
+        </ul>
+      </li>
+      <li>Retrieve your project setting from Studio → Application
+        Settings and add a new dependency in your poms : 
+        </p>
+        <ul>
+          <li>GroupId : Maven Group </li>
+          <li>ArtifactId : Project Id </li>
+          <li>Version : The one you have tagged or 0.0.0-SNAPSHOT
+            for the last version </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+  <section class="slide no-md" id="exercise---unit-testing">
+    <h2>Exercise - Unit testing</h2>
+    <h6>Sun Seng David TAN</h6>
+  </section>
+  <section class="slide no-md exercise" id="exercise-agenda">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Exercise Agenda</h3>
+    <ul>
+      <li>Test your doc type </li>
+      <li>Test your automation chains : borrow </li>
+      <li>Bring back user action TDD 
+        </p>
+        <ul>
+          <li>Write a test for a bring back automation </li>
+          <li>Add the automation chain, and fix the test </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="doc-type-test-scenario">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Doc type test scenario</h3>
+
+    <ul>
+      <li>Check that the structure template is following the right
+        hierachy : 
+        <ul>
+          <li>/default-domain/book-library (BookLibrary type) and
+            Library as title </li>
+          <li>/default-domain/sections (SectionRoot type) </li>
+          <li>No /default-domain/workspaces  </li>
+        </ul>
+      </li>
+      <li>Create a Book document model </li>
+      <li>Set a title (my book) + isbn (12345) </li>
+      <li>Check the publication date is not null and setted to the
+        current date </li>
+      <li>Create the book in the repository </li>
+      <li>Check that title and isbn has the right value </li>
+      <li>Check that the book is in the state InLibrary</li>
+    </ul>
+  </section>
+
+
+  <section class="slide no-md exercise" id="test-class">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3> Test class</h3>
+    <pre>
+			<code>
+// Use Nuxeo Feature Runner
+@RunWith(FeaturesRunner.class)
+// Deploy all the platform bundles
+@Features(PlatformFeature.class)
+@Deploy({
+  // automation.core not
+  // included in Platform feature.
+  // Your event handlers need it
+  "org.nuxeo.ecm.automation.core",
+  // deploy the bundle we are working on
+  //(see MANIFEST.MF symbolicName
+  "nuxeo-book-management",
+  // deploy the studio bundle
+  //(see Studio project Manifest)
+  "studio.extensions.SunTraining_Nuxeo" })
+// deploy fake component so studio bundle is loaded
+@LocalDeploy("nuxeo-book-management:OSGI-INF/fake-actions-component.xml")
+public class TestDocType {
+</code>
+		</pre>
+
+  </section>
+
+  <section class="slide no-md exercise" id="fake-action-component">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Fake action component</h3>
+    <p>
+      Studio component may not be loaded because of the
+      <code>&lt;require&gt;</code>
+      tags
+    </p>
+    <p>Just for the test</p>
+    <ul>
+      <li>In src/test/resources/OSGI-INF/fake-actions-component.xml
+
+
+        <pre>
+          <code>    &lt;component name="org.nuxeo.ecm.platform.actions" /&gt;</code>
+        </pre>
+      </li>
+      <li>In the test class <pre>
+          <code>@LocalDeploy("nuxeo-book-management:OSGI-INF/fake-actions-component.xml")</code>
+        </pre>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="starting-sample">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Starting sample</h3>
+    <pre>
+			<code>
+// making sure that /default-domain/book-library is automatically
+// created thanks to the structure template
+PathRef bookLibraryDocRef = new PathRef("/default-domain/book-library");
+assertTrue(session.exists(bookLibraryDocRef));
+// making sure that the type is BookLibary
+DocumentModel bookLibraryDoc = session.getDocument(bookLibraryDocRef);
+assertEquals("The Book Libary doc type is", "BookLibrary", bookLibraryDoc.getType());
+// and Library as title
+assertEquals("The Book Library title is", "Library", bookLibraryDoc.getPropertyValue("dc:title"));
+</code>
+		</pre>
+  </section>
+
+  <section class="slide no-md exercise" id="document-creation">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Document creation</h3>
+    <pre>
+			<code>
+// Create a Book document model
+DocumentModel bookDoc = session.createDocumentModel("/default-domain/book-library", "book1", "Book");
+// Set a title (my book) + isbn (12345)
+bookDoc.setPropertyValue("dc:title", "my book");
+bookDoc.setPropertyValue("bk:isbn", "12345");
+// Check the publication date is not null and setted to the current date
+assertNotNull("The publication date should be setted with a eventhandler", bookDoc.getPropertyValue("bk:publicationDate"));
+// Create the book in the repository
+bookDoc = session.createDocument(bookDoc);
+</code>
+		</pre>
+
+  </section>
+
+  <section class="slide no-md exercise" id="borrow-automation-chain">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Borrow Automation chain</h3>
+    <ul>
+      <li>Call the automation chain « borrow » </li>
+      <li>Check that the bk:borrowedBy has been set </li>
+      <li>Check the book is in « borrowed » life cycle state </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="calling-a-chain">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Calling a chain</h3>
+    <pre>
+			<code>
+// Call the automation chain « borrowChain »
+AutomationService automationService = Framework.getLocalService(AutomationService.class);
+OperationContext ctx = new OperationContext();
+ctx.setCoreSession(session);
+ctx.setInput(bookDoc);
+automationService.run(ctx, "borrowChain");
+</code>
+		</pre>
+  </section>
+
+  <section class="slide no-md exercise" id="bring-back">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Bring back</h3>
+    <ul>
+      <li>Implements your new bring back action with TDD 
+        </p>
+        <ul>
+          <li>Write your test in Eclipse: 
+            </p>
+            <ul>
+              <li>Call the automation chain « bringBack » </li>
+              <li>Check that the borrowedBy is unset </li>
+              <li>Check the book is in «InLibrary» life cycle
+                state </li>
+            </ul>
+          </li>
+          <li>Fix your test by implementing the missing part in
+            your studio project </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="maven">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Maven ?</h3>
+    <ul>
+      <li>Synchronize your pom </li>
+      <li>Run the command 
+        </p>
+        <ul>
+          <li><code>mvn clean install</code></li>
+          <li>You may need to set up Nuxeo Maven repositories
+            (follow the online doc) </li>
+        </ul>
+      </li>
+      <li>Follow the documentation to configure studio repository
+        and fix the build (see next pages) <a
+        href="http://doc.nuxeo.com/x/NwAz">http://doc.nuxeo.com/x/NwAz</a> 
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="thank-you">
+    <h2>Thank you!</h2>
+  </section>
+
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>

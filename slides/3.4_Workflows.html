@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Custom Operations</title>
+
+<meta name="description" content="Nuxeo Training - Custom Operations">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+  <section class="slide no-md" id="nuxeo-training---custom-operations">
+    <h1>Nuxeo Training - Workflows</h1>
+    <h6>Sun Seng David TAN - Alain Escaffre</h6>
+  </section>
+
+  <!-- section class="slide no-md" id="table-of-contents">
+    <h3>Table of Contents</h3>
+    <ul>
+      <li class="slide"><a href="#longtimeago">Workflows in
+          Nuxeo, A long time ago ...</a></li>
+      <li class="slide"><a href="#write-slide">New workflow
+          feature</a></li>
+      <li class="slide"><a href="#design-layout">How to design
+          a layout</a></li>
+      <li><a href="#exercise">Exercises</a></li>
+    </ul>
+  </section -->
+
+  <section class="slide no-md" id="longtimeago">
+    <h3>Workflows in Nuxeo, A long time ago ...</h3>
+    <p>Not our first try !</p>
+    <ul>
+      <li class="slide">Jbpm</li>
+      <li class="slide">Old Content routing used in CMF</li>
+      <li class="slide">Users action + automation + lifecycle + tasks</li>
+    </ul>
+  </section>
+
+  <section class="slide no-md" id="whatwasfailing">
+    <h3>What was failing ?</h3>
+    <ul>
+      <li class="slide">Jbpm
+        <ul>
+          <li>Too complex workflow engine for simple use case</li>
+          <li>One more technology to learn</li>
+        </ul>
+      </li>
+      <li class="slide">Old Content routing
+        <ul>
+          <li>Linear route, can't go back</li>
+        </ul>
+      </li>
+      <li class="slide">Users action + automation + lifecycle + tasks
+        <ul>
+          <li>No global overview</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+
+  <section class="slide no-md" id="newwfengine">
+    <div class="sticker">Available since Nuxeo 5.6</div>
+    <h3>New WF engine</h3>
+    <p>Based on existing infrastructure</p>
+    <ul>
+      <li>Automation</li>
+      <li>Layout</li>
+      <li>Document</li>
+      <li>Content views</li>
+      <li>Lifecycle</li>
+      <li class="slide">A Studio graph editor</li>
+    </ul>
+  </section>
+
+  <section class="slide no-md">
+    <h2>Demo1 - default serial workflow</h2>
+  </section>
+
+  <section class="slide no-md">
+    <h2>Demo2 - holiday management</h2>
+  </section>
+
+  <section class="slide no-md" id="templates">
+    <h3>Workflow templates and instances</h3>
+    <p>Studio generates workflow configurations</p>
+    <ul>
+      <li>As xml</li>
+      <li>At startup, generates documents (templates) -> availables
+        workflows</li>
+    </ul>
+    <p>When starting a WF</p>
+    <ul>
+      <li>New instance created as documents</li>
+      <li>Copy of the template</li>
+      <li>Can restrict access with ACL</li>
+    </ul>
+  </section>
+
+  <section class="slide no-md" id="innuxeo">
+    <h3>Workflow management in Nuxeo UI</h3>
+    <ul>
+    <li>Summary tab of a doc
+    <ul>
+      <li>choose a workflow and start it</li>
+      <li>currently started workflows</li>
+      <li>Waiting task for this doc + layout + actions</li>
+    </ul></li>
+    <li>Dashboard
+    <ul>
+      <li>Waiting tasks for the user + link to the doc</li>
+    </ul></li>
+    <li>Admin Center
+    <ul>
+      <li>Workflow templates availables</li>
+    </ul></li>
+    <li>Coming soon: Workflow tab
+    <ul>
+      <li>Pending tasks</li>
+    </ul></li></ul>
+  </section>
+
+  <section class="slide no-md" id="concepts">
+    <h3>Concepts</h3>
+    <ul>
+      <li>Node: square, contains attributes</li>
+        <ul>
+           <li>Task: A node can create a Task (A NodeTask) -> will create a
+        task (from Nuxeo), but can type the task to add metadata. A node
+        task can have assignee and will wait for the action of the user</li>
+           <li>Start node</li>
+           <li>End node</li>
+        </ul>
+      </li>
+      <li>Transition: point -> arrow. Can bind to automation chains. Condition to take the transition (or not)</li>
+      <li>Workflow Variables -> will be accessible during the
+        worflow (persisted). Actually fields of the workflow</li>
+      <li>Node variable -> only visible by the node or can be
+        visible (persisted). Actually fields of the task</li>
+      <li>A node can accept a form layout -> will edit node
+        variables OR workflow variables can set to a form, actions</li>
+      <li>Can bind automation chains everywhere -> can set workflow
+        variables or node variables</li>
+      <li>Queues (not exposed in Studio yet) Content views of
+        waiting tasks -> needs mapping to transfer properties existing
+        doc. Bulk process of all the task of a node of a workflow</li>
+    </ul>
+  </section>
+
+  <section class="slide no-md" id="end">
+    <h2>TODO : exercices</h2>
+  </section>
+
+  <section class="slide no-md" id="end">
+    <h2>Thank you</h2>
+  </section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>
