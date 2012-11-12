@@ -110,6 +110,8 @@ Configures
 - Main Nuxeo Addons
 </section>
 
+
+
   <section class="slide no-md" id="mainaddons">
     <h3>Main Nuxeo Addons</h3>
     <div class="text-and-illus slide no-md">
@@ -144,12 +146,15 @@ Configures
         team-oriented dimension to the Nuxeo Content Management
         platform.</p>
     </div>
-
   </section>
+  
+  
   
 <section class="slide" id="Nuxeo-demo">
 ##Nuxeo DM 5.6 Functional tour http://doc.nuxeo.com/x/-ISo
 </section>
+
+
 
 <section class="slide" id="Nuxeo-demo">
 ###Nuxeo DM Main tabs
@@ -163,6 +168,73 @@ Configures
 - Collaboration
 </section>
 
+
+
+<section class="slide" id="home">
+###Home tabs
+<div class="further-info">Users have a Home tab, that offers user-centric tabs</div>
+
+####User space
+- Personal Dashboard
+- Profile
+- Local preferences
+- Subscribed Notifications
+- etc ...
+
+http://doc.nuxeo.com/x/ZIWo
+</section>
+
+
+<section class="slide" id="Hometabsimg">
+###Home Tabs
+![dashboard](img/DM-dashboard.png)
+</section>
+
+
+
+<section class="slide" id="admincenter">
+###Admin Center Tab
+Provides admintratives services
+<div class="further-info">The Nuxeo Admin Center is a space within the Nuxeo Platform that provides administrative services, such as server and application usage summary information, as well as access to upgrades, patches, the Nuxeo Marketplace, and Nuxeo Studio projects.</div>
+
+#### Default tabs
+- System information <div class="further-info">this section of the Admin Center provides information about the server the Nuxeo Platform is installed on, about your instance configuration.</div>
+- Activity <div class="further-info">enables administrators to have information and statistics on the application.</div>
+- Nuxeo Connect <div class="further-info">you can connect your Nuxeo instance with your Nuxeo Connect account. This enables you to manage your Support tickets from your Nuxeo application and to connect your Nuxeo instance to the Nuxeo Marketplace.</div>
+- Update Center <div class="further-info">this section of the Admin Center provides all the updates you can need (updates and patches, Nuxeo Marketplace packages, direct access to your Nuxeo Studio packages, local packages)</div>
+- Monitoring <div class="further-info">enables administrators to monitor some technical information and display messages to users.</div>
+- Users & Groups <div class="further-info">enables administrators to create, edit, delete users and groups of users.</div>
+- Vocabularies <div class="further-info">enables administrators to customize and adapt the values displayed in lists in the application.</div>
+- Themes <div class="further-info">gives administrators access to Nuxeo Themes, that enables them to create new themes for the application.</div>
+</section>
+
+
+
+<section class="slide" id="admincenter2">
+###Admin Center Tab (2)
+
+#### DM tabs
+- OAuth/OpenSocial <div class="further-info">enables administrators to manage the authentication with other applications using OAuth protocol and to add new gadgets.</div>
+- Dashboards <div class="further-info">enables administrators to define the dashboard displayed by default to users and to add new gadgets.</div>
+
+####The Social Collaboration tabs
+- Social Collaboration <div class="further-info">enables administrators to manage the creation of new social workspaces.</div>
+
+http://doc.nuxeo.com/x/bYao
+</section>
+
+
+<section class="slide" >
+###Admn Center Tabs
+![Admin center sysinfo](img/Admin-Center-sysinfo.png)
+</section>
+
+
+<section class="slide" id="DocumentManagement">
+## Document Management Tab
+</section>
+
+
 <section class="slide" id="whatisadocument">
 ###What is a document ?
 ####Not just a « file ».
@@ -175,66 +247,267 @@ Configures
 - Can be Versionable
 - Can be Folderish <div class="further-info">Any folder in Nuxeo is a document and contains documents + metadatas </div>
 - Can be locked by a user
+
+Create your own document types !
 </section>
+
+
 <section class="slide" id="whatisadoc">
 ###What is a document ?
 ![doc](img/whatisadoc.png)
 </section>
 
+
 <section class="slide" id="create-a-document">
 ###Create a new document
-- <code>New document</code>
-- Select the document type <div class="further-info">The list of available document types depends on the container document type</div>
+ - <code>New document</code>
+ - Select the document type <div class="further-info">The list of available document types depends on the container document type</div>
+
+![Available doc types](img/available-documents-workspace.png)
 </section>
+
+
+<section class="slide" >
+###Main doc types
+ - File <div class="further-info">document with an attached file</div>
+ - Note <div class="further-info">document with a rich text</div>
+ - Workspace <div class="further-info">a folder where we can create</div>
+ - Folder <div class="further-info">a limited folder used to organize documents inside a workspace</div>
+ 
+ ####More ...
+ - Picture
+ - Picture book
+ - Website
+ - etc
+ 
+ http://doc.nuxeo.com/x/TIWo
+</section>
+
+<section class="slide" >
+###Create a document - Metadatas
+![note-creation](img/note-text.png)
+
+</section>
+
 
 <section class="slide" id="DMUI">
 ### Nuxeo DM UI
 ![Nuxeo DM UI](img/dm-ui.png)
 
+http://doc.nuxeo.com/x/X4Wo
 <div class="further-info">
 Current tab of the current document: the current document can be a folder (In Nuxeo, folders are documents)
 </div>
+</section>
 
+<section class="slide" id="doctabs-summary">
+###Content tab
+- "Folderish" documents
+- Children documents
+
+![content tab](img/DM-ordered-folder-content-updated.png)
+</section>
+
+<section class="slide" id="doctabs-summary">
+###Document Summary tab
+
+Non "Folderish" documents
+
+####A summary view of the document
+
+- Main document metadatas and content
+- Special properties
+  - Version
+  - Life cycle state
+  - Contributors (actually metadata)
+  - Tags
+  - Comments
+  - Tasks
+  - etc ...
+</section>
+
+<section class="slide">
+### Document Summary tab
+![Note summary](img/note.png)
+</section>
+
+
+<section class="slide">
+###Document Edit tab
+Edit the metadatas of the document
+![Edit tab](img/workspace_edit_form.png)
 </section>
 
 <section class="slide" id="DMDomaincite">
 ###DM Domain
-
 <blockquote>
 <p>Sections, workspaces and templates are grouped in domains. A domain can be considered as a mini-application in Nuxeo or a root in the application.</p>
 <p>Typically you can use domains to open the application to two or more very different populations of users.</p>
 <p>For instance, you can have an "intranet" domain and an "extranet" domain.</p>
 <p>Domains are can be totally independent or not, depending on the access rights you set on each domain.</p>
-
  <p><cite>Nuxeo Documentation <a href="http://doc.nuxeo.com/x/XoWo">http://doc.nuxeo.com/x/XoWo</a></cite></p>
 </blockquote>
-
-  </section>
+</section>
 
 <section class="slide" id="DMDomain">
 ### DM Domain default structure
-
 <img class="float-right" alt="domain" src="img/domain.png">
-
 ####Workspaces
 A Workspace is for a group of users that work together, usually preferences (security, notifications) are set on Workspaces
-
 ####Folders
 Inside a Workspace, to organize content
-
 #### Sections
 To publish content
-
 ####Templates
 pre-initialize a Workspace structure.
+</section>
+
+<section class="slide" id="acl">
+###Access Rights (1/3)
+
+####Available for
+- All "Folderish" documents
+- "Manage everything" right
+
+####Manage tab, Access rights
+![Access rights](img/access-rights-interface.png)
+
+http://doc.nuxeo.com/x/UYEk
+</section>
+
+
+<section class="slide" id="acl2">
+###Access Rights (2/3)
+####Default permissions
+- Read
+- Write
+- Manage Everything
+- Delete
+
+####Access Control Entry (ACE)
+- Triplet
+  - Principal (user/group)
+  - Permission
+  - Grant/Deny
+- <code>members - Read - grant</code>
+</section>
+
+<section class="slide" id="acl3">
+###Access Rights (3/3)
+####Acces Control List (ACL)
+- List of ACE
+- ACEs on the top overrided by the bottom ones
+
+####Access Control Policy (ACP)
+List of ACL applied to a document
+
+- Inherited ACL
+- Local ACL
+
+#### Bloking inheritance
+Technically <code>Everyone - Deny - Everything</code> apply on the first ACE of the local ACL.
+</section>
+
+
+
+<section class="slide" id="versioning">
+###Versioning
+Don't want to copy and rename
+
+On Edit tab while saving:
+
+- Skip version increment
+- Increment minor version
+- Increment major version
+
+Versions available
+
+- History tab, Archived versions
+- View versions
+- Restore
+- Compare (With the nuxeo-diff addon) 
 
 </section>
 
 
 
 
+<section class="slide" id="publication">
+###Publication
+#### Document published
+ - from workspaces (Publish tab of a document)
+ - into Sections
+![publication](img/publishing-tab.png)
+ 
+#### Access Right policy example:
+ - Section: <code>Read</code> to external people
+ - Workspaces: <code>Read</code> and <code>Write</code> to internal members
+ 
+</section>
 
 
+
+<section class="slide" id="publication-2">
+###Behind the publication mechanism
+When a document is published:
+
+ - A version of the document created
+ - A <code>proxy</code> document to the versionned document in a Section
+ 
+A proxy is a document that reflect the pointed document. (Like a pointer in C language)
+</section>
+
+<section class="slide" id="publication-wf">
+###Publication Workflow
+#### Built-in publishing workflow
+A user with only Read permission on the Section need to validate the publishing which is direct if the user who publishes already has the Write permission on the Section
+ Permission for ability to publish
+ 
+ Preferences of publishing targets managed from the workspace in the Manage tab.
+ 
+ ![Publication workflow](img/publishing-rights.png)
+</section>
+
+
+<section class="slide" id="search">
+###Search through metadatas
+####Advanced Search
+![Advanced search link](img/search-box.png)
+![Advanced search form](img/DM-advanced_search_filter.png)
+
+####Faceted Search
+![Faceted search](img/DM-faceted-search-tab.png)
+
+Search criteria can be saved
+
+http://doc.nuxeo.com/x/YIEk
+</section>
+
+<section class="slide" id="fulltext">
+###Fulltext search
+![Fulltext](img/search-box.png)
+
+- Any text metadatas indexed
+- Office, pdf, text, html files are full-text indexed <div class="further-info">thanks to a text extraction from the document itself</div>
+- Relies on the database (Oracle, Postgres or MSSQL Server) full text capabilities
+  - Linguistic support <div class="further-info">Searching for the word "satisfies", will match the documents containing "satisfy"</div>
+  - Optimized for searching
+</section>
+
+<section class="slide" id="otherservices">
+###Other document services
+- Comments
+- Annotations
+- Tags
+- Doc history
+- Alerts
+- Workflows
+- Forums
+- Pictures
+- Email folders
+
+http://doc.nuxeo.com/x/MoEk
+</section>
 
 <section class="slide" id="thank-you">
 ##Thank you
@@ -243,7 +516,7 @@ pre-initialize a Workspace structure.
 <section class="slide" id="next">
 ###Next ?
 - Back to the [training agenda](0_Introduction.html#day-1)
-- Next chapter: Nuxeo Base Concepts
+- Next chapter: Nuxeo Technical overview
 </section>
 
   <!-- deck.navigation snippet -->
