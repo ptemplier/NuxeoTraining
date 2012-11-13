@@ -55,15 +55,202 @@ Nuxeo Training - Base concepts
 ###### S. TAN
 </section>
 
-<section class="slide" id="useful-links">
-###Useful Links
-- Web site: http://www.nuxeo.com
-- Community site: http://community.nuxeo.com/
-- Documentation: http://doc.nuxeo.com/x/Sgg7
-- Answers (to any Nuxeo related questions): http://answers.nuxeo.com/
-- Blogs: http://blogs.nuxeo.com/
-- Issues (bugs, improvements, roadmap): https://jira.nuxeo.com
-- Source repositories on github: https://github.com/nuxeo/
+<section class="slide" id="agenda">
+### Nuxeo Base concepts
+- What's a document
+- schemas
+- facets
+- ACL
+- Bundle
+- VCS basics
+- nuxeo.conf
+</section>
+
+<section class="slide" id="whatsadocument-h2">
+##What's a docuemnt ?
+</section>
+
+<section class="slide" id="whatisadocument">
+###What is a document ?
+####Not just a « file ».
+- Set of metadatas (Title, Creation date, File, ...)
+- Typed metadatas (string, date, content, complex types, ...)
+
+####An instance of a Document type (File, Note, Module, Lesson, Invoice, Contract, …)
+- Define a set of metadatas <div class="further-info">Actually a set of schema, see next pages</div>
+- Has a specific lifecycle (Draft, Valid, Archived)
+- Can be Versionable
+- Can be Folderish <div class="further-info">Any folder in Nuxeo is a document and contains documents + metadatas </div>
+- Can be locked by a user
+
+Create your own document types !
+</section>
+
+
+<section class="slide" id="whatisadoc">
+###What is a document ?
+![doc](img/whatisadoc.png)
+</section>
+
+<section class="slide" id="schemas-h2">
+##Schemas
+</section>
+
+<section class="slide" id="schemas">
+###Schemas
+####Schemas
+- Set of typed metadatas
+- Reusable
+
+Doctype actually defines a set of schema
+
+#### Example: File document type
+Is made of
+
+- dublincore
+- common
+- uid
+- file
+- files
+</section>
+
+<section class="slide" id="dublincore">
+###dublincore schema
+Almost defined in all document types
+
+- Title <div class="further-info">Most important metadata of the document: Label of the document everywhere in the UI</div>
+- Description
+- Nature <div class="further-info">Nature of the document.</div>
+- Subjects <div class="further-info">Topic(s) of the document.</div>
+- Rights <div class="further-info">Information about the reproduction rights of the document. Rights informations often encompass Intellectual Property Rights and Copyright.</div>
+- Source <div class="further-info">The references of the resource from which the document's content is derived (totally or partially).</div>
+- Coverage <div class="further-info">Information about the geographic reach of the document. </div>
+- Created at <div class="further-info">Date automatically filled in by the system when the document is created.</div>
+- Last modified at <div class="further-info">Date automatically filled in by the system when the document is modified.</div>
+- Format <div class="further-info">Format of the document, if any is preferred.</div>
+- Language <div class="further-info">Language used in the document.</div>
+- Expire on <div class="further-info">Date on which the document stops being valid. Click on the calendar icon to select a date.
+This date is not indexed in the system. It is just in indication for users but it is not processed by the application. </div>
+- Author  <div class="further-info">User who created the document. This field is automatically filled in by the system.</div>
+- Contributors <div class="further-info">Users who modified the document. This field is automatically filled in by the system.</div>
+- Last contributor <div class="further-info">Last user who modified the document. This field is automatically filled in by the system.</div>
+</section>
+
+<section class="slide" id="common-uid">
+###common and uid schemas
+####common schema
+- icon
+
+####uid schema
+- version minor
+- version major
+</section>
+
+<section class="slide" id="file-files">
+###file and files schemas
+####file schema
+content: blob
+
+####files schema
+list of content
+</section>
+
+<section class="slide" id="facets-h2">
+##Facets
+</section>
+
+<section class="slide" id="facets">
+###Facets
+Also called mixin type
+
+- Folderish <div class="further-info">Display the content tab. The document can have children.</div>
+- Versionable <div class="further-info">Display the version increment section in the edit tab. The document can have versions</div>
+- Commentable <div class="further-info">Display the comment tab</div>
+- HiddenInNavigation <div class="further-info">By default, the GUI don't display documents that are hidden in navigation</div>
+- Publishable <div class="further-info">Display the publication tab</div>
+
+Can define additional shemas
+
+- Picture facet
+  - file
+  - picture
+  - image_metadata
+  - iptc
+   
+</section>
+
+
+<section class="slide" id="acl-h2">
+##ACL
+</section>
+
+<section class="slide" id="acl">
+###ACL
+See [ACL section (1.1_InstallWS.html#acl)](1.1_InstallWS.html#acl)
+
+####Access Control Entry (ACE)
+- Triplet
+  - Principal (user/group)
+  - Permission
+  - Grant/Deny
+- For instance: <code>members - Read - grant</code>
+</section>
+
+<section class="slide" id="bundles-h2">
+##Bundles
+</section>
+
+<section class="slide" id="nuxeo-runtime">
+###Bundles
+- 1 bundle = 1 Nuxeo plugin
+- located in <code>nxserver/bundles</code> as jar files
+- extension mechanism: Extension point (xml files)
+- loaded by Nuxeo Runtime
+- more than 200 plugins in Nuxeo CAP
+</section>
+
+<section class="slide" id="vcs-h2">
+##VCS
+</section>
+
+<section class="slide" id="vcs">
+###VCS
+- Nuxeo schemas mapped to tables <div class="further-info">A schema in Nuxeo is mapped to a table in the database (= clean SQL mapping)</div> 
+- DBA friendly <div class="further-info">A DBA can easily query, dump, run statistics on the database in the usual way</div>
+- Support Multiple database <div class="further-info">PostgreSQL, Oracle, MySQL, MS SQL Server, H2, Derby.</div>
+- DBA level optimization <div class="further-info"> A DBA can set up additional indexes (this is fine tuning, not needed in common use cases)</div> 
+- DBA level updates and migration <div class="further-info">Migration, updates, ... should be very simple</div>
+
+http://doc.nuxeo.com/display/NXDOC/VCS+Architecture
+</section>
+
+<section class="slide" id="configuration-h2">
+##Configuration
+</section>
+
+<section class="slide" id="nuxeoconf">
+###Configuration: nuxeo.conf
+
+Properties to configure nuxeo <div class="further-info">The nuxeo.conf file contains several properties to configure many things.</div>
+
+- editable with text editor
+- Admin center editor
+- changes needs a restart
+- overrides location with NUXEO_CONF 
+- startup wizard set values in it
+
+Available properties: http://doc.nuxeo.com/x/QQA7
+
+</section>
+
+<section class="slide" id="thank-you">
+##Thank you
+</section>
+
+<section class="slide" id="next">
+###Next ?
+- Back to the [training agenda](0_Introduction.html#day-1)
+- Next chapter: Introduction to Nuxeo Studio
 </section>
 
   <!-- deck.navigation snippet -->
