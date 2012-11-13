@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Introduction to Nuxeo Studio</title>
+
+<meta name="description" content="Nuxeo Training - Introduction to Nuxeo Studio">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+  
+<section class="slide" id="title">
+#Introduction to Nuxeo Studio
+###### S.TAN, A. ESCAFFRE
+</section>
+
+<section class="slide" id="name">
+###Nuxeo Studio
+
+####Nuxeo Studio is:
+
+- A visual tool for configuring Nuxeo Platform based applications
+- Available as an online service (SaaS)
+- A delivery and deployment channel, with the use of Nuxeo Update Center
+
+#### With Nuxeo Studio you can:
+
+-  Configure and adapt your application
+  -  From document typology to business rules enforcement
+  -  Without needing development work
+-  Save time and money, by focusing on your business needs
+
+Ensure long-term maintenance of your application
+</section>
+
+<section class="slide" id="Integration-tools">
+###Integration tools
+![integration tools](img/studio-cap-dm-studio-ide.png)
+</section>
+
+<section class="slide" id="outoftheboxdocsolution">
+###Nuxeo DM, An out-of-the-box document management solution
+![Out of the box](img/studio-nuxeo-out-of-the-box-DM-solution.png)
+</section>
+
+<section class="slide" id="studio-configures-CAP-DM-CMF">
+###Studio knows how to configure CAP,DM and CMF
+![Studio configures CAP, DM and CMF](img/studio-configure-CAP-DM-CMF.png)
+</section>
+
+<section class="slide" id="online-tools-1">
+###Nuxeo Studio - Online tool (1/2)
+- On Connect portal
+- http://connect.nuxeo.com/nuxeo/site/studio/ide
+- 30 days Free trial <div class="further-info">you can ask more to a Nuxeo Sales Rep</div>
+- A jar file with the configuration <div class="further-info">Studio delivers a jar file (a Nuxeo plugin) that holds all the intended configuration</div>
+- No compiled code, XML only <div class="further-info">Studio only produces XML, it is a pure configuration tool</div>
+- Sources in the jar <div class="further-info">Sources of what produces Studio are in the Jar given by Studio</div>
+- Development tools integration <div class="further-info">Maven and Continuous integration, Nuxeo IDE</div>
+</section>
+
+<section class="slide" id="online-tool-2">
+###Nuxeo Studio - Online tool (1/2)
+####Benefits:
+- Frequently updated <div class="further-info">so as to take into account users’ feedback. A minor release every two / three weeks (or even shorter if a blocking bug is declared) and every one month  and a half / two months a major release with new features, ergonomy improvements, etc...</div>
+- No IDE tools to install locally <div class="further-info">just need your Nuxeo to test the configuration, you can start now.</div>
+- Maintenance easier thanks to the target platform deployment option<div class="further-info">Studio generates the configuration depending on your target plaform --> Maintenance greatly improved!</div>
+</section>
+
+<section class="slide" id="main-features">
+###Main features
+- Branding (Theme configuration)
+- Document types and forms configuration
+- Content views and search features
+- Lifecycle, workflows, automation, notifications
+- Rendering
+- Roles, permissions, users and groups
+- Ability to import pre-built Application Templates
+</section>
+
+<section class="slide" id="behind-the-magic">
+###Nuxeo and Studio - behind the magic
+- Nuxeo platform: modular with plugins and the extension point mechanism <div class="further-info">Nuxeo Platform, uses the pattern of exension points. That means that each time Nuxeo developper wants to implement a feature that can be configured by other developpers when being used, they code a «hook» in the middle of the feature. A hook in the code is a sort of «indirection».  The framework, when finding a reference to a hook in the code, reads the name of the hook, and fetches in the «extension library» what values were contributed for this given hook. Then the implementation code of the feature will leverage those values to do what expected. </div>
+- Without Studio, xml extension points contribution <div class="further-info">When an external developer wants to adapt a Nuxeo EP based solution, he has to contribute to the Extensions library. The Nuxeo EP framework allows to contribute to this extensions library through XML files packaged as plugins in jars (java packaging format) files.</div>
+- Existing extensions http://explorer.nuxeo.org/nuxeo/site/distribution/current/listExtensionPoints <div class="further-info">There are hundreds of them.</div>
+- Meta-model on top of extensions  <div class="further-info">Studio is a meta-model on top of extensions, which are more unitary. For instance, when configuring a document type in Studio,   behind the scene, Studio will generate multiple extensions: for core type declaration, forms, lifecycle, ... To see what extensions Studio generates, you can go to  Settings and Versioning>Project Settings > Manifest and load the extensions.xml file.</div>
+</section>
+
+<section class="slide" id="hot-reload">
+###Hot reload from Nuxeo
+From Nuxeo Admin center, hot-reloads Nuxeo Studio configuration
+
+![hot-reload cycle](img/studio-hotreload.png)
+</section>
+
+<section class="slide" id="exercise-h2">
+##Exercise
+</section>
+
+<section class="slide exercise" id="exercise">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="hibou exercise"
+      class="exercise-icon">
+###First Studio Exercise
+
+1. Connect to your Nuxeo Studio Account, either with Direct Access URL or from Nuxeo DM (User Administrators > Admin center > Update Center > Studio > Go to Nuxeo Studio link)
+2. Browse the pre-imported project (Default File, Domain, Workspace document type.)
+3. Deploy your project on DM
+4. Check that your project is correctly deployed (you’ll see new columns name, etc...)
+5. From Studio, Delete the orange message on the creation form of a File document, as well as the column added in the listing layout of a Workspace
+6. Re-deploy your modifications and check it disappeared : congrats ! You did your first configuration cycle
+7. Unimport the DM Default Tempalte, and delete objects that were not automatically unimported
+8. Go to Settings and Versionning > Versionning, create a tag called «empty project»: goal will be to be able to switch back to an empty project at anytime of your project
+</section>
+
+
+
+<section class="slide" id="thank-you">
+##Thank you
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>
