@@ -111,45 +111,37 @@ Configures
 </section>
 
 
+<section class="slide no-md" id="mainaddons">
+ <h3>Main Nuxeo Addons</h3>
+<div class="text-and-illus slide">
+<img src="img/cap.png" class="float-left max-size-100" />
+#####Nuxeo CAP / Nuxeo EP
+Content Application Platform designed to be extended and customized to develop effective business applications
+</div>
 
-  <section class="slide no-md" id="mainaddons">
-    <h3>Main Nuxeo Addons</h3>
-    <div class="text-and-illus slide no-md">
-      <img src="img/cap.png"
-        class="float-left max-size-100">
-      <h5>Nuxeo CAP / Nuxeo EP</h5>
-      <p>Content Application Platform designed to be extended and
-        customized to develop effective business applications</p>
-    </div>
-    <div class="text-and-illus slide no-md">
-      <img src="img/dm.png"
-        class="float-right max-size-100">
-      <h5>Nuxeo DM</h5>
-      <p>Collaborative Document Management Solution to help you
-        manage your business content efficiently</p>
-    </div>
-    <div class="text-and-illus slide no-md">
-      <img src="img/dam.png"
-        class="float-left max-size-100">
-      <h5>Nuxeo DAM</h5>
-      <p>Make the best of your media assets. A solution to
-        streamline digital asset management tasks</p>
-    </div>
+<div class="text-and-illus slide">
+<img src="img/dm.png" class="float-right max-size-100">
+#####Nuxeo DM
+Collaborative Document Management Solution to help you manage your business content efficiently
+</div>
 
-    <div class="text-and-illus slide no-md">
-      <img src="img/cmf.png"
-        class="float-right max-size-100">
-      <h5>Nuxeo SC</h5>
-      <p>
-        Inspired by the best elements of the social network experience,
-        the Social Collaboration module adds an interactive,
-        team-oriented dimension to the Nuxeo Content Management
-        platform.</p>
-    </div>
-  </section>
-  
-  
-  
+<div class="text-and-illus slide">
+<img src="img/dam.png" class="float-left max-size-100">
+#####Nuxeo DAM
+Make the best of your media assets. A solution to streamline digital asset management tasks
+</div>
+
+<div class="text-and-illus slide">
+<img src="img/cmf.png" class="float-right max-size-100">
+#####Nuxeo SC
+Inspired by the best elements of the social network
+experience, the Social Collaboration module adds an interactive,
+team-oriented dimension to the Nuxeo Content Management
+platform.
+</div>
+</section>
+
+
 <section class="slide" id="Nuxeo-demo">
 ##Nuxeo DM 5.6 Functional tour http://doc.nuxeo.com/x/-ISo
 </section>
@@ -408,8 +400,6 @@ List of ACL applied to a document
 Technically <code>Everyone - Deny - Everything</code> apply on the first ACE of the local ACL.
 </section>
 
-
-
 <section class="slide" id="versioning">
 ###Versioning
 Don't want to copy and rename
@@ -449,12 +439,14 @@ Versions available
 
 <section class="slide" id="publication-2">
 ###Behind the publication mechanism
-When a document is published:
+Document publication
 
- - A version of the document created
- - A <code>proxy</code> document to the versionned document in a Section
+ - Version of the document created
+ - <code>proxy</code> document created
  
 A proxy is a document that reflect the pointed document. (Like a pointer in C language)
+
+The proxy points to the versionned document in a Section
 </section>
 
 <section class="slide" id="publication-wf">
@@ -469,14 +461,18 @@ A user with only Read permission on the Section need to validate the publishing 
 </section>
 
 
-<section class="slide" id="search">
+<section class="slide" id="advanced-search">
 ###Search through metadatas
 ####Advanced Search
+Search form can be customized in Studio
+
 ![Advanced search link](img/search-box.png)
 ![Advanced search form](img/DM-advanced_search_filter.png)
-
+</section>
+<section class="slide" id="faceted-search">
+###Search through metadatas
 ####Faceted Search
-![Faceted search](img/DM-faceted-search-tab.png)
+<img alt="Faceted search" src="img/DM-faceted-search-tab.png" class="float-right"/>
 
 Search criteria can be saved
 
