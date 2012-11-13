@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="html_all" deleted="false" description="Nuxeo Slide templates comment / further-info class" enabled="true" name="nxcomment">&lt;div class="further-info"&gt;${cursor}&lt;/div&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxexercise img">&lt;img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon"&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="Exercise sections" enabled="true" name="nxexercise-section">&lt;section class="slide exercise" id="${name}"&gt;
+&lt;img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon"&gt;
+${cursor}      
+&lt;/section&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxfooter">
+  &lt;!-- deck.navigation snippet --&gt;
+  &lt;a href="#" class="deck-prev-link" title="Previous"&gt;&amp;#8592;&lt;/a&gt;
+  &lt;a href="#" class="deck-next-link" title="Next"&gt;&amp;#8594;&lt;/a&gt;
+
+  &lt;!-- deck.status snippet --&gt;
+  &lt;p class="deck-status"&gt;
+    &lt;span class="deck-status-current"&gt;&lt;/span&gt; / &lt;span
+      class="deck-status-total"&gt;&lt;/span&gt;
+  &lt;/p&gt;
+
+  &lt;!-- deck.goto snippet --&gt;
+  &lt;form action="." method="get" class="goto-form"&gt;
+    &lt;label for="goto-slide"&gt;Go to slide:&lt;/label&gt; &lt;input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist"&gt;
+    &lt;datalist id="goto-datalist"&gt;&lt;/datalist&gt;
+    &lt;input type="submit" value="Go"&gt;
+  &lt;/form&gt;
+
+  &lt;!-- deck.hash snippet --&gt;
+  &lt;a href="." title="Permalink to this slide" class="deck-permalink"&gt;#&lt;/a&gt;
+
+  &lt;!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline --&gt;
+  &lt;script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;&lt;/script&gt;
+  &lt;!-- script&gt;window.jQuery || document.write('&lt;script src="deck.js/jquery-1.7.2.min.js"&gt;&lt;\/script&gt;')&lt;/script --&gt;
+  &lt;script&gt;window.jQuery || document.write('&lt;script src="deck.js/jquery-1.7.2.min.js"&gt;&lt;\/script&gt;')&lt;/script&gt;
+
+
+  &lt;!-- Deck Core and extensions --&gt;
+  &lt;script src="deck.js/core/deck.core.js"&gt;&lt;/script&gt;
+  &lt;script src="deck.js/extensions/hash/deck.hash.js"&gt;&lt;/script&gt;
+  &lt;script src="deck.js/extensions/menu/deck.menu.js"&gt;&lt;/script&gt;
+  &lt;script src="deck.js/extensions/goto/deck.goto.js"&gt;&lt;/script&gt;
+  &lt;script src="deck.js/extensions/status/deck.status.js"&gt;&lt;/script&gt;
+  &lt;script src="deck.js/extensions/navigation/deck.navigation.js"&gt;&lt;/script&gt;
+  &lt;script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"&gt;&lt;/script&gt;
+  &lt;script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"&gt;&lt;/script&gt;
+  &lt;script src="deck.js/extensions/scale/deck.scale.js"&gt;&lt;/script&gt;
+  &lt;!-- Initialize the deck --&gt;
+  &lt;script&gt;
+			$$(function() {
+				$$.deck('.slide');
+			});
+		&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxheader">&lt;!DOCTYPE html&gt;
+&lt;!--[if lt IE 7]&gt; &lt;html class="no-js ie6" lang="en"&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 7]&gt;    &lt;html class="no-js ie7" lang="en"&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 8]&gt;    &lt;html class="no-js ie8" lang="en"&gt; &lt;![endif]--&gt;
+&lt;!--[if gt IE 8]&gt;&lt;!--&gt;
+&lt;html class="no-js" lang="en"&gt;
+&lt;!--&lt;![endif]--&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"&gt;
+
+&lt;title&gt;Nuxeo Training - ${name}&lt;/title&gt;
+
+&lt;meta name="description" content="Nuxeo Training - ${name}"&gt;
+&lt;meta name="author" content="Nuxeo"&gt;
+&lt;meta name="viewport" content="width=1024, user-scalable=no"&gt;
+
+&lt;!-- Core and extension CSS files --&gt;
+&lt;link rel="stylesheet" href="deck.js/core/deck.core.css"&gt;
+&lt;link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css"&gt;
+&lt;link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css"&gt;
+&lt;link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css"&gt;
+&lt;link rel="stylesheet" href="deck.js/extensions/status/deck.status.css"&gt;
+&lt;link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css"&gt;
+&lt;link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css"&gt;
+
+&lt;!-- Nuxeo Slide Default theme --&gt;
+&lt;link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css"&gt;
+
+&lt;!-- Nuxeo Slide with comments theme --&gt;
+&lt;link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css"&gt;
+
+&lt;!-- Transition theme. More available in /themes/transition/ or create your own. --&gt;
+&lt;link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css"&gt;
+
+&lt;script src="deck.js/modernizr.custom.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body class="deck-container"&gt;
+
+  &lt;!-- Nuxeo Logo Training --&gt;
+  &lt;div class="nuxeo-logo"&gt;
+    &lt;span class="nuxeo"&gt;nuxeo&lt;/span&gt; &lt;span class="slash"&gt;/&lt;/span&gt; &lt;span
+      class="sub-part training"&gt;Trainings&lt;/span&gt;
+  &lt;/div&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxsection">&lt;section class="slide" id="${name}"&gt;
+###${cursor}
+&lt;/section&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxsplitbox">&lt;div class="split-box split-${75}"&gt;
+${cursor}
+&lt;/div&gt;
+&lt;div class="split-box split-${25}"&gt;
+
+&lt;/div&gt;</template></templates>
