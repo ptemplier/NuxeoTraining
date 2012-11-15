@@ -50,23 +50,42 @@
 
 <section class="slide" id="voctitle">
 # Nuxeo Training - Vocabularies
-######Sun Seng David TAN
+######S.TAN
 </section>
+
+<section class="slide" id="wherewego">
+###What we want to do
+####At the end of the course:
+<img src="img/vocabulary-creation-layout.png" class="float-right"  />
+
+- A field to choose from a list of value: <code>category</code> in our forms
+- The Sumarry tab shows the label of the selected
+- 2 levels list of value
+
+![view widget](img/vocabulary-widget-view.png)
+</section>
+
 
 <section class="slide" id="vocabularies">
 ### Vocabularies
 List of items used in the application
 
-- Id/code
-- Value
-- Obsolete
-- Order
+- Id/code <div class="further-info">ID: ID of the reference. This is what is stored on the document</div>
+- Value/Label <div class="further-info">Label: The value that is displayed in the UI</div>
+- Obsolete <div class="further-info">Obsolete: if true, the value is not shown in the drop down list, but still computed for documents that used the entry</div>
+- Order <div class="further-info">Integer used in some widget to order the list</div>
+
 
 By default stored in the database
 
--   1 table 1 vocabulary
--   Can be modified by administrators
--   Widget can pick values from it: Coverage, Subjects
+-  1 table 1 vocabulary
+-  Entries can be modified by administrators <div class="further-info">Admin Center, Vocabularies</div>
+-  Widget can pick values from it: Coverage, Subjects
+</section>
+
+<section class="slide" id="instudio">
+###vocabulary In studio
+![vocabulary section](img/vocabulary-studio-section.png)
 </section>
 
 <section class="slide" id="severalvoc">
@@ -78,12 +97,20 @@ By default stored in the database
 
 </section>
 
+<section class="slide" id="hierarchical-studio">
+###Hierarchical in Studio
+
+![vocabulary studio hierarchical](img/vocabulary-studio-hierarchical.png)
+</section>
+
 <section class="slide" id="vocmanagement">
 ### Vocabulary management
+
+<img src="img/vocabulary-admincenter-creation.png" class="float-right"/>
+
 -   In Nuxeo Admin Center
 -   can manage existing vocabularies
 -   can not create new ones
-
 </section>
 
 <section class="slide" id="vocpolicy">
@@ -97,22 +124,24 @@ By default stored in the database
 </section>
 
 <section class="slide" id="vocinlayouts">
-### Vocabularies in layouts
-Widgets in studio
+### Vocabulary layout widgets
+#### For <code>String</code> typed metadatas
+  -   Simple vocabulary <img src="img/vocabulary-simple-widget.png" class="float-right"/>
+  -   2 levels vocabularies (Chained vocabulary) 
 
-For text field
+<img src="img/vocabulary-2level-widget.png"/>
+  
+#### For multivalued <code>String</code> typed metadatas
+   -   Simple vocabulary <img src="img/vocabulary-multivalued-widget.png" class="float-right"/>
+   -   2 levels vocabularies (Chained vocabulary)
+   
+<img src="img/vocabulary-2level-multivalued-widget.png"/>
 
--   Simple vocabulary
-    -   2 levels vocabularies
--   For multivalued text field
-    -   Simple vocabulary
-    -   2 levels vocabularies
--   No 3+ levels vocabularies !
-    -   Template widget
+####   No 3+ levels vocabularies !
+   -   Template widget
 
-<div class="further-info">
-qsdfqsdf
-</div>
+See http://layout.demo.nuxeo.com
+
 </section>
 
 <section class="slide" id="demovoc">
@@ -127,33 +156,40 @@ qsdfqsdf
 <section class="slide exercise" id="exoagenda">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### What we want to do ?
--   Add a new field to the Book: category
-    -   String
-    -   In the book schema
--   Create the category vocabulary (see next page)
--   Add a new widget for the category to the book layout
-    -   Takes values from the category vocabulary
-</section>
+### Exercise: a category field in out Book type
+#### Add a new field to the Book: <code>category</code>
+   -   String type
+   -   In the book schema
 
-<section class="slide exercise" id="categoryvoc">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Category vocabulary
--   Create a new hierarchical vocabulary called category
--   Add the following values
-    -   Comics
-        -   Manga
-        -   US comics
-        -   Other
-    -   Book
-        -   Novel
-        -   Short story
-        -   Other
+#### Create the category vocabulary
+  - <code>hierarchical</code> vocabulary called category
+  - Add the following values
+     - <code>comics</code> Comics
+         -   <code>manga</code> Manga
+         -   <code>us-comics</code> US comics
+         -   <code>com-other</code> Other
+     - <code>book</code> Book
+         -   <code>novel</code> Novel
+         -   <code>shortstory</code> Short story
+         -   <code>bk-other</code> Other
+
+#### Add the widget
+Add a new widget for the category to the book layout
+
+   - stores selected value in <code>bk:category</code>
+   - <code>Chained vocabulary</code> widget type
+   - Takes values from the <code>category</code> vocabulary
+
 </section>
 
 <section class="slide" id="thankyou">
 ## Thank you!
+</section>
+
+<section class="slide" id="next">
+###Next ?
+- Back to the [training agenda](0_Introduction.html#day-1)
+- Next chapter: Folderish documents and Structure templates
 </section>
 
 
