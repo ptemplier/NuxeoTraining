@@ -109,6 +109,7 @@
       <li>Document</li>
       <li>Content views</li>
       <li>Lifecycle</li>
+      <li>Task</li>
       <li class="slide">A Studio graph editor</li>
     </ul>
   </section>
@@ -154,45 +155,74 @@
     <ul>
       <li>Workflow templates availables</li>
     </ul></li>
-    <li>Coming soon: Workflow tab
-    <ul>
-      <li>Pending tasks</li>
-    </ul></li></ul>
+</ul>
   </section>
 
-  <section class="slide no-md" id="concepts">
-    <h3>Concepts</h3>
-    <ul>
-      <li>Node: square, contains attributes</li>
-        <ul>
-           <li>Task: A node can create a Task (A NodeTask) -> will create a
-        task (from Nuxeo), but can type the task to add metadata. A node
-        task can have assignee and will wait for the action of the user</li>
-           <li>Start node</li>
-           <li>End node</li>
-        </ul>
-      </li>
-      <li>Transition: point -> arrow. Can bind to automation chains. Condition to take the transition (or not)</li>
-      <li>Workflow Variables -> will be accessible during the
-        worflow (persisted). Actually fields of the workflow</li>
-      <li>Node variable -> only visible by the node or can be
-        visible (persisted). Actually fields of the task</li>
-      <li>A node can accept a form layout -> will edit node
-        variables OR workflow variables can set to a form, actions</li>
-      <li>Can bind automation chains everywhere -> can set workflow
-        variables or node variables</li>
-      <li>Queues (not exposed in Studio yet) Content views of
-        waiting tasks -> needs mapping to transfer properties existing
-        doc. Bulk process of all the task of a node of a workflow</li>
-    </ul>
+  <section class="slide" id="concepts">
+##Nuxeo Workflow Concepts
+ </section>
+ 
+ <section class="slide" id="enablements">
+###Enablement
+Like actions, event handlers, tabs, etc ... 
+
+A workflow can be enabled according to
+- doctypes
+- the current lifecycle state
+- the permission
+- etc ...
+</section>
+ 
+ <section class="slide" id="Nodes">
+###Nodes
+Node: square, a step of the workflow
+
+- Start node
+- End node
+- A node has transitions
+</section>
+
+<section class="slide" id="Transition">
+###Transitions
+ - Routes that can take a workflow
+ - From one node to another
+ - point > arrow.
+ - Can execute to automation chains
+ - Condition to take the transition (or not)
+ </section>
+ 
+ <section class="slide" id="Task">
+###A special Node: Task
+- has assignees
+- wait for the assignee action before going into the transition
+- can set a form to be filled by the assignee
+- can bind actions and choose the transition to take
+- the form set values to
+  - workflow variables
+  - task variables
+</section>
+
+<section class="slide" id="workflow-variables">
+###Workflow variables
+- variable accessible for the whole instance of the workflow
+- accessible in automation
+- accessible in the task layouts
+</section>
+
+<section class="slide" id="nodevariable">
+###Node variables
+- variable accessible for a instance of a node
+- accessible in automation
+- accessible in the task layouts
+</section>
+
+  <section class="slide" id="workshop">
+##Workshop - workflow
   </section>
 
-  <section class="slide no-md" id="end">
-    <h2>TODO : exercices</h2>
-  </section>
 
-  <section class="slide no-md" id="end">
-    <h2>Thank you</h2>
+  <section class="slide" id="end">
+##Thank you
   </section>
 
   <!-- deck.navigation snippet -->
@@ -230,9 +260,9 @@
   <script src="deck.js/extensions/goto/deck.goto.js"></script>
   <script src="deck.js/extensions/status/deck.status.js"></script>
   <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
-  <script src="deck.js/extensions/scale/deck.scale.js"></script>
   <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
   <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
   <!-- Initialize the deck -->
   <script>
 			$(function() {
