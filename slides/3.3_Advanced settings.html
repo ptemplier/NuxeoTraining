@@ -69,18 +69,37 @@ Nuxeo Training - Advanced Studio settings
 ##Messages - Translations
 </section>
 
+<section class="slide" id="translation-wherewego">
+###Translation
+####At the end of the course:
+
+- Give translation to life cycle states
+<img alt="translation-lifecycle" src="img/translation-lifecycle.png"  />
+
+- Give translation to the "Home" tab in French
+<img alt="translation-home-french" src="img/translation-home-french.png" />
+</section>
+
 <section class="slide" id="messages---translations-1">
 ###Messages - Translations
-
-- Translate in any language using a key – value mechanism    
+- Translate in any language
     - Set keys in messages and labels
     - Provide a messages_LANG.properties file with the
           mapping key → translated label
+<pre><code>
+InLibrary=Dans la biblioth\u00e8que
+Borrowed=Emprunt\u00e9
+label.main.tab.home=Accueil
+</code></pre>
+
 - Existing label can be reuse and overriden    
-    - Check the folder nxserver/nuxeo.war/WEB-INF/classes/
+    - <code>nxserver/nuxeo.war/WEB-INF/classes/messages_LANG.properties</code>
+    - concatenation of all messages_LANG.properties of each bundles
+
+<img alt="translation-studio" src="img/translation-studio.png" class="float-right" />
+
 - Upload your custom messages_LANG.properties file in Studio.
       (resources)
-
 </section>
 
 
@@ -99,6 +118,8 @@ Nuxeo Training - Advanced Studio settings
 
 <section class="slide" id="custom-widget-1">
 ###Custom Widget
+<img alt="template-widget-category" src="img/template-widget-category.png" class="float-right" />
+
 - Existing widget not enough
 - Custom template with a JSF xhtml
       file
@@ -111,7 +132,7 @@ Nuxeo Training - Advanced Studio settings
 ###Custom Widget - Exercise
 - Redefined the category into 3 vocabularies
    - Update the widgets with a custom template widget using
-          the jsf file provided as example  
+          the jsf file provided as example  [files/category_widget.xhtml](files/category_widget.xhtml)
 </section>
 
 <!-- <section class="slide" id="extension-points"> -->

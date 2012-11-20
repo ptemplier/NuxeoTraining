@@ -9,12 +9,9 @@
   xmlns:nxp="http://nuxeo.org/nxweb/pdf"
   id="#{widget.id}">
 
-
-<h2>test</h2>
-
 <c:if test="#{nxl:isLikeViewMode(widget.mode)}">
   <nxdir:chainSelectOutput id="#{widget.id}_viewselect"
-    directoryNameList="category,subcategory,subsubcategory"
+    directoryNameList="category1,category2,category3"
     value="#{field}" localize="true" display="label"
     keySeparator="/" entrySeparator="" />
 </c:if>
@@ -24,17 +21,17 @@
     <nxdir:chainSelect size="3" value="#{field}"
       id="#{widget.id}_editselect" onchange="#{widgetProperty_onchange}"
       required="#{widget.required}">
-      <nxdir:chainSelectListbox index="0" size="0" directoryName="category"
+      <nxdir:chainSelectListbox index="0" size="0" directoryName="category1"
         localize="true" id="#{widget.id}_category1" ordering="ordering,label">
         <a4j:support event="onchange" reRender="#{widget.id}_category2,#{widget.id}_category3" />
       </nxdir:chainSelectListbox>
 
-      <nxdir:chainSelectListbox index="1" size="0" directoryName="subcategory"
+      <nxdir:chainSelectListbox index="1" size="0" directoryName="category2"
         localize="true" id="#{widget.id}_category2" ordering="ordering,label">
         <a4j:support event="onchange" reRender="#{widget.id}_category3" />
       </nxdir:chainSelectListbox>
 
-      <nxdir:chainSelectListbox size="0" index="2" directoryName="subsubcategory"
+      <nxdir:chainSelectListbox size="0" index="2" directoryName="category3"
         localize="true" id="#{widget.id}_category3" ordering="ordering,label" />
     </nxdir:chainSelect>
   </a4j:region>
