@@ -48,37 +48,29 @@
       class="sub-part training">Trainings</span>
   </div>
 
-  <section class="slide no-md" id="nuxeo-training---custom-operations">
-    <h1>Nuxeo Training - Workflows</h1>
-    <h6>Sun Seng David TAN - Alain Escaffre</h6>
-  </section>
 
-  <!-- section class="slide no-md" id="table-of-contents">
-    <h3>Table of Contents</h3>
-    <ul>
-      <li class="slide"><a href="#longtimeago">Workflows in
-          Nuxeo, A long time ago ...</a></li>
-      <li class="slide"><a href="#write-slide">New workflow
-          feature</a></li>
-      <li class="slide"><a href="#design-layout">How to design
-          a layout</a></li>
-      <li><a href="#exercise">Exercises</a></li>
-    </ul>
-  </section -->
+<section class="slide" id="nuxeo-training---custom-operations">
+Nuxeo Training - Workflows
+------------------------------------
 
-  <section class="slide no-md" id="longtimeago">
-    <h3>Workflows in Nuxeo, A long time ago ...</h3>
-    <p>Not our first try !</p>
-    <ul>
+######Sun Seng David TAN - Alain Escaffre http://doc.nuxeo.com/x/mYSo
+</section>
+
+
+<section class="slide no-md" id="longtimeago">
+<h3>Workflows in Nuxeo, A long time ago ...</h3>
+<p>Not our first try !</p>
+<ul>
       <li class="slide">Jbpm</li>
       <li class="slide">Old Content routing used in CMF</li>
       <li class="slide">Users action + automation + lifecycle + tasks</li>
-    </ul>
-  </section>
+</ul>
+</section>
 
-  <section class="slide no-md" id="whatwasfailing">
-    <h3>What was failing ?</h3>
-    <ul>
+
+<section class="slide no-md" id="whatwasfailing">
+<h3>What was failing ?</h3>
+   <ul>
       <li class="slide">Jbpm
         <ul>
           <li>Too complex workflow engine for simple use case</li>
@@ -95,101 +87,171 @@
           <li>No global overview</li>
         </ul>
       </li>
-    </ul>
-  </section>
+   </ul>
+</section>
 
 
-  <section class="slide no-md" id="newwfengine">
-    <div class="sticker">Available since Nuxeo 5.6</div>
-    <h3>New WF engine</h3>
-    <p>Based on existing infrastructure</p>
-    <ul>
-      <li>Automation</li>
-      <li>Layout</li>
-      <li>Document</li>
+<section class="slide no-md" id="newwfengine">
+<div class="sticker">Available since Nuxeo 5.6</div>
+<h3>New WF engine</h3>
+<p>Based on existing infrastructure</p>
+<ul>
+      <li>Automation<div class="further-info">Powered by Content Automation</div></li>
+      <li>Layout <div class="further-info">Dynamic forms using the layout system</div></li>
+      <li>Notification <div class="further-info">Workflow notifications – using the  freemarker templating  system</div></li>
+      <li>Document <div class="further-info">Stored as a structure of documents</div></li>
       <li>Content views</li>
       <li>Lifecycle</li>
       <li>Task</li>
       <li class="slide">A Studio graph editor</li>
-    </ul>
-  </section>
-
-  <section class="slide no-md">
-    <h2>Demo1 - default serial workflow</h2>
-  </section>
-
-  <section class="slide no-md">
-    <h2>Demo2 - holiday management</h2>
-  </section>
-
-  <section class="slide no-md" id="templates">
-    <h3>Workflow templates and instances</h3>
-    <p>Studio generates workflow configurations</p>
-    <ul>
-      <li>As xml</li>
-      <li>At startup, generates documents (templates) -> availables
-        workflows</li>
-    </ul>
-    <p>When starting a WF</p>
-    <ul>
-      <li>New instance created as documents</li>
-      <li>Copy of the template</li>
-      <li>Can restrict access with ACL</li>
-    </ul>
-  </section>
-
-  <section class="slide no-md" id="innuxeo">
-    <h3>Workflow management in Nuxeo UI</h3>
-    <ul>
-    <li>Summary tab of a doc
-    <ul>
-      <li>choose a workflow and start it</li>
-      <li>currently started workflows</li>
-      <li>Waiting task for this doc + layout + actions</li>
-    </ul></li>
-    <li>Dashboard
-    <ul>
-      <li>Waiting tasks for the user + link to the doc</li>
-    </ul></li>
-    <li>Admin Center
-    <ul>
-      <li>Workflow templates availables</li>
-    </ul></li>
 </ul>
-  </section>
+</section>
 
-  <section class="slide" id="concepts">
+
+
+<section class="slide">
+##Demo1 - default serial workflow
+</section>
+
+
+<section class="slide">
+##Demo2 - holiday management
+</section>
+
+
+<section class="slide" id="customization-cycle">
+###Customization cycle
+####Step 1:  Workflow feature configuration in Nuxeo Studio
+ - Creation of a new workflow feature
+ - Graph design
+ - Nodes configuration <div class="further-info">including forms and automation chains if required</div>
+ 
+####Step 2: Deployment on a Nuxeo instance of the Studio plugin.
+=> a workflow template ( model ) . Using this template we start a workflow instance on a document.
+
+Start the workflow from the UI using “Workflow Process” widget or using the StartWorkflow operation.
+</section>
+
+
+<section class="slide" id="graph-editor">
+###Graph editor
+![a screen shot of the graph editor in studio](img/workflow-graph-editor.png)
+</section>
+
+
+<section class="slide" id="templates">
+###Workflow templates and instances
+Studio generates workflow configurations
+
+- As xml
+- At startup, generates documents (templates) -> availables  workflows
+
+When starting a WF
+
+- New instance created as documents
+- Copy of the template
+- Can restrict access with ACL
+</section>
+
+
+<section class="slide" id="innuxeo">
+###Workflow management in Nuxeo UI
+####Summary tab of a doc
+  - choose a workflow and start it <img alt="workflow-summary-availables" src="img/workflow-summary-availables.png" class="float-right" />
+  - currently started workflows
+  - Waiting task for this doc + layout + actions
+
+####Dashboard
+<img alt="workflow-dashboard" src="img/workflow-dashboard.png" class="float-right" />
+
+  - Waiting tasks for the user + link to the doc
+
+####Admin Center
+  - Workflow templates availables
+
+ ![workflow-summary-task](img/workflow-summary-task.png)
+</section>
+
+
+<section class="slide" id="concepts">
 ##Nuxeo Workflow Concepts
  </section>
+
+
+<section class="slide" id="workflow-definition">
+###Workflow definition
+<img alt="workflow-definition" src="img/workflow-definition.png" class="float-right" />
+
+- Feature id
+- Label
+- icons
+</section>
  
  <section class="slide" id="enablements">
-###Enablement
+###Availability
+<img alt="workflow-availability" src="img/workflow-availability.png" class="float-right" />
+
 Like actions, event handlers, tabs, etc ... 
 
 A workflow can be enabled according to
+
 - doctypes
 - the current lifecycle state
 - the permission
 - etc ...
+
+![Available workflow to start in the summary tab](img/workflow-summary-availables.png)
 </section>
  
  <section class="slide" id="Nodes">
 ###Nodes
+<img alt="workflow-graph-node" src="img/workflow-graph-node.png" class="float-right" />
+
 Node: square, a step of the workflow
 
+- Node
 - Start node
 - End node
+- Fork 2 ways
+- Fork 3 ways
 - A node has transitions
+
+Available nodes are only examples/samples
+</section>
+
+<section class="slide" id="editnode">
+###Node edition
+<img alt="Studio node edition form" src="img/workflow-node-definition.png" class="float-right" />
+
+ - Label
+ - incoming and outcoming chains to execute
+
 </section>
 
 <section class="slide" id="Transition">
 ###Transitions
- - Routes that can take a workflow
+
+<img alt="workflow-transition-arrow" src="img/workflow-transition-arrow.png" class="float-right" />
+
+ - Next routes that can take a workflow
  - From one node to another
  - point > arrow.
- - Can execute to automation chains
- - Condition to take the transition (or not)
+ - Can execute automation chains
+ - Condition to follow the transition (or not)
+ - Parallel: will follow the all *true* transitions
+ 
+ <img alt="workflow-node-transitions" src="img/workflow-node-transitions.png" />
  </section>
+ 
+<section class="slide exercise" id="workshop-nodes-transition">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise: Nodes and transitions
+- Create a simple workflow having only the Start and the Stop nodes
+- Make sure this workflow can be started only on documents of type File and only if the user has the Read and Write permissions on the current document
+- After deploying the workflow in Nuxeo go to the Workflow tab in Admin Center and check that your workflow model is there
+- Start the workflow from a file, the workflow should do nothing
+</section>
  
  <section class="slide" id="Task">
 ###A special Node: Task
@@ -201,7 +263,6 @@ Node: square, a step of the workflow
   - workflow variables
   - task variables
 </section>
-
 
 <section class="slide" id="workflow-variables">
 ###Workflow variables
@@ -224,7 +285,7 @@ Node: square, a step of the workflow
 - Ex: assignment to hr_manager group in the workflow
 
 #### To the workflow initiator
-- *WorkflowInitiator* variable
+- *workflowInitiator* variable
 - See also *lastNodeActor*
 
 #### To a computed variable
