@@ -5,6 +5,7 @@
 rm target -rf
 mkdir target
 mkdir target/pdfs
+mkdir target/printable-pdfs
 arch=$(uname -m)
 
 if [ "$arch" == 'x86_64' ]
@@ -34,4 +35,14 @@ for i in *.html; do
  cd ../../../
 done;
 
+
+echo "### copy deck2printable-pdf next to phantomjs"
+cp deck2printable-pdf/*.js target/phantomjs/bin
+
+for i in *.html; do
+ echo "### generating printable slides for $i"
+ cd target/phantomjs/bin
+ ./phantomjs deck2printable-pdf.js "../../../$i" "../../printable-pdfs/$i.pdf"
+ cd ../../../
+done;
 
