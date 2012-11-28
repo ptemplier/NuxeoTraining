@@ -51,7 +51,7 @@
 
 <section class="slide" id="nuxeo-training---custom-operations">
 Nuxeo Training - Workflows
-------------------------------------
+================
 
 ######Sun Seng David TAN - Alain Escaffre http://doc.nuxeo.com/x/mYSo
 </section>
@@ -109,13 +109,17 @@ Nuxeo Training - Workflows
 
 
 
+
+
 <section class="slide">
-##Demo1 - default serial workflow
+Demo1 - default serial workflow
+----------------------------------------
 </section>
 
 
 <section class="slide">
-##Demo2 - holiday management
+Demo2 - holiday management
+-----------------------------------------
 </section>
 
 
@@ -174,9 +178,15 @@ When starting a WF
 
 
 <section class="slide" id="concepts">
-##Nuxeo Workflow Concepts
- </section>
+Nuxeo Workflow Concepts
+--------------------------------------
+</section>
 
+
+<section class="slide" id="nodes-and-transitions">
+Nodes and transitions
+---------------------------------
+</section>
 
 <section class="slide" id="workflow-definition">
 ###Workflow definition
@@ -223,26 +233,25 @@ Available nodes are only examples/samples
 ###Node edition
 <img alt="Studio node edition form" src="img/workflow-node-definition.png" class="float-right" />
 
- - Label
- - incoming and outcoming chains to execute
-
+- Label
+- Input operation chain <div class="further-info">The automation chain you specify here will be executed just before the workflow engine enters the node</div>
+- Output operation chain <div class="further-info">The automation chain you specify here will be executed just before the workflow engine leaves the node</div>
 </section>
 
 <section class="slide" id="Transition">
 ###Transitions
-
 <img alt="workflow-transition-arrow" src="img/workflow-transition-arrow.png" class="float-right" />
 
+ - Name <div class="further-info">Name is only displayed in the graph, and used internally by the engine</div>
  - Next routes that can take a workflow
- - From one node to another
- - point > arrow.
- - Can execute automation chains
- - Condition to follow the transition (or not)
+ - From one node to another. point > arrow <div class="further-info">For every transition : an endpoint with the name of the transition, from which you will be able to pull the arrow to connect nodes</div>
+ - Can execute automation chains <div class="further-info">The chain will be executed when the workflow engine goes into this transition</div>
+ - Condition to follow the transition (or not) <div class="further-info">This is the condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.</div>
  - Parallel: will follow the all *true* transitions
  
  <img alt="workflow-node-transitions" src="img/workflow-node-transitions.png" />
  </section>
- 
+
 <section class="slide exercise" id="workshop-nodes-transition">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
@@ -252,30 +261,151 @@ Available nodes are only examples/samples
 - After deploying the workflow in Nuxeo go to the Workflow tab in Admin Center and check that your workflow model is there
 - Start the workflow from a file, the workflow should do nothing
 </section>
+
+
+
+
+<section class="slide" id="tasks">
+Tasks
+--------
+</section>
  
  <section class="slide" id="Task">
 ###A special Node: Task
+*Require a user intervention to resume the workflow: Eg. Accept/Reject*
+
 - has assignees
-- wait for the assignee action before going into the transition
+- wait for an assignee action before going into a transition
 - can set a form to be filled by the assignee
 - can bind actions and choose the transition to take
 - the form set values to
   - workflow variables
-  - task variables
+  - task variables  
 </section>
 
+<section class="slide" id="studio-task">
+###Task in Studio
+<img alt="workflow-assignees" src="img/workflow-assignees.png" class="float-right" />
+
+- General information:  title, directive
+- Assignment : static or dynamic
+  - Assignees <div class="further-info">You can ad here static assignees, either users or groups, one per input field (click on "add" to add more than one). You can  prefix users by "user:" like user:jack and groups by "group:" like group:validators.</div>
+  - Compute additional assignees <div class="further-info">You can set here a scripted expression (MVEL syntax) so as to determine how the assignees on that task will be computed at runtime. You have access to some useful variables in the context, like the WorkflowVariables , NodeVariables , Current User and others</div>
+- Due Date <div class="further-info">set here a scripted expression (MVEL syntax) and the dueDate of a task will be  dynamically computed  from this expression when  the workflow is run</div>
+- Notification <div class="further-info">send a custom notification when a task is assigned</div> 
+- Plugin in custom business logic : input & output automation chains
+- Automatic permission grant to assignees <div class="further-info">Grant specific permissions to the task assignees on the document following the workflow ( automatically removed by the workflow engine once the task is completed)</div>
+<img alt="workflow-node-configuration" src="img/workflow-node-configuration.png" />
+</section>
+
+<section class="slide" id="chains">
+###Automation chains
+
+- Attached to each transition
+- Attached to node input and output
+- The documents following the workflow set as the input documents
+
+<blockquote>These chains are executed using an unrestricted session!!</blockquote>
+</section>
+
+ <section class="slide" id="notifications">
+###Mail Notifications
+
+#### Built-in 
+- Notification configuration to assignee, with template choice
+- Leverage the workflow variables in the freemarker template
+- If no template is selected, the task assignees are not notified
+- Custom variables <div class="further-info">can be used in a mail template in this specific case</div>
+
+<pre><code>
+${workflowStartTime} 
+${workflowInitiator} 
+${WorkflowVariables} 
+${NodeVariables}
+${workflowDocuments} 
+..
+</code></pre>
+
+Eg:
+<pre><code>A task on the document ${workflowDocuments[0].dublincore.title} has been assigned to you by ${workflowInitiator}.</code></pre>
+
+#### Custom
+- Sending a custom email in output chain or input chain, using *Send Email* operation
+- Also uses freemarker templates --> easy to maintain
+</section>
+
+
+<section class="slide exercise" id="exercise-simple-task">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise - Simple task
+Create a simple workflow to validate the publishing of a document by Administrator
+
+- the document will be published at a predefined existing location ( manually go and create a section called “Public” in Sections, having the path “/default-domain/sections/Published”)
+- this workflow should be available only on the documents of type “File”
+- the Administrator can either validate or reject the publication
+(use the predefined Accept/Reject task)
+- the due date displayed for the Administrator should be the current date.
+</section>
+
+
+
+
+
+<section class="slide" id="variables-task-form">
+Variables and Task form
+---------------------------------
+</section>
 <section class="slide" id="workflow-variables">
 ###Workflow variables
-- variable accessible for the whole instance of the workflow
-- accessible in automation
-- accessible in the task layouts
+- Variables shared within the whole instance of the workflow
+- Available in the automation context <code>WorkflowVariables["wfVariableName"]</code>
+- Available as *Compute additional assignees* of a task
+- Accessible in the task layouts
 </section>
 
 <section class="slide" id="nodevariable">
 ###Node variables
-- variable accessible for a instance of a node
-- accessible in automation
-- accessible in the task layouts
+- Variables shared within a node of a workflow instance
+- Available in the automation context <code>NodeVariables["nodeVariableName"]</code>
+- Available as *Compute additional assignees* of a task
+- Accessible in the task layouts
+</section>
+
+<section class="slide" id="tasklayout">
+###Task form
+<img alt="workflow-task-form" src="img/workflow-task-form.png" class="float-right" />
+
+- Available for task only
+- Form displayed to the assignee <div class="further-info">Configure here the form that will be displayed to the user for processing the task. You can specify which fields have to filled.</div>
+- Edit Workflow and Node variables <div class="further-info">Layout edition works as usual (you pickup the fields on the right, here you have the choice between system properties, workflow variables and node variables. If you need the user to set/see some workflow or node variables, just drag and drop them on the form, the engine will automatically save them when the form is submitted and you can use these them later</div>
+- Buttons that can be linked to transitions with <code>NodeVariable["Button"] == "buttonId"</code> <div class="further-info">Configure the buttons to be displayed for submitting the task form</div>
+  - Id <div class="further-info">is stored in the  built-in NodeVariable called"button" and can be used for instance to express conditions for knowing which transition the workflow engine should follow after the current node is done.</div>
+  - Label <div class="further-info">Label of the button, supports i18n.</div>
+  - Filter <div class="further-info">Filter to hide or display the button on some conditions. Work only starting from 5.7. ( an action filter)</div>
+  - Generate the condition for transition <div class="further-info">this column, checked by default when you add a line, is a helper so that a transition corresponding to the button is automatically declared on the Transitions tab</div> 
+
+</section>
+
+<section class="slide" id="morevariables">
+###More Variables
+####Available to be used in:
+
+- chains run on the nodes (Input chain, output chain, transition chains)  
+-  when expression the condition for a transition
+- Additional Task Assignees ( if the expression is resolved to a user or group)
+- Due date expression  ( if the expression is resolved to a date)
+
+####These ones: http://doc.nuxeo.com/x/EQGw
+- *WorkflowVariables* and *NodeVariables*  ( hashmaps), used like this: NodeVariables[“myNodeVar”]
+- *workflowInitiator*
+- *workflowStartTime* Time when the workflow was started <div class="further-info">useful for exemple when computing a due date (Due date expression: workflowStartTime.days(8))</div>
+- *Documents/document* documents bound to the workflow. Those documents are also set as input of chains executed.
+- *button* button id that was clicked for processing the task <div class="further-info">if the current node is a task node</div>
+- *nodeId*
+- *nodeStartTime* Time the node was started <div class="further-info">useful for exemple when computing a due date (Due date expression: nodeStartTime.days(8))</div>
+- *nodeEndTime*
+- *nodeLastActor* Last actor on the node. Useful for instance to know who closed a task when the task was assigned to a group.
 </section>
 
 <section class="slide" id="assignees">
@@ -293,24 +423,46 @@ Available nodes are only examples/samples
 - Leverage vocabulary tables to provide a quick mapping interface between some users and some others (Jack is John's manager)
 </section>
 
-<section class="slide" id="notification">
-### Notifications
-#### Built-in 
-- Notification configuration to assignee, with template choice
-- Ability to leverage the workflow variables in the freemarker template
+<section class="slide" id="variables-from-chain">
+###Set Workflow and Node variables
+####From the task form
+Automatically saved when the form is submitted 
 
-#### Custom
-- Sending a custom email in output chain or input chain, using *Send Email* operation
-- Also uses freemarker templates --> easy to maintain
+####From automation chains
+- <code>SetWorkflowVar</code> and <code>SetNodeVar</code> operations
+- To pre-initialize variables <div class="further-info">For instance when the task form should display some pre-initialized variables</div>
+
+![A task form with a preinitialized field](img/workflow-preinit-var.png)
 </section>
 
-  <section class="slide" id="workshop">
-##Workshop - workflow
-  </section>
+<section class="slide exercise" id="workflow-exercise">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise Task Form, Variables
+Let's now create a more complicated workflow to validate the publication of a document.
+We want to publish a document at a chosen location,
+but the publication must be validated by a chosen user (validator) in order to occur.
+If user reject the publication, the workflow initiator can choose another validator or cancel its request
+
+- this workflow should be available only on the documents of type “File” and only if the current user is a member of “administrators” group
+- the first task of the workflow is assigned to the user who started the workflow.
+  This user has to choose here the validator and where he wants to publish the doc ( let's assume that by default it will be the previously defined section: /default-domain/sections/Published)
+- The chosen validator can approve the publication or reject ( use an  approve/reject task). ( in serial way) .
+  They both need to submit a “comment” when approving or rejecting the task ( mandatory).
+  They both need temporary access to the document being published ( assuming that they don't necessarily have them ).
+  Also he need to know where the doc will be published ( but this info must be displayed in Read only).
+  - notify the validator when a task was assigned to him ( only if you have a mail server configured ) 
+  - for the comment, use a NodeVariable called “comment”
+  - use singleUseSuggestion widget type  to choose the workflow
+</section>
 
 
-  <section class="slide" id="end">
-##Thank you
+
+
+
+<section class="slide" id="end">
+Thank you
+------------
   </section>
 
   <!-- deck.navigation snippet -->
