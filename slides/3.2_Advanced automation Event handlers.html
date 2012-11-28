@@ -9,9 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - EventHandlers</title>
+<title>Nuxeo Training - Advanced automation Event Handlers</title>
 
-<meta name="description" content="Nuxeo Training - EventHandlers">
+<meta name="description" content="Nuxeo Training - Advanced automation Event Handlers">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -49,24 +49,57 @@
   </div>
 
 
-<section class="slide" id="title">
+<section class="slide" id="advanced-automation">
 #Advanced Automation
 ######S. TAN
 </section>
+
+
+
+
 
 <section class="slide" id="Context-variable">
 ##Advanced Automation - Context variable
 </section>
   
-  <section class="slide" id="exectution-context">
+<section class="slide" id="exectution-context">
 ###Execution context category
 Context variables; operations to
 
 - Set input into a variable
 - Restore the variable somewhere else as the output
-  </section>
+</section>
+
+
+
+
+<section class="slide" id="Context-variable">
+##Advanced Automation - Mvel scripting
+</section>
+
+<section class="slide" id="scripting">
+###Inject dynamic values with MVEL
+<img alt="automation-object-browser" src="img/automation-object-browser.png" class="float-right" />
+
+- In operation parameters: <code>@{mvel script evaluated}</code>
+- Objects browser in Studio, from each operation parameters <div class="further-info">will help you use the good syntax</div>
+- Object Fn, the Document Wrapper, the Date Wrapper.
+- MVEL http://mvel.codehaus.org/Getting+Started+for+2.0
+</section>
+
+<section class="slide" id="Fn">
+###«Fn» Object
+Collection of useful helpers <div class="further-info">available in automation parameters when using the script (« @{ script_expression}»)</div>
+
+<img alt="automation-fn" src="img/automation-fn.png" class="float-right" />
+
+- getNextId(string) <div class="further-info">returns the next sequence item for the given string (enables to maintain in parallel multiple sequences)</div> 
+- getDate() <div class="further-info">return a Date object from a date property</div> 
+- getVocabularyLabel(VocabularyName, KeyName) <div class="further-info">returns the label for a vocabulary entry. (ex: useful when automatically updating some fields)</div> 
+- getEmailsFromGroup(String groupName), getEmails, ... <div class="further-info">useful helpers for resolving users, emails, etc, ...</div>
+</section>
   
-    <section class="slide" id="sample-chain">
+<section class="slide" id="sample-chain">
 ###Automation sample chain
 
 <img alt="Automation sample chain" src="img/automation-sample-chain.png" class="float-right" />
@@ -82,15 +115,10 @@ The following chain copies the source prefix of the parent Workspace on the sour
 </section>
 
 
-  <section class="slide" id="scripting">
-###Scripting with MVEL
-- <code>@{mvel script evaluated}</code>
-- RunScript operation
-  </section>
-  
-  
 
-  <section class="slide" id="nuxeo-training---event-handlers">
+
+
+  <section class="slide" id="event-handlers">
 ##Nuxeo Training - Event handlers
 
 ######Sun Seng David TAN
@@ -117,7 +145,7 @@ The publicationDate is pre-filled with the current date in the creation layout !
 </blockquote>
 </section>
 
-  <section class="slide" id="event-handlers">
+  <section class="slide" id="event-handlers-definition">
 ###Event Handlers
     
 - Listener pattern
@@ -128,7 +156,7 @@ The publicationDate is pre-filled with the current date in the creation layout !
     
   </section>
 
-  <section class="slide" id="event-handlers-1">
+  <section class="slide" id="event-handlers-types">
 ###Event Handlers
 - 2 types of event handlers
    - Synchronous
@@ -197,7 +225,7 @@ Don't save the document if you deal with document
       modification events
   </section>
 
-  <section class="slide" id="exercise---event-handlers">
+  <section class="slide" id="exercise-event-handlers">
 ##Exercise - Event handlers
 ######Sun Seng David TAN
   </section>
