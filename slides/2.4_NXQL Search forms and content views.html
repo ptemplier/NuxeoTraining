@@ -138,7 +138,7 @@ http://doc.nuxeo.com/display/NXDOC/NXQL
 ###Content View definition
 <div class="split-box split-63">
 <ul>
-  <li>A query <pre><code>select * From Document Where ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' and ecm:parentId= ?</code></pre></li>
+  <li>WHERE clause of an NXQL query <pre><code>ecm:mixinType != 'HiddenInNavigation' AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState != 'deleted' and ecm:parentId= ?</code></pre></li>
   <li>Dynamical parameters (see the «?») <div class="further-info"> and a form layout to get the values for those parameters</div></li>
   <li>A Result layout <div class="further-info">the definition of the columns displayed for the result</div></li>
   <li>The list of additional columns <div class="further-info">that can be selected  by the user to be added in the result layout</div></li>
@@ -168,6 +168,7 @@ http://doc.nuxeo.com/display/NXDOC/NXQL
      - <code>#{currentDocument.id}</code>
      - <code>#{currentDocument.path}</code>
      - <code>#{currentDocument.schema.property}</code>
+     - <code>#{currentUser.name}</code>
   -  Replace with <code>?</code> In the QueryFilter
 </section>
 
