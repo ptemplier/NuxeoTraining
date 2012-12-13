@@ -468,17 +468,16 @@ We want to publish a document at a chosen location,
 but the publication must be validated by a chosen user (validator) in order to occur.
 If user reject the publication, the workflow initiator can choose another validator or cancel its request
 
-- this workflow should be available only on the documents of type “File” and only if the current user is a member of “administrators” group
+- this workflow should be available only on the documents of type `Book` and only if the current user is a member of “administrators” group
 - the first task of the workflow is assigned to the user who started the workflow.
-  This user has to choose here the validator and where he wants to publish the doc
+  - This user has to choose here the validator and where he wants to publish the doc. use the widget `Single user suggestion`
+  - Use `Single Document Suggestion` widget type  to choose the section, use the page provider `default_section_suggestion`
 - The chosen validator can approve the publication or reject ( use an  approve/reject task). ( in serial way) .
   They both need to submit a “comment” when approving or rejecting the task ( mandatory).
   They both need temporary access to the document being published ( assuming that they don't necessarily have them ).
   Also he need to know where the doc will be published ( but this info must be displayed in Read only).
   - notify the validator when a task was assigned to him ( only if you have a mail server configured ) 
   - for the comment, use a NodeVariable called “comment”
-  - use singleUseSuggestion widget type  to choose the workflow
-  - 
 </section>
 
 <section class="slide" id="advanced-wf">
