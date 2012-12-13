@@ -194,26 +194,34 @@ public class SampleOperation {
     <h2>Exercise - Custom operations</h2>
   </section>
 
-  <section class="slide no-md exercise" id="what-we-want-to-do">
-    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+ <section class="slide exercise" id="what-we-want-to-do">
+ <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-    <h3>What we want to do</h3>
-    <ul>
-      <li>Add a custom operation that
-        <ul>
-          <li>calls the Framework.getProperty()</li>
-          <li>retrieves the default.author value</li>
-          <li>default.author will be defined in nuxeo.conf</li>
-          <li>Returns « John Doe » if no value is defined</li>
-        </ul>
-      </li>
-      <li>The value is stored in a Context variable </li>
-      <li>The context variable name can be set as parameter </li>
-      <li>Create a new automation chain that sets the default
-        author if book:author is not already defined. </li>
-      <li>Create an event handler on any modification events. This
-        event handler will call the newly created chain. </li>
-    </ul>
+### Exercise Custom operation
+
+Automatically fills the UserProfile locale with an operation chains calls by the administrator with Nuxeo Shell
+
+#### The operation in Nuxeo IDE
+- Add a custom operation that gets the UserProfile of a user
+  - The operation will return the Document UserProfile
+  - The operation can take a parameter to retrieve the user (will be the current user if not setted) 
+  - Use the user profile service http://explorer.nuxeo.org/nuxeo/site/distribution/current/viewComponent/org.nuxeo.ecm.user.center.profile.UserProfileService
+
+#### Use the operation in a new chain in Nuxeo Studio
+- The first operation will call the created operation
+  - `@{Context["user"]` in the parameter of the operation (will be setted from the shell script)
+- set the property `userprofile:locale` to *fr* (or a parameter from the context)
+
+#### Call the chain from Nuxeo Shell
+
+<pre><code>
+remote> connect http://localhost:8080/nuxeo/site/automation -u Administrator                                  
+Password: *************
+Administrator@localhost:/> use automation                                                                                        
+remote -> automation
+> setUserLocaleChain -ctx user=sun
+</code></pre>
+
   </section>
 
   </section>
