@@ -191,6 +191,9 @@ Created-By: Nuxeo Studio
     <pre>
       <code>@Deploy("studio.extensions.SunTraining_Nuxeo")</code>
     </pre>
+    
+    <h4>Test that a component is loaded</h4>
+    <pre><code>Assert.assertNotNull(Framework.getRuntime().getComponent("studio.extensions.SunTraining_Nuxeo"));</code></pre>
 
   </section>
 
