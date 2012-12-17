@@ -68,7 +68,7 @@ Nuxeo Training - Installation Workshop and Introduction to Nuxeo DM
   - Let default values
 - Debian or Ubuntu
   - [http://doc.nuxeo.com/x/94RH](http://doc.nuxeo.com/x/94RH)
-  - <code>apt-get install nuxeo</code>
+  - `apt-get install nuxeo`
 - Mac OS
   - Unzip file
 
@@ -89,18 +89,18 @@ According to your options:
 ### Start/stop the server
 ####Debian/Ubuntu packaging
 
-- <code>sudo service nuxeo start</code> or <code>sudo /etc/init.d/nuxeo start</code>
-- <code>sudo service nuxeo stop</code> or <code>sudo /etc/init.d/nuxeo stop</code>
+- `sudo service nuxeo start` or `sudo /etc/init.d/nuxeo start`
+- `sudo service nuxeo stop` or `sudo /etc/init.d/nuxeo stop`
 
 ####Zip packaging
 
-- use <code>bin/nuxeoctl</code>
-  - <code>console</code>
-  - <code>start</code>
-  - <code>stop</code>
-  - <code>gui</code>
+- use `bin/nuxeoctl`
+  - `console`
+  - `start`
+  - `stop`
+  - `gui`
 - Windows
-  - <code>bin/nuxeoctl.bat</code> will launch the GUI
+  - `bin/nuxeoctl.bat` will launch the GUI
 
 </section>
 <section class="slide" id="access">
@@ -260,7 +260,7 @@ Create your own document types !
 
 <section class="slide" id="create-a-document">
 ###Create a new document
- - <code>New document</code>
+ - `New document`
  - Select the document type <div class="further-info">The list of available document types depends on the container document type</div>
 
 ![Available doc types](img/available-documents-workspace.png)
@@ -389,7 +389,7 @@ http://doc.nuxeo.com/x/UYEk
   - Principal (user/group)
   - Permission
   - Grant/Deny
-- For instance: <code>members - Read - grant</code>
+- For instance: `members - Read - grant`
 </section>
 
 <section class="slide" id="acl3">
@@ -405,12 +405,12 @@ List of ACL applied to a document
 - Local ACL
 
 #### Bloking inheritance
-Technically <code>Everyone - Deny - Everything</code> apply on the first ACE of the local ACL.
+Technically `Everyone - Deny - Everything` apply on the first ACE of the local ACL.
 </section>
 
 <section class="slide" id="versioning">
 ###Versioning
-Don't want to copy and rename
+Don't want to copy and rename</code>
 
 On Edit tab while saving:
 
@@ -438,8 +438,8 @@ Versions available
 ![publication](img/publishing-tab.png)
  
 #### Access Right policy example:
- - Section: <code>Read</code> to external people
- - Workspaces: <code>Read</code> and <code>Write</code> to internal members 
+ - Section: `Read` to external people
+ - Workspaces: `Read` and `Write` to internal members 
 </section>
 
 <section class="slide" id="publication-2">
@@ -447,7 +447,7 @@ Versions available
 Document publication
 
  - Version of the document created
- - <code>proxy</code> document created
+ - `proxy` document created
  
 A proxy is a document that reflect the pointed document. (Like a pointer in C language)
 
