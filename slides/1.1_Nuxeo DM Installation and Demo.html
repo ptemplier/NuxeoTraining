@@ -63,26 +63,24 @@ Nuxeo Training - Installation Workshop and Introduction to Nuxeo DM
   <section class="slide" id="downloads">
 ### Downloads
 - Nuxeo Website: [http://www.nuxeo.com/en/downloads](http://www.nuxeo.com/en/downloads)
-- Windows
-  - Launch .exe file
-  - Let default values
-- Debian or Ubuntu
-  - [http://doc.nuxeo.com/x/94RH](http://doc.nuxeo.com/x/94RH)
-  - `apt-get install nuxeo`
-- Mac OS
-  - Unzip file
-
-  </section>
+- Windows installer <div class="further-info">Based on Tomcat, it also installs a JVM, OpenOffice.org and ImageMagick if necessary</div>
+- Debian or Ubuntu <div class="further-info">Based on Tomcat, it also installs dependencies and adds an init script</div>
+- Multi-platform package <div class="further-info">A zipped Nuxeo server based on Tomcat, all in the same folder</div>
+- Virtual Machine images
+</section>
 
   <section class="slide" id="installoption">
 ### Install options
 According to your options:
 
-- Unzip
-- Specific packages
-  - Debian
-  - Windows
- 
+- Multi-platform: just unzip
+- Debian or Ubuntu
+  - [http://doc.nuxeo.com/x/94RH](http://doc.nuxeo.com/x/94RH)
+  - `apt-get install nuxeo`
+- Windows installer
+  - Launch .exe file
+  - Let default values
+  
   </section>
 
 <section class="slide" id="startstop">
@@ -101,7 +99,7 @@ According to your options:
   - `gui`
 - Windows
   - `bin/nuxeoctl.bat` will launch the GUI
-
+  - `nuxeoctl.bat console --no-gui` <div class="further-info">to launch Nuxeo without the Gui</div>
 </section>
 <section class="slide" id="access">
 ## [http://localhost:8080](http://localhost:8080)
@@ -112,6 +110,9 @@ According to your options:
 Configures
 
 - Database <div class="further-info">done previously for some packaging</div>
+ - h2/derby <div class="further-info">For demo/testing/development only</div>
+ - postgres (recommanded in production)
+ - oracle (recommanded in production)
 - Smtp <div class="further-info">SMTP Configuration used by Nuxeo to send mails (notifications, etc ...) to users</div>
 - Proxy <div class="further-info">Nuxeo server may need to access to external services like Nuxeo Connect</div>
 - Connect
@@ -174,7 +175,7 @@ platform.
 ###Home tabs
 <div class="further-info">Users have a Home tab, that offers user-centric tabs</div>
 
-####User space
+####User-centric tabs that provide access to
 - Personal Dashboard
 - Profile
 - Local preferences
@@ -186,7 +187,7 @@ http://doc.nuxeo.com/x/ZIWo
 
 
 <section class="slide" id="Hometabsimg">
-###Home Tabs
+###Home Tab
 ![dashboard](img/DM-dashboard.png)
 </section>
 
@@ -257,6 +258,15 @@ Create your own document types !
 ![doc](img/whatisadoc.png)
 </section>
 
+<section class="slide" id="DMUI">
+### Nuxeo DM UI
+![Nuxeo DM UI](img/dm-ui.png)
+
+http://doc.nuxeo.com/x/X4Wo
+<div class="further-info">
+Current tab of the current document: the current document can be a folder (In Nuxeo, folders are documents)
+</div>
+</section>
 
 <section class="slide" id="create-a-document">
 ###Create a new document
@@ -286,19 +296,8 @@ Create your own document types !
 <section class="slide" >
 ###Create a document - Metadatas
 ![note-creation](img/note-text.png)
-
 </section>
 
-
-<section class="slide" id="DMUI">
-### Nuxeo DM UI
-![Nuxeo DM UI](img/dm-ui.png)
-
-http://doc.nuxeo.com/x/X4Wo
-<div class="further-info">
-Current tab of the current document: the current document can be a folder (In Nuxeo, folders are documents)
-</div>
-</section>
 
 <section class="slide" id="doctabs-summary">
 ###Content tab
@@ -369,12 +368,14 @@ pre-initialize a Workspace structure.
 - All "Folderish" documents
 - "Manage everything" right
 
-####Manage tab, Access rights
-![Access rights](img/access-rights-interface.png)
-
 http://doc.nuxeo.com/x/UYEk
 </section>
 
+<section class="slide" id="acl-DM">
+###Access Rights
+####Manage tab, Access rights
+![Access rights](img/access-rights-interface.png)
+</section>
 
 <section class="slide" id="acl2">
 ###Access Rights (2/3)
@@ -384,7 +385,9 @@ http://doc.nuxeo.com/x/UYEk
 - Manage Everything
 - Delete
 
-####Access Control Entry (ACE)
+<div class="further-info">Some permissions are composed of sub permissions. See http://explorer.nuxeo.org/nuxeo/site/distribution/current/viewExtensionPoint/org.nuxeo.ecm.core.security.SecurityService--permissions for existing permissions.</div>
+
+####Access Control Entry - ACE (3)
 - Triplet
   - Principal (user/group)
   - Permission
@@ -401,8 +404,8 @@ http://doc.nuxeo.com/x/UYEk
 ####Access Control Policy (ACP)
 List of ACL applied to a document
 
-- Inherited ACL
-- Local ACL
+- Inherited ACL (1)
+- Local ACL (2)
 
 #### Bloking inheritance
 Technically `Everyone - Deny - Everything` apply on the first ACE of the local ACL.
