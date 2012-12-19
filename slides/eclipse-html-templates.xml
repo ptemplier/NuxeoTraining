@@ -3,7 +3,10 @@
 &lt;img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon"&gt;
 ${cursor}      
-&lt;/section&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxfooter">
+&lt;/section&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxfooter">&lt;section class="slide" id="thank-you"&gt;
+##Thank you
+&lt;/section&gt;
+
   &lt;!-- deck.navigation snippet --&gt;
   &lt;a href="#" class="deck-prev-link" title="Previous"&gt;&amp;#8592;&lt;/a&gt;
   &lt;a href="#" class="deck-next-link" title="Next"&gt;&amp;#8594;&lt;/a&gt;
@@ -98,7 +101,11 @@ ${cursor}
   &lt;div class="nuxeo-logo"&gt;
     &lt;span class="nuxeo"&gt;nuxeo&lt;/span&gt; &lt;span class="slash"&gt;/&lt;/span&gt; &lt;span
       class="sub-part training"&gt;Trainings&lt;/span&gt;
-  &lt;/div&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxsection">&lt;section class="slide" id="${name}"&gt;
+  &lt;/div&gt;
+  
+&lt;section class="slide" id="title"&gt;
+#${name}
+&lt;/section&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nximgfloatright">&lt;img alt="${imgname}" src="img/${imgname}.png" class="float-right" /&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxsection">&lt;section class="slide" id="${name}"&gt;
 ###${cursor}
 &lt;/section&gt;</template><template autoinsert="true" context="html_all" deleted="false" description="" enabled="true" name="nxsplitbox">&lt;div class="split-box split-${75}"&gt;
 ${cursor}
