@@ -104,16 +104,17 @@ http://doc.nuxeo.com/display/NXDOC/NXQL
 <section class="slide" id="nxql-samples">
 ###NXQL Examples
 
-    SELECT * FROM Document WHERE ecm:mixinType = 'Versionable' AND ecm:mixinType <> 'Downloadable'
-    
-    SELECT * FROM Document WHERE ecm:parentId = '5442fff5-06f1-47c9-ac59-1e10ef8e985b'
-    
-    SELECT * FROM Document WHERE dc:coverage STARTSWITH 'foo/bar'
-    
-    SELECT * FROM Document WHERE dc:title = 'hello world 1' ORDER BY ecm:currentLifeCycleState
-    
-    SELECT * FROM Document WHERE ecm:fulltext_title = 'world'
+<pre><code>
+SELECT * FROM Document WHERE ecm:mixinType = 'Versionable' AND ecm:mixinType <> 'Downloadable'
 
+SELECT * FROM Document WHERE ecm:parentId = '5442fff5-06f1-47c9-ac59-1e10ef8e985b'
+
+SELECT * FROM Document WHERE dc:coverage STARTSWITH 'foo/bar'
+
+SELECT * FROM Document WHERE dc:title = 'hello world 1' ORDER BY ecm:currentLifeCycleState
+
+SELECT * FROM Document WHERE ecm:fulltext = 'world'
+</code></pre>
 </section>
 
 <section class="slide" id="content-view">
@@ -193,6 +194,26 @@ http://doc.nuxeo.com/display/NXDOC/NXQL
 <div class="further-info">Defines the NXQL query as well as the columns to display (Result layout). On the same type, ability to add as many tabs as required, just by giving a content view definition.</div>
 </section>
 
+<section class="slide" id="result-layout">
+###Result layout
+- Defines the result columns
+- Display fields with layout widgets
+- Ready to use widget types
+- Reusable: `Table Layout` (Listings & Views > Table Layouts)
+</section>
+
+<section class="slide" id="result-layout-screenshot">
+###Table layout in Studio
+![Table layout in Studio](img/contentview-tablelayout.png)
+</section>
+
+<section class="slide" id="result-layout-widgets">
+###Result layout useful widgets
+- Title with links
+- Icon and Document type
+- Vocabulary
+</section>
+
 <section class="slide" id="content-tab-screen">
 ###Content Tab
 
@@ -205,11 +226,11 @@ http://doc.nuxeo.com/display/NXDOC/NXQL
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ###Exercise Content view
-####Create a new Content View
-   - Use this CV for the default BookLibrary content tab listing
+####Create a new Content View `BookLibraryContentView`
+   - Setup the `BookLibrary` content tab to display this content view
    - Customize the query to get the children of the current document
    - Display the column in the result layout
-       - Doc type Icon, ISBN, Title (with link), Author, Creation date
+       - Doc type Icon, Title (with link), ISBN, Author, Creation date, Lifecycle state
 </section>
 
 
@@ -244,9 +265,9 @@ A content view !
       class="exercise-icon">
 ###Exercise Advanced Search
 - Create a custom search form
-    - Search through book:author (equals or contains)
-    - Search through the path (using STARTWITH)
-    - Search through creation time
+    - Search through book:author (using ILIKE operator)
+    - Search through the path (using STARTWITH operator)
+    - Search through creation time (using BETWEEN operator)
 </section>
 
 <section class="slide" id="thank-you">
