@@ -120,7 +120,8 @@ Demo2 - holiday management
 </section>
 
 <section class="slide" id="innuxeo">
-###Workflow usage in Nuxeo UI
+###Workflow usage in Nuxeo UIio
+
 ####Summary tab of a doc
   - choose a workflow and start it <img alt="workflow-summary-availables" src="img/workflow-summary-availables.png" class="float-right" />
   - currently started workflows
@@ -141,25 +142,17 @@ Demo2 - holiday management
  ![workflow-summary-task](img/workflow-summary-task.png)
 </section>
 
-<section class="slide" id="whatinstudio-whatindm">
-###Studio DM
-- In Studio
-  - defines the graphe and the model
-  
-  in Nuxeo DM
-</section>
-
 <section class="slide" id="customization-process">
-###Customization process
-####Step 1:  Workflow feature configuration in Nuxeo Studio
+###Nuxeo Studio versus Nuxeo CAP/DM
+#### In Studio, we define the graph and the model 
  - Creation of a new workflow feature
  - Graph design
  - Nodes configuration <div class="further-info">including forms and automation chains if required</div>
  
-####Step 2: Deployment on a Nuxeo instance of the Studio plugin.
-=> a workflow template ( model ) . Using this template we start a workflow instance on a document.
-
-Start the workflow from the UI using “Workflow Process” widget or using the StartWorkflow operation.
+#### In Nuxeo CAP/DM, we launch the workflows
+ - A workflow template ( model )
+ - Using this template we start a workflow instance on a document.
+ - Start the workflow from the UI using “Workflow Process” widget or using the StartWorkflow operation.
 </section>
 
 
@@ -171,7 +164,7 @@ Start the workflow from the UI using “Workflow Process” widget or using the 
 
 <section class="slide" id="templates">
 ###Workflow templates and instances
-TODO Ajouter Screen shot admin center
+<img alt="workflow-admincenter" src="img/workflow-admincenter.png" class="float-right" />
 
 Studio generates workflow configurations
 
@@ -254,7 +247,7 @@ Available nodes are only examples/samples
 ###Transitions
 <img alt="workflow-transition-arrow" src="img/workflow-transition-arrow.png" class="float-right" />
 
- - Name <div class="further-info">Name is only displayed in the graph, and used internally by the engine</div>
+ - Transition name <div class="further-info">Name is only displayed in the graph, and used internally by the engine</div>
  - Next routes that can take a workflow
  - From one node to another. point > arrow <div class="further-info">For every transition : an endpoint with the name of the transition, from which you will be able to pull the arrow to connect nodes</div>
  - Can execute automation chains <div class="further-info">The chain will be executed when the workflow engine goes into this transition</div>
@@ -271,10 +264,10 @@ Available nodes are only examples/samples
 - Create a simple workflow having only the Start and the Stop nodes
 - Make sure this workflow can be started only on documents of type File and only if the user has the Read and Write permissions on the current document
 - After deploying the workflow in Nuxeo go to the Workflow tab in Admin Center and check that your workflow model is there
-- Start the workflow from a file, the workflow should do nothing
+- Start the workflow from a `Book` document, the workflow should do nothing
 - Add a new node that
   - call a chain
-  - publish the document in a existing section */default-domain/sections/section1*
+  - publish the document in a existing section `/default-domain/sections/section1`
 </section>
 
 
@@ -360,15 +353,12 @@ Eg:
 ###Exercise - Simple task
 Create a simple workflow to validate the publishing of a document by Administrator
 
-- the document will be published at a predefined existing location ( manually go and create a section called “Public” in Sections, having the path “/default-domain/sections/Published”)
-- this workflow should be available only on the documents of type “File”
+- the document will be published at a predefined existing location ( manually go and create a section called *Public* in Sections, having the path `/default-domain/sections/Published`)
+- this workflow should be available only on the documents of type `Book`
 - the Administrator can either validate or reject the publication
-(use the predefined Accept/Reject task)
+(use the predefined `Accept/Reject` task)
 - the due date displayed for the Administrator should be the current date.
 </section>
-
-
-
 
 
 <section class="slide" id="variables-task-form">
@@ -468,16 +458,16 @@ We want to publish a document at a chosen location,
 but the publication must be validated by a chosen user (validator) in order to occur.
 If user reject the publication, the workflow initiator can choose another validator or cancel its request
 
-- this workflow should be available only on the documents of type `Book` and only if the current user is a member of “administrators” group
-- the first task of the workflow is assigned to the user who started the workflow.
+- This workflow should be available only on the documents of type `Book` and only if the current user is a member of *administrators* group
+- The first task of the workflow is assigned to the user who started the workflow.
   - This user has to choose here the validator and where he wants to publish the doc. use the widget `Single user suggestion`
   - Use `Single Document Suggestion` widget type  to choose the section, use the page provider `default_section_suggestion`
 - The chosen validator can approve the publication or reject ( use an  approve/reject task). ( in serial way) .
-  They both need to submit a “comment” when approving or rejecting the task ( mandatory).
+  They both need to submit a *comment* when approving or rejecting the task ( mandatory).
   They both need temporary access to the document being published ( assuming that they don't necessarily have them ).
   Also he need to know where the doc will be published ( but this info must be displayed in Read only).
   - notify the validator when a task was assigned to him ( only if you have a mail server configured ) 
-  - for the comment, use a NodeVariable called “comment”
+  - for the comment, use a NodeVariable called *comment*
 </section>
 
 <section class="slide" id="advanced-wf">
