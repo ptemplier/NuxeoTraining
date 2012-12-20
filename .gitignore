@@ -1,9 +1,8 @@
 # common stuff
-.classpath
-.project
 .settings
 .idea
 bin
+pojo-bin
 target
 *~
 *~bak
