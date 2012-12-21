@@ -89,6 +89,16 @@ public class TestBookDocument {
         assertNotNull(bookDoc.getPropertyValue("bk:borrowedBy"));
         assertEquals("borrowed",
                 session.getCurrentLifeCycleState(bookDoc.getRef()));
+        
+        ctx = new OperationContext();
+        ctx.setCoreSession(session);
+        ctx.setInput(bookDoc);
+        automationService.run(ctx, "bringBack");
+        
+        bookDoc = session.getDocument(bookDoc.getRef());
+        Assert.assertNull(bookDoc.getPropertyValue("bk:borrowedBy"));
+        assertEquals("InLibrary",
+                session.getCurrentLifeCycleState(bookDoc.getRef()));
 
     }
 
