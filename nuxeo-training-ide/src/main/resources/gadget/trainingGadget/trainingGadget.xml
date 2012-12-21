@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+  <ModulePrefs title="Nuxeo Training Gadget" description="Nuxeo Training Gadget"
+    author="stan" author_email="" height="200">
+    <Require feature="setprefs" />
+    <Require feature="dynamic-height" />
+    <Require feature="settitle" />
+    <#include "dynamic-translations.ftl"/>
+    <#include "default-oauth-prefs.ftl"/>
+  </ModulePrefs>
+  <#include "context-prefs.ftl"/>
+  <Content type="html">
+<![CDATA[
+<html>
+  <head>
+  <link rel="stylesheet" type="text/css" href="${clientSideBaseUrl}nxthemes-lib/gadget-common.css,gadget-documentlists.css,trainingGadget.css?path=${contextPath}&basepath=${contextPath}"/>
+
+  <!-- insert JS Context -->
+  ${jsContext}
+  <script src="${clientSideBaseUrl}nxthemes-lib/gadget-default-automation-request.js,gadget-default-documentlist-display.js,gadget-context-management.js,trainingGadget.js"></script>
+
+  </head>
+    <body>
+   	<div class="tools">
+		<#include "context-chooser-ui.ftl"/>
+   	</div>
+	<div id="content">
+		<#include "default-documentlist-layout.ftl"/>
+     	<#include "default-request-controls.ftl"/>
+   	</div>
+    </body>
+</html>
+]]>
+  </Content>
+</Module>

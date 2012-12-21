@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.gadgets.trainingGadget" version="1.0">
+
+  <require>org.nuxeo.theme.nuxeo.default</require>
+
+  <extension target="org.nuxeo.opensocial.gadgets.service" point="gadget">
+
+    <internalGadget name="trainingGadget" disabled="false">
+      <mountPoint>/trainingGadget</mountPoint>
+      <directory>trainingGadget</directory>
+      <entryPoint>trainingGadget.xml</entryPoint>
+      <category>Nuxeo</category>
+      <icon>trainingGadget.png</icon>
+    </internalGadget>
+
+  </extension>
+
+  <extension target="org.nuxeo.theme.services.ThemeService" point="resources">
+    <resource name="trainingGadget.css">
+      <path>trainingGadget/trainingGadget.css</path>
+    </resource>
+    <resource name="trainingGadget.js">
+      <path>trainingGadget/trainingGadget.js</path>
+    </resource>
+  </extension>
+</component>

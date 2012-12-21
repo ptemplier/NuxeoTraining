@@ -4,6 +4,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Bundle-Version: 5.6
 Bundle-Name: nuxeo-training-ide
+Nuxeo-Component: gadget/trainingGadget/gadgets-contrib.xml
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: nuxeo-training-ide
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
