@@ -547,34 +547,38 @@ public class TestDocType {
 ###Test that the studio component is loaded
 
  - Assert that the component is loaded
- - Fix your project registration if this is failling (see next page ?)     
+
+         assertNotNull(Framework.getRuntime().getComponent("studio.extensions.SunTraining_Nuxeo")); 
+
+ - Fix your project registration if this is failling (see next page ?)
+ - Add a log4j.xml file
  </section>
 
 
-  <section class="slide no-md exercise" id="fake-action-component">
-    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-    <h3>Fake action component</h3>
-    <p>
-      Studio component may not be loaded because of the
-      <code>&lt;require&gt;</code>
-      tags
-    </p>
-    <p>Just for the test</p>
-    <ul>
-      <li>In src/test/resources/OSGI-INF/fake-actions-component.xml
+<section class="slide exercise" id="fake-action-component">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
+###Fake action component
 
+Studio component may not be loaded because of the <code>&lt;require&gt;</code> tags
 
-        <pre>
-          <code>    &lt;component name="org.nuxeo.ecm.platform.actions" /&gt;</code>
-        </pre>
-      </li>
-      <li>In the test class <pre>
-          <code>@LocalDeploy("nuxeo-book-management:OSGI-INF/fake-actions-component.xml")</code>
-        </pre>
-      </li>
-    </ul>
-  </section>
+<pre><code>
+================================================
+= Component Loading Status: Pending: 2 / Unstarted: 0 / Total: 59
+  * service:studio.extensions.SunTraining_Nuxeo requires [service:org.nuxeo.ecm.platform.actions]
+  * service:org.nuxeo.gadgets.trainingGadget requires [service:org.nuxeo.theme.nuxeo.default]
+================================================
+</code></pre>
+
+Just for the test
+
+ - In *src/test/resources/OSGI-INF/fake-actions-component.xml*
+
+<pre><code>&lt;component name="org.nuxeo.ecm.platform.actions" /&gt;</code></pre>
+
+ - In the test class
+ 
+<pre><code>@LocalDeploy("nuxeo-book-management:OSGI-INF/fake-actions-component.xml")</code></pre>
+</section>
 
   <section class="slide no-md exercise" id="starting-sample">
     <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
