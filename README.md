@@ -10,7 +10,7 @@ Contains materials done during official Nuxeo Trainings
 You must have git.
 From the command line go in a Folder where you want to store the slides.
 
-    git clone git@github.com:nuxeo/NuxeoTraining.git
+    git clone https://github.com/nuxeo/NuxeoTraining.git
     cd NuxeoTraining
     git submodule init
     git submodule update
