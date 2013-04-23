@@ -56,13 +56,15 @@ Nuxeo Training - Installation Workshop and Introduction to Nuxeo DM
 
   </section>
 
+
+    
 <section class="slide" id="installation-workshop">
 ##Installation workshop http://doc.nuxeo.com/x/lYWo
 </section>
   
   <section class="slide" id="downloads">
 ### Downloads
-- Nuxeo Website: [http://www.nuxeo.com/en/downloads](http://www.nuxeo.com/en/downloads)
+####Nuxeo Website [http://www.nuxeo.com/en/downloads](http://www.nuxeo.com/en/downloads)
 - Windows installer <div class="further-info">Based on Tomcat, it also installs a JVM, OpenOffice.org and ImageMagick if necessary</div>
 - Debian or Ubuntu <div class="further-info">Based on Tomcat, it also installs dependencies and adds an init script</div>
 - Multi-platform package <div class="further-info">A zipped Nuxeo server based on Tomcat, all in the same folder</div>
@@ -101,9 +103,7 @@ According to your options:
   - `bin/nuxeoctl.bat` will launch the GUI
   - `nuxeoctl.bat console --no-gui` <div class="further-info">to launch Nuxeo without the Gui</div>
 </section>
-<section class="slide" id="access">
-## [http://localhost:8080](http://localhost:8080)
-</section>
+
 
 <section class="slide" id="test">
 ###First start: install wizard
@@ -118,40 +118,22 @@ Configures
 - Connect
 - Main Nuxeo Addons
 </section>
-
-
-<section class="slide no-md" id="mainaddons">
- <h3>Main Nuxeo Addons</h3>
-<div class="text-and-illus slide">
-<img src="img/cap.png" class="float-left max-size-100" />
-#####Nuxeo CAP / Nuxeo EP
-Content Application Platform designed to be extended and customized to develop effective business applications
-</div>
-
-<div class="text-and-illus slide">
-<img src="img/dm.png" class="float-right max-size-100">
-#####Nuxeo DM
-Collaborative Document Management Solution to help you manage your business content efficiently
-</div>
-
-<div class="text-and-illus slide">
-<img src="img/dam.png" class="float-left max-size-100">
-#####Nuxeo DAM
-Make the best of your media assets. A solution to streamline digital asset management tasks
-</div>
-
-<div class="text-and-illus slide">
-<img src="img/cmf.png" class="float-right max-size-100">
-#####Nuxeo SC
-Inspired by the best elements of the social network
-experience, the Social Collaboration module adds an interactive,
-team-oriented dimension to the Nuxeo Content Management
-platform.
-</div>
+    
+<section class="slide exercise" id="exercise-install">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+- Download Nuxeo 5.6 from the http://www.nuxeo.com website
+- Start the installation, including filling the registration form 
+    - id/password will be useful for using Nuxeo Studio
+- Install Nuxeo DM
+- (Optional) install OpenOffice or LibreOffice + pdftohtml, then restart Nuxeo
+    - See http://doc.nuxeo.com/x/zgJc
+- Connect to
+    -[http://localhost:8080](http://localhost:8080)
 </section>
-
-
-<section class="slide" id="Nuxeo-demo">
+    
+<section class="slide" id="Nuxeo-tour">
 ##Nuxeo DM 5.6 Functional tour http://doc.nuxeo.com/x/-ISo
 </section>
 
@@ -243,13 +225,10 @@ http://doc.nuxeo.com/x/bYao
 - Typed metadatas (string, date, content, complex types, ...)
 
 ####An instance of a Document type (File, Note, Module, Lesson, Invoice, Contract, …)
-- Define a set of metadatas
-- Has a specific lifecycle (Draft, Valid, Archived)
-- Can be Versionable
-- Can be Folderish <div class="further-info">Any folder in Nuxeo is a document and contains documents + metadatas </div>
-- Can be locked by a user
-
-Create your own document types !
+- Is defined by XSD schemas
+- Has a specific lifecycle (ie Draft->Valid->Archived)
+- Can be inherited (Module extends Folder)
+- Has facets (Folderish, Versionable, Commentable, ...)
 </section>
 
 
