@@ -145,10 +145,12 @@ Extension point inspired by Equinox project (OSGI impl used in Eclipse)
     <code>
 &lt;extension target=&quot;org.nuxeo.ecm.platform.actions.ActionService&quot;
  point=&quot;actions&quot;&gt;
-   &lt;action id=&quot;logout&quot;
-        link=&quot;#{loginLogoutAction.logout}&quot;  
+   &lt;action id=&quot;non_anonymous_logout&quot;
+        link=&quot;logout&quot;
+        order=&quot;100&quot;  
         label=&quot;command.logout&quot;&gt;  
-        &lt;category&gt;USER_SERVICES&lt;/category&gt;
+        &lt;category&gt;USER_MENU_ACTIONS&lt;/category&gt;
+        &lt;filter-id&gt;not_anonymous&lt;/filter-id&gt;
    &lt;/action&gt;
 &lt;/extension&gt;</code>
   </pre>
