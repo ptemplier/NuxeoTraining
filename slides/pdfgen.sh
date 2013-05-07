@@ -1,27 +1,36 @@
 #!/bin/bash
 
-# This script only works on linux and is aim to generate the PDF slides from our deck.js slides
+# This script is aim to generate the PDF slides from our deck.js slides. It's working on Linux and Mac OSX
+ARCH=$(uname -m)
+SNAME=$(uname -s)
+PHANTOMJS_VERSION=1.9.0
 
-rm target -rf
+rm -rf target
 mkdir target
 mkdir target/pdfs
 mkdir target/printable-pdfs
-arch=$(uname -m)
 
-if [ "$arch" == 'x86_64' ]
-then
+if [ "$SNAME" == "Darwin" ]; then
+    echo "### downloading phantomjs for OSX"
+    TARGET=phantomjs-$PHANTOMJS_VERSION-macosx
+    FILE=$TARGET.zip
+    CMD=unzip
+elif [ "$ARCH" == 'x86_64' ]; then
     echo "### downloading phantomjs for 64bits"
-    wget http://phantomjs.googlecode.com/files/phantomjs-1.7.0-linux-x86_64.tar.bz2
-    tar -jxvf phantomjs-1.7.0-linux-x86_64.tar.bz2
-    mv phantomjs-1.7.0-linux-x86_64 target/phantomjs
-    rm phantomjs-1.7.0-linux-x86_64.tar.bz2
+    TARGET=phantomjs-$PHANTOMJS_VERSION-linux-x86_64
+    FILE=$TARGET.tar.bz2
+    CMD=tar -jxvf
 else
     echo "### downloading phantomjs for 32bits"
-    wget http://phantomjs.googlecode.com/files/phantomjs-1.7.0-linux-i686.tar.bz2
-    tar -jxvf phantomjs-1.7.0-linux-i686.tar.bz2
-    mv phantomjs-1.7.0-linux-i686 target/phantomjs
-    rm phantomjs-1.7.0-linux-i686.tar.bz2
+    TARGET=phantomjs-$PHANTOMJS_VERSION-linux-i686
+    FILE=$TARGET.tar.bz2
+    CMD=tar -jxvf
 fi
+
+wget http://phantomjs.googlecode.com/files/$FILE
+$CMD $FILE
+mv $TARGET target/phantomjs
+rm $FILE
 
 echo "### copy deck2pdf next to phantomjs"
 cp deck2pdf/*.js target/phantomjs/bin
