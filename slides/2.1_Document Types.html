@@ -198,8 +198,6 @@ Reusable only for the document type
     -   uid
     -   file
     -   files
-
-See <code>nxserver/schemas</code>
 </section>
 
 
@@ -235,8 +233,8 @@ See <code>nxserver/schemas</code>
 - Added to a document or a document type
 - Tell the framework : «this document can support such behavior»
 - Can come with schemas
-- <code>Commentable</code>, <code>Versionable</code>, <code>Downloadable</code>, <code>Publishable</code>, ...
-- Example: The tab <code>Publishing</code> only display with the facet <code>Publishable</code>
+- <code>Folderish</code>, <code>Commentable</code>, <code>Versionable</code>, <code>Publishable</code>, ...
+- Example: The tab <code>Publishing</code> appears only with the facet <code>Publishable</code>
 - Facets are inherited <div class="further-info">when a document type inherits from another one</div>
 </section>
 
@@ -261,8 +259,9 @@ See <code>nxserver/schemas</code>
   - A <code>rating</code> (int)
 
 - Define a new <code>Book</code> document type. Keep the default settings but
+  - Extends: Document
   - the label: Book
-  - the icons: [files/book.png](files/book.png) and [files/book_100.png](files/book_100.png)
+  - the icons: <code>files/book.png / files/book_100.png</code> [github.com/nuxeo/nuxeo-sample-project](http://github.com/nuxeo/nuxeo-sample-project)
   - the category: <code>Document</code>
   - the additional schemas: <code>book</code>
 </section>
@@ -297,7 +296,7 @@ The field we have setted are not display nor editable yet. We'll do it in the ne
 <section class="slide" id="next">
 ###Next ?
 - Back to the [training agenda](0_Introduction.html#day-1)
-- Next chapter: Layouts (forms and view)
+- Next chapter: [Layouts (forms and view)](2.2_Layouts.html)
 </section>
 
   <!-- deck.navigation snippet -->

@@ -94,7 +94,7 @@ Ensure long-term maintenance of your application
 - A jar file with the configuration <div class="further-info">Studio delivers a jar file (a Nuxeo plugin) that holds all the intended configuration</div>
 - No compiled code, XML only <div class="further-info">Studio only produces XML, it is a pure configuration tool</div>
 - Sources in the jar <div class="further-info">Sources of what produces Studio are in the Jar given by Studio</div>
-- Development tools integration <div class="further-info">Maven and Continuous integration, Nuxeo IDE</div>
+- Development tools integration (Maven and Nuxeo IDE)
 </section>
 
 <section class="slide" id="online-tool-2">
@@ -111,7 +111,6 @@ Ensure long-term maintenance of your application
 - Document types and forms configuration
 - Content views and search features
 - Lifecycle, workflows, automation, notifications
-- Rendering
 - Roles, permissions, users and groups
 - Ability to import pre-built Application Templates
 </section>
@@ -145,14 +144,12 @@ From Nuxeo Admin center, hot-reloads Nuxeo Studio configuration
 - Configure your connect account on your Nuxeo DM instance: Admin Center -> Nuxeo Connect
 
 #### Studio
-1. Connect to your Nuxeo Studio Account, either with Direct Access URL or from Nuxeo DM (User Administrators > Admin center > Update Center > Studio > Go to Nuxeo Studio link)
-2. Browse the pre-imported project (Default File, Domain, Workspace document type.)
-3. Deploy your studio project on DM (Admin Center -> Update Center -> Nuxeo Studio -> Update)
-4. Check that your project is correctly deployed (you’ll see new columns name, etc...)
-5. From Studio, Delete the orange message on the creation form of a File document, as well as the column added in the listing layout of a Workspace
-6. Re-deploy your modifications and check it disappeared : congrats ! You did your first configuration cycle
-7. Unimport the DM Default Tempalte, and delete objects that were not automatically unimported
-8. Go to Settings and Versionning > Versionning, create a tag called «empty project»: goal will be to be able to switch back to an empty project at anytime of your project
+ * Connect to your Nuxeo Studio Account, either with Direct Access URL or from Nuxeo DM (User Administrators > Admin center > Update Center > Studio > Go to Nuxeo Studio link)
+ * Browse the pre-imported project (Default File, Domain, Workspace document type.)
+ * Deploy your studio project on DM (Admin Center -> Update Center -> Nuxeo Studio -> Update)
+ * Check that your project is correctly deployed (you’ll see new columns name, etc...)
+ * Unimport the DM Default Template, and delete objects that were not automatically unimported
+ * Go to Settings and Versionning > Versionning, create a tag called «empty project»: goal will be to be able to switch back to an empty project at anytime of your project
 </section>
 
 

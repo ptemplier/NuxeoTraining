@@ -61,7 +61,7 @@ Nuxeo Training - Installation Workshop and Introduction to Nuxeo DM
 <section class="slide" id="installation-workshop">
 ##Installation workshop http://doc.nuxeo.com/x/lYWo
 </section>
-  
+
   <section class="slide" id="downloads">
 ### Downloads
 ####Nuxeo Website [http://www.nuxeo.com/en/downloads](http://www.nuxeo.com/en/downloads)
@@ -123,14 +123,15 @@ Configures
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ###Exercise
-- Download Nuxeo 5.6 from the http://www.nuxeo.com website
-- Start the installation, including filling the registration form 
-    - id/password will be useful for using Nuxeo Studio
-- Install Nuxeo DM
-- (Optional) install OpenOffice or LibreOffice + pdftohtml, then restart Nuxeo
-    - See http://doc.nuxeo.com/x/zgJc
+- Download Nuxeo SDK from http://community.nuxeo.com/static/releases website
+- Start Nuxeo: nuxeoctl start
 - Connect to
     -[http://localhost:8080](http://localhost:8080)
+- Complete the wizard, including filling the registration form on Connect 
+    - id/password will be useful for using Nuxeo Studio
+- Install Nuxeo DM module
+- (Optional) install OpenOffice or LibreOffice + pdftohtml, then restart Nuxeo
+    - See http://doc.nuxeo.com/x/zgJc
 </section>
     
 <section class="slide" id="Nuxeo-tour">
@@ -230,7 +231,7 @@ http://doc.nuxeo.com/x/bYao
 - Typed metadatas (string, date, content, complex types, ...)
 
 ####An instance of a Document type (File, Note, Module, Lesson, Invoice, Contract, …)
-- Is defined by XSD schemas
+- Is defined by a set of metadata grouped by schema
 - Has a specific lifecycle (ie Draft->Valid->Archived)
 - Can be inherited (Module extends Folder)
 - Has facets (Folderish, Versionable, Commentable, ...)
@@ -367,9 +368,9 @@ http://doc.nuxeo.com/x/UYEk
 ###Access Rights (2/3)
 ####Default permissions
 - Read
-- Write
+- Delete (+ Read)
+- Write (+ Delete + Read)
 - Manage Everything
-- Delete
 
 <div class="further-info">Some permissions are composed of sub permissions. See http://explorer.nuxeo.org/nuxeo/site/distribution/current/viewExtensionPoint/org.nuxeo.ecm.core.security.SecurityService--permissions for existing permissions.</div>
 
@@ -527,7 +528,7 @@ http://doc.nuxeo.com/x/MoEk
 <section class="slide" id="next">
 ###Next ?
 - Back to the [training agenda](0_Introduction.html#day-1)
-- Next chapter: Nuxeo Technical overview
+- Next chapter: [Base concepts](1.2_BaseConcepts.html)
 </section>
 
   <!-- deck.navigation snippet -->
