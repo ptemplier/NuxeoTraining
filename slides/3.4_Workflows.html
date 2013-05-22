@@ -53,7 +53,7 @@
 Nuxeo Training - Workflows
 ================
 
-######See documentation http://doc.nuxeo.com/x/mYSo
+######See documentation http://doc.nuxeo.com/x/IwGw
 </section>
 
 <section class="slide" id="agenda">
@@ -63,9 +63,9 @@ Nuxeo Training - Workflows
     - Customization cycle
     - Workflow usage in Nuxeo UI
 - Concepts
-  - Node and transitions
+  - Nodes and transitions
   - Tasks
-  - Forms and variable
+  - Forms and variables
   - Advanced usage
 </section>
 
@@ -371,12 +371,12 @@ Nodes and transitions
     - all the transitions having the corresponding condition evaluated to “true” are executed
     - you have access at all the workflow context variables ( including Node and Workflow variables)
     - the default condition related to a task button is 
-<code>NodeVariables"button" ==”idOfTheClickedBtn”</code>
+<code>NodeVariables["button"] == ”idOfTheClickedBtn”</code>
 - Fork
     - Ex. Two transitions having the condition evaluated to “true” = Fork two branches
 - Conditional nodes 
-    - Ex. On a node having two transition,the conditions could be simply:
-<code>WorkflowVariables["status"] == "done" and WorkflowVariables["status"] != "done" </code>
+    - Ex. On a node having two transitions, the conditions could be :
+<code>WorkflowVariables["status"] == "done"</code> and <code>WorkflowVariables["status"] != "done" </code>
  </section>
 
     
@@ -388,12 +388,11 @@ Nodes and transitions
 First we will create an empty workflow
 
 - Create a simple workflow having only the Start and the Stop nodes (mandatory nodes)
-- Make sure this workflow can be started only on documents of type File and only if the user has the Read and Write permissions on the current document
+- Make sure this workflow can be started only on documents of type `Book` and only if the user has the Read and Write permissions on the current document
 - After deploying the workflow in Nuxeo go to the Workflow tab in Admin Center and check that your workflow model is there
 - Start the workflow from a `Book` document, the workflow should do nothing
 - Add a new node that
-  - call a chain
-  - publish the document in a existing section `/default-domain/sections/section1`
+  - call an automation chain publishing the document in a existing section `/default-domain/sections/section1`
 </section>
 
 
@@ -407,14 +406,14 @@ Tasks
 ###A special Node: Task
      
 ####When the system requires a user intervention to resume the workflow
-- Give some information through a form and click on a button 
+- Gives some information through a form and click on a button 
      - Accept/Reject
      - confirm
      - notify
      - transform etc.
          
 - Can have one or multiple assignees
-- Wait for an assignee action before going into a transition
+- Waits for an assignee action before going into a transition
 - Can set a form to be filled by the assignee
 - Can bind user actions to transitions to take
 - The form set values to
@@ -502,13 +501,13 @@ Eg:
         - If you need the user to set/see some workflow or node variables 
             - just drag and drop them on the form
             - the engine will automatically save them when the form is submitted 
-            - you can use these them later
+            - you can use them later
 </section>
  <section class="slide" id="task-config-buttons">
 ###Task Configuration
 ####Form tab: Buttons
      
-- Configure the buttons to be displayed for submitting the task form
+- Configures the buttons to be displayed for submitting the task form
 - Buttons can be linked to transitions with <code>NodeVariable["Button"] == "buttonId"</code> 
      
 <img alt="workflow-task-form" src="img/workflow-task-buttons.png" class="float-center" />
@@ -520,7 +519,7 @@ Eg:
 - Filter
     - Filter to hide or display the button on some conditions
     - Work only starting from 5.7. (an action filter)
-- Generate the condition for transition 
+- Generates the condition for transition 
     - checked by default when you add a line
     - helper so that a transition corresponding to the button is automatically declared on the Transitions tab
 </section>
@@ -546,19 +545,20 @@ Workflow Variables
 ---------------------------------
 </section>
 <section class="slide" id="workflow-variables">
-###Workflow variables
+###Variables in workflows
     
 ####2 types of variables
-- Nodes variables (defined on a node and accessible on the node scope)
+- Node variables
+    - Defined on a node and accessible on the node scope
 
-- Workflow variable
+- Workflow variables
     - Defined at workflow level, accessible from any node
     - Shared within the whole instance of the workflow
     - Available in the automation context <code>WorkflowVariables["wfVariableName"]</code>
-    - Can be use in the *Compute additional assignees* of a task
+    - Can be used in the *Compute additional assignees* of a task
     - Accessible in the task layouts
     - Available from notification templates
-    - Has a type: string, float, blob etc.
+    - Have a type: string, float, blob etc.
     - Can be a date picked up in a calendar, a file, a constrained value etc.
     
 </section>
@@ -566,15 +566,15 @@ Workflow Variables
 
 <section class="slide" id="built-variables">
 ###Built-in Variables
-####Available to be used in
+####Available in
 
-- chains run on the nodes (Input chain, output chain, transition chains)  
-- when expression the condition for a transition
-- Additional Task Assignees ( if the expression is resolved to a user or group)
-- Due date expression  ( if the expression is resolved to a date)
+- chains launched within the nodes (Input chain, output chain, transition chains)  
+- the condition of a transition
+- additional task assignees (if the expression is resolved to a user or group)
+- due date expression (if the expression is resolved to a date)
 
 ####List of built-in variables
-- *WorkflowVariables* and *NodeVariables*  ( hashmaps), used like this: NodeVariables[“myNodeVar”]
+- *WorkflowVariables* and *NodeVariables*  (hashmaps), used like this: NodeVariables[“myNodeVar”]
 - *workflowInitiator*
 - *workflowStartTime* 
     - Time when the workflow was started

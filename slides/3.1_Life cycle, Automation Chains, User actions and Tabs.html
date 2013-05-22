@@ -48,6 +48,9 @@
       class="sub-part training">Trainings</span>
   </div>
 
+<section class="slide">
+#Nuxeo Training - Life cycle, Automation, Tabs
+</section>
 
 <section class="slide" id="wherewego">
 ###Life cycle, Automation, Tabs. What we want to do
@@ -62,7 +65,7 @@
 <img alt="tabs-book" src="img/tabs-book.png" class="float-right" />
 
 - Add a new tab for Book document with
-  - the list of books or the same author
+  - the list of books of the same author
   - the actions borrow or bringback
   - the state of the document
   - a toggleable layout to view and edit the book metadatas
@@ -137,9 +140,9 @@ Lifecycle type XP documentation  http://explorer.nuxeo.org/nuxeo/site/distributi
 
 <section class="slide" id="trash-folder">
 ### Note: The trash folder
-The <code>deleted</code> state and the <code>delete</code> transition are used to have the «trash» feature on the document whatever the lifecycle is.
+The <code>deleted</code> state and the transitions <code>delete</code> and <code>undelete</code> are used to have the «trash» feature on the document whatever lifecycle policy used in the document type.
 
-If you want to activate the trash feature on a document type that uses a custom lifecycle, you must add those state and transition in the custom lifecycle
+If you want to activate the trash feature on a document type that uses a custom lifecycle policy, you must add those state and transitions in it.
 </section>
 
 <section class="slide" id="exercice---life-cycle">
@@ -153,11 +156,11 @@ If you want to activate the trash feature on a document type that uses a custom 
 ####Create a new lifecycle policy called BookLifeCycle
 - the initial state « InLibrary »
 - Create another state « borrowed »
-- Create two transition : « borrow » and « backToLibrary »
+- Create two transitions : « borrow » and « backToLibrary »
 - Apply this lifecycle to your document type Book
 - Check the initial state by creating a new Book
 
-We'll create the action to change the life cycle after
+We'll create the action to change the life cycle later
 </section>
 
 <section class="slide"
@@ -187,9 +190,9 @@ Unitary and reusable operators that implement a particular documentary function,
 
 #### Accepted input and output
 - Document
-- List of Document
+- List of Documents
 - Blob
-- List of Blob
+- List of Blobs
 - void
 </section>
 
@@ -197,8 +200,8 @@ Unitary and reusable operators that implement a particular documentary function,
 ### Example: Follow transition
 ####For instance, the "Follow Life Cycle transition"
 - Name: <code>Document.SetLifeCycle</code>
-- Input: Documents,Document
-- Output: Documents,Document
+- Input: Documents, Document
+- Output: Documents, Document
 - Parameter: <code>Transition</code> the name of the transition to follow
 - Process:
    - follow the transition in parameter to the input document
@@ -212,7 +215,7 @@ Chains operations
 - Build business logic by chaining
   - Output should fit the next operation input</li>
   - Studio checks operation inputs and outputs</li>
-- launched from user actions, events or REST</li>
+- launched from user actions, events, REST calls and workflows</li>
 </section>
 
 <section class="slide" id="automation-chain">
@@ -230,7 +233,7 @@ Chains operations
 - Respecting input and output of operations
 - Sharing a context in the whole chain, with variables
 - Some chains are aware of the UI context, some are not.
-- The chain takes as input the UI Current Document or the document bound to the Event Handler (see after)
+- The chain takes as input the UI Current Document or the document bound to the Event Handler (more later)
 
 </section>
 
@@ -285,8 +288,8 @@ Chains operations
 </section>  
 
 <section class="slide" id="useful-operation">
-###Useful operation
-- Document > Create: create a document right below the input one
+###Useful operations
+- Document > Create: creates a document right below the input one
 - Document > Update Property, Document Update Properties
 - Document > Move
 - Document > Copy, Document > Publish Document
@@ -364,16 +367,15 @@ Collection of useful helpers <div class="further-info">available in automation p
 ###Exercise User actions and automation
 Add a button to change the lifecycle state to "borrowed" and update a new field "Borrowed by" with the name of the current user
 
-- Add a new metadata to your book named « borrowedBy » only
-      visible (can't modify)
+- Add a new metadata to your book named « borrowedBy ». Not editable in UI
   - Update your schema
   - Update your layout
   - Use the `Single user/group suggestion` widget
      
 -  Create a new automation chain that
-  - Fetch the current document
-  - Follow the lifecycle transition « borrow »
-  - automatically fill the new field « borrowedBy » with the current
+  - fetches the current document
+  - follows the lifecycle transition « borrow »
+  - automatically fills the new field « borrowedBy » with the current
           user name
 - Create an action linked to the chain that is visible for
       Book document with a « InLibrary » state
@@ -383,13 +385,13 @@ Add a button to change the lifecycle state to "borrowed" and update a new field 
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ###Exercise: Something more difficult ? (optional)
-- Add a new field to your book named « borrowedAt » (Date), you need to filled it during the previous operation and must appear to be in read only and not visible when creating a Book.
+- Add a new field to your book named « borrowedAt » (Date), you need to fill it during the previous operation and must appear to be in read only and not visible when creating a Book.
 - Add a new state named « revived » on our life cycle
 - Create a new operation chain that :
-  - Fetch documents that have been borrowed 3 months ago
-          (30 sec in our case …)
-  - Set books state as revived.
-  - Send an email to all borrowers to get back the book 
+  - fetches documents that have been borrowed 3 months ago
+          (30 sec in our case …),
+  - sets books state as revived,
+  - sends an email to borrower to get the book back  
 </section>
 
 
@@ -426,7 +428,7 @@ Tab Designer
 
 - Can insert widgets such as:
   - Content views
-  - Toggleble layouts
+  - Toggleable layouts
   - actions from a category
   - metadata fields
 
@@ -447,16 +449,16 @@ Tab Designer
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Exercise Tabs
-#### For the BookLibrary type, define a new "Borrowed"" tab that will show all the borrowed Books
+#### For the BookLibrary type, define a new "Borrowed" tab that will show all the borrowed Books
 - Create a new content view that will display the children "borrowed" Books of the current document
-- BookLibrary doctype > Tabs > Content views, add a new Tab that display the created content view
+- BookLibrary doctype > Tabs > Content views, add a new Tab that displays the created content view
 
-#### Add a new tab (Tab Designer) to the Book document that will shows
+#### Add a new tab (Tab Designer) to the Book document that will show
 - The content views with all the book from the same author
-- a toggable layout for the bookLayout
-- the workflow widgets (for the next module)
+- a toggleable layout for the bookLayout
+- the workflow widget (for the next module)
 
-Remove the *Summary* and *Edit* tab from the Book type
+Remove the *Summary* and *Edit* tabs from the Book type
 </section>
 
 
