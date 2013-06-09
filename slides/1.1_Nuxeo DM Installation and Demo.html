@@ -123,6 +123,7 @@ Configures
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ###Exercise
+####Nuxeo platform installation
 - Download Nuxeo SDK from http://community.nuxeo.com/static/releases website
 - Start Nuxeo: nuxeoctl start
 - Connect to
@@ -138,8 +139,6 @@ Configures
 ##Nuxeo DM 5.6 Functional tour http://doc.nuxeo.com/x/-ISo
 </section>
 
-
-
 <section class="slide" id="Nuxeo-demo">
 ###Nuxeo DM Main tabs
 ####Main tabs
@@ -152,13 +151,20 @@ Configures
 - Collaboration
 </section>
 
+<section class="slide" id="DocumentManagement">
+## Home tab
+</section>
 
+<section class="slide" id="Hometabsimg">
+###Home tab
+![dashboard](img/DM-dashboard.png)
+</section>
 
 <section class="slide" id="home">
-###Home tabs
-<div class="further-info">Users have a Home tab, that offers user-centric tabs</div>
+###Home tab
+<div class="further-info">Users have a Home tab, that offers user-centric information</div>
 
-####User-centric tabs that provide access to
+####User-centric tab that provides access to
 - Personal Dashboard
 - Profile
 - Local preferences
@@ -168,79 +174,12 @@ Configures
 http://doc.nuxeo.com/x/ZIWo
 </section>
 
-
-<section class="slide" id="Hometabsimg">
-###Home Tab
-![dashboard](img/DM-dashboard.png)
-</section>
-
-
-<section class="slide" >
-###Admin Center Tabs
-![Admin center sysinfo](img/Admin-Center-sysinfo.png)
-</section>
-
-
-<section class="slide" id="admincenter">
-###Admin Center Tab
-    
-####Provides administratives services
-    
-- Server and application usage summary information 
-    - System information tab provides information about the server the Nuxeo Platform is installed on, about your instance configuration
-    - Activity enables administrators to have information and statistics on the application
-
-- Access to upgrades, patches, the Nuxeo Marketplace, and Nuxeo Studio projects
-    
-    - Nuxeo Connect enables you to connect your Nuxeo instance with your Nuxeo Connect account 
-    - Update Center provides all the updates you can need (updates and patches, Nuxeo Marketplace packages, direct access to your Nuxeo Studio packages, local packages)
-- Monitoring 
-    - Monitoring enables administrators to monitor some technical information and display messages to users
-- Application exploitation     
-    - Users & Groups  enables administrators to create, edit, delete users and groups of users
-    - Vocabularies enables administrators to customize and adapt the values displayed in lists in the application.
-    - Themes gives administrators access to Nuxeo Themes, that enables them to create new themes for the application.
-</section>
-
-
-
-<section class="slide" id="admincenter2">
-###Admin Center Tab
-
-#### DM tabs
-- OAuth/OpenSocial enables administrators to manage the authentication with other applications using OAuth protocol and to add new gadgets
-- Dashboards enables administrators to define the dashboard displayed by default to users and to add new gadgets
-
-#### Social Collaboration tabs
-- Social Collaboration enables administrators to manage the creation of new social workspaces
-    
-http://doc.nuxeo.com/x/bYao
-</section>
-
-
-
 <section class="slide" id="DocumentManagement">
-## Document Management Tab
+## Document management tab
 </section>
 
-
-<section class="slide" id="whatisadocument">
-###What is a document ?
-####Not just a « file ».
-- Set of metadatas (Title, Creation date, File, ...)
-- Typed metadatas (string, date, content, complex types, ...)
-
-####An instance of a Document type (File, Note, Module, Lesson, Invoice, Contract, …)
-- Is defined by a set of metadata grouped by schema
-- Has a specific lifecycle (ie Draft->Valid->Archived)
-- Can be inherited (Module extends Folder)
-- Has facets (Folderish, Versionable, Commentable, ...)
-</section>
-
-
-<section class="slide" id="whatisadoc">
-###What is a document ?
-![doc](img/whatisadoc.png)
+<section class="slide" id="DocumentManagement-structure-navigation">
+## Document management tab - Structure and navigation
 </section>
 
 <section class="slide" id="DMUI">
@@ -253,76 +192,6 @@ Current tab of the current document: the current document can be a folder (In Nu
 </div>
 </section>
 
-<section class="slide" id="create-a-document">
-###Create a new document
- - `New document`
- - Select the document type 
-    - The list of available document types depends on the container document type
-
-![Available doc types](img/available-documents-workspace.png)
-</section>
-
-
-<section class="slide" >
-###Main doc types
- - File, document with an attached file
- - Note, document with a rich text
- - Workspace, a folder where we can create
- - Folder, a limited folder used to organize documents inside a workspace
- 
- ####More ...
- - Picture
- - Picture book
- - Website
- - etc
- 
- http://doc.nuxeo.com/x/TIWo
-</section>
-
-<section class="slide" >
-###Create a document - Metadatas
-![note-creation](img/note-text.png)
-</section>
-
-
-<section class="slide" id="doctabs-summary">
-###Content tab
-- "Folderish" documents
-- Children documents
-
-![content tab](img/DM-ordered-folder-content-updated.png)
-</section>
-
-<section class="slide" id="doctabs-summary">
-###Document Summary tab
-
-Non "Folderish" documents
-
-####A summary view of the document
-
-- Main document metadatas and content
-- Special properties
-  - Version
-  - Life cycle state
-  - Contributors (actually metadata)
-  - Tags
-  - Comments
-  - Tasks
-  - etc ...
-</section>
-
-<section class="slide">
-### Document Summary tab
-![Note summary](img/note.png)
-</section>
-
-
-<section class="slide">
-###Document Edit tab
-####Edit the metadatas of the document
-![Edit tab](img/workspace_edit_form.png)
-</section>
-
 <section class="slide" id="dm-domains">
 ###DM Domain
 
@@ -332,7 +201,6 @@ Non "Folderish" documents
     - For instance, you can have an "intranet" domain and an "extranet" domain
 - Domains are can be totally independent or not, depending on the access rights you set on each domain.
 - Nuxeo Documentation  http://doc.nuxeo.com/x/XoWo
-
 </section>
 
 <section class="slide" id="DMDomain">
@@ -348,108 +216,186 @@ To publish content
 pre-initialize a Workspace structure.
 </section>
 
-<section class="slide" id="acl">
-###Access Rights (1/3)
+<section class="slide" id="doctabs-summary">
+###Viewing a list of documents - Content tab
+- Available only for "Folderish" documents
+- Shows children documents
 
-####Available for
-- All "Folderish" documents
-- "Manage everything" right
-
-http://doc.nuxeo.com/x/UYEk
+![content tab](img/DM-ordered-folder-content-updated.png)
 </section>
 
-<section class="slide" id="acl-DM">
-###Access Rights
-####Manage tab, Access rights
-![Access rights](img/access-rights-interface.png)
+<section class="slide" id="doctabs-summary-img">
+###Viewing a single document - Document summary tab
+![Note summary](img/note.png)
 </section>
 
-<section class="slide" id="acl2">
-###Access Rights (2/3)
-####Default permissions
-- Read
-- Delete (+ Read)
-- Write (+ Delete + Read)
-- Manage Everything
+<section class="slide" id="doctabs-summary">
+###Document summary tab
 
-<div class="further-info">Some permissions are composed of sub permissions. See http://explorer.nuxeo.org/nuxeo/site/distribution/current/viewExtensionPoint/org.nuxeo.ecm.core.security.SecurityService--permissions for existing permissions.</div>
+Non "Folderish" documents
 
-####Access Control Entry - ACE (3)
-- Triplet
-  - Principal (user/group)
-  - Permission
-  - Grant/Deny
-- For instance: `members - Read - grant`
+####A summary view of the document
+
+- Main document metadatas and content
+- Special properties
+  - Version
+  - Life cycle state
+  - Contributors
+  - Tags
+  - Comments
+  - Tasks
+  - etc ...
 </section>
 
-<section class="slide" id="acl3">
-###Access Rights (3/3)
-####Acces Control List (ACL)
-- List of ACE
-- ACEs on the top overrided by the bottom ones
+<section class="slide" id="DocumentManagement-doc-creation">
+## Document management tab - Document concept and creation
+</section>
 
-####Access Control Policy (ACP)
-List of ACL applied to a document
+<section class="slide" id="whatisadoc-img">
+###What is a document ?
+![doc](img/whatisadoc.png)
+</section>
 
-- Inherited ACL (1)
-- Local ACL (2)
+<section class="slide" id="whatisadoc-explanations">
+###What is a document ?
+####Not just a « file ».
+- Set of metadatas (Title, Creation date, File, ...)
+- Typed metadatas (string, date, content, complex types, ...)
 
-#### Bloking inheritance
-Technically `Everyone - Deny - Everything` apply on the first ACE of the local ACL.
+####An instance of a Document type (File, Note, Module, Lesson, Invoice, Contract, …)
+- Is defined by a set of metadata grouped by schema
+- Has a specific lifecycle (ie Draft->Valid->Archived)
+- Can be inherited (Module extends Folder)
+- Has facets (Folderish, Versionable, Commentable, ...)
+</section>
+
+<section class="slide" id="create-a-document">
+###Creating a new document manually - Step 1/3
+ - `New document`
+ - Select the document type 
+    - The list of available document types depends on the container document type
+
+![Available doc types](img/available-documents-workspace.png)
+</section>
+
+<section class="slide" >
+###Creating a new document manually  - Step 2/3 - Choosing a doc type
+#### Main doc types
+ - File, document with an attached file
+ - Note, document with a rich text
+ - Workspace, a folder where users can collaborate
+ - Folder, a limited folder used to organize documents inside a workspace
+ 
+#### More ...
+ - Picture
+ - Picture book
+ - Website
+ - etc
+ 
+ http://doc.nuxeo.com/x/TIWo
+</section>
+
+<section class="slide" >
+###Creating a document manually - Step 3/3 - Filling metadata
+![note-creation](img/note-text.png)
+</section>
+
+<section class="slide" id="upload-a-document">
+###Creating a document automatically - Step 1/1 - Using drag and drop / Import
+ - `Import a file` or drag and drop your file(s)
+ ![doc import 001](img/docimport001.png)
+ - Let Nuxeo handle the metadata filling or do it manually
+ ![doc import 002](img/docimport002.png)
+</section>
+
+<section class="slide exercise" id="exercise-doc-creation">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+#### Navigation and document creation
+- Create three sections:
+    - Press releases
+    - Internal memos
+    - Product release notes
+- Create a workspace:
+    - Communication service
+- Create a document manually into the "Communication service" workspace:
+    - Type: Note
+    - Name: Signature memo
+    - Description: Reminder about email signature update
+    - Note: 
+    
+    Please update your email signature before the end of the month. Add the following line:
+    A major update regarding our products will take place soon. Please visit our website (our website should link to www.nuxeo.com) for more information.
+- Import the press release provided by your trainer (nuxeo-drive-press-release odt file) into the "Communication service" workspace.
+</section>
+
+<section class="slide" id="DocumentManagement-doc-edition">
+## Document management tab - Document edition
+</section>
+
+<section class="slide">
+###Editing a document - Document edit tab
+####Edit the metadatas of the document
+![Edit tab](img/workspace_edit_form.png)
+</section>
+
+<section class="slide" id="DocumentManagement-doc-versioning">
+## Document management tab - Document versioning
 </section>
 
 <section class="slide" id="versioning">
-###Versioning
-####Don't want to copy and rename
+###Versioning a document
+####Avoids copying and renaming
 
 - On Edit tab while saving
-
     - Skip version increment
     - Increment minor version
     - Increment major version
 
 - Versions available
-
     - History tab, Archived versions
     - View versions
     - Restore
-    - Compare (With the nuxeo-diff addon) 
-
+    - Compare (With the nuxeo-diff addon)
 </section>
 
+<section class="slide" id="versioning-img">
+###Versioning a document
+#### Edit tab: version change
+![versioning 001](img/versioning001.png)
+#### History tab: retrieve and restore versions
+![versioning 002](img/versioning002.png)
+</section>
 
-
+<section class="slide" id="DocumentManagement-doc-publication">
+## Document management tab - Document publication
+</section>
 
 <section class="slide" id="publication">
-###Publication
-#### Document published
- - from workspaces (Publish tab of a document)
- - into Sections
+###Publishing a document - Document publish tab
+#### Concepts
+ - Documents are meant to be published when a document version is good enough to be released
+ - Published documents cannot be modified
+ - Documents are published into sections 
 ![publication](img/publishing-tab.png)
- 
-#### Access Right policy example:
- - Section: `Read` to external people
- - Workspaces: `Read` and `Write` to internal members 
 </section>
 
 <section class="slide" id="publication-2">
-###Behind the publication mechanism
-#### Document publication
+###Publishing a document - Behind the publication mechanism
+#### Publishing a document
 
-- Version of the document created
-- `proxy` document created
-    - A proxy is a document that reflect the pointed document. (Like a pointer in C language)
-
-    - The proxy points to the versionned document in a Section
+- Creates a version of the document if necessary
+- Creates a `proxy` document into the selected section
+    - A proxy is like a shortcut that points to the versioned document
 </section>
 
 <section class="slide" id="publication-wf">
-###Publication Workflow
+###Publishing a document - Publication workflow
 #### Built-in publishing workflow
 
 - User with only Read permission on the Section needs approval from section manager to validate the publishing 
 - User with the Write permission on the Section will publish without approval
-
 - Permission for ability to publish managed from the section
 
 #### Publishing targets 
@@ -458,19 +404,34 @@ Technically `Everyone - Deny - Everything` apply on the first ACE of the local A
 ![Publication workflow](img/publishing-rights.png)
 </section>
 
+<section class="slide exercise" id="exercise-doc-versioning">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+#### Document versioning and publishing
+- Define the target publishing sections for the communication service workspace:
+    - Press releases
+    - Internal memos
+- Edit the internal memo:
+    - Replace "end of the month" by "end of the week" 
+    - Increment its version number (minor increment)
+    - Save your work
+- Publish the internal memo into the internal memos section. Check that you <strong>can't</strong> publish the document into the "Product release notes".
+- Publish the press release into the press releases section. What can you see ?
+</section>
+
+<section class="slide" id="DocumentManagement-doc-search">
+## Document management tab - Document search
+</section>
+
 <section class="slide" id="advanced-search">
 ###Searching the Nuxeo Platform
-
-####Full text query engine
-    
-- Designed to recognize all the specific parameters the application provides
-- Documents are indexed using their title, description, content (note field, attached files), and metadata.
-
 #### Several ways to search the content of the application
 - Simple search, can be accessed from any site page
 - Advanced search
 - Faceted search (Document Management module only)
 - Search form can be customized in Studio
+- Search results are displayed depending on user rights
 
 ![Advanced search link](img/search-box.png)
 ![Advanced search form](img/DM-advanced_search_filter.png)
@@ -491,7 +452,6 @@ Technically `Everyone - Deny - Everything` apply on the first ACE of the local A
  
 - Faceted search is available on the Document Management module of the Platform, on the left hand side of the page
 
-
 http://doc.nuxeo.com/x/YIEk
 </section>
 
@@ -506,19 +466,115 @@ http://doc.nuxeo.com/x/YIEk
   - Optimized for searching
 </section>
 
+<section class="slide" id="DocumentManagement-doc-other-services">
+## Document management tab - Other services
+</section>
+
 <section class="slide" id="otherservices">
 ###Other document services
 - Comments
 - Annotations
 - Tags
-- Doc history
 - Alerts
 - Workflows
 - Forums
 - Pictures
-- Email folders
+- Export
 
 http://doc.nuxeo.com/x/MoEk
+</section>
+
+<section class="slide" id="AdminCenterTab">
+## Admin center tab
+</section>
+
+<section class="slide" >
+###Admin center tab
+![Admin center sysinfo](img/Admin-Center-sysinfo.png)
+</section>
+
+<section class="slide" id="admincenter">
+###Admin center tab
+    
+####Provides administratives services
+    
+- Server and application usage summary information 
+    - System information tab provides information about the server and your instance configuration
+    - Setup tab provides configuration information and ability to update it easily
+    - Activity menu to retrieve information and statistics about the application
+    - Monitoring menu to monitor some technical information and display messages to users
+
+- Access to upgrades, patches, the Nuxeo Marketplace, and Nuxeo Studio projects
+    - Nuxeo Connect to direct link your Nuxeo instance with your Nuxeo Connect account 
+    - Update Center provides all the updates you may need (updates and patches, Nuxeo Marketplace packages, direct access to your Nuxeo Studio packages, local packages)
+    
+- Application exploitation and customization
+    - Users & Groups to create, edit, delete users and user groups
+    - Vocabularies to customize and adapt the values displayed in lists in the application.
+    - Themes to customize the application presentation.
+    - OAuth/OpenSocial enables administrators to manage the authentication with other applications using OAuth protocol and to add new gadgets
+    - Dashboards enables administrators to define the dashboard displayed by default to users and to add new gadgets
+    
+    http://doc.nuxeo.com/x/bYao
+</section>
+
+<section class="slide" id="DocumentManagement-acl">
+## Document management tab - Access rights management
+</section>
+
+<section class="slide" id="acl">
+###Access rights
+####Are available
+- On all "Folderish" documents
+- For users being granted the "Manage everything" right
+- Using the "Manage" tab, "Access rights" subtab
+
+####Concepts
+- Access rights are inherited from their parent structure (1)
+- Local rights can be granted or denied to override inherited permissions (2 & 3)
+- Inheritance can be blocked for specific rights to be defined on a structure more easily (1)
+
+http://doc.nuxeo.com/x/UYEk
+</section>
+
+<section class="slide" id="acl-DM">
+###Access rights
+![Access rights](img/access-rights-interface.png)
+</section>
+
+<section class="slide" id="acl2">
+###Access rights
+####Default permissions
+- Read
+- Version (manage versioning + Read)
+- Write (+ Delete + Read)
+- Remove (usually denied to users having write permission to avoid them deleting documents)
+- Manage Everything
+
+####Default user groups
+- Members: includes everyone, have read access by default
+- Power users: functional admins; can create users and groups, vocabulary entries
+- Administrators: can manage everything
+
+####Access rights priority
+- Local rights have the prority over inherited rights
+- Granted rights have priority over denied rights
+
+<div class="further-info">Some permissions are composed of sub permissions. See http://explorer.nuxeo.org/nuxeo/site/distribution/current/viewExtensionPoint/org.nuxeo.ecm.core.security.SecurityService--permissions for existing permissions.</div>
+</section>
+
+<section class="slide exercise" id="exercise-access-rights">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+#### Access rights
+- Create a "communication service" user group
+- Create three users: Barbara, Jenny and Lucy
+- Assign these users to the "communication service" user group
+- Block rights inheritance on the communication service workspace
+- Give Barbara, Jenny and Lucy write access on the "communication service" workspace
+- Deny Barbara and Jenny the right to remove on the "communication service" workspace
+- Will Barbara and Jenny have the possibility to publish a document from this workspace ? And Lucy ?
 </section>
 
 <section class="slide" id="thank-you">
