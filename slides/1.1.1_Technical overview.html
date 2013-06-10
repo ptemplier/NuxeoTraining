@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Nuxeo DM Installation and Demo</title>
+
+<meta name="description"
+  content="Nuxeo - Technical overview">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+
+  <section class="slide" id="nuxeo-techincal-overview-opening-slide">
+Nuxeo - Technical overview
+=======================
+  </section>
+    
+<section class="slide" id="doc-links">
+###Complete documentation available on doc.nuxeo.com
+- <a href="http://doc.nuxeo.com/x/9IWo" target="_blank">Technical documentation center</a>
+- <a href="http://doc.nuxeo.com/x/lYWo" target="_blank">Installation and Administration</a>
+</section>
+
+<section class="slide" id="core-technologies">
+###Core technologies
+- Based on Java standards: POJO, OSGI, JCA, JTA, JAX-RS, KSF, etc
+- Can run in any Servlet container, Java EE Application server, bare JVM or OSGI container, typically: Tomcat, JBoss, Jetty
+- OSGi-based Bundle and Component system
+    - Highly dynamic plugin model
+    - Great pluggability through extension points
+- Many open source frameworks / libraries : JBoss Seam / Hibernate / Apache commons
+- Content oriented APIs : Webdav, CMIS (Apache Chemistry), WSS (MS Windows Sharepoint Services)
+</section>
+
+<section class="slide" id="global-architecture">
+###Global architecture
+![3-layer-architecture](img/3-layer-architecture.png)
+</section>
+
+<section class="slide" id="inside-nuxeo">
+###Inside Nuxeo
+![nuxeo-layers](img/nuxeo-layers.png)
+</section>
+
+<section class="slide" id="extension-points">
+###Extension points
+- Extension points are used:
+    - To configure services and components (XML contributions)
+    - To extend services and components (Java code or scripting)
+    - To dynamically bind components together
+- Nuxeo Platform uses extension points everywhere
+    - Almost every service exposes extension points
+    - Makes configuration easy (no need to touch the source code)
+    - Allows « clean » contributions easy to maintain (XML)
+    - Allows the use of Nuxeo Studio!
+</section>
+
+<section class="slide" id="what-we-code-in-nuxeo">
+###What we code in Nuxeo
+- Contribution to extension points (XML)
+    
+  => Nuxeo Studio can help you
+
+- Event handlers
+
+  => Studio can help you
+
+- Components that expose extension points (XML / JAVA)
+
+  => Nuxeo IDE can help you
+
+-  Event listeners
+
+  => Nuxeo IDE can help you
+
+- Seam components / XHTML templates
+
+  => Nuxeo IDE can help you
+</section>
+
+<section class="slide" id="nuxeo-clients">
+###Nuxeo Clients
+![nuxeo-clients](img/nuxeo-clients.png)
+</section>
+
+<section class="slide" id="inside-nuxeo-tomcat-server">
+###Inside a Nuxeo Tomcat distribution
+![inside-nuxeo-tomcat-server](img/inside-nuxeo-tomcat-server.png)
+</section>
+
+<section class="slide" id="configuration-nuxeo-conf">
+###Configuration: nuxeo.conf
+- The `nuxeo.conf` file contains several properties to configure many things
+- Editable directly with a text editor or from the Admin center.
+- Property modification needs a restart
+- Startup wizard sets values in it
+- See <a href="http://doc.nuxeo.com/x/woWo" target="_blank">online documentation</a> about the existing properties
+</section>
+
+<section class="slide" id="configuration-templates">
+###Configuration templates
+- Goal: complete a « physical » separation between customer set up and the core product so as to make the product upgrade as simple as replacing a file
+- The custom configuration can be done using only the `nuxeo.conf` file and additional configuration files in a custom template
+- See <a href="http://doc.nuxeo.com/x/wIWo" target="_blank">online documentation</a> about it
+</section>
+
+<section class="slide" id="vcs-storage">
+###VCS : storing information in a relational database
+- A schema in Nuxeo is mapped to a table in the database (= clean SQL mapping)
+- A DBA can easily query, dump, run statistics on the database in the usual way
+- Multiple database vendors support: PostgreSQL, Oracle, MySQL, MS SQL Server, h2, derby
+- A DBA can set up additional indexes (this is fine tuning, not needed in common use cases)
+- Migration, updates, ... should be very simple
+- See <a href="http://doc.nuxeo.com/x/Doao" target="_blank">online documentation</a> about it
+</section>
+
+<section class="slide" id="backup-restore">
+###Backup / Restore
+- Hot backup supported
+- Backup = Database snapshot then file system backup and server configuration
+</section>
+
+<section class="slide" id="importing-data">
+###Importing data into Nuxeo
+- CMIS, WebDAV, WSS, Nuxeo Drive
+- RestAPI
+    - Simple POST
+    - Drag&Drop via browser if HTML5 supported
+- Batch import framework (nuxeo-platform-importer)
+    - Manages all technical details: transaction management, batch size, logging, …
+    - A lot of examples available
+- Low level SQL batch insert (fastest, but must know what you are doing)
+</section>
+
+<section class="slide" id="importing-data">
+###Maintenance: install the hotfixes
+- From the Admin Center > Update Center > Nuxeo software updates, with the mouse!
+- Read the information, respect dependencies required by the system
+- Follow the Jira link to know all the details about what the hotfix fixes
+- How bugs are identified between two hotfixes?
+   - Nuxeo internal testing
+   - Customers having Silver, Gold or Platinium support that can ask for fixing of a given bug
+   - Community testing
+</section>
+
+<section class="slide exercise" id="exercise-install-hotfixes">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+- Install the latest hotfix for Nuxeo 5.6
+    - From the Admin Center
+    - With `nuxeoctl mp-hotfix`
+- Find where the `nuxeo.conf` file is on your machine (for Windows users you can have a look at this <a href="http://doc.nuxeo.com/pages/viewpage.action?pageId=3345719" target="_blank">page</a>)
+</section>
+
+<section class="slide" id="next">
+###Next?
+- Back to the [Training agenda](0_Introduction.html#day-1)
+- Next chapter: [Base concepts](1.2_BaseConcepts.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>
