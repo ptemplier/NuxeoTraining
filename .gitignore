@@ -1,5 +1,6 @@
 # common stuff
 .settings
+.project
 .idea
 bin
 pojo-bin
