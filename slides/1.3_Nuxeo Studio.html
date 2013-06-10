@@ -89,8 +89,8 @@ Ensure long-term maintenance of your application
 <section class="slide" id="online-tools-1">
 ###Nuxeo Studio - Online tool (1/2)
 - On Connect portal
-- http://connect.nuxeo.com/nuxeo/site/studio/ide
-- 30 days Free trial <div class="further-info">you can ask more to a Nuxeo Sales Rep</div>
+- Direct access <a href="http://connect.nuxeo.com/nuxeo/site/studio/ide" target="_blank">URL</a>
+- 30 days free trial <div class="further-info">you can ask more to a Nuxeo Sales Rep</div>
 - A jar file with the configuration <div class="further-info">Studio delivers a jar file (a Nuxeo plugin) that holds all the intended configuration</div>
 - No compiled code, XML only <div class="further-info">Studio only produces XML, it is a pure configuration tool</div>
 - Sources in the jar <div class="further-info">Sources of what produces Studio are in the Jar given by Studio</div>
@@ -118,8 +118,8 @@ Ensure long-term maintenance of your application
 <section class="slide" id="behind-the-magic">
 ###Nuxeo and Studio - behind the magic
 - Nuxeo platform: modular with plugins and the extension point mechanism <div class="further-info">Nuxeo Platform, uses the pattern of exension points. That means that each time Nuxeo developper wants to implement a feature that can be configured by other developpers when being used, they code a «hook» in the middle of the feature. A hook in the code is a sort of «indirection».  The framework, when finding a reference to a hook in the code, reads the name of the hook, and fetches in the «extension library» what values were contributed for this given hook. Then the implementation code of the feature will leverage those values to do what expected. </div>
-- Without Studio, xml extension points contribution <div class="further-info">When an external developer wants to adapt a Nuxeo EP based solution, he has to contribute to the Extensions library. The Nuxeo EP framework allows to contribute to this extensions library through XML files packaged as plugins in jars (java packaging format) files.</div>
-- Existing extensions http://explorer.nuxeo.org/nuxeo/site/distribution/current/listExtensionPoints <div class="further-info">There are hundreds of them.</div>
+- Without Studio, XML extension point contributions <div class="further-info">When an external developer wants to adapt a Nuxeo EP based solution, he has to contribute to the Extensions library. The Nuxeo EP framework allows to contribute to this extensions library through XML files packaged as plugins in jars (java packaging format) files.</div>
+- Existing <a href="http://explorer.nuxeo.org/nuxeo/site/distribution/current/listExtensionPoints" target="_blank">extensions</a> <div class="further-info">There are hundreds of them.</div>
 - Meta-model on top of extensions  <div class="further-info">Studio is a meta-model on top of extensions, which are more unitary. For instance, when configuring a document type in Studio,   behind the scene, Studio will generate multiple extensions: for core type declaration, forms, lifecycle, ... To see what extensions Studio generates, you can go to  Settings and Versioning>Project Settings > Manifest and load the extensions.xml file.</div>
 </section>
 
@@ -139,9 +139,8 @@ From Nuxeo Admin center, hot-reloads Nuxeo Studio configuration
       class="exercise-icon">
 ###First Studio Exercise
 #### Connect
-- Create a trial account and access Nuxeo
-    Studio [https://connect.nuxeo.com/nuxeo/site/connect/trial/form](https://connect.nuxeo.com/nuxeo/site/connect/trial/form)
-- Configure your connect account on your Nuxeo DM instance: Admin Center -> Nuxeo Connect
+- Create a <a href="https://connect.nuxeo.com/nuxeo/site/connect/trial/form" target="_blank">trial account</a> and access Nuxeo Studio
+- Configure your Nuxeo Connect account on your Nuxeo instance: Admin Center > Nuxeo Connect
 
 #### Studio
  * Connect to your Nuxeo Studio Account, either with Direct Access URL or from Nuxeo DM (User Administrators > Admin center > Update Center > Studio > Go to Nuxeo Studio link)
