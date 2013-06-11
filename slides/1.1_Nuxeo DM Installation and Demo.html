@@ -111,8 +111,8 @@ Configures
 
 - Database <div class="further-info">done previously for some packaging</div>
  - h2/derby <div class="further-info">For demo/testing/development only</div>
- - postgres (recommanded in production)
- - oracle (recommanded in production)
+ - postgres (recommended for production)
+ - oracle (recommended for production)
 - Smtp <div class="further-info">SMTP Configuration used by Nuxeo to send mails (notifications, etc ...) to users</div>
 - Proxy <div class="further-info">Nuxeo server may need to access to external services like Nuxeo Connect</div>
 - Connect
@@ -165,10 +165,10 @@ Configures
 <div class="further-info">Users have a Home tab, that offers user-centric information</div>
 
 ####User-centric tab that provides access to
-- Personal Dashboard
+- Personal dashboard
 - Profile
 - Local preferences
-- Subscribed Notifications
+- Subscribed notifications
 - etc ...
 
 http://doc.nuxeo.com/x/ZIWo
@@ -195,30 +195,31 @@ Current tab of the current document: the current document can be a folder (In Nu
 <section class="slide" id="dm-domains">
 ###DM Domain
 
-- Sections, workspaces and templates are grouped in domains
+- `Sections`, `workspaces` and `templates` are grouped in `domains`
 - A domain can be considered as a mini-application in Nuxeo or a root in the application.
 - Typically you can use domains to open the application to two or more very different populations of users
     - For instance, you can have an "intranet" domain and an "extranet" domain
 - Domains are can be totally independent or not, depending on the access rights you set on each domain.
-- Nuxeo Documentation  http://doc.nuxeo.com/x/XoWo
+
+    http://doc.nuxeo.com/x/XoWo
 </section>
 
 <section class="slide" id="DMDomain">
 ### DM Domain default structure
 <img class="float-right" alt="domain" src="img/domain.png">
 ####Workspaces
-A Workspace is for a group of users that work together, usually preferences (security, notifications) are set on Workspaces
+A workspace is for a group of users that work together, usually preferences (security, notifications) are set on workspaces
 ####Folders
-Inside a Workspace, to organize content
+Inside a workspace, to organize content
 #### Sections
 To publish content
 ####Templates
-pre-initialize a Workspace structure.
+Pre-initialize a workspace structure.
 </section>
 
 <section class="slide" id="doctabs-summary">
 ###Viewing a list of documents - Content tab
-- Available only for "Folderish" documents
+- Available only for `Folderish` documents
 - Shows children documents
 
 ![content tab](img/DM-ordered-folder-content-updated.png)
@@ -232,11 +233,11 @@ pre-initialize a Workspace structure.
 <section class="slide" id="doctabs-summary">
 ###Document summary tab
 
-Non "Folderish" documents
+- Available only for non `Folderish` documents
 
-####A summary view of the document
+####Displays a summary view of the document
 
-- Main document metadatas and content
+- Main document metadata and content
 - Special properties
   - Version
   - Life cycle state
@@ -259,14 +260,13 @@ Non "Folderish" documents
 <section class="slide" id="whatisadoc-explanations">
 ###What is a document ?
 ####Not just a « file ».
-- Set of metadatas (Title, Creation date, File, ...)
-- Typed metadatas (string, date, content, complex types, ...)
-
-####An instance of a Document type (File, Note, Module, Lesson, Invoice, Contract, …)
-- Is defined by a set of metadata grouped by schema
-- Has a specific lifecycle (ie Draft->Valid->Archived)
-- Can be inherited (Module extends Folder)
-- Has facets (Folderish, Versionable, Commentable, ...)
+####An instance of a Document type (File, Note, Folder, Invoice, Contract…)
+- Is defined by a set of information called `metadata`
+    - Metadata can be filled automatically (creation date, name of the file…) or manually (description, subject...)
+    - Metadata is grouped into `schemas`. A document can have many different schemas, and schemas can be shared between document types.
+- Has a specific `lifecycle` (ie Draft->Valid->Archived)
+- Has `facets` defining its behavior and what you can do with it (Folderish, Versionable, Commentable...)
+- Can inherit facets and schemas from another document type (eg: Module extends Folder)
 </section>
 
 <section class="slide" id="create-a-document">
@@ -281,18 +281,18 @@ Non "Folderish" documents
 <section class="slide" >
 ###Creating a new document manually  - Step 2/3 - Choosing a doc type
 #### Main doc types
- - File, document with an attached file
- - Note, document with a rich text
- - Workspace, a folder where users can collaborate
- - Folder, a limited folder used to organize documents inside a workspace
+ - `File`, document with an attached file
+ - `Note`, document with a rich text
+ - `Workspace`, a folder where users can collaborate
+ - `Folder`, a limited folder used to organize documents inside a workspace
  
 #### More ...
- - Picture
- - Picture book
- - Website
+ - `Picture`
+ - `Picture book`
+ - `Website`
  - etc
  
- http://doc.nuxeo.com/x/TIWo
+    http://doc.nuxeo.com/x/TIWo
 </section>
 
 <section class="slide" >
@@ -323,10 +323,8 @@ Non "Folderish" documents
     - Type: Note
     - Name: Signature memo
     - Description: Reminder about email signature update
-    - Note: 
-    
-    Please update your email signature before the end of the month. Add the following line:
-    A major update regarding our products will take place soon. Please visit our website (our website should link to www.nuxeo.com) for more information.
+    - Note: <em>Please update your email signature before the end of the month by adding the following line:
+    A major update regarding our products will take place soon. Visit our website (our website should link to www.nuxeo.com) for more information.</em>
 - Import the press release provided by your trainer (nuxeo-drive-press-release odt file) into the "Communication service" workspace.
 </section>
 
@@ -336,7 +334,7 @@ Non "Folderish" documents
 
 <section class="slide">
 ###Editing a document - Document edit tab
-####Edit the metadatas of the document
+####Edit the metadata of the document
 ![Edit tab](img/workspace_edit_form.png)
 </section>
 
@@ -396,8 +394,8 @@ Non "Folderish" documents
 ###Publishing a document - Document publish tab
 #### Concepts
  - Documents are meant to be published when a document version is good enough to be released
- - Published documents cannot be modified
  - Documents are published into sections 
+ - Documents located into sections cannot be modified
 ![publication](img/publishing-tab.png)
 </section>
 
@@ -416,10 +414,10 @@ Non "Folderish" documents
 
 - User with only Read permission on the Section needs approval from section manager to validate the publishing 
 - User with the Write permission on the Section will publish without approval
-- Permission for ability to publish managed from the section
+- Permission for ability to publish is managed from the section
 
 #### Publishing targets 
-- Preferences of publishing targets managed from the workspace in the Manage tab
+- Preferences of publishing targets are managed from the workspace in the `Manage` tab
  
 ![Publication workflow](img/publishing-rights.png)
 </section>
@@ -434,10 +432,10 @@ Non "Folderish" documents
     - Internal memos
 - Edit the internal memo:
     - Replace "end of the month" by "end of the week" 
-    - Increment its version number (minor increment)
+    - Skip the version increase.
     - Save your work
-- Publish the internal memo into the internal memos section. Check that you <strong>can't</strong> publish the document into the "Product release notes".
-- Publish the press release into the press releases section. What can you see ?
+- Publish the press release into the press releases section. Check that you <strong>can't</strong> publish the document into the "Product release notes".
+- Publish the internal memo into the internal memos section. What can you see ?
 </section>
 
 <section class="slide" id="DocumentManagement-doc-search">
@@ -479,7 +477,7 @@ http://doc.nuxeo.com/x/YIEk
 ###Fulltext search
 <img alt="Full text Search" src="img/search-box.png" class="float-right"/>
     
-- Any text metadatas indexed
+- Any text metadata indexed
 - Office, pdf, text, html files are full-text indexed <div class="further-info">thanks to a text extraction from the document itself</div>
 - Relies on the database (Oracle, Postgres or MSSQL Server) full text capabilities
   - Linguistic support <div class="further-info">Searching for the word "satisfies", will match the documents containing "satisfy"</div>
@@ -501,7 +499,7 @@ http://doc.nuxeo.com/x/YIEk
 - Pictures
 - Export
 
-http://doc.nuxeo.com/x/MoEk
+    http://doc.nuxeo.com/x/MoEk
 </section>
 
 <section class="slide" id="AdminCenterTab">
@@ -513,27 +511,30 @@ http://doc.nuxeo.com/x/MoEk
 ![Admin center sysinfo](img/Admin-Center-sysinfo.png)
 </section>
 
-<section class="slide" id="admincenter">
+<section class="slide" id="admincenter-usage">
 ###Admin center tab
-    
-####Provides administratives services
-    
-- Server and application usage summary information 
-    - System information tab provides information about the server and your instance configuration
-    - Setup tab provides configuration information and ability to update it easily
-    - Activity menu to retrieve information and statistics about the application
-    - Monitoring menu to monitor some technical information and display messages to users
+#### Retrieve server and application usage summary information 
+- System information tab provides information about the server and your instance configuration
+- Setup tab provides configuration information and ability to update it easily
+- Activity menu to retrieve information and statistics about the application
+- Monitoring menu to monitor some technical information and display messages to users
+</section>
 
-- Access to upgrades, patches, the Nuxeo Marketplace, and Nuxeo Studio projects
-    - Nuxeo Connect to direct link your Nuxeo instance with your Nuxeo Connect account 
-    - Update Center provides all the updates you may need (updates and patches, Nuxeo Marketplace packages, direct access to your Nuxeo Studio packages, local packages)
-    
-- Application exploitation and customization
-    - Users & Groups to create, edit, delete users and user groups
-    - Vocabularies to customize and adapt the values displayed in lists in the application.
-    - Themes to customize the application presentation.
-    - OAuth/OpenSocial enables administrators to manage the authentication with other applications using OAuth protocol and to add new gadgets
-    - Dashboards enables administrators to define the dashboard displayed by default to users and to add new gadgets
+<section class="slide" id="admincenter-updates">
+###Admin center tab
+#### Grants you access to upgrades, patches, the Nuxeo Marketplace, and Nuxeo Studio projects
+- Nuxeo Connect to direct link your Nuxeo instance with your Nuxeo Connect account 
+- Update Center provides all the updates you may need (updates and patches, Nuxeo Marketplace packages, direct access to your Nuxeo Studio packages, local packages)
+</section>
+
+<section class="slide" id="admincenter-customization">
+###Admin center tab
+#### Provides application exploitation and customization
+- Users & Groups to create, edit, delete users and user groups
+- Vocabularies to customize and adapt the values displayed in lists in the application.
+- Themes to customize the application presentation.
+- OAuth/OpenSocial enables administrators to manage the authentication with other applications using OAuth protocol and to add new gadgets
+- Dashboards enables administrators to define the dashboard displayed by default to users and to add new gadgets
     
     http://doc.nuxeo.com/x/bYao
 </section>
@@ -545,14 +546,14 @@ http://doc.nuxeo.com/x/MoEk
 <section class="slide" id="acl">
 ###Access rights
 ####Are available
-- On all "Folderish" documents
-- For users being granted the "Manage everything" right
-- Using the "Manage" tab, "Access rights" subtab
+- On all `Folderish` documents
+- For users being granted the `Manage everything` right
+- Using the `Manage` tab, `Access rights` subtab
 
 ####Concepts
-- Access rights are inherited from their parent structure (1)
+- Access rights are inherited from their parent document (1)
 - Local rights can be granted or denied to override inherited permissions (2 & 3)
-- Inheritance can be blocked for specific rights to be defined on a structure more easily (1)
+- Inheritance can be blocked for specific rights to be defined on a document more easily (1)
 
 http://doc.nuxeo.com/x/UYEk
 </section>
@@ -592,7 +593,7 @@ http://doc.nuxeo.com/x/UYEk
 - Create three users: Barbara, Jenny and Lucy
 - Assign these users to the "communication service" user group
 - Block rights inheritance on the communication service workspace
-- Give Barbara, Jenny and Lucy write access on the "communication service" workspace
+- Grant write access to the "communication service" user group on the "communication service" workspace
 - Deny Barbara and Jenny the right to remove on the "communication service" workspace
 - Will Barbara and Jenny have the possibility to publish a document from this workspace ? And Lucy ?
 </section>
