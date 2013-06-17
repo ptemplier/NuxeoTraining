@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Nuxeo DM Installation and Demo</title>
+<title>Nuxeo Training - Nuxeo technical overview - advanced</title>
 
 <meta name="description"
   content="Nuxeo - Technical overview">
@@ -51,71 +51,17 @@
 
 
   <section class="slide" id="nuxeo-techincal-overview-opening-slide">
-Nuxeo - Technical overview
+Nuxeo - Technical overview - Advanced
 =======================
   </section>
-    
-<section class="slide" id="doc-links">
-###Complete documentation available on doc.nuxeo.com
-- <a href="http://doc.nuxeo.com/x/9IWo" target="_blank">Technical documentation center</a>
-- <a href="http://doc.nuxeo.com/x/lYWo" target="_blank">Installation and Administration</a>
-</section>
 
-<section class="slide" id="core-technologies">
-###Core technologies
-- Based on Java standards: POJO, OSGI, JCA, JTA, JAX-RS, KSF, etc
-- Can run in any Servlet container, Java EE Application server, bare JVM or OSGI container, typically: Tomcat, JBoss, Jetty
-- OSGi-based Bundle and Component system
-    - Highly dynamic plugin model
-    - Great pluggability through extension points
-- Many open source frameworks / libraries : JBoss Seam / Hibernate / Apache commons
-- Content oriented APIs : Webdav, CMIS (Apache Chemistry), WSS (MS Windows Sharepoint Services)
-</section>
-
-<section class="slide" id="global-architecture">
-###Global architecture
-![3-layer-architecture](img/3-layer-architecture.png)
+<section class="slide" id="archi">
+## Architecture
 </section>
 
 <section class="slide" id="inside-nuxeo">
 ###Inside Nuxeo
 ![nuxeo-layers](img/nuxeo-layers.png)
-</section>
-
-<section class="slide" id="extension-points">
-###Extension points
-- Extension points are used:
-    - To configure services and components (XML contributions)
-    - To extend services and components (Java code or scripting)
-    - To dynamically bind components together
-- Nuxeo Platform uses extension points everywhere
-    - Almost every service exposes extension points
-    - Makes configuration easy (no need to touch the source code)
-    - Allows « clean » contributions easy to maintain (XML)
-    - Allows the use of Nuxeo Studio!
-</section>
-
-<section class="slide" id="what-we-code-in-nuxeo">
-###What we code in Nuxeo
-- Contribution to extension points (XML)
-    
-  => Nuxeo Studio can help you
-
-- Event handlers
-
-  => Studio can help you
-
-- Components that expose extension points (XML / JAVA)
-
-  => Nuxeo IDE can help you
-
--  Event listeners
-
-  => Nuxeo IDE can help you
-
-- Seam components / XHTML templates
-
-  => Nuxeo IDE can help you
 </section>
 
 <section class="slide" id="nuxeo-clients">
@@ -126,6 +72,22 @@ Nuxeo - Technical overview
 <section class="slide" id="inside-nuxeo-tomcat-server">
 ###Inside a Nuxeo Tomcat distribution
 ![inside-nuxeo-tomcat-server](img/inside-nuxeo-tomcat-server.png)
+</section>
+
+<section class="slide" id="what-we-code-in-nuxeo">
+###What we code in Nuxeo
+#### Using Nuxeo studio
+- Contribution to extension points (XML)
+- Event handlers
+
+#### Using Nuxeo IDE
+- Components that expose extension points (XML / JAVA)
+-  Event listeners
+- Seam components / XHTML templates
+</section>
+
+<section class="slide" id="administration">
+## Administration
 </section>
 
 <section class="slide" id="configuration-nuxeo-conf">
@@ -183,20 +145,9 @@ Nuxeo - Technical overview
    - Community testing
 </section>
 
-<section class="slide exercise" id="exercise-install-hotfixes">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-###Exercise
-- Install the latest hotfix for Nuxeo 5.6
-    - From the Admin Center
-    - With `nuxeoctl mp-hotfix`
-- Find where the `nuxeo.conf` file is on your machine (for Windows users you can have a look at this <a href="http://doc.nuxeo.com/pages/viewpage.action?pageId=3345719" target="_blank">page</a>)
-</section>
-
 <section class="slide" id="next">
 ###Next?
-- Back to the [Training agenda](0_Introduction.html#day-1)
-- Next chapter: [Base concepts](1.2_BaseConcepts.html)
+- [Exercise](1.1.1_Technical-overview.html#exercise-install-hotfixes)
 </section>
 
   <!-- deck.navigation snippet -->

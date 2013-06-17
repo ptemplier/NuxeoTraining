@@ -52,40 +52,6 @@
     id="nuxeo-dm---configuration-and-integration---introduction">
 #Nuxeo - Configuration and Integration
 </section>
-<!--
-  <section class="slide" id="Contributer for slides:-contributors">
-### Contributors
--   Sun TAN
--   Arnaud Kervern
--   Alain Escaffre
--   Mariana Cedica
--   Thomas Roger
-</section>
-   <section class="slide" id="your-trainer:-trainer"> -->
-<!-- ### Your Trainer: Sun TAN -->
-<!-- -   Part of Nuxeo team (development, training and consulting) since -->
-<!--     2007  -->
-<!-- -   Engineer in IT from Marne La Vallée University -->
-<!-- -   Involved in various Nuxeo open source projects: -->
-<!--     -   Nuxeo DM/CMF -->
-<!--     -   Nuxeo IDE  -->
-<!--     -   Nuxeo Live Edit  -->
-<!--     -   Nuxeo WebEngine -->
-
-<!-- -   Others : NewsWave/FUEL/Nutxt (PA), AFP.com, IRSN, etc.  -->
-<!-- -   Follow me ! @sunsengdavidtan -->
-<!--   </section> 
-
-
-  <section class="slide" id="agenda">
-### Agenda
--   Except the first day, each module will cover 
-  -   Concepts
-  -   Exercises
-
-  </section>
-  
--->
   <section class="slide" id="day-1">
 ### Day 1 - Nuxeo Platform Introduction
       
@@ -97,18 +63,14 @@
 ####Agenda
 
 - [Introduction to Nuxeo](0_Introduction.html#intro-nuxeo)
-- [Installation and functional tour](1.1_Nuxeo DM Installation and Demo.html)
-- [Technical overview](1.1.1_Technical overview.html)
-- [Base concepts](1.2_BaseConcepts.html)
-      - What's a document, schema, mixin, ACL, VCS basics
-- [Introduction to Nuxeo Studio](1.3_Nuxeo Studio.html)
+- [Installation and functional tour](1.1_Nuxeo-installation-and-demo.html)
+- [Technical overview](1.1.1_Technical-overview.html)
+- [Introduction to Nuxeo Studio](1.3_Nuxeo-studio.html)
     - [Document types](2.1_Document Types.html)
     - [Layouts](2.2_Layouts.html)
     - [Vocabulary](2.2.2_Vocabulary.html)
     - [Structure Templates](2.3_Structure templates.html)
-
   </section>
-
 
   <section class="slide" id="day-2-nuxeo-studio">
 ### Day 2 – Nuxeo Studio
@@ -123,7 +85,6 @@
 - [Advanced automation and event handlers](3.2_Advanced automation Event handlers.html)
 - [Advanced settings](3.3_Advanced settings.html) l10n, widget template
   </section>
-
 
   <section class="slide" id="day-3">
 ### Day 3 - Workflows
@@ -157,10 +118,9 @@
       - Nuxeo Core API - Calling Nuxeo services
       - Contributing IDE resources in Nuxeo Studio (Custom Automation Operations in Nuxeo IDE)      
       - JUnit testing automation chains done in Studio
+</section>
 
-  </section>
-
-  <section class="slide" id="day-5">
+<section class="slide" id="day-5">
 ### Day 5
 ####Goals
 - Understand how JSF/Seam UI works and how to customize it
@@ -173,15 +133,14 @@
       - Database structure: How it is stored with VCS - configuration parameters - fulltext convertors
       - Backup restore
       - Marketplace package
-  </section>
+</section>
     
-    <section class="slide" id="intro-nuxeo">
+<section class="slide" id="intro-nuxeo">
 Introduction to Nuxeo
 =======================
-  </section>
+</section>
 
-      <section class="slide" id="nuxeo-company">
-
+<section class="slide" id="nuxeo-company">
 ### Nuxeo – The Company
 
 - Founded in 2000, more than 500 customers and 5 000 installations 
@@ -198,8 +157,7 @@ Introduction to Nuxeo
    - Deployment tools: Nuxeo Marketplace, Update Center
 
 - We focus on the complete experience for our customers, not just the software you run
-
-  </section>
+</section>
 
 <section class="slide" id="nuxeo-platform">
 ### Nuxeo – The platform     
@@ -217,47 +175,43 @@ Nuxeo Platform is created as open source software
     
 <section class="slide" id="nuxeo-references">
 ### Nuxeo – Trusted by great Companies
-
-<div class="dovetail">
-<img src="img/customers/AFP.jpg" />
-<img src="img/customers/BNP.jpg" />
-<img src="img/customers/BV-1.jpg" />
-<img src="img/customers/NETFLIX.jpg" />
-<img src="img/customers/Sharp.jpg" />
-<img src="img/customers/Orange.jpg" />
-<img src="img/customers/EA.jpg" />
-<img src="img/customers/fico.png" />
-<img src="img/customers/Generali.jpg" />
-<img src="img/customers/IRSN.gif" />
-<img src="img/customers/Jeppesen.jpg" />
-<img src="img/customers/LM-1.jpg" />
-<img src="img/customers/Michelin.jpg" />
-<img src="img/customers/Neotion-1.jpg" />
-<img src="img/customers/NFI.png" />
-<img src="img/customers/parker-1.jpg" />
-<img src="img/customers/Pearson.jpg" />
-<img src="img/customers/Sncf-1.jpg" />
-<img src="img/customers/Sogeclair-1.jpg" />
-<img src="img/customers/zanox.jpg" />
-<img src="img/customers/ViaAccess.jpg" />
-<img src="img/customers/UC_Berkeley.jpg" />
-<img src="img/customers/Solly_Azar-1.jpg" />
-<img src="img/customers/Serimax-1.jpg" />
-<img src="img/customers/Sequans.jpg" />
-<img src="img/customers/mindef.jpg" />
-<img src="img/customers/Lafarge.jpg" />
-<img src="img/customers/img-ima-logo.png" />
-<img src="img/customers/hec.jpg" />
-<img src="img/customers/gdf.jpg" />
-<img src="img/customers/fives-cryogenie.gif" />
-<img src="img/customers/ECP.jpg" />
-<img src="img/customers/DILA-1.png" />
-<img src="img/customers/Belgacom.jpg" />
-<img src="img/customers/anses.png" />
-<img src="img/customers/Altibox-1.jpg" />
-<img src="img/customers/Almerys.jpg" />
-</div>
-
+<img class="float-left" src="img/customers/AFP.jpg" />
+<img class="float-left" src="img/customers/BNP.jpg" /> 
+<img class="float-left" src="img/customers/BV-1.jpg" />
+<img class="float-left" src="img/customers/NETFLIX.jpg" /> 
+<img class="float-left" src="img/customers/Sharp.jpg" /> 
+<img class="float-left" src="img/customers/Orange.jpg" />
+<img class="float-left" src="img/customers/EA.jpg" /> 
+<img class="float-left" src="img/customers/fico.png" /> 
+<img class="float-left" src="img/customers/Generali.jpg" />
+<img class="float-left" src="img/customers/IRSN.gif" /> 
+<img class="float-left" src="img/customers/Jeppesen.jpg" /> 
+<img class="float-left" src="img/customers/LM-1.jpg" />
+<img class="float-left" src="img/customers/Michelin.jpg" /> 
+<img class="float-left" src="img/customers/Neotion-1.jpg" /> 
+<img class="float-left" src="img/customers/NFI.png" />
+<img class="float-left" src="img/customers/parker-1.jpg" /> 
+<img class="float-left" src="img/customers/Pearson.jpg" /> 
+<img class="float-left" src="img/customers/Sncf-1.jpg" />
+<img class="float-left" src="img/customers/Sogeclair-1.jpg" /> 
+<img class="float-left" src="img/customers/zanox.jpg" /> 
+<img class="float-left" src="img/customers/ViaAccess.jpg" />
+<img class="float-left" src="img/customers/UC_Berkeley.jpg" /> 
+<img class="float-left" src="img/customers/Solly_Azar-1.jpg" /> 
+<img class="float-left" src="img/customers/Serimax-1.jpg" />
+<img class="float-left" src="img/customers/Sequans.jpg" /> 
+<img class="float-left" src="img/customers/mindef.jpg" /> 
+<img class="float-left" src="img/customers/Lafarge.jpg" />
+<img class="float-left" src="img/customers/img-ima-logo.png" /> 
+<img class="float-left" src="img/customers/hec.jpg" /> 
+<img class="float-left" src="img/customers/gdf.jpg" />
+<img class="float-left" src="img/customers/fives-cryogenie.gif" /> 
+<img class="float-left" src="img/customers/ECP.jpg" /> 
+<img class="float-left" src="img/customers/DILA-1.png" /> 
+<img class="float-left" src="img/customers/Belgacom.jpg" /> 
+<img class="float-left" src="img/customers/anses.png" /> 
+<img class="float-left" src="img/customers/Altibox-1.jpg" />
+<img class="float-left" src="img/customers/Almerys.jpg" />
 </section>
 
 <section class="slide" id="all-about-content">
@@ -267,8 +221,7 @@ Nuxeo Platform is created as open source software
 
 - <strong>Content:</strong> any information or knowledge, structured or semi-structured, that you are dealing with in your business activity. It can be Documents, Product Specifications, Invoices, Media, Cases, Standards, Specifications, Quotes...
 
-- <strong>Content Applications:</strong> the software that you and your users use to manage and collaborate on content. It can be any business application. Document Management, Digital Asset Management and Case Management are obvious examples, but it could also be an Invoicing application, e-Learning, Catalogs, News and Editorial systems...          
-          
+- <strong>Content Applications:</strong> the software that you and your users use to manage and collaborate on content. It can be any business application. Document Management, Digital Asset Management and Case Management are obvious examples, but it could also be an Invoicing application, e-Learning, Catalogs, News and Editorial systems...   
 </section>
 
 <section class="slide" id="modules-and-tools">
@@ -305,7 +258,6 @@ team-oriented dimension to the Nuxeo Content Management
 platform.
 </div>
 </section>
-
     
 <section class="slide" id="Nuxeo-whatitdoes">
 ###Nuxeo - What it does
@@ -317,8 +269,8 @@ your content
 - Multiple User Interface options, including Mobile applications, with multiple navigation capabilities
 - Archiving and Storage, Scalability and Cluster deployment
 - A large range of deployment options, on Premise or in the Cloud, integrating into your existing infrastructure and processes
-    
 </section>
+
 <section class="slide" id="Nuxeo-repo">
 ###Nuxeo as a Content Repository
 ####Building your content applications on top of a strong Content Repository is very important
@@ -332,7 +284,7 @@ your content
 - High Performance, large volume support and unlimited scaling capabilities of your content
 </section>
     
-    <section class="slide" id="Nuxeo-projects">
+<section class="slide" id="Nuxeo-projects">
 ###Nuxeo - What we do
 ####Type of projects
 - Intranet
@@ -344,9 +296,8 @@ your content
 - Mail management (incoming, outgoing)
         
 ####And yours ?
-      </section>  
+</section>  
 
-  
 <section class="slide" id="useful-links">
 ###Before we start - Useful Links
 - Web site: <a href="http://www.nuxeo.com" target="_blank">www.nuxeo.com</a>
@@ -357,6 +308,7 @@ your content
 - Issues (bugs, improvements, roadmap): <a href="https://jira.nuxeo.com" target="_blank">jira.nuxeo.com</a>
 - Source repositories on github: <a href="https://github.com/nuxeo" target="_blank">github.com/nuxeo</a>
 </section>
+
 <section class="slide" id="next">
 ###Next ?
 - Back to the [training agenda](0_Introduction.html#day-1)
