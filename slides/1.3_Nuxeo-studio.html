@@ -9,9 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo - Introduction to Nuxeo Studio</title>
+<title>Nuxeo - Introduction to Nuxeo studio</title>
 
-<meta name="description" content="Nuxeo - Introduction to Nuxeo Studio">
+<meta name="description" content="Nuxeo - Introduction to Nuxeo studio">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -49,53 +49,42 @@
   </div>
   
 <section class="slide" id="title">
-#Introduction to Nuxeo Studio
+#Introduction to Nuxeo studio
+</section>
+
+<section class="slide" id="studio-introduction">
+##Understanding Nuxeo studio
 </section>
 
 <section class="slide" id="name">
-###Nuxeo Studio
+###Nuxeo studio
 
-####Nuxeo Studio is:
+####Nuxeo studio is:
 
 - A visual tool for configuring Nuxeo Platform based applications
 - Available as an online service (SaaS)
-- A delivery and deployment channel throught Nuxeo Update Center
+- A delivery and deployment channel through Nuxeo Update Center
 
-#### With Nuxeo Studio you can:
+#### With Nuxeo studio you can:
 
 -  Configure and adapt your application
   -  From document typology to business rules enforcement
   -  Without needing development work
 -  Save time and money, by focusing on your business needs
-- Ensure long-term maintenance of your application
-</section>
-
-<section class="slide" id="Integration-tools">
-###Integration tools
-![integration tools](img/studio-cap-dm-studio-ide.png)
+- Ensure long-term maintenance of your application thanks to the target platform deployment option
 </section>
 
 <section class="slide" id="online-tools-1">
-###Nuxeo Studio - Online tool (1/2)
-- On Connect portal
-- Direct access <a href="http://connect.nuxeo.com/nuxeo/site/studio/ide" target="_blank">URL</a>
-- 30 days free trial <div class="further-info">you can ask more to a Nuxeo Sales Rep</div>
-- A jar file with the configuration <div class="further-info">Studio delivers a jar file (a Nuxeo plugin) that holds all the intended configuration</div>
-- No compiled code, XML only <div class="further-info">Studio only produces XML, it is a pure configuration tool</div>
-- Sources in the jar <div class="further-info">Sources of what produces Studio are in the Jar given by Studio</div>
+###Nuxeo studio - How does it work ?
+- Direct access via <a href="http://connect.nuxeo.com/nuxeo/site/studio/ide" target="_blank">Connect portal</a>
+- 30 days free trial
+- Provides a jar file with your project configuration 
+- studio produces no compiled code, XML only
 - Development tools integration (Maven and Nuxeo IDE)
 </section>
 
-<section class="slide" id="online-tool-2">
-###Nuxeo Studio - Online tool (2/2)
-####Benefits:
-- Frequently updated with new Features <div class="further-info">so as to take into account users’ feedback. A minor release every two / three weeks (or even shorter if a blocking bug is declared) and every one month  and a half / two months a major release with new features, ergonomy improvements, etc...</div>
-- No IDE tools to install locally <div class="further-info">just need your Nuxeo to test the configuration, you can start now.</div>
-- Maintenance easier thanks to the target platform deployment option<div class="further-info">Studio generates the configuration depending on your target plaform --> Maintenance greatly improved!</div>
-</section>
-
 <section class="slide" id="main-features">
-###Main features
+###Nuxeo studio - Main features
 - Branding (Theme configuration)
 - Document types and forms configuration
 - Content views and search features
@@ -104,43 +93,64 @@
 - Ability to import pre-built Application Templates
 </section>
 
-<section class="slide" id="behind-the-magic">
-###Nuxeo and Studio - behind the magic
-- Nuxeo platform: modular with plugins and the extension point mechanism <div class="further-info">Nuxeo Platform, uses the pattern of exension points. That means that each time Nuxeo developper wants to implement a feature that can be configured by other developpers when being used, they code a «hook» in the middle of the feature. A hook in the code is a sort of «indirection».  The framework, when finding a reference to a hook in the code, reads the name of the hook, and fetches in the «extension library» what values were contributed for this given hook. Then the implementation code of the feature will leverage those values to do what expected. </div>
-- Without Studio, XML extension point contributions <div class="further-info">When an external developer wants to adapt a Nuxeo EP based solution, he has to contribute to the Extensions library. The Nuxeo EP framework allows to contribute to this extensions library through XML files packaged as plugins in jars (java packaging format) files.</div>
-- Existing <a href="http://explorer.nuxeo.org/nuxeo/site/distribution/current/listExtensionPoints" target="_blank">extensions</a> <div class="further-info">There are hundreds of them.</div>
-- Meta-model on top of extensions  <div class="further-info">Studio is a meta-model on top of extensions, which are more unitary. For instance, when configuring a document type in Studio,   behind the scene, Studio will generate multiple extensions: for core type declaration, forms, lifecycle, ... To see what extensions Studio generates, you can go to  Settings and Versioning>Project Settings > Manifest and load the extensions.xml file.</div>
-</section>
-
-<section class="slide" id="hot-reload">
-###Hot reload from Nuxeo
-From Nuxeo Admin center, hot-reloads Nuxeo Studio configuration
-
-![hot-reload cycle](img/studio-hotreload.png)
-</section>
-
-<section class="slide" id="exercise-h2">
-##Exercise
-</section>
-
-<section class="slide exercise" id="exercise">
+<section class="slide exercise" id="exercise-studio">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="hibou exercise"
       class="exercise-icon">
-###First Studio Exercise
+###Practice Nuxeo studio
 #### Connect
-- Create a <a href="https://connect.nuxeo.com/nuxeo/site/connect/trial/form" target="_blank">trial account</a> and access Nuxeo Studio
+- Create a <a href="https://connect.nuxeo.com/nuxeo/site/connect/trial/form" target="_blank">trial account</a> and access Nuxeo studio
 - Configure your Nuxeo Connect account on your Nuxeo instance: Admin Center > Nuxeo Connect
-
-#### Studio
- * Connect to your Nuxeo Studio Account, either with Direct Access URL or from Nuxeo DM (User Administrators > Admin center > Update Center > Studio > Go to Nuxeo Studio link)
- * Browse the pre-imported project (Default File, Domain, Workspace document type.)
- * Deploy your studio project on DM (Admin Center -> Update Center -> Nuxeo Studio -> Update)
- * Check that your project is correctly deployed (you’ll see new columns name, etc...)
- * Unimport the DM Default Template, and delete objects that were not automatically unimported
- * Go to Settings and Versionning > Versionning, create a tag called «empty project»: goal will be to be able to switch back to an empty project at anytime of your project
 </section>
 
+<section class="slide" id="studio-versioning">
+##Nuxeo studio - Versioning
+</section>
 
+<section class="slide" id="versioning">
+###Nuxeo studio - Versioning
+#### Concepts 
+- Save your project state
+- Revert to a previous state anytime
+- Release versions and deploy them easily
+- Simplified versioning tool: no branching and no conflict management
+</section>
+
+<section class="slide" id="versioning-stages">
+###Nuxeo studio - Versioning
+#### Three different stages
+- Commits
+    - Preferably used for small changes
+    - Do not hesitate to commit often so you can revert a change if needed without losing too much
+- Tags
+    - When you feel the version is complete enough
+    - Tags remain available even if you revert to a commit done before the tag
+- Snapshots
+    - When you feel the version can be released for production
+    - Snapshots can be downloaded and installed directly from the admin center
+</section>
+
+<section class="slide" id="studio-versioning-management">
+###Nuxeo studio - Versioning
+#### Management
+- Define your commit style from Settings and versioning > Project settings
+    - On save: automatic commit each time you press save on a screen
+    - On build: when you create a tag or a snapshot- Manual: only when you choose to
+    - No branching and no conflict management implementation
+</section>
+
+<section class="slide exercise" id="exercise-studio-versioning">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="hibou exercise"
+      class="exercise-icon">
+###Practice Nuxeo studio
+#### Versioning
+ * Connect to your Nuxeo studio Account, either with Direct Access URL or from Nuxeo DM (User Administrators > Admin center > Update Center > studio > Go to Nuxeo studio link)
+ * Browse the pre-imported project (Default File, Domain, Workspace document type.)
+ * Deploy your studio project on DM (Admin Center -> Update Center -> Nuxeo studio -> Update)
+ * Check that your project is correctly deployed (you’ll see new columns name, etc...)
+ * Unimport the DM Default Template, and delete objects that were not automatically unimported
+ * Set your project commit style to manual (Settings and versioning > Project settings)
+ * Go to Settings and Versioning > Versioning, create a tag called «empty project»: goal will be to be able to switch back to an empty project at anytime of your project
+</section>
 
 <section class="slide" id="thank-you">
 ##Thank you
@@ -149,7 +159,7 @@ From Nuxeo Admin center, hot-reloads Nuxeo Studio configuration
 <section class="slide" id="next">
 ###Next ?
 - Back to the [training agenda](0_Introduction.html#day-1)
-- Next chapter: [Document types with studio](2.1_Document Types.html)
+- Next chapter: [Document types with studio](2.1_Document-types.html)
 </section>
 
   <!-- deck.navigation snippet -->
