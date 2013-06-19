@@ -9,9 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Structure Templates</title>
+<title>Nuxeo Training - Life cycle</title>
 
-<meta name="description" content="Nuxeo Training - Structure Templates">
+<meta name="description" content="Nuxeo Training - LifeCycle, Automation chains, User actions, Tabs">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -48,81 +48,54 @@
       class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide" id="datastructure">
-#Nuxeo Training - Structure templates
+<section class="slide">
+#Nuxeo Training - Life cycle - Advanced
 </section>
 
-<section class="slide" id="wherewego-context-structure-template">
-### Context <img src="img/frog-teacher.png" class="float-left" /> 
-<blockquote><p>The custom documents we created are perfect.
-The "Best books" library now decides they should be used all over; to do so they would like a simpler domain structure, in which nothing but books and book libraries could be created. Easy :)</p></blockquote>
-</section>
+<section class="slide" id="life-cycle-wo-studio">
+###Life cycle (w/o Studio)
+- Extension point to define states and transitions of a life cycle:
 
-<section class="slide" id="wherewego-structure-template">
-###What we want to do
-####At the end of the course:
-<img src="img/structure-template-booklibrary.png" class="float-right" />
+    <pre>
+      <code>
+&lt;extension
+    target=&quot;org.nuxeo.ecm.core.lifecycle.LifeCycleService&quot;
+    point=&quot;lifecycle&quot;&gt;</code>
+    </pre>
 
-A new structure for the type Domain:
+Lifecycle XP documentation http://explorer.nuxeo.org/nuxeo/site/distribution/current/viewExtensionPoint/org.nuxeo.ecm.core.lifecycle.LifeCycleService--lifecycle
 
-- Sections/Book Library
-- Instead of Sections/Templates/Workspaces
-</section>
 
-<section class="slide" id="structuretemplates">
-###Structure template
-#### Concepts
-- Pre-built structures
-- «Per document type» basis
-- Defines what documents have to be generated when a document is
-    created 
-- Useful to setup the default structure of your repository
-- Can also define the default set of permissions
-- Can override the existing structure template for a doc type
+- Extension point to define which lifecycle to apply to a DocumentType:
+    <pre>
+      <code>
+ &lt;extension
+     target=&quot;org.nuxeo.ecm.core.lifecycle.LifeCycleService&quot;
+     point=&quot;types&quot;&gt;</code>
+    </pre>
 
-Ex: Each time you create a Domain, nodes templates, Sections and Workspaces are created
-</section>
-
-<section class="slide" id="choose-type">
-### Structure template
-#### Choose the type
-The created structure will apply to the chosen document type 
-
-![Choose the type in Studio](img/structure-template-choose.png)
+Lifecycle type XP documentation  http://explorer.nuxeo.org/nuxeo/site/distribution/current/viewExtensionPoint/org.nuxeo.ecm.core.lifecycle.LifeCycleService--types
 </section>
 
 
-<section class="slide" id="structuretemplate2">
-###Structure template 
-#### Configuration
-<img alt="Configure your structure" class="float-right" src="img/structure-template-configure.png">
-
-- The structure of Domain will be overriden with this one
-- This structure will be used
-  - Each time a document of type Domain will be created
-  - At startup if the database is empty
-- Existing documents of type Domain will keep their old structure
-</section>
-
-<section class="slide exercise" id="exercise-structure-template">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
-      class="exercise-icon">
-###Exercise Structure template
-
-- Modify the default structure of the type Domain to have only <code>BookLibrary</code> and <code>Sections</code>
-- Commit your changes
-- Deploy your changes
-- Create a domain and see what appears
+<section class="slide" id="lifecycle-coreapi">
+###Life cycle (w/o studio) Core API
+ 
+2 core actions available <div class="further-info">From Nuxeo Core about life cycle. We'll see later how we can call them</div>
+ 
+- Follow a transition: <code>CoreSession#followTransition(DocumentRef docRef, String
+      transition)</code>
+- Get the current life cycle state: <code>CoreSession#getCurrentLifeCycleState(DocumentRef docRef)
+      returns String</code>
 </section>
 
 <section class="slide" id="thank-you">
-##Thank you!
+##Thank you!</h2>
 </section>
 
 <section class="slide" id="next">
-###Next ?
-- Back to the [training agenda](0_Introduction.html#day-1)
-- Next chapter: [Content views, Search forms](2.4_NXQL-search-forms-content-views.html)
+###Next?
+- Next chapter: [Content views](2.5_NXQL-search-forms-content-views.html)
 </section>
 
   <!-- deck.navigation snippet -->
