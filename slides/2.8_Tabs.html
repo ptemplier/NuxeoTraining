@@ -9,9 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Life cycle</title>
+<title>Nuxeo Training - Tabs</title>
 
-<meta name="description" content="Nuxeo Training - LifeCycle, Automation chains, User actions, Tabs">
+<meta name="description" content="Nuxeo Training - Tabs">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -49,77 +49,91 @@
   </div>
 
 <section class="slide">
-#Nuxeo Training - Life cycle
+#Nuxeo Training - Tabs
+<div class="sticker">Tab designer available since Nuxeo 5.6</div>
 </section>
 
-<section class="slide" id="wherewego-context-lifecycle">
+<section class="slide" id="wherewego-context-tabs">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
-    Being satisfied with their books organization and display, the "Best books" library now wishes to go further and add some business logic into Nuxeo, starting with the books state: are they still here, borrowed ? The life cycle functionality should suit that just fine. 
+<blockquote><p>Remember, you were being requested to add:<br /><br />
+- A separate view of books still in library when viewing a book library <br />
+- A listing of books from the same category when viewing one.<br /><br />
+Now that we have created our life cycle, nothing can stop us from doing so :)</p></blockquote>
 </section>
 
 <section class="slide" id="wherewego">
-###What we want to do
-####At the end of the course
-<img alt="Book life cycle" class="float-right" src="img/lifecycle-book.png" />
-
-- Create a life cycle for <code>Book</code> documents
-- Apply this life cycle to the <code>Book</code> document type
+### What we want to do
+#### At the end of the course
+- Add a new tab to see only the in-house books of a BookLibrary
+- Add a new tab for the Book document with:
+  - the list of books of the same category
+  - the state of the document
+  - a toggleable layout to view and edit the book metadatas
+  - the default edit and summary tab disabled
 </section>
-  
-<section class="slide" id="life-cycle">
-###Life cycle
+
+<section class="slide" id="tabs-concept">
+###Tabs in Nuxeo
 #### Concepts
-- Defines the state of a document
-- Defines allowed transitions from a state to another
-- Builtin core feature: all documents in Nuxeo have a life cycle and a state
-- Each document type can have its own life cycle
+- Regular tabs can be deactivated at document type level
+- Custom tabs can be added to replace or be added along them
+- Conditions can be set for the custom tabs to appear only under certain circumstances
+
+#### Tabs can be defined
+- At document type level if your tab only contains content views
+- Using the tab designer to leverage more widgets:
+    - Content views
+    - Toggleable layouts
+    - Custom actions 
+    - And all the usual ones :)
 </section>
 
-<section class="slide" id="trash-folder">
-### Life cycle
-#### The trash folder
-The <code>deleted</code> state and the transitions <code>delete</code> and <code>undelete</code> are used to have the «trash» feature on the document whatever lifecycle policy used in the document type.
+<section class="slide" id="tab-designer">
+###Tab designer
+#### How it works
+- `Listings and views` > `Tabs` in Studio
+- The `Definition` tab is used to create the layout shown
+- The `Enablement` tab is used to define under which circumstances the tab will show
 
-If you want to activate the trash feature on a document type that uses a custom lifecycle policy, you must add those state and transitions in it.
+#### Important properties
+- Category: more categories can be added programatically
+- Order: regular tabs order start at 10
+
+#### Specific widgets
+- Content views
+- Toggleable layouts: switch from view mode to edit mode without changing page
+- Custom actions: buttons that call operation chains. Can be core buttons or the ones you created as well (a future step!)
 </section>
 
-<section class="slide exercise" id="exercise-lifecycle">
+<section class="slide exercise" id="exercise-tabs">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-    class="exercise-icon" />
-### Practice (1/2)
-#### Life cycle
-- Create a new lifecycle policy called BookLifeCycle
-- the initial state "inLibrary"
-- Create another state "borrowed"
-    - Create transitions to link each other
-    - Do not name them
-    - Save your lifecycle. What can you see ?
-</section>
+      class="exercise-icon">
+### Practice 
+#### Tabs
+- For the BookLibrary type, define a new "In library" tab that will show all the in-house Books
+    - Create a new content view that will display the children `inLibrary` Books of the current document
+    - BookLibrary doctype > Tabs > Content views, add a new Tab that displays the created content view
 
-<section class="slide exercise" id="exercise-lifecycle">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-    class="exercise-icon" />
-###Practice (2/2)
-#### Life cycle
-- Create the "deleted" state
-    - Add transitions going both ways for each previously created state
-    - Name your transitions: <code>delete</code> and <code>undelete</code>
-- Apply this lifecycle to the Book document type definition
-- Commit your changes
-- Deploy your changes using hot reload
-- Check the initial state by creating a new Book
+- Using the tab designer, add a new tab to the Book document that will show:
+    - A content view with all books from the same category (except the current book!)
+    - A toggleable layout for the bookLayout
+    - The workflow widget (soon to be seen!)
 
-We'll create the action to change the life cycle later
+- Remove the `Summary` and `Edit` tabs from the Book document type
+<div class="sticker"><a href="#exercise-tabs-help">Need help?</a></div>
 </section>
 
 <section class="slide" id="thank-you">
 ##Thank you!
 </section>
 
-<section class="slide" id="fork">
-###Want to go deeper?
-- (optional) [Advanced information](2.4_Lifecycle-advanced.html)
-- Next chapter: [Content views](2.5_NXQL-search-forms-content-views.html)
+<section class="slide" id="next">
+### Next?
+</section>
+
+<section class="slide" id="exercise-tabs-help">
+### Help! <img src="img/frog-teacher.png" class="float-left" /> 
+<div class="sticker"><a href="#exercise-tabs">Back to the exercise</a></div>
 </section>
 
   <!-- deck.navigation snippet -->

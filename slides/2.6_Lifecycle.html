@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Life cycle</title>
+
+<meta name="description" content="Nuxeo Training - LifeCycle, Automation chains, User actions, Tabs">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide">
+#Nuxeo Training - Life cycle
+</section>
+
+<section class="slide" id="wherewego-context-lifecycle">
+### Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>Seeing what you have done with their book libraries, you are now kindly being requested to add more:<br /><br />
+- A separate view of books still in library when viewing a book library <br />
+- A listing of books from the same category when viewing one.<br /><br /> 
+To achieve the latter, we will need to define states for our books…</p></blockquote>
+</section>
+
+<section class="slide" id="wherewego">
+###What we want to do
+####At the end of the course
+<img alt="Book life cycle" class="float-right" src="img/lifecycle-book.png" />
+
+- Create a life cycle for <code>Book</code> documents
+- Apply this life cycle to the <code>Book</code> document type
+</section>
+  
+<section class="slide" id="life-cycle">
+###Life cycle
+#### Concepts
+- Defines the state of a document
+- Defines allowed transitions from a state to another
+- Builtin core feature: all documents in Nuxeo have a life cycle and a state
+- Each document type can have its own life cycle
+</section>
+
+<section class="slide" id="trash-folder">
+### Life cycle
+#### The trash folder
+The <code>deleted</code> state and the transitions <code>delete</code> and <code>undelete</code> are used to have the «trash» feature on the document whatever lifecycle policy used in the document type.
+
+If you want to activate the trash feature on a document type that uses a custom lifecycle policy, you must add those state and transitions in it.
+</section>
+
+<section class="slide exercise" id="exercise-lifecycle">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon" />
+### Practice (1/2)
+#### Life cycle
+- Create a new lifecycle policy called BookLifeCycle
+- the initial state "inLibrary"
+- Create another state "borrowed"
+    - Create transitions to link each other
+    - Do not name them
+    - Save your lifecycle. What can you see ?
+</section>
+
+<section class="slide exercise" id="exercise-lifecycle">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon" />
+###Practice (2/2)
+#### Life cycle
+- Create the "deleted" state
+    - Add transitions going both ways for each previously created state
+    - Name your transitions: <code>delete</code> and <code>undelete</code>
+- Apply this lifecycle to the Book document type definition
+- Commit your changes
+- Deploy your changes using hot reload
+- Check the initial state by creating a new Book
+
+We'll create the action to change the life cycle later
+</section>
+
+<section class="slide" id="thank-you">
+##Thank you!
+</section>
+
+<section class="slide" id="fork">
+###Want to go deeper?
+- (optional) [Advanced information](2.4_Lifecycle-advanced.html)
+- Next chapter: [Content views](2.5_NXQL-search-forms-content-views.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>
