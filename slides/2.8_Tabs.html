@@ -129,10 +129,38 @@ Now that we have created our life cycle, nothing can stop us from doing so :)</p
 
 <section class="slide" id="next">
 ### Next?
+[Automation](3.1_Automation.html)
 </section>
 
 <section class="slide" id="exercise-tabs-help">
-### Help! <img src="img/frog-teacher.png" class="float-left" /> 
+### Help! (1/2) <img src="img/frog-teacher.png" class="float-left" />
+#### NXQL query filters
+- The children `inLibrary` Books of the current document
+<pre><code>ecm:mixinType != 'HiddenInNavigation' 
+AND ecm:isCheckedInVersion = 0 
+AND ecm:primaryType = 'Book'
+AND ecm:currentLifeCycleState = 'inLibrary'
+AND ecm:parentId = ?</code></pre>
+
+- Parameters
+<pre><code>#{currentDocument.id}</code></pre>
+<div class="sticker"><a href="#exercise-tabs">Back to the exercise</a></div>
+</section>
+
+<section class="slide" id="exercise-tabs-help2">
+### Help! (2/2) <img src="img/frog-teacher.png" class="float-left" />
+#### NXQL query filters
+- All books from the same category (except the current book!)
+<pre><code>ecm:mixinType != 'HiddenInNavigation' 
+AND ecm:isCheckedInVersion = 0 
+AND ecm:currentLifeCycleState != 'deleted' 
+AND bk:category = ? 
+AND ecm:uuid != ? 
+AND bk:category IS NOT NULL 
+AND bk:category != ''</code></pre>
+- Parameters
+<pre><code>#{currentDocument.bk.category}
+#{currentDocument.id}</code></pre>
 <div class="sticker"><a href="#exercise-tabs">Back to the exercise</a></div>
 </section>
 
