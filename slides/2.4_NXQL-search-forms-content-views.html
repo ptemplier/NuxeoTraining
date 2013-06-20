@@ -162,7 +162,12 @@ AND ecm:parentId = ?</code></pre>
 ###Result layout
 - Defines the result columns
 - Displays fields with layout widgets
-- Reusable: `Table Layout` (Listings & Views > Table Layouts)
+- Only valid for the current content view if created in it
+- Reusable if created as a `Table Layout` (Listings & Views > Table Layouts)
+    - To apply it: 
+        - Go to your content view results tab
+        - Check the "reference an existing table layout" option
+        - Select the table layout you have created
 </section>
 
 <section class="slide exercise" id="exercise-content-view">
@@ -173,8 +178,9 @@ AND ecm:parentId = ?</code></pre>
 - Create a new content view `BookLibraryContentView`
 - Customize the query to get the children documents of the current book library. 
     - Hint: if this is too difficult, go back a couple of pages… ;-)
-- Display the following columns in the result layout:
+- Create a `Table layout` named `bookTableLayout` displaying the following columns:
     - Doc type Icon, Title (with link), ISBN, Author, Creation date, Lifecycle state
+- Setup the content view to use your Table layout
 - Setup the `BookLibrary` document type to display this content view
     - Hint: there is only one main tab in the document types we haven't been through yet
 - Commit your changes
@@ -207,7 +213,7 @@ AND ecm:parentId = ?</code></pre>
 
 <section class="slide" id="next">
 ###Next ?
-- Next chapter: [Tabs](2.5_Tabs.html)
+- Next chapter: [Lifecycle](2.6_Lifecycle.html)
 </section>
 
   <!-- deck.goto snippet -->
