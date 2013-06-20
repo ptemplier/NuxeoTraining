@@ -52,10 +52,21 @@
 #Nuxeo Training - Automation chains and user actions
 </section>
 
+<section class="slide" id="wherewego-context-layouts">
+### Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>
+So we added tabs and helpful content views for the "Best books" library. Nonetheless, we have more to do.<br /><br />
+Indeed, the tab displaying the in-house books won't be of much use if we cannot change the books state to borrowed...
+</p></blockquote>
+</section>
+
 <section class="slide" id="wherewego">
 ### What we want to do
 #### At the end of the course
-- Add an action to borrow a book
+- Add a custom action to borrow a book
+- The button should show in the contextual tools…
+- … And only when the book is still there !
+
 <img src="img/actions-borrow.png" />
 </section>
 
@@ -228,7 +239,7 @@ Add a button to change the lifecycle state to "borrowed" and update a new field 
 - Create an action linked to the chain 
     - Visible for Book documents with a « inLibrary » state
     - Category: contextual tools
-    - Icon: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookBorrow32.png" target="_blank">files/bookBorrow32.png</a>
+    - Icon: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookBorrow16.png" target="_blank">files/bookBorrow16.png</a>
 - Commit and deploy your changes
 - Try your button out and see if the book state changes
 <div class="sticker"><a href="#help-exercise1">Need help?</a></div>
