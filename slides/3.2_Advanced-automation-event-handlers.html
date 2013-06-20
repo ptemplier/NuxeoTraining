@@ -164,14 +164,14 @@ Thanks,
 <section class="slide" id="document-events">
 ###Event handlers - Main document events
 #### Document creation
-- Empty document created: before the creation form is shown
-- About to create: when the user clicks on the "save" button
-- Document created: when the document has been persisted into the database
+- `Empty document created`: before the creation form is shown
+- `About to create`: when the user clicks on the "save" button
+- `Document created`: when the document has been persisted into the database
 - Don't save the document if the document is not created to avoid an error
 
 #### Document modification    
-- Before document modification: before the modification form is shown
-- Document modified: when the modifications have been persisted into the database
+- `Before document modification`: before the modification form is shown
+- `Document modified`: when the modifications have been persisted into the database
 - Don't save the document if you deal with document modification events to avoid a possible infinite loop (if you have an event launched at document save)
 </section>
 
