@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Automation chains, user actions</title>
+
+<meta name="description" content="Nuxeo Training - LifeCycle, Automation chains, User actions, Tabs">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide">
+#Nuxeo Training - Automation chains and user actions
+</section>
+
+<section class="slide" id="wherewego">
+### What we want to do
+#### At the end of the course
+- Add an action to borrow a book
+<img src="img/actions-borrow.png" />
+</section>
+
+<section class="slide" id="automation-concepts">
+### Automation
+#### Concepts
+- Nuxeo uses automation chains to execute operations on documents
+
+#### An automation chain…
+- Is a set of small unitary operations
+- Can be launched in different contexts:
+    - Bound to a button (user action)
+    - Automatically called by the server (event handler)
+    - During a workflow process on a document
+    - By a REST call
+- Is executed as a unique transaction: if one operation fails, nothing is changed
+</section>
+  
+<section class="slide" id="operations">
+### Automation - Operations
+#### What is it ?
+<blockquote>
+Unitary and reusable operators that implement a particular documentary function, such as "move a document", "update a property", "change the lifecycle state", "transform to PDF", "send as email"...
+</blockquote>
+
+####An operation is defined by
+ - A unique name
+ - Input contents
+ - Ouput contents
+ - Process (can contain parameters)
+
+#### Accepted input and output
+- Document
+- List of Documents
+- Blob
+- List of Blobs
+- void
+</section>
+
+<section class="slide" id="operation-sample">
+### Automation - Operation example
+#### "Follow Life Cycle transition"
+- Name: <code>Document.SetLifeCycle</code>
+- Input: Documents, Document
+- Output: Documents, Document
+- Parameter: <code>Transition</code> the name of the transition to follow
+- Process:
+   - follow the transition in parameter to the input document
+   - returns the modified document
+</section>
+
+<section class="slide" id="automation-chain">
+### Automation - Input and output typing
+![Input and output](img/automation-input-output.jpg)
+
+- Output should fit the next operation input
+- Studio checks operation inputs and outputs
+</section>
+
+<section class="slide" id="automation-studio">
+###A Chain in Studio
+
+<img alt="A chain in studio" src="img/automation-studio-chain.png" class="float-right" />
+
+- Ordered set of operations
+- Respecting input and output of operations
+- Sharing a context in the whole chain, with variables
+- Some chains are aware of the UI context, some are not.
+- Many predefined operations exist, organized by category 
+</section>
+  
+<section class="slide" id="using-automation-for-creating-updating-moving-data">
+##Using automation for creating, updating and moving data
+</section>
+
+<section class="slide" id="updating">
+### Fetching Documents
+####Initialize the input of your chain
+<div class="split-box">
+    <div class="split-37 float-right">
+    <img src="img/automation-fetch.png" class="float-right" />
+    </div>
+    <div class="split-63">
+    
+    <ul><li> by Id or Path</li>
+       <ul><li> <code>Fetch > Document</code> operation</li>
+          <ul><li> Id: <code>aced8d8f-4780-45e0-9605-b0d96119bb89</code></li>
+          <li> Path:<br /> <code>/default-domain/workspaces/myWorkspace</code></li>
+          </ul>
+        </ul>
+    </ul>
+    <ul><li> by a NXQL query</li>
+        <ul><li> <code>Fetch > Query operation</code></li>
+        </ul>
+    </ul>
+    <ul> <li> by the contextual document (default fetch)</li>
+    <li> Some specific UI contextual document</li>
+      <ul><li> <code>Fetch > UI CurrentWorkspace</code>,</li>
+      <li> <code>Fetch > UI Current Domain</code>,</li>
+      <li> …</li>
+      </ul>
+    </ul>
+      
+    </div>
+</div>
+</section>
+
+<section class="slide" id="xpath">
+###XPath: handle metadata values
+<img src="img/automation-update-property.png" class="float-right" />
+
+- Xpath is used to identify metadata property
+- Can be used in operation <code>Document > Update Property</code>
+    - Ex: dc:title (dublincore title), book:isbn… (schema_prefix:property)
+</section>  
+
+<section class="slide" id="useful-operation">
+###Useful operations
+- Document > Create: creates a document right below the input one
+- Document > Update Property / Document > Update Properties
+- Document > Move
+- Document > Copy
+- Document > Publish Document
+- Document > Delete
+</section>
+
+<section class="slide" id="actions-h2">
+##User actions
+</section>
+
+<section class="slide" id="user-actions">
+###User actions
+#### Concepts
+- User actions are buttons or links used throughout the platform
+- Every user action belongs to a category, defining where it is displayed:
+   - Contextual tools
+   - Header links
+   - Etc ..
+    
+    http://doc.nuxeo.com/x/uYAk
+- Filters can be set to display them depending on:
+   - The current document type
+   - The current user permissions
+   - The current document lifecycle state 
+   - Etc...
+- User actions are linked to an automation chain
+</section>
+
+<section class="slide" id="exercise-user-actions-automation-chains">
+## Practice - User actions and automation chains
+</section>
+
+<section class="slide exercise" id="exercise-automation1">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice 
+#### User actions and automation
+Add a button to change the lifecycle state to "borrowed" and update a new field "Borrowed by" with the name of the current user
+
+- Add a new metadata to your book named « borrowedBy ». Not editable in UI
+  - Update your schema
+  - Update your layout
+  - Use the `Single user/group suggestion` widget
+     
+-  Create a new automation chain that
+  - fetches the current document
+  - follows the lifecycle transition « to_borrowed »
+  - automatically fills the new field « borrowedBy » with the current user name
+  - refreshes the user interface
+- Create an action linked to the chain that is visible for Book documents with a « inLibrary » state
+- Commit and deploy your changes
+- Try your button out and see if the book state changes
+<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
+</section>
+
+<section class="slide" id="thank-you">
+##Thank you!
+</section>
+
+<section class="slide" id="next">
+### Next?
+[Advanced automation and event handlers](3.2_Advanced-automation-event-handlers.html)
+</section>
+
+<section class="slide" id="help-exercise1">
+### Help! <img src="img/frog-teacher.png" class="float-left" /> 
+- Operations to use in your automation chain:
+<pre><code>Fetch > Context document
+Document > Follow life cycle transition
+    Value: to_borrowed
+Document > Update property
+    Value: @{CurrentUser.name}    
+    Xpath: book:borrowedBy (bk:borrowedBy works as well)
+User interface > Refresh
+</code></pre>
+
+<div class="sticker"><a href="#exercise-automation1">Back to the exercise</a></div>
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>

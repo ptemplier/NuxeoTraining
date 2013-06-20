@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Advanced automation Event Handlers</title>
+<title>Nuxeo Training - Advanced automation and event handlers</title>
 
 <meta name="description" content="Nuxeo Training - Advanced automation Event Handlers">
 <meta name="author" content="Nuxeo">
@@ -50,12 +50,8 @@
 
 
 <section class="slide" id="advanced-automation">
-#Advanced Automation
+#Advanced Automation and event handlers
 </section>
-
-
-
-
 
 <section class="slide" id="Context-variable">
 ##Advanced Automation - Context variables
@@ -69,25 +65,25 @@ Context variables; operations to
 - Restore the variable somewhere else as the output
 </section>
 
-
-
-
 <section class="slide" id="Context-variable">
 ##Advanced Automation - Mvel scripting
 </section>
 
-<section class="slide" id="scripting">
+<section class="slide" id="mvel-scripting">
 ###Inject dynamic values with MVEL
 <img alt="automation-object-browser" src="img/automation-object-browser.png" class="float-right" />
 
 - In operation parameters: <code>@{mvel script evaluated}</code>
 - Objects browser in Studio, from each operation parameters <div class="further-info">will help you use the good syntax</div>
 - Object Fn, the Document Wrapper, the Date Wrapper.
-- MVEL http://mvel.codehaus.org/Getting+Started+for+2.0
+- Uses MVEL expression language
+
+    http://doc.nuxeo.com/x/kYAV
 </section>
 
 <section class="slide" id="Fn">
 ###«Fn» Object
+
 Collection of useful helpers <div class="further-info">available in automation parameters when using the script (« @{ script_expression}»)</div>
 
 <img alt="automation-fn" src="img/automation-fn.png" class="float-right" />
@@ -95,7 +91,7 @@ Collection of useful helpers <div class="further-info">available in automation p
 - getNextId(string) <div class="further-info">returns the next sequence item for the given string (enables to maintain in parallel multiple sequences)</div> 
 - getDate() <div class="further-info">return a Date object from a date property</div> 
 - getVocabularyLabel(VocabularyName, KeyName) <div class="further-info">returns the label for a vocabulary entry. (ex: useful when automatically updating some fields)</div> 
-- getEmailsFromGroup(String groupName), getEmails, ... <div class="further-info">useful helpers for resolving users, emails, etc, ...</div>
+- getEmailsFromGroup(String groupName), getEmails... <div class="further-info">useful helpers for resolving users, emails, etc, ...</div>
 </section>
   
 <section class="slide" id="sample-chain">
@@ -113,9 +109,19 @@ The following chain copies the source prefix of the parent Workspace on the sour
 - Document > Update Property (value: @{Context [‘SourceOnWorkspace’]} ; xpath: dc:source)
 </section>
 
-
-
-
+<section class="slide exercise" id="exercise-automation2">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Something more difficult ? (optional)
+- Add a new field to your book named « borrowedAt » (Date), you need to fill it during the previous operation and must appear to be in read only and not visible when creating a Book.
+- Add a new state named « revived » on our life cycle. 
+    - It should be accessible from the borrowed state, and authorize reaching the inLibrary and deleted states
+- Create a new operation chain that :
+  - fetches documents that have been borrowed 1 minute ago
+  - sets books state as revived,
+  - sends an email to borrower to get the book back  
+<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+</section>
 
   <section class="slide" id="event-handlers">
 ##Nuxeo Training - Event handlers
@@ -228,23 +234,49 @@ Don't save the document if you deal with document
 ######Sun Seng David TAN
   </section>
 
-  <section class="slide exercise" id="what-we-want-to-do">
- <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
+<section class="slide exercise" id="what-we-want-to-do">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
 ###What we want to do
-    
 - Add an event handler that will set the publicationDate to
         the current date
 - The event handler should be called before we see the
         creation view
-    
-  </section>
+</section>
 
-  <section class="slide" id="thank-you">
+<section class="slide" id="thank-you">
 ##Thank you!
-  </section>
+</section>
+
+<section class="slide" id="next">
+### Next?
+[Advanced settings](3.3_Advanced settings.html)
+</section>
   
-  
+<section class="slide" id="help-exercise2">
+### Help! <img src="img/frog-teacher.png" class="float-left" /> 
+<div style="clear:both"></div> 
+#### Tips
+- You need to create an email template to send the email notification<br /> (Templates > Mail templates) 
+
+#### Automation chain:
+<pre><code>Fetch > Query
+    SELECT * FROM Book 
+    WHERE ecm:isCheckedInVersion = 0 
+    AND bk:borrowedAt < TIMESTAMP 
+    '@{CurrentDate.seconds(-60).format('yyyy-MM-dd HH:mm:ss')}' 
+    AND ecm:currentLifeCycleState = 'borrowed'
+Document > Follow life cycle transition
+    Value: to_revived
+Notification > Send email
+    From: noreply@nuxeo.com
+    Message: select your email template (expression editor button)
+    Subject: Please bring back the book you borrowed
+    To: @{Fn.getEmail(Document['bk:borrowedBy'])}
+</code></pre>
+
+<div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div>
+</section>
+
   <!-- deck.navigation snippet -->
   <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
   <a href="#" class="deck-next-link" title="Next">&#8594;</a>
