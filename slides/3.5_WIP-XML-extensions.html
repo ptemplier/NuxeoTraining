@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Studio advanced settings</title>
+<title>Nuxeo Training - XML extensions</title>
 
 <meta name="description" content="Nuxeo Training - Studio advanced settings">
 <meta name="author" content="Nuxeo">
@@ -48,96 +48,8 @@
       class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide"
-  id="nuxeo-training---advanced-studio-settings">
-Nuxeo Training - Advanced studio settings
------------------------------------
-</section>
-
-<section class="slide" id="agenda">
-###Agenda
-
-- Translation files 
-- XML contributions
-</section>
-
-<section class="slide" id="translations">
-## Translations
-</section>
-
-<section class="slide" id="translations-wherewego">
-### What we want to do
-#### At the end of the course
-
-- Give translations to "Book" life cycle states
-<img alt="translation-lifecycle" src="img/translation-lifecycle.png"  />
-
-- Change the name of the "Home" tab
-<img alt="translation-home-french" src="img/translation-home-french.png" />
-</section>
-
-<section class="slide" id="translations-1">
-###Translations
-#### Concepts
-- Nuxeo can be translated in any language
-- Default set of translations
-    - Provided by Nuxeo: english and french
-    - Provided by the community: many others :)
-- Translations are files located in each bundle
-- At server start, Nuxeo concatenates them
-</section>
-
-<section class="slide" id="translations-2">
-### Translations
-#### More details about translation files
-- Translations are integrated into `messages_LANG.properties` files
-    - LANG being the ISO code (ex: fr)
-    - Mapping is done using `label = my translation`
-    - Files use unicode encoding, be careful with accents!
-- Existing labels can be reused and overriden
-- No specific convention regarding the translation labels
-
-Example:
-<pre><code>inLibrary=Dans la biblioth\u00e8que
-borrowed=Emprunt\u00e9
-label.main.tab.home=Accueil
-</code></pre>
-
-#### Where are the existing translation files ?
-<code>nxserver/nuxeo.war/WEB-INF/classes/messages_LANG.properties</code>
-</section>
-
-<section class="slide" id="translations-3">
-### Translations
-#### How can I add my own?
-<img src="img/translation-widget.png" class="float-right">
-<img src="img/translation-column.png" class="float-right">
-
-- In studio 
-    - Upload your custom messages_LANG.properties files in the resources menu
-    - Be careful: some labels need to be explicitly marked as "translated" or "localized" for the translation to become effective
-
-- Programatically
-    - http://doc.nuxeo.com/x/-YWo
-</section>
-
-<section class="slide exercise" id="messages-translations-exercise">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice
-#### Translations
-- Change the name of the "Home" tab
-- Give translations to "Book" life cycle states
-- Commit and deploy your changes
-- Check that your labels have been translated
-</section>
-
-<section class="slide" id="questions-translations">
-##Questions?
-</section>
-
 <section class="slide" id="xml-contribs">
-## XML extensions
+# XML extensions
 </section>
 
 <section class="slide" id="xml-contribs-wherewego">
