@@ -125,7 +125,9 @@ Can contain `Book` and `BookLibrary` documents
 
 <section class="slide" id="wherewego-context-booklibrary">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
-    The "Best books" library feels that the Book document type will not be enough to organize their collection. Instead of using folders, they want to implement a somewhat similar document type called BookLibrary which should be able to contain books or other book libraries. No problem, you say !
+<blockquote><p>
+The "Best books" library feels that the Book document type will not be enough to organize their collection. Instead of using folders, they want to implement a somewhat similar document type called BookLibrary which should be able to contain books or other book libraries. No problem, you say !
+</p></blockquote>
 </section>
 
 <section class="slide" id="doctype-properties-folderish">
@@ -159,7 +161,9 @@ Can contain `Book` and `BookLibrary` documents
 
 <section class="slide" id="wherewego-context-booklibrary">
 ###Context <img src="img/frog-teacher.png" class="float-left" /> 
-    Now that their custom document types have been created, the "Best books" library realises that they do not contain the correct fields for them to fill metadata in. Oops. It's time to customize their structure…
+<blockquote><p>
+Now that their custom document types have been created, the "Best books" library realises that they do not contain the correct fields for them to fill metadata in. Oops. It's time to customize their structure…
+</p></blockquote>
 </section>
 
 <section class="slide" id="schemas">
@@ -207,11 +211,11 @@ Can contain `Book` and `BookLibrary` documents
 #### Schemas
 - Define a new <code>book</code> schema. Let’s say that, for now, a Book is defined by: 
   - Its ISBN: `isbn` (string) 
-  - Its `author` (complex, multivalued), composed of:
-    - A `name` (string)
-    - A first name: `firstName` (string) 
   - Its publication date: `publicationDate` (date) 
   - A `rating` (int)
+  - Its `author` (complex, multivalued), composed of:
+        - A `name` (string)
+        - A first name: `firstName` (string) 
 - Make sure this schema can be reused for another document type.
 - Add this schema to the `Book` document type definition.
 </section>
