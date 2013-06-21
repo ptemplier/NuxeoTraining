@@ -66,7 +66,10 @@
 
 <section class="slide" id="wherewego-context-lifecycle">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
-<blockquote><p>Now that they can organise their books collection, the "Best books" library would be interested in finer tuning of their display and search. Especially having the right information when browsing a book library, and a customized advanced search form.</p></blockquote>
+<blockquote><p>Now that they can organise their books collection, 
+the "Best books" library would be interested in finer tuning of their display and search. 
+Especially having the right information when browsing a book library, 
+and a customized advanced search form.</p></blockquote>
 </section>
 
 <section class="slide" id="wherewego">
@@ -173,19 +176,35 @@ AND ecm:parentId = ?</code></pre>
 <section class="slide exercise" id="exercise-content-view">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice
+### Practice (1/2)
 #### Content views
 - Create a new content view `BookLibraryContentView`
+
+#### Query
 - Customize the query to get the children documents of the current book library. 
     - Hint: if this is too difficult, go back a couple of pages… ;-)
+- Add a filter to search books depending on their category
+</section>
+
+<section class="slide exercise" id="exercise-content-view2">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice (2/2)
+#### Results
 - Create a `Table layout` named `bookTableLayout` displaying the following columns:
     - Doc type Icon, Title (with link), ISBN, Author, Creation date, Lifecycle state
+    
+#### Apply your modifications
 - Setup the content view to use your Table layout
 - Setup the `BookLibrary` document type to display this content view
     - Hint: there is only one main tab in the document types we haven't been through yet
 - Commit your changes
 - Deploy your changes
 - Have a look at a book library's content tab
+</section>
+
+<section class="slide exercise" id="questions-content-view1">
+## Questions?
 </section>
 
 <section class="slide" id="custom-search-form">
