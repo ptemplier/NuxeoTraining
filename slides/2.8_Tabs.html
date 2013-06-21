@@ -56,15 +56,17 @@
 <section class="slide" id="wherewego-context-tabs">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>Remember, you were being requested to add:<br /><br />
-- A separate view of books still in library when viewing a book library <br />
-- A listing of books from the same category when viewing one.<br /><br />
+- A separate view of books <strong>still in library</strong> when viewing a book library <br /><br />
+- A separate view of <strong>borrowed</strong> books when viewing a book library <br /><br />
+- A listing of books from the same category when viewing a Book.<br /><br />
 Now that we have created our life cycle, nothing can stop us from doing so :)</p></blockquote>
 </section>
 
 <section class="slide" id="wherewego">
 ### What we want to do
 #### At the end of the course
-- Add a new tab to see only the in-house books of a BookLibrary
+- Add a new tab to see only the <strong>in-house</strong> books of a BookLibrary
+- Add a new tab to see only the <strong>borrowed</strong> books of a BookLibrary
 - Add a new tab for the Book document with:
   - the list of books of the same category
   - the state of the document
@@ -105,16 +107,26 @@ Now that we have created our life cycle, nothing can stop us from doing so :)</p
 - Custom actions: buttons that call operation chains. Can be core buttons or the ones you created as well (a future step!)
 </section>
 
-<section class="slide exercise" id="exercise-tabs">
+<section class="slide exercise" id="exercise-tabs1">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice 
+### Practice (1/2)
 #### Tabs
 - For the BookLibrary type, define a new "In library" tab that will show all the in-house Books
     - Create a new content view that will display the children `inLibrary` Books of the current document
     - (Use the `bookTableLayout` for the results display)
     - Go to the BookLibrary doctype > Tabs > Content views, add a new Tab that displays the created content view
+    
+- Copy the content view you previously created and modify it to show the borrowed Books
+- Go to the BookLibrary doctype > Tabs > Content views, add a new Tab that displays this content view as well
+<div class="sticker"><a href="#exercise-tabs-help">Need help?</a></div>
+</section>
 
+<section class="slide exercise" id="exercise-tabs2">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice (2/2)
+#### Tabs
 - Using the tab designer, add a new tab to the Book document that will show:
     - A content view with all books from the same category (except the current book!)
     - (Use the `bookTableLayout` for the results display)  
@@ -122,7 +134,7 @@ Now that we have created our life cycle, nothing can stop us from doing so :)</p
     - The workflow widget (soon to be seen!)
 
 - Remove the `Summary` and `Edit` tabs from the Book document type
-<div class="sticker"><a href="#exercise-tabs-help">Need help?</a></div>
+<div class="sticker"><a href="#exercise-tabs-help2">Need help?</a></div>
 </section>
 
 <section class="slide" id="questions">
@@ -146,7 +158,7 @@ AND ecm:parentId = ?</code></pre>
 
 - Parameters
 <pre><code>#{currentDocument.id}</code></pre>
-<div class="sticker"><a href="#exercise-tabs">Back to the exercise</a></div>
+<div class="sticker"><a href="#exercise-tabs1">Back to the exercise</a></div>
 <div class="sticker"><a href="#exercise-tabs-help2">More help</a></div>
 </section>
 
@@ -164,7 +176,7 @@ AND bk:category != ''</code></pre>
 - Parameters
 <pre><code>#{currentDocument.bk.category}
 #{currentDocument.id}</code></pre>
-<div class="sticker"><a href="#exercise-tabs">Back to the exercise</a></div>
+<div class="sticker"><a href="#exercise-tabs2">Back to the exercise</a></div>
 <div class="sticker"><a href="#exercise-tabs-help">Previous help</a></div>
 </section>
 
