@@ -1,16 +1,16 @@
 /*
  * (C) Copyright 2013 Nuxeo SA (http://nuxeo.com/) and contributors.
- * 
+ *
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the GNU Lesser General Public License (LGPL)
  * version 2.1 which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl.html
- * 
+ *
  * This library is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
+ *
  * Contributors: TAN Sun Seng David <stan@nuxeo.com>
  */
 package org.nuxeo.training.test;
@@ -51,7 +51,7 @@ public class TestBookDocument {
         Assert.assertNotNull(
                 "The studio component should be loaded",
                 Framework.getRuntime().getComponent(
-                        "studio.extensions.SunTraining_Nuxeo"));
+                        "studio.extensions.training_d4"));
 
         // making sure that /default-domain/book-library is automatically
         // created thanks to the structure template
@@ -89,12 +89,12 @@ public class TestBookDocument {
         assertNotNull(bookDoc.getPropertyValue("bk:borrowedBy"));
         assertEquals("borrowed",
                 session.getCurrentLifeCycleState(bookDoc.getRef()));
-        
+
         ctx = new OperationContext();
         ctx.setCoreSession(session);
         ctx.setInput(bookDoc);
         automationService.run(ctx, "bringBack");
-        
+
         bookDoc = session.getDocument(bookDoc.getRef());
         Assert.assertNull(bookDoc.getPropertyValue("bk:borrowedBy"));
         assertEquals("InLibrary",
