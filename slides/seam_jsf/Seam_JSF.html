@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Seam/JSF - Introduction</title>
+
+<meta name="description" content="Nuxeo - Configuration and Integration">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide" id="nuxeo--introduction">
+#Nuxeo Seam/JSF
+</section>
+
+<section class="slide" id="intro">
+###Agenda
+- Technologies overview
+- JSF main concepts
+- Seam main concepts
+- Nuxeo JSF WebApp main concepts
+- Nuxeo JSF Tools
+- Design notes
+- Standard pitfalls
+- Recipe : new action contribution
+</section>
+
+<section class="slide" id="technologies-overview">
+##Technologies overview<br /><em>Actors in Nuxeo Web Framework</em>
+</section>
+
+<section class="slide" id="technologies-stack">
+###Technologies stack
+
+- SUN RI JSF 1.2.09: Reference JSF implementation
+- SUN Facelets 1.1.11: Template engine
+- RichFaces + Ajax4JSF 3.3.1 GA patched: JSF component lib + Ajax integration layer
+- Seam 2.1.0-GA patched: WebApp framework
+</section>
+
+<section class="slide" id="jsf-facelets">
+###Sun JSF Facelets
+- clean rendering and templating engine for JSF
+- far better suited than JSP
+- provides composition
+- makes new components development easier
+- Facelets will be the default rendering layer for JSF 2
+</section>
+
+
+<section class="slide" id="richfaces">
+###Richfaces / Ajax4JSF
+
+Provides high level components
+
+- Treeview, tableviews, popups, suggestbox ...
+- Based on Ajax4JSF framework
+    - provides partial JSF component tree rendering
+    - provides native Ajax integration
+</section>
+
+<section class="slide" id="seam">
+###Seam Framework
+- Web Oriented framework
+- natively built for JSF
+- provides extended context management
+- improves JSF experience
+    - improves EL
+    - make bindings simpler
+    - manage components lifecycle
+- provides JS accessibility via Seam Remoting
+- includes a lot of Web tools
+</section>
+
+<section class="slide" id="seam">
+##JSF main concepts<br /><em>Understand the basis of JSF in 5 minutes</em>
+</section>
+
+<section class="slide" id="jsf-basics">
+### JSF basis
+
+- JSF is component oriented
+    - each UI block is a component
+        - holds state (local value)
+        - can be bound to a backing bean
+    - JSF sees a page as a component tree “like the HTML DOM”
+- JSF is stateful: component tree holds state
+- JSF includes validators and formaters
+- JSF manages navigation
+</section>
+
+<section class="slide" id="jsf-facelets-basics">
+
+### JSF and Facelets
+
+Facelets provides to JSF:
+
+- Rendering engine
+- Templating engine with composition
+- Life cycle default view handler
+- Allowing to create custom handlers during the JSF life cycle
+    - Example : to create custom handlers before the component tree build phase
+      for performances tuning and managing custom UI components easily
+      (nxl:layout with LayoutTagHandler creating sub widgets before build phase).
+</section>
+
+<section class="slide" id="jsf-lifecycle-tree">
+###Lifecycle and component tree
+
+  <img src="./img/jsf_lifecycle_tree.png" />
+
+</section>
+
+<section class="slide" id="jsf-tree">
+###JSF Components Tree 
+
+Sample xhtml code:
+<pre>
+<code>
+  &lt;div&gt;
+    &lt;h:form&gt;
+      #{messages['label']}
+      &lt;h:inputText ... /&gt;
+      &lt;h:commandButton ... /&gt;
+    &lt;/h:form&gt;
+  &lt;/div&gt;
+</code>
+</pre>
+
+- Parse phase → Component tree build phase → application phases (cf. JSF life cycle) → Render phase
+- Component tree build phase is executed for each Ajax render phase
+</section>
+
+<section class="slide" id="jsf-lifecycle">
+###JSF LifeCycle: 6 steps
+
+<ol>
+  <li>
+    Build tree (Restore View) - parses JSP/Facelets and creates component tree
+  </li>
+  <li>
+    Apply request values - parses request and set component tree local values
+  </li>
+  <li>
+    Process validations - apply validators
+  </li>
+  <li>
+    Update model (EL value) - update backing beans
+  </li>
+  <li>
+    Invoke Application (navigation/action) - parses JSP/Facelets and creates component tree
+  </li>
+  <li>
+    Render response (EL value)
+  </li>
+</ol>
+
+<p class="further-info">
+Each phase is done for the whole tree before the next phase
+</p>
+
+</section>
+
+<section class="slide" id="jsf-lifecycle-schema">
+###JSF lifecycle phases
+  <img src="./img/jsf_lifecycle.gif" />
+</section>
+
+<section class="slide" id="jsf-special-cases">
+###JSF special cases
+
+- Cross validation
+    - Problem, update model is done too late
+    - Solution : To have a hidden component that gather request values of others components and validate them
+
+- Ajax calls skipping JSF phases 
+    - For instance : skipping validation phase is possible by using immediate attribute set in UI components
+</section>
+
+<section class="slide" id="jsf-lifecycle-schema-immediate">
+###JSF Lifecycle immediate use case
+
+  <img src="./img/jsf_immediate.png" />
+</section>
+
+<section class="slide" id="jsf-context-management">
+
+###JSF context management
+
+JSF defines 4 contexts
+
+- Event context : one http request
+- Page context : complete life-cycle
+    - 2 requests : GET + POST
+- Session context : standard http session scope
+- Global context Application : shared by all user
+</section>
+
+<section class="slide" id="el-resolvers">
+
+###EL Resolvers
+
+- #{doc.dublincore.title} calls DocumentModelResolver resolving EL by calling doc.getPropertyValue(« doc:title »)
+- #{doc.id} calls doc.getId()
+
+</section>
+
+<section class="slide" id="jsf-postback">
+### JSF PostBack and context
+
+  <img src="./img/jsf_postback.png" />
+
+</section>
+
+<section class="slide" id="seam">
+##Seam main concepts
+</section>
+
+<section class="slide" id="seam-principles-1">
+###Seam principles
+
+- Seam component
+    - Pojos or EJB3
+    - identified by a name (@Name)
+- Seam context
+    - Event, Page, <b>Conversation</b>, Session, Application
+    - components have a scope (Seam manages components lifecycle)
+</section>
+
+<section class="slide" id="seam-principles-2">
+###Seam principles
+
+- Injections (@In)
+  can ask for injection of named components
+- Outjections (@Out, @Factory)
+  can push components or values in context
+- Lifecycle call backs
+  can be notified by seam
+- Event system (@Observer)
+</section>
+
+<section class="slide" id="seam-role">
+###Seam
+
+- Controller for jsf views
+- Seam Components are « by users » (nuxeo services are singleton)
+- Injection mechanism for interaction between seam component
+- Context mechanism :
+    - Current doc/super space ...
+    - Current tabs
+    - Caches
+    - Document view (request)
+</section>
+
+<section class="slide" id="seam-jsf-binding">
+###Seam and JSF binding
+- No more XML declaration of backing beans
+- JSF components directly access seam context
+    - JSF uses named components
+    - Scope is managed by seam annotations
+
+<img src="./img/jsf_binding.png" />
+</section>
+
+<section class="slide" id="jsf-webapp">
+##Nuxeo JSF WebApp
+</section>
+
+<section class="slide" id="jsf-webapp-overview">
+###Main concepts of the default webapp
+
+  <img src="./img/webapp.png" />
+
+</section>
+
+<section class="slide" id="jsf-webapp-scope">
+###Scope management
+
+- User related components are session based
+    - UserSession
+- Stateless components are stateless or event scoped
+- Other components are Conversation based
+    - can support multiple parallel conversations
+</section>
+
+<section class="slide" id="jsf-webapp-navigation-context">
+###Navigation context
+
+- Provides a central navigation service
+    - get access to the navigation context
+        - currentDocument, currentWorkspace ...
+    - manage cache and invalidation events
+    - provides central points to let all components share navigation related state
+- Most components inject the navigationContext
+    - to know what is the currentDocument
+    - to do navigation actions
+</section>
+
+<section class="slide" id="jsf-webapp-event-invalidations">
+###Event based invalidation
+
+- Conversation beans hold some cache
+    - data computed about the currentDocument (relations, history ....)
+    - we need cache invalidation
+- Seam Events are used for that
+    - Components are notified via @Observers
+- Can also use DocumentContextBoundActionBean
+</section>
+
+<section class="slide" id="seam-factories-delegates">
+###Seam Factories
+
+Seam factories are used to fill context
+
+- avoids multiple calls
+- avoids managing state in the components
+
+###Seam Delegates
+
+- Use @Unwrap annotation to access Nuxeo Service as native Seam components
+- can access Nuxeo services via injection
+    - @In CoreSession documentManager
+    - @In RelationManager relationManager
+</section>
+
+<section class="slide" id="actions">
+###Actions
+
+Action service is used to construct UI
+
+- Tabs are defined via actions
+- Buttons are defined via actions
+- Context menu is defined via actions
+- Topbar links are defined via actions
+- ...
+</section>
+
+<section class="slide" id="global-picture">
+###Global picture
+
+  <img src="./img/global_picture.png" />
+</section>
+
+<section class="slide" id="nuxeo-jsf-tools">
+##Nuxeo JSF tools<br /><em>What we added to the framework</em>
+</section>
+
+<section class="slide" id="layouts-widgets-1">
+###Layouts & Widgets
+
+Allow easy creation of forms for documents
+
+- layout is contributed via XML
+- layout supports several modes (view, create, edit ...)
+- layouts use widgets
+    - widgets are contributed via facelets
+
+</section>
+
+<section class="slide" id="layouts-widgets-2">
+###Layouts & Widgets
+
+- use facelets compositions
+- are managed via extension points
+</section>
+
+<section class="slide" id="jsf-tag-libraries">
+###Tag libraries
+
+Nuxeo provides several tag libraries
+
+- nxh : add method binding capabilities
+- nxu : utility functions (better loops)
+- nxd : document related functions
+- nxl : layout/widgets support
+- nxdir : directorybound components
+- nxthemes : theme management
+
+=> see nuxeo-­platform­-ui-­web
+</section>
+
+<section class="slide" id="action-service">
+###Action service
+
+Actions are used to declare
+
+- new buttons
+- new links
+- new views
+- new tabs
+- ...
+
+Actions have filters
+
+- uses EL and SeamContext
+</section>
+
+<section class="slide" id="url-service">
+###URL Service
+
+- JSF uses POSTs everywhere
+    - urls are not bookmarkable
+- Nuxeo adds an URL service
+    - let define URL codecs
+        - define what must be encoded in urls
+            - Document Uid based urls
+            - Document Path based urls
+            - File download urls
+            - ...
+    - provides RESTful (GET) navigation in JSF
+        - simple navigation in Nuxeo is done via simple GET
+</section>
+
+<section class="slide" id="url-patterns-codecs">
+###URL patterns and codecs
+
+- URL Codecs
+  - Transform url to a object « document view », set context + map parameters
+  - Example : nxfile urls ...
+              nxd:documentRestUrl
+- As a service because it has to be accessible by core services (example notification)
+- Other framework : gadget opensocial
+</section>
+
+<section class="slide" id="theme">
+###Theme engine
+- manage site and page layouts
+    - perspectives, pages layouts
+    - contribute XHTML fragments
+    - define color sets
+    - define CSS styles
+- edit theme via Web editor
+- define placeful theme
+</section>
+
+<section class="slide" id="listing-layouts">
+###Listing layouts
+
+- ResultProviders
+  - uses direct core access or querymodels to fetch documents
+  - manage cache via Seam context integration
+- Table templates
+  - Facelet template to be used with ResultProviders
+</section>
+
+<section class="slide" id="other-integrations">
+### Other integrations
+- Restlets integration
+  - bind Restlets on Seam components
+- Flex/AMF integration
+  - call seam components from Flex
+- Pluggable authentication filter
+</section>
+
+<section class="slide" id="design-notes">
+##Design notes
+</section>
+
+<section class="slide" id="design-advice">
+###Some advice
+
+####Seam beans
+
+- It's easy to put all logic in the Seam beans (seam book push in that direction)
+
+but it's bad
+
+- because the code is hard to test
+- because the code is not reusable
+- because it's gives packaging constraints
+
+=> Separate UI/Logic/Storage layers
+xxx-api, xxx-core, xxx-web
+</section>
+
+<section class="slide" id="standard-pitfalls">
+### JSF rendered clause issue
+
+- JSF rendered clause is evaluated during each phase
+    - clause is evaluated 6 time per components
+- Associated with a loops this can completely kill the performances of an application
+</section>
+
+<section class="slide" id="standard-pitfalls-rendered">
+###Render clause problem
+
+  <img src="./img/render_clause.png" />
+</section>
+
+<section class="slide" id="standard-pitfalls-rendered-solution">
+###Render clause solution
+- Use built-time conditions
+    - Jstl c:if or c:choose
+- Bind conditions to context variables
+    - use Seam factories to compute variable only once per event
+</section>
+
+<section class="slide" id="custom-jsf-components">
+### Custom components
+- Building a JSF component from the ground:
+    - is a lot of work
+    - can be hard
+- Use facelets and composition to build new custom components
+
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+    $(function() {
+       $.deck('.slide');
+    });
+  </script>
+
+</body>
+</html>
