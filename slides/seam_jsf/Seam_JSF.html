@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Seam/JSF - Introduction</title>
+<title>Nuxeo, Seam & JSF - Introduction</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -42,81 +42,92 @@
 
 <body class="deck-container">
 
-  <!-- Nuxeo Logo Training -->
-  <div class="nuxeo-logo">
-    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
-      class="sub-part training">Trainings</span>
-  </div>
-
-<section class="slide" id="nuxeo--introduction">
-#Nuxeo Seam/JSF
+<section class="slide" id="title">
+#Nuxeo: Seam & JSF Usage
 </section>
 
-<section class="slide" id="intro">
+<section class="slide" id="agenda-intro">
 ###Agenda
-- Technologies overview
-- JSF main concepts
-- Seam main concepts
-- Nuxeo JSF WebApp main concepts
-- Nuxeo JSF Tools
-- Design notes
-- Standard pitfalls
-- Recipe : new action contribution
+- <a href="#technologies-overview"><span class="bold">Technologies overview</span></b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise">Training Exercise</a>
 </section>
 
 <section class="slide" id="technologies-overview">
-##Technologies overview<br /><em>Actors in Nuxeo Web Framework</em>
+##Technologies Overview<br /><em>Actors in Nuxeo Web Framework</em>
 </section>
 
 <section class="slide" id="technologies-stack">
-###Technologies stack
-
-- SUN RI JSF 1.2.09: Reference JSF implementation
-- SUN Facelets 1.1.11: Template engine
-- RichFaces + Ajax4JSF 3.3.1 GA patched: JSF component lib + Ajax integration layer
-- Seam 2.1.0-GA patched: WebApp framework
+###Technologies Stack
+  <img src="./img/technologies_stack.png" />
 </section>
 
-<section class="slide" id="jsf-facelets">
+<section class="slide" id="jsf-facelets-intro">
 ###Sun JSF Facelets
-- clean rendering and templating engine for JSF
-- far better suited than JSP
-- provides composition
-- makes new components development easier
-- Facelets will be the default rendering layer for JSF 2
+- clean rendering engine for JSF
+- provides Expression Language (EL)
+- provides a validation model
+- provides templating
 </section>
 
-
-<section class="slide" id="richfaces">
+<section class="slide" id="richfaces-intro">
 ###Richfaces / Ajax4JSF
 
-Provides high level components
-
-- Treeview, tableviews, popups, suggestbox ...
+- Provides high level components
+    - file upload
+    - trees
+    - tables
+    - popups
+    - suggestion boxes
+    - ...
 - Based on Ajax4JSF framework
     - provides partial JSF component tree rendering
     - provides native Ajax integration
 </section>
 
-<section class="slide" id="seam">
-###Seam Framework
-- Web Oriented framework
+<section class="slide" id="seam-intro">
+###Seam
+- web oriented framework
 - natively built for JSF
 - provides extended context management
 - improves JSF experience
     - improves EL
     - make bindings simpler
-    - manage components lifecycle
-- provides JS accessibility via Seam Remoting
-- includes a lot of Web tools
+    - manage components life cycle
+- includes a lot of web tools
 </section>
 
-<section class="slide" id="seam">
+<section class="slide" id="technologies-stack-simple-webapp">
+###Simple Webapp Stack
+  <img src="./img/simple_webapp_stack.png" />
+</section>
+
+<section class="slide" id="technologies-stack-complex-webapp">
+###Complex Webapp Stack
+  <img src="./img/complex_webapp_stack.png" />
+</section>
+
+<section class="slide" id="agenda-jsf">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf"><span class="bold">JSF main concepts</span></a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise">Training Exercise</a>
+</section>
+
+<section class="slide" id="jsf">
 ##JSF main concepts<br /><em>Understand the basis of JSF in 5 minutes</em>
 </section>
 
 <section class="slide" id="jsf-basics">
-### JSF basis
+### JSF Basics
 
 - JSF is component oriented
     - each UI block is a component
@@ -124,27 +135,12 @@ Provides high level components
         - can be bound to a backing bean
     - JSF sees a page as a component tree “like the HTML DOM”
 - JSF is stateful: component tree holds state
-- JSF includes validators and formaters
+- JSF includes validators and converters
 - JSF manages navigation
 </section>
 
-<section class="slide" id="jsf-facelets-basics">
-
-### JSF and Facelets
-
-Facelets provides to JSF:
-
-- Rendering engine
-- Templating engine with composition
-- Life cycle default view handler
-- Allowing to create custom handlers during the JSF life cycle
-    - Example : to create custom handlers before the component tree build phase
-      for performances tuning and managing custom UI components easily
-      (nxl:layout with LayoutTagHandler creating sub widgets before build phase).
-</section>
-
 <section class="slide" id="jsf-lifecycle-tree">
-###Lifecycle and component tree
+###Life Cycle & Component Tree
 
   <img src="./img/jsf_lifecycle_tree.png" />
 
@@ -170,8 +166,14 @@ Sample xhtml code:
 - Component tree build phase is executed for each Ajax render phase
 </section>
 
+<section class="slide" id="jsf-lifecycle-schema">
+###JSF Life Cycle Phases
+  <img src="./img/jsf_lifecycle.gif" />
+</section>
+
+
 <section class="slide" id="jsf-lifecycle">
-###JSF LifeCycle: 6 steps
+###JSF Life Cycle: 6 steps
 
 <ol>
   <li>
@@ -200,90 +202,116 @@ Each phase is done for the whole tree before the next phase
 
 </section>
 
-<section class="slide" id="jsf-lifecycle-schema">
-###JSF lifecycle phases
-  <img src="./img/jsf_lifecycle.gif" />
+<section class="slide" id="jsf-facelets-schema">
+### JSF & Facelets
+  <img src="./img/jsf-lc-facelets.JPG" />
 </section>
 
-<section class="slide" id="jsf-special-cases">
-###JSF special cases
+<section class="slide" id="jsf-facelets-basics">
 
-- Cross validation
-    - Problem, update model is done too late
-    - Solution : To have a hidden component that gather request values of others components and validate them
+### JSF & Facelets
 
-- Ajax calls skipping JSF phases 
-    - For instance : skipping validation phase is possible by using immediate attribute set in UI components
-</section>
+What Facelets provide to JSF:
 
-<section class="slide" id="jsf-lifecycle-schema-immediate">
-###JSF Lifecycle immediate use case
-
-  <img src="./img/jsf_immediate.png" />
+- Rendering engine
+- Templating engine with composition
+- Life cycle default view handler
+- Dynamic control over component tree construction
+    - Example: build rendering structures from layouts definitions
 </section>
 
 <section class="slide" id="jsf-context-management">
 
-###JSF context management
+###JSF Context Management
 
 JSF defines 4 contexts
 
-- Event context : one http request
-- Page context : complete life-cycle
-    - 2 requests : GET + POST
-- Session context : standard http session scope
-- Global context Application : shared by all user
-</section>
-
-<section class="slide" id="el-resolvers">
-
-###EL Resolvers
-
-- #{doc.dublincore.title} calls DocumentModelResolver resolving EL by calling doc.getPropertyValue(« doc:title »)
-- #{doc.id} calls doc.getId()
-
+- Event context: one http request
+- Page context: complete life-cycle
+    - 2 requests: GET + POST
+- Session context: standard http session scope
+- Global application context: shared by all user
 </section>
 
 <section class="slide" id="jsf-postback">
-### JSF PostBack and context
+###JSF Post Back & Context
 
   <img src="./img/jsf_postback.png" />
 
+  State is restored when posting a form, and when a validation error occurs
+
+</section>
+
+<section class="slide" id="jsf-el-resolvers">
+
+###EL Resolvers
+
+Expression Language offers a loose binding to UI elements
+
+- standard EL resolvers (bean getters & setters, map values by key, list values by index, ...)
+    - #{myBean.myAttribute} calls myBean.getMyAttribute()
+    - #{myBean.myAttribute} resolves to myBean.getMyAttribute() on get, and myBean.setMyAttribute(attr) on set
+- pluggable EL resolvers, like the DocumentModelResolver
+    - #{doc.id} calls doc.getId()
+    - #{doc.dublincore.title} resolves to doc.getPropertyValue("dc:title") on get, and doc.setPropertyValue("dc:title", value) on set
+
+##### Other examples
+
+- #{currentDocument.dublincore.title}
+- #{currentDocument.dc.contributors[0]}
+
+</section>
+
+<section class="slide" id="jsf-special-cases">
+###JSF Special Cases
+
+- Cross validation
+    - problem: need validate before the update model phase
+    - solution: add a hidden component that retrieves values on other components and validate them
+
+- Ajax interactions
+    - fine control over behaviour (posting, rerendering,... )
+    - fine control over validation and update
+</section>
+
+<section class="slide" id="jsf-lifecycle-schema-immediate">
+###JSF Life Cycle - immediate use case
+
+  <img src="./img/jsf_immediate.png" />
+</section>
+
+<section class="slide" id="jsf-more">
+###More about JSF
+
+- search the web :)
+- <a href="http://www.ibm.com/developerworks/library/j-jsf1/" target="_blank">http://www.ibm.com/developerworks/library/j-jsf1/</a>
+- <a href="http://www.ibm.com/developerworks/library/j-jsf2/" target="_blank">http://www.ibm.com/developerworks/library/j-jsf2/</a>
+- <a href="http://balusc.blogspot.fr/2006/09/debug-jsf-lifecycle.html" target="_blank">http://balusc.blogspot.fr/2006/09/debug-jsf-lifecycle.html</a>
+- <a href="http://showcase.richfaces.org/" target="_blank">http://showcase.richfaces.org/</a>
+</section>
+
+
+<section class="slide" id="agenda-seam">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam"><span class="bold">Seam main concepts</span></a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise">Training Exercise</a>
 </section>
 
 <section class="slide" id="seam">
-##Seam main concepts
-</section>
-
-<section class="slide" id="seam-principles-1">
-###Seam principles
-
-- Seam component
-    - Pojos or EJB3
-    - identified by a name (@Name)
-- Seam context
-    - Event, Page, <b>Conversation</b>, Session, Application
-    - components have a scope (Seam manages components lifecycle)
-</section>
-
-<section class="slide" id="seam-principles-2">
-###Seam principles
-
-- Injections (@In)
-  can ask for injection of named components
-- Outjections (@Out, @Factory)
-  can push components or values in context
-- Lifecycle call backs
-  can be notified by seam
-- Event system (@Observer)
+##Seam Main Concepts
 </section>
 
 <section class="slide" id="seam-role">
-###Seam
+###Seam Role
 
-- Controller for jsf views
+- Controller for JSF views
 - Seam Components are « by users » (nuxeo services are singleton)
-- Injection mechanism for interaction between seam component
+- Injection mechanism for interaction between Seam components
 - Context mechanism :
     - Current doc/super space ...
     - Current tabs
@@ -291,8 +319,60 @@ JSF defines 4 contexts
     - Document view (request)
 </section>
 
+<section class="slide" id="seam-principles-1">
+###Seam Principles
+
+- Seam component
+    - Pojos or EJB3
+    - identified by a name (<code>@Name</code>)
+- Seam context
+    - <code>ScopeType</code>: Stateless, Event, Page, <span class="bold">Conversation</span>, Session, Application
+    - Life cycle management: Seam components and outjected values have a scope
+</section>
+
+<section class="slide" id="seam-principles-2">
+###Seam Principles
+
+- Injections (<code>@In</code>)
+  can ask for injection of named components
+- Outjections (<code>@Out</code>, <code>@Factory</code>)
+  can push components or values in context
+- Life cycle call backs
+  can be notified by seam
+- Event system (<code>@Observer</code>)
+- Override of existing components (<code>@Install</code>)
+</section>
+
+<section class="slide" id="seam-bean-declaration">
+###Seam Bean Example
+<pre>
+  <code>
+@Scope(ScopeType.CONVERSATION)
+@Name(&quot;myActions&quot;)
+public class MyBean implements Serializable {
+  @In(create = true)
+  protected transient NavigationContext navigationContext;
+
+  @In(create = true)
+  protected transient CoreSession documentManager;
+
+  @In(create = true)
+  protected transient FacesMessages facesMessages;
+  ...
+  public String myMethod() {
+    return &quot;A String!&quot;;
+  }
+  ...
+  public String getMyProperty(){
+  ...
+}
+</code>
+    </pre>
+
+</section>
+
 <section class="slide" id="seam-jsf-binding">
-###Seam and JSF binding
+###Seam & JSF Binding
 - No more XML declaration of backing beans
 - JSF components directly access seam context
     - JSF uses named components
@@ -301,137 +381,377 @@ JSF defines 4 contexts
 <img src="./img/jsf_binding.png" />
 </section>
 
-<section class="slide" id="jsf-webapp">
-##Nuxeo JSF WebApp
-</section>
+<section class="slide" id="seam-jsf-role">
+###Seam & JSF Life Cycle
 
-<section class="slide" id="jsf-webapp-overview">
-###Main concepts of the default webapp
-
-  <img src="./img/webapp.png" />
+<img src="./img/jsf-seam-lifecycle.JPG" />
 
 </section>
 
-<section class="slide" id="jsf-webapp-scope">
-###Scope management
+<section class="slide" id="seam-cdi">
+###Seam & CDI
 
-- User related components are session based
-    - UserSession
-- Stateless components are stateless or event scoped
-- Other components are Conversation based
-    - can support multiple parallel conversations
-</section>
+What Nuxeo uses in Seam has been incorporated into CDI:
 
-<section class="slide" id="jsf-webapp-navigation-context">
-###Navigation context
-
-- Provides a central navigation service
-    - get access to the navigation context
-        - currentDocument, currentWorkspace ...
-    - manage cache and invalidation events
-    - provides central points to let all components share navigation related state
-- Most components inject the navigationContext
-    - to know what is the currentDocument
-    - to do navigation actions
-</section>
-
-<section class="slide" id="jsf-webapp-event-invalidations">
-###Event based invalidation
-
-- Conversation beans hold some cache
-    - data computed about the currentDocument (relations, history ....)
-    - we need cache invalidation
-- Seam Events are used for that
-    - Components are notified via @Observers
-- Can also use DocumentContextBoundActionBean
-</section>
-
-<section class="slide" id="seam-factories-delegates">
-###Seam Factories
-
-Seam factories are used to fill context
-
-- avoids multiple calls
-- avoids managing state in the components
-
-###Seam Delegates
-
-- Use @Unwrap annotation to access Nuxeo Service as native Seam components
-- can access Nuxeo services via injection
-    - @In CoreSession documentManager
-    - @In RelationManager relationManager
-</section>
-
-<section class="slide" id="actions">
-###Actions
-
-Action service is used to construct UI
-
-- Tabs are defined via actions
-- Buttons are defined via actions
-- Context menu is defined via actions
-- Topbar links are defined via actions
-- ...
-</section>
-
-<section class="slide" id="global-picture">
-###Global picture
-
-  <img src="./img/global_picture.png" />
-</section>
-
-<section class="slide" id="nuxeo-jsf-tools">
-##Nuxeo JSF tools<br /><em>What we added to the framework</em>
-</section>
-
-<section class="slide" id="layouts-widgets-1">
-###Layouts & Widgets
-
-Allow easy creation of forms for documents
-
-- layout is contributed via XML
-- layout supports several modes (view, create, edit ...)
-- layouts use widgets
-    - widgets are contributed via facelets
+- Components binding
+- Injections
+- Context management
+- Events management
+- Interceptors
 
 </section>
 
-<section class="slide" id="layouts-widgets-2">
-###Layouts & Widgets
+<section class="slide" id="seam-more">
+###More About Seam
 
-- use facelets compositions
-- are managed via extension points
+- <a href="http://docs.jboss.org/seam/2.1.0.GA/reference/en-US/html/" target="_blank">http://docs.jboss.org/seam/2.1.0.GA/reference/en-US/html/</a>
+- <a href="http://www.seamframework.org/" target="_blank">http://www.seamframework.org/</a>
 </section>
 
-<section class="slide" id="jsf-tag-libraries">
-###Tag libraries
+<section class="slide" id="agenda-nuxeo-jsf">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-jsf"><span class="bold">Nuxeo JSF Integration</span></a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise">Training Exercise</a>
+</section>
+
+<section class="slide" id="nuxeo-jsf">
+##Nuxeo JSF Integration<br /><em>What we added to the framework</em>
+</section>
+
+<section class="slide" id="nuxeo-webapp-overview">
+###Main Concepts
+
+  <img src="./img/complex_webapp_stack.png" />
+
+</section>
+
+<section class="slide" id="nuxeo-ui-summary">
+  <h3>Nuxeo UI Framework</h3>
+  <div>
+    <img src="./img/nuxeo_ui_framework_detail.png" />
+  </div>
+</section>
+
+<section class="slide" id="nuxeo-ui-dm">
+  <h3>UI Example: Document Management</h3>
+  <img src="./img/reusable_dm_view.png" />
+</section>
+
+<section class="slide" id="nuxeo-ui-admin">
+  <h3>UI Example: Admin Center</h3>
+  <img src="./img/reusable_admin_view.png" />
+</section>
+
+<section class="slide" id="nuxeo-ui-dam">
+  <h3>UI Example: Digital Asset Management</h3>
+  <img src="./img/reusable_dam_view.png" />
+</section>
+
+<section class="no-md slide" id="defining-xhtml-pages">
+  <h3>Defining xhtml Pages</h3>
+  <ul>
+    <li>JSF xhtml page are contributed by several plugins</li>
+    <li>Pages are stored in the <code>nuxeo.war</code> folder</li>
+    <li>The <code>deployment-fragment.xml</code> file is used to copy
+      ressources for each bundle</li>
+    <li>When overriding an existing template, a <code>require</code> tag in
+      the <code>deployment-fragment.xml</code> file is needed to make sure
+      the page to override is copied before. </li>
+  </ul>
+<pre>
+  <code>
+&lt;?xml version="1.0"?&gt;
+&lt;fragment version="1"&gt;
+  &lt;require&gt;org.nuxeo.ecm.platform.tag.web&lt;/require&gt;
+  &lt;install&gt;
+    &lt;unzip from="${bundle.fileName}" to="/" prefix="web"&gt;
+      &lt;include&gt;web/nuxeo.war/**&lt;/include&gt;
+    &lt;/unzip&gt;
+  &lt;/install&gt;
+&lt;/fragment&gt;
+  </code>
+</pre>
+</section>
+
+<section class="no-md slide" id="defining-seam-components">
+  <h3>Defining Seam Components</h3>
+<p>
+Only the presence of a file named <code>seam.properties</code> in the bundle jar will
+make Seam scan the jar for components.
+</p>
+</section>
+
+<section class="slide" id="layouts">
+##Layouts &amp; Widgets</h3>
+</section>
+
+<section class="slide" id="layouts-role-forms">
+  <h3>Layouts &amp; Widgets Role</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Display fields in forms</li>
+      <li>Manage <span class="bold">edit</span> and view modes for reusability</li>
+      <li>Provide validation and feedback</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/layout_widgets.png" />
+  </div>
+</section>
+
+<section class="slide" id="layouts-role-mode">
+  <h3>Layouts &amp; Widgets Role</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Display fields in forms</li>
+      <li>Manage edit and <span class="bold">view</span> modes for reusability</li>
+      <li>Provide validation and feedback</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/layout_mode_view.png" />
+  </div>
+</section>
+
+<section class="slide" id="layouts-role-validation">
+  <h3>Layouts &amp; Widgets Role</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Display fields in forms</li>
+      <li>Manage edit and view modes for reusability</li>
+      <li>Provide <span class="bold">validation</span> and <span class="bold">feedback</span></li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/layout_validation.png" />
+  </div>
+</section>
+
+<section class="slide" id="layouts-features">
+  <h3>Layouts &amp; Widgets Features</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Use JSF/Facelets features</li>
+      <li>Benefit from existing JSF libraries (RichFaces)</li>
+      <li>Use Expression Language for loose binding to underlying model: a
+        layout can apply to a document or a bean</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/reusable_demo.png" />
+  </div>
+</section>
+
+<section class="slide" id="layouts-studio-form">
+  <h3>Layouts &amp; Widgets in Nuxeo Studio</h3>
+  <div class="split-box split-50">
+    <h4>Jenkins Report Use Case</h4>
+    <ul>
+      <li>generate a report of QA status</li>
+      <li>minimize additional work</li>
+      <li>use our own tools</li>
+    </ul>
+  </div>
+  <div class="split-box split-50">
+    <img src="./img/jenkins_report_create_nux.png" />
+    <pre><code>Layout result in Nuxeo</code></pre>
+  </div>
+</section>
+
+<section class="slide" id="layouts-studio-listing">
+  <h3>Layouts &amp; Widgets in Nuxeo Studio</h3>
+  <div class="split-box split-50">
+    <img src="./img/studio_layout_listing.png" />
+    <pre><code>Layout listing configuration in Studio</code></pre>
+  </div>
+  <div class="split-box split-50">
+    <img src="./img/jenkins_report_nux.png" />
+    <pre><code>Layout listing result in Nuxeo</code></pre>
+  </div>
+</section>
+
+<section class="slide" id="nuxeo-jsf-xml-extensions-layouts">
+###Nuxeo JSF XML Extensions - Layouts
+
+<pre>
+  <code>
+&lt;layout name="dublincore"&gt;
+  &lt;templates&gt;
+    &lt;template mode="any"&gt;
+      /layouts/layout_default_template.xhtml
+    &lt;/template&gt;
+  &lt;/templates&gt;
+  &lt;rows&gt;
+    &lt;row&gt;
+      &lt;widget&gt;nature&lt;/widget&gt;
+    &lt;/row&gt;
+    &lt;row&gt;
+      &lt;widget&gt;subjects&lt;/widget&gt;
+    &lt;/row&gt;
+  &lt;/rows&gt;
+&lt;/layout&gt;
+  </code>
+</pre>
+
+</section>
+
+<section class="slide" id="nuxeo-jsf-xml-extensions-widgets">
+###Nuxeo JSF XML Extensions - Widgets
+
+<pre>
+  <code>
+&lt;widget name="title" type="text"&gt;
+  &lt;labels&gt;
+    &lt;label mode="any"&gt;title&lt;/label&gt;
+  &lt;/labels&gt;
+  &lt;translated&gt;true&lt;/translated&gt;
+  &lt;fields&gt;
+    &lt;field&gt;dc:title&lt;/field&gt;
+  &lt;/fields&gt;
+  &lt;properties widgetMode="edit"&gt;
+    &lt;property name="required"&gt;true&lt;/property&gt;
+    &lt;property name="styleClass"&gt;DataInputText&lt;/property&gt;
+  &lt;/properties&gt;
+&lt;/widget&gt;
+  </code>
+</pre>
+
+</section>
+
+<section class="slide" id="nuxeo-jsf-layouts-tags">
+###Nuxeo JSF Layouts tags
+
+Binding between a document and a layout:
+
+<pre>
+  <code>
+&lt;nxl:layout
+  name="header"
+  mode="view"
+  value="#{currentDocument}" /&gt;
+  </code>
+</pre>
+
+After layout facelet handlers applied:
+
+<pre>
+  <code>
+&lt;h:outputText value="#{currentDocument.dc.title}" /&gt;
+  </code>
+</pre>
+
+Refined tag for layouts referenced by document types definition:
+
+<pre>
+  <code>
+&lt;nxl:documentLayout
+  documentMode="header"
+  mode="view"
+  value="#{currentDocument}" /&gt;
+  </code>
+</pre>
+
+</section>
+
+<section class="slide" id="nuxeo-jsf-tag-libraries">
+###Nuxeo JSF Tag libraries
 
 Nuxeo provides several tag libraries
 
-- nxh : add method binding capabilities
-- nxu : utility functions (better loops)
-- nxd : document related functions
-- nxl : layout/widgets support
-- nxdir : directorybound components
-- nxthemes : theme management
-
-=> see nuxeo-­platform­-ui-­web
+- nxu: utility functions (better loops)
+- nxd: document related functions
+- nxl: layout/widgets support
+- nxdir: directorybound components
 </section>
 
-<section class="slide" id="action-service">
-###Action service
+<section class="slide" id="nuxeo-layouts-more">
+###More About Layouts
 
-Actions are used to declare
+- <a href="http://doc.nuxeo.com/x/OoAO" target="_blank">http://doc.nuxeo.com/x/OoAO</a>
+- <a href="http://showcase.nuxeo.com/nuxeo/layoutDemo/" target="_blank">http://showcase.nuxeo.com/nuxeo/layoutDemo/</a>
+- <a href="http://community.nuxeo.com/api/nuxeo/5.6/tlddoc/" target="_blank">http://community.nuxeo.com/api/nuxeo/5.6/tlddoc/</a>
+- <a href="http://doc.nuxeo.com/x/OgCW" target="_blank">http://doc.nuxeo.com/x/OgCW</a>
 
-- new buttons
-- new links
-- new views
-- new tabs
-- ...
+</section>
 
-Actions have filters
+<section class="slide" id="actions">
+  <h2>Actions</h2>
+</section>
 
-- uses EL and SeamContext
+<section class="slide" id="actions-overview">
+  <h3>Actions</h3>
+  <div>
+    <img src="./img/actions.png" />
+  </div>
+</section>
+
+<section class="slide" id="actions-role">
+  <h3>Actions</h3>
+  <div class="split-box split-50">
+    <div>
+      <h5>Tab and "Menu" actions</h5>
+      <p></p>
+      <img src="./img/summary_actions.png" />
+    </div>
+    <div>
+      <h5>Selection actions</h5>
+      <p></p>
+      <img src="./img/contentview_actions.png" />
+    </div>
+  </div>
+  <div class="split-box split-50">
+    <ul>
+      <li>
+        Display a button or link to:
+        <ul>
+          <li>Set current tab</li>
+          <li>Navigate to a new view</li>
+          <li>Launch "operations"</li>
+        </ul>
+      </li>
+      <li>
+        Handle filtering depending on context
+        <ul>
+          <li>Current user</li>
+          <li>Current document</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="actions-features">
+  <h3>Actions Features</h3>
+  <div class="split-box split-63">
+    <ul>
+      <li>Handle navigation, provide bookmarkable URLs</li>
+      <li>
+        Filter UI elements
+        <ul>
+          <li>Check current user permissions using the core security model</li>
+          <li>Check current document type, facet, schema, group...</li>
+          <li>Use Expression Language for custom conditions</li>
+        </ul>
+      </li>
+      <li>Adapt rendering depending on configurable options</li>
+      <li>Build incremental layouts</li>
+    </ul>
+  </div>
+  <div class="split-box split-37">
+    <div>
+      <img src="./img/actions_dashboard.png" />
+      <pre><code>Dashboard layout excerpt</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="actions-xml">
+TODO: sample action + filter XML contribution + sample usage in xhtml pages
 </section>
 
 <section class="slide" id="url-service">
@@ -450,55 +770,282 @@ Actions have filters
         - simple navigation in Nuxeo is done via simple GET
 </section>
 
-<section class="slide" id="url-patterns-codecs">
-###URL patterns and codecs
+<section class="slide" id="url-codecs">
+###URL Codecs
 
 - URL Codecs
-  - Transform url to a object « document view », set context + map parameters
-  - Example : nxfile urls ...
-              nxd:documentRestUrl
-- As a service because it has to be accessible by core services (example notification)
-- Other framework : gadget opensocial
+  - Transform an url into a  « document view »
+  - Restore context from this « document view » and map additional parameters
+  - Examples:
+      - http://localhost:8080/nuxeo/<code>nxdoc</code>/default/fa431bc8-014d-4d19-9338-216d732ae5b2/view_documents
+      - http://localhost:8080/nuxeo/<code>nxpath</code>/default/default-domain/workspaces@view_documents
+      - http://localhost:8080/nuxeo/<code>nxfile</code>/default/5003772a-27c8-4231-a5d5-7d19608fbfb7/blobholder:0/Screenshot%20at%202013-06-25%2000%3A11%3A35.png 
+- As a service because it has to be accessible by:
+  - core services (example: notifications)
+  - other frameworks (example: opensocial gadgets)
 </section>
 
-<section class="slide" id="theme">
-###Theme engine
-- manage site and page layouts
-    - perspectives, pages layouts
-    - contribute XHTML fragments
-    - define color sets
-    - define CSS styles
-- edit theme via Web editor
-- define placeful theme
+<section class="slide" id="url-patterns">
+###URL Patterns
+
+TODO
 </section>
 
-<section class="slide" id="listing-layouts">
-###Listing layouts
+<section class="slide" id="actions-more">
+###More About Actions & URLs
 
-- ResultProviders
-  - uses direct core access or querymodels to fetch documents
-  - manage cache via Seam context integration
-- Table templates
-  - Facelet template to be used with ResultProviders
+- <a href="http://doc.nuxeo.com/x/EYAO" target="_blank">http://doc.nuxeo.com/x/EYAO</a>: reference documentation about actions
+- <a href="http://doc.nuxeo.com/x/hwFu" target="_blank">http://doc.nuxeo.com/x/hwFu</a>: reference documentation about URLs
 </section>
 
-<section class="slide" id="other-integrations">
-### Other integrations
-- Restlets integration
-  - bind Restlets on Seam components
-- Flex/AMF integration
-  - call seam components from Flex
-- Pluggable authentication filter
+<section class="slide" id="themes">
+##Themes
 </section>
 
-<section class="slide" id="design-notes">
-##Design notes
+<section class="slide" id="nuxeo-themes-overview">
+  <h3>Themes</h3>
+  <div>
+    <img src="./img/themes.png" />
+  </div>
+</section>
+
+<section class="slide" id="nuxeo-themes-role">
+  <h3>Themes Role</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Define the branding of an application</li>
+      <li>Define global page layouts with reusable components</li>
+      <li>Handle CSS/Javascript resources</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/flavors.png" />
+  </div>
+</section>
+
+<section class="slide" id="theme-features">
+  <h3>Themes Features</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Use JSF and Freemarker features</li>
+      <li>Define sets of reusable CSS files to handle addons and applications</li>
+      <li>Provide flavors for easier customization</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/nuxeo_theme_includes.jpg" />
+  </div>
+</section>
+
+<section class="slide" id="theme-studio">
+  <h3>Branding in Nuxeo Studio</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Customize login page</li>
+      <li>Define flavors</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/studio_new_branding.png" />
+  </div>
+</section>
+
+<section class="slide" id="theme-xml">
+TODO: sample XML extension (?)
+Explain that layout is different than layouts and widgets system + CSS are now outside of the XML definition
+</section>
+
+<section class="slide" id="nuxeo-theme-more">
+###More About Themes
+
+- Reference documentation about themes
+  <br />
+  <a href="http://doc.nuxeo.com/x/N4AO" target="_blank">http://doc.nuxeo.com/x/N4AO</a>
+- Showcase for CSS syling of a Nuxeo application
+  <br />
+  <a href="http://showcase.nuxeo.com/nuxeo/styleGuide/" target="_blank">http://showcase.nuxeo.com/nuxeo/styleGuide/</a>
+</section>
+
+
+<section class="slide" id="content-views">
+  <h2>Content Views</h2>
+</section>
+
+<section class="slide" id="content-views-overview">
+  <h3>Content Views</h3>
+  <div>
+    <img src="./img/content_view.png" />
+  </div>
+</section>
+
+<section class="slide" id="content-views-role">
+  <h3>Content Views</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Define the query to retrieve documents (or other resources)</li>
+      <li>Pass on contextual parameters to the query</li>
+      <li>Define a filtering form</li>
+      <li>Define rendering of items in a table</li>
+      <li>Handle selection and actions on items</li>
+      <li>Handle sorting and pagination</li>
+      <li>Handle cache</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/contentview.png" />
+  </div>
+</section>
+
+<section class="slide" id="content-views-features">
+  <h3>Content Views Features</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Reuse underlying layouts and actions features</li>
+      <li>Accept pluggable page providers to query custom databases</li>
+      <li>Benefit from loose binding of listing layouts</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/contentview_history.png" />
+  </div>
+</section>
+
+<section class="slide" id="content-views-xml">
+TODO: sample XML extension
++ usage in xhtml pages
+</section>
+
+<section class="slide" id="agenda-nuxeo-webapp">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+- <a href="#nuxeo-webapp"><span class="bold">Nuxeo JSF Webapp</span></a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise">Training Exercise</a>
+</section>
+
+<section class="slide" id="nuxeo-webapp">
+##Nuxeo JSF WebApp
+</section>
+
+<section class="slide" id="global-picture">
+###Global picture
+
+  <img src="./img/global_picture.png" />
+</section>
+
+<section class="slide" id="nuxeo-webapp-scope">
+###Scope management
+
+- User related components are <span class="bold">session</span> based
+    - <code>currentUser</code>: currently identified user (can be anonymous)
+    - <code>documentManager</code>: session to the Nuxeo core repository
+- Stateless components are stateless or event scoped
+    - <code>selectionActions</code>
+- Other components are <span class="bold">conversation</span> based: the
+  application can support multiple parallel conversations
+    - <code>navigationContext</code>
+</section>
+
+<section class="slide" id="nuxeo-webapp-navigation-context">
+###Navigation context
+
+- Seam component named <code>navigationContext</code>
+- Provides a central navigation service
+    - provides context information: <code>currentDocument</code>, <code>currentSuperSpace</code>,...
+    - manages cache and invalidation events
+    - provides central points to let all components share navigation related state
+- Most components inject the navigationContext
+    - to know what is the current document
+    - to perform navigation actions
+</section>
+
+<section class="slide" id="nuxeo-webapp-event-invalidations">
+###Event based invalidation
+
+- Conversation beans hold some cache
+    - data computed about the currentDocument (relations, history ....)
+- Cache invalidation is needed
+- Seam Events are used for that: components are notified via <code>@Observers</code>
+- Can also use <code>DocumentContextBoundActionBean</code> for optimization
+</section>
+
+<section class="slide" id="nuxeo-seam-delegates">
+###Seam Delegates in Nuxeo
+
+- Use <code>@Unwrap</code> annotation to access Nuxeo Service as native Seam components
+- can access Nuxeo services via injection
+    - <code>@In</code> CoreSession documentManager
+    - <code>@In</code> RelationManager relationManager
+</section>
+
+<section class="slide" id="nuxeo-seam-factories">
+###Seam Factories in Nuxeo
+
+Seam factories are used to fill the context
+
+- avoids multiple calls
+- avoids managing state in the components
+</section>
+
+<section class="slide" id="agenda-nuxeo-design-advice">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#design-advice"><span class="bold">Design notes & standard pitfalls</span></a>
+- <a href="#training-exercise">Training Exercise</a>
 </section>
 
 <section class="slide" id="design-advice">
-###Some advice
+##Design advice
+</section>
 
-####Seam beans
+<section class="slide" id="jsf-pitfalls">
+### JSF  pitfalls
+
+- Building a JSF component from the ground:
+    - is a lot of work
+    - can be hard
+  => Use facelets and composition to build new custom components
+- Rendered clause impact on performance
+- Variables exposure: build time vs render time
+- Duplicate id issues
+- Ajax and queues and re-render zones
+- Back button management
+- Server side state saving (limited by memory usage)
+- TODO: gather up stuff from <a href="http://java-success.blogspot.fr/2011/10/jsf-interview-questions-and-answers.html">http://java-success.blogspot.fr/2011/10/jsf-interview-questions-and-answers.html</a>
+
+</section>
+
+<section class="slide" id="jsf-pitfalls-rendered-clause-1">
+### JSF rendered clause issue
+
+- JSF rendered clause is evaluated during each phase
+    - clause is evaluated 6 time per components
+- Associated with a loops this can completely kill the performances of an application
+</section>
+
+<section class="slide" id="jsf-pitfalls-rendered-clause-2">
+###Render clause problem
+
+  <img src="./img/render_clause.png" />
+</section>
+
+<section class="slide" id="jsf-pitfalls-rendered-clause-3">
+###Render clause solution
+- Use built-time conditions
+    - c:if, c:choose, c:forEach
+- Bind conditions to context variables
+    - use Seam factories to compute variable only once per event
+</section>
+
+<section class="slide" id="seam-pitfalls-1">
+###Seam components design advice
 
 - It's easy to put all logic in the Seam beans (seam book push in that direction)
 
@@ -512,36 +1059,62 @@ but it's bad
 xxx-api, xxx-core, xxx-web
 </section>
 
-<section class="slide" id="standard-pitfalls">
-### JSF rendered clause issue
+<section class="slide" id="seam-pitfalls-2">
+### Seam pitfalls
 
-- JSF rendered clause is evaluated during each phase
-    - clause is evaluated 6 time per components
-- Associated with a loops this can completely kill the performances of an application
+- Scope management
+    - do not use conversation scope too much
+    - same for session components
+    - conversation and session calls are synchronized
+
+- Circular dependencies between Seam components
 </section>
 
-<section class="slide" id="standard-pitfalls-rendered">
-###Render clause problem
+<section class="slide" id="nuxeo-pitfalls">
+### Nuxeo pitfalls
 
-  <img src="./img/render_clause.png" />
-</section>
+- Nuxeo and ELs
+    - JSF/Seam EL
+    - JEXL for actions
+    - MVEL for operations
 
-<section class="slide" id="standard-pitfalls-rendered-solution">
-###Render clause solution
-- Use built-time conditions
-    - Jstl c:if or c:choose
-- Bind conditions to context variables
-    - use Seam factories to compute variable only once per event
-</section>
+  + different context for actions filters (TODO)
 
-<section class="slide" id="custom-jsf-components">
-### Custom components
-- Building a JSF component from the ground:
-    - is a lot of work
-    - can be hard
-- Use facelets and composition to build new custom components
+- Override of default templates or Seam components: not advised for easier migration
 
 </section>
+
+<section class="slide" id="debugging">
+### Debugging & Troubleshoot
+
+(TODO)
+
+- use the dev mode for refresh of xhtml templates
+- use Nuxeo IDE for Seam hot reload support
+
+</section>
+
+<section class="slide" id="agenda-nuxeo-training-exercise">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise"><span class="bold">Training Exercise</span></a>
+</section>
+
+<section class="slide" id="training-exercise">
+## Training exercise
+</section>
+
+<section class="slide" id="training-exercise-agenda">
+### Training exercise
+
+- TODO
+</section>
+
 
   <!-- deck.navigation snippet -->
   <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>

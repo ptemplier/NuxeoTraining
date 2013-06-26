@@ -21,5 +21,6 @@ target
 *.iws
 *.gpd.*
 *cpJar*
+slides/phantomjs*
 dependency-tree.log
 build.properties
