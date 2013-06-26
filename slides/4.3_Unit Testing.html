@@ -105,7 +105,7 @@
 
 
   <section class="slide no-md" id="first-demo-junit">
-    <h2>Demo</h2>
+    <h2>Demo: running TestBookDocument</h2>
   </section>
 
   <section class="slide no-md" id="unit-testing">
@@ -178,21 +178,20 @@ Manifest-Version: 1.0
 Require-Bundle: org.nuxeo.runtime
 Bundle-Vendor: Nuxeo
 Bundle-Version: 1.0.0
-Bundle-Name: Nuxeo Studio Extension - studio.extensions.SunTraining_Nu
- xeo
+Bundle-Name: Nuxeo Studio Extension - studio.extensions.&lt;your_Studio_project_name&gt;
 Nuxeo-Component: OSGI-INF/extensions.xml
 Bundle-ManifestVersion: 2
 Created-By: Nuxeo Studio
-<span class="bold">Bundle-SymbolicName: studio.extensions.SunTraining_Nuxeo</span>
+<span class="bold">Bundle-SymbolicName: studio.extensions.&lt;your_Studio_project_name&gt;</span>
 </code>
 </pre>
 
     <pre>
-      <code>@Deploy("studio.extensions.SunTraining_Nuxeo")</code>
+      <code>@Deploy("studio.extensions.&lt;your_Studio_project_name&gt;")</code>
     </pre>
     
     <h4>Test that a component is loaded</h4>
-    <pre><code>Assert.assertNotNull(Framework.getRuntime().getComponent("studio.extensions.SunTraining_Nuxeo"));</code></pre>
+    <pre><code>Assert.assertNotNull(Framework.getRuntime().getComponent("studio.extensions.&lt;your_Studio_project_name&gt;"));</code></pre>
 
   </section>
 

@@ -223,6 +223,63 @@ mvn eclipse:eclipse</code>
   <h2>Demo - Installation workshop</h2>
 </section>
 
+<section class="slide no-md" id="exercise---your-first-bundle">
+  <h2>Exercise - Your first bundle</h2>
+</section>
+
+<section class="slide no-md exercise" id="create-new-project">
+    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+  <h3>Create a Nuxeo project</h3>
+  <ul>
+    <li>With Nuxeo IDE, create a new Nuxeo Project. Choose a name,
+      nuxeo-book-management can be a nice choice </li>
+    <li> It will automatically 
+      <ul>
+        <li>Creates folders
+          <ul>
+            <li>src/main/java and src/main/resources </li>
+            <li>OSGI-INF and META-INF folders in resources </li>
+          </ul>
+        </li>
+        <li>Creates a MANIFEST.MF file in META-INF </li>
+      </ul>
+    </li>
+    <li>Bind the project to your Studio project</li>
+  </ul>
+</section>
+
+<section class="slide exercise" id="create-a-new-automation-gadget">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Create a new Automation gadget to retrieve all the Books
+- Needs `nuxeo-dm` module installed
+- Use the Nuxeo IDE Automation gadget wizard
+- Deploy your changes in your SDK
+- Check that your Automation gadget is available in the user dashboard
+</section>
+
+<section class="slide no-md exercise"
+  id="deploy-your-bundle-without-the-sdk-at-first">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+  <h3>Deploy Your Bundle (without the sdk)</h3>
+  <ul>
+    <li>Synchronize your pom (you may have new dependencies)</li>
+    <li>Build the jar with Maven
+      <ul>
+        <li><code>mvn clean package</code>: package your project as a JAR </li>
+        <li><code>mvn clean install</code>: package your project and install it
+          in your local Maven repository </li>
+        <li>The jar file is in the working directory: target folder</li>
+        <li>Dependency issues ? See <a href="http://doc.nuxeo.com/x/JQk7">Nuxeo Maven Usage documentation</a></li>
+      </ul>
+    </li>
+    <li>Put your JAR archive in the bundles folder on a standard Nuxeo Server (not sdk) </li>
+    <li>(nxserver/bundles) for those who don’t remember </li>
+    <li>Check that your Automation gadget is available </li>
+  </ul>
+</section>
 
 <section class="slide no-md" id="questions">
   <h2>Questions?</h2>
