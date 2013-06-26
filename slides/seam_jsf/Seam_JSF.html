@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo, Seam & JSF - Introduction</title>
+<title>Nuxeo: Seam & JSF Training</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -43,7 +43,7 @@
 <body class="deck-container">
 
 <section class="slide" id="title">
-#Nuxeo: Seam & JSF Usage
+#Nuxeo: Seam & JSF Training
 </section>
 
 <section class="slide" id="agenda-intro">
@@ -312,7 +312,7 @@ Expression Language offers a loose binding to UI elements
 ###Seam Role
 
 - Controller for JSF views
-- Seam Components are « by users » (nuxeo services are singleton)
+- Seam Components are « by users » (nuxeo services are singletons)
 - Injection mechanism for interaction between Seam components
 - Context mechanism :
     - Current doc/super space ...
@@ -832,7 +832,97 @@ Nuxeo provides several tag libraries
 </section>
 
 <section class="slide" id="actions-xml">
-TODO: sample action + filter XML contribution + sample usage in xhtml pages + link to explorer
+###Actions definitions
+
+<pre>
+<code>
+  &lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
+    point="actions"&gt;
+    &lt;action id="org.nuxeo.seam.jsf.training.MySeamBean" link="#{mySeam.doGet}"
+      order="200" label="label.org.nuxeo.seam.jsf.training.MySeamBean"
+      icon="/icons/org.nuxeo.seam.jsf.training.MySeamBean-action.png"&gt;
+      &lt;category&gt;SUBVIEW_UPPER_LIST&lt;/category&gt;
+      &lt;filter-id&gt;org.nuxeo.seam.jsf.training.MySeamBean&lt;/filter-id&gt;
+    &lt;/action&gt;
+  &lt;/extension&gt;
+</code>
+</pre>
+
+More sample contributions are available on the explorer:
+<a href="http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewExtensionPoint/org.nuxeo.ecm.platform.actions.ActionService--actions" target="_blank">http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewExtensionPoint/org.nuxeo.ecm.platform.actions.ActionService--actions</a>
+
+</section>
+
+<section class="slide" id="filters-xml">
+###Filters definitions
+
+<pre>
+<code>
+  &lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
+    point="filters"&gt;
+    &lt;filter id="org.nuxeo.seam.jsf.training.MySeamBean"&gt;
+      &lt;rule grant="true"&gt;
+        &lt;condition&gt;#{mySeam.accept()}&lt;/condition&gt;
+      &lt;/rule&gt;
+    &lt;/filter&gt;
+  &lt;/extension&gt;
+</code>
+</pre>
+
+More sample contributions are available on the explorer:
+<a href="http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewExtensionPoint/org.nuxeo.ecm.platform.actions.ActionService--filters" target"_blank">http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewExtensionPoint/org.nuxeo.ecm.platform.actions.ActionService--filters</a>
+
+</section>
+
+<section class="slide" id="actions-xhtml">
+###Actions Usage in xhtml Pages
+
+Most of the time, actions rendering depends on their category, although
+some improvements have been made in more recent Nuxeo versions.
+
+<pre>
+<code>
+  &lt;nxu:set var="actions" cache="true"
+    value="#{webActions.getActionsList('DOCUMENT_UPPER_ACTION')}"&gt;
+    &lt;nxu:dataList layout="simple" var="action" value="#{actions}"&gt;
+      &lt;nxh:commandLink action="#{action.getLink()}"
+        immediate="#{action.immediate}"
+        onclick="#{action.confirm}"&gt;
+        &lt;h:graphicImage value="#{action.icon}"
+          rendered="#{not empty action.icon}"
+          title="#{messages[action.label]}"
+          alt="#{messages[action.label]}"
+          styleClass="smallIcon" /&gt;
+      &lt;/nxh:commandLink&gt;
+    &lt;/nxu:dataList&gt;
+  &lt;/nxu:set&gt;
+</code>
+</pre>
+
+</section>
+
+<section class="slide" id="actions-xhtml2">
+###Actions Usage in xhtml Pages
+
+New way (from 5.7.1), allows to mix up different renderings depending on
+the action, in the same category:
+<pre>
+<code>
+  &lt;nxl:widgetType name="currentDocumentActionsWithForms"
+    widgetName="documentActionsUpperButtons"
+    mode="view"
+    label=""
+    styleClass="globalActionBar"
+    subStyleClass="contextActions"
+    actionStyleClass="button"
+    actionsDisplay="icons"
+    overallDisplay="horizontal_block"
+    category="DOCUMENT_UPPER_ACTION"
+    maxActionsNumber="5"
+    value="#{currentDocument}" /&gt;
+</code>
+</pre>
+
 </section>
 
 <section class="slide" id="url-service">
@@ -869,7 +959,31 @@ TODO: sample action + filter XML contribution + sample usage in xhtml pages + li
 <section class="slide" id="url-patterns">
 ###URL Patterns
 
-TODO
+URL patterns make the link between the navigation and the URL codec
+
+<pre>
+<code>
+  &lt;extension target="org.nuxeo.ecm.platform.ui.web.rest.URLService"
+    point="urlpatterns"&gt;
+    &lt;urlPattern name="default" enabled="true"&gt;
+      &lt;defaultURLPolicy&gt;true&lt;/defaultURLPolicy&gt;
+      &lt;needBaseURL&gt;true&lt;/needBaseURL&gt;
+      [...]
+      &lt;codecName&gt;docpath&lt;/codecName&gt;
+      &lt;actionBinding&gt;
+        #{restHelper.initContextFromRestRequest}
+      &lt;/actionBinding&gt;
+      [...]
+      &lt;bindings&gt;
+        &lt;binding name="tabId" callGetter="false"&gt;
+          #{webActions.currentTabId}
+        &lt;/binding&gt;
+      &lt;/bindings&gt;
+    &lt;/urlPattern&gt;
+  &lt;/extension&gt;
+</code>
+</pre>
+
 </section>
 
 <section class="slide" id="actions-more">
@@ -934,8 +1048,12 @@ TODO
 </section>
 
 <section class="slide" id="theme-xml">
-TODO: sample XML extension (?)
-Explain that layout is different than layouts and widgets system + CSS are now outside of the XML definition
+###Theme XML Extensions
+
+- declare the theme
+- reference the page layout, referencing view fragments
+- link CSS/JS resources
+- apply flavours
 </section>
 
 <section class="slide" id="nuxeo-theme-more">
@@ -995,18 +1113,118 @@ Explain that layout is different than layouts and widgets system + CSS are now o
 </section>
 
 <section class="slide" id="content-views-xml">
-TODO: sample XML extension
-+ usage in xhtml pages
-</section>
-
-<section class="slide" id="page-providers">
-  <h3>Custom Page Providers</h3>
-  TODO: props + params (+ whereclause...)
+###Content Views Definitions
+<pre>
+<code>
+  &lt;extension target="org.nuxeo.ecm.platform.ui.web.ContentViewService"
+    point="contentViews"&gt;
+    &lt;contentView name="document_content"&gt;
+      &lt;coreQueryPageProvider&gt;
+        [...]
+      &lt;/coreQueryPageProvider&gt;
+      &lt;searchLayout name="document_content_filter"
+        filterDisplayType="quick" /&gt;
+      &lt;refresh&gt;
+        &lt;event&gt;documentChanged&lt;/event&gt;
+        &lt;event&gt;documentChildrenChanged&lt;/event&gt;
+      &lt;/refresh&gt;
+      &lt;cacheKey&gt;#{currentDocument.id}&lt;/cacheKey&gt;
+      &lt;cacheSize&gt;10&lt;/cacheSize&gt;
+      &lt;resultLayouts&gt;
+        &lt;layout
+          name="document_listing_ajax"
+          title="document_listing"
+          translateTitle="true"
+          iconPath="/icons/document_listing_icon.png"
+          showCSVExport="true"
+          showPDFExport="false"
+          showSyndicationLinks="true" /&gt;
+      &lt;/resultLayouts&gt;
+      &lt;selectionList&gt;CURRENT_SELECTION&lt;/selectionList&gt;
+      &lt;actions category="CURRENT_SELECTION_LIST" /&gt;
+    &lt;/contentView&gt;
+  &lt;/extension&gt;
+</code>
+</pre>
 </section>
 
 <section class="slide" id="page-providers-xml">
-TODO: sample XML extension
-+ usage in widgets conf
+###Page Providers Definitions
+<pre>
+<code>
+  &lt;coreQueryPageProvider&gt;
+    &lt;property name="coreSession"&gt;#{documentManager}&lt;/property&gt;
+    &lt;property name="maxResults"&gt;DEFAULT_NAVIGATION_RESULTS&lt;/property&gt;
+    &lt;whereClause docType="AdvancedSearch"&gt;
+      &lt;predicate parameter="ecm:fulltext" operator="FULLTEXT"&gt;
+        &lt;field schema="advanced_search" name="fulltext_all" /&gt;
+      &lt;/predicate&gt;
+      &lt;predicate parameter="dc:title" operator="FULLTEXT"&gt;
+        &lt;field schema="advanced_search" name="title" /&gt;
+      &lt;/predicate&gt;
+      &lt;predicate parameter="dc:modified" operator="BETWEEN"&gt;
+        &lt;field schema="advanced_search" name="modified_min" /&gt;
+        &lt;field schema="advanced_search" name="modified_max" /&gt;
+      &lt;/predicate&gt;
+      &lt;fixedPart&gt;
+        ecm:parentId = ? AND ecm:isCheckedInVersion = 0
+        AND ecm:mixinType != 'HiddenInNavigation'
+        AND ecm:currentLifeCycleState != 'deleted'
+      &lt;/fixedPart&gt;
+    &lt;/whereClause&gt;
+    &lt;parameter&gt;#{currentDocument.id}&lt;/parameter&gt;
+    &lt;sort column="dc:title" ascending="true" /&gt;
+    &lt;pageSize&gt;20&lt;/pageSize&gt;
+  &lt;/coreQueryPageProvider&gt;
+</code>
+</pre>
+</section>
+
+<section class="slide" id="custom-page-providers">
+###Custom page providers
+
+Benefit from:
+- default page providers API (next, prev, etc...)
+- default content views rendering
+    - use layouts loose binding for results rendering
+
+<pre>
+<code>
+  &lt;extension
+    target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+    point="providers"&gt;
+    &lt;genericPageProvider
+      class="org.nuxeo.ecm.platform.audit.api.document.DocumentHistoryPageProvider"
+      name="DOCUMENT_HISTORY_PROVIDER"&gt;
+      &lt;whereClause docType="BasicAuditSearch"&gt;
+        &lt;predicate parameter="log.eventDate" operator="BETWEEN"&gt;
+          &lt;field schema="basicauditsearch" name="startDate" /&gt;
+          &lt;field schema="basicauditsearch" name="endDate" /&gt;
+        &lt;/predicate&gt;
+      &lt;/whereClause&gt;
+      &lt;sort column="log.eventDate" ascending="true" /&gt;
+      &lt;sort column="log.id" ascending="true" /&gt;
+      &lt;pageSize&gt;10&lt;/pageSize&gt;
+    &lt;/genericPageProvider&gt;
+  &lt;/extension&gt;
+</code>
+</pre>
+</section>
+
+<section class="slide" id="content-views-xhtml">
+###Content Views usage in xhtml pages
+
+<pre>
+<code>
+  &lt;nxu:set var="contentViewId" value="unique_cv_id"&gt;
+  &lt;nxu:set var="contentViewName" value="document_content"&gt;
+
+    &lt;ui:decorate template="/incl/content_view.xhtml" /&gt;
+
+  &lt;/nxu:set&gt;
+  &lt;/nxu:set&gt;
+</code>
+</pre>
 </section>
 
 <section class="slide" id="agenda-nuxeo-design-advice">
@@ -1037,7 +1255,7 @@ TODO: sample XML extension
 - Ajax and queues and re-render zones
 - Back button management
 - Server side state saving (limited by memory usage)
-- TODO: gather up stuff from <a href="http://java-success.blogspot.fr/2011/10/jsf-interview-questions-and-answers.html">http://java-success.blogspot.fr/2011/10/jsf-interview-questions-and-answers.html</a>
+- ...
 
 </section>
 
@@ -1096,11 +1314,9 @@ xxx-api, xxx-core, xxx-web
 ### Nuxeo pitfalls
 
 - Nuxeo and ELs
-    - JSF/Seam EL
-    - JEXL for actions
+    - JSF/Seam EL for layouts & widgets
+    - JEXL for actions with a restricted context
     - MVEL for operations
-
-  + different context for actions filters (TODO)
 
 - Override of default templates or Seam components: not advised for easier migration
 
@@ -1109,10 +1325,8 @@ xxx-api, xxx-core, xxx-web
 <section class="slide" id="debugging">
 ### Debugging & Troubleshoot
 
-(TODO)
-
 - use the dev mode for refresh of xhtml templates
-- use Nuxeo IDE for Seam hot reload support
+- use Nuxeo IDE for Seam hot reload support and debugging features
 
 </section>
 
@@ -1138,14 +1352,9 @@ xxx-api, xxx-core, xxx-web
   - define the template with a simple "Hello World" content
   - define the navigation case
   - add an action displaying it
-- Make this view use the theme and display layouts
   - bind the view to the default theme
-  - bind the view to another
+  - bind the view to another theme page
   - display the current document default view layout
-- Define a new tab on documents
-  - define the tab content
-  - define an action displaying this tab
-  - refine the filter controlling this tab appearance
 </section>
 
 <section class="slide" id="training-exercise2">
@@ -1154,6 +1363,15 @@ xxx-api, xxx-core, xxx-web
 - Define a widget template
 - Define the widget type
 - Use this widget type in a layout
+</section>
+
+<section class="slide" id="training-exercise3">
+### Training exercise 3: define a new tab
+
+- Define a new tab on documents
+  - define the tab content
+  - define an action displaying this tab
+  - refine the filter controlling this tab appearance
 </section>
 
   <!-- deck.navigation snippet -->
