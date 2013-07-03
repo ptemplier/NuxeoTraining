@@ -68,162 +68,117 @@ He has put you in charge to implement something covering his request. Quickly.
 - Create a workflow to validate and publish press releases
 </section>
 
-<section class="slide" id="agenda">
+<section class="slide" id="workflow-concepts">
 ###Agenda
-- Introduction
-    - New workflow engine
+- Concepts
+    - Principles used
     - Customization cycle
     - Workflow usage in Nuxeo UI
-- Concepts
+- Configuration
   - Nodes and transitions
   - Tasks
   - Forms and variables
   - Advanced usage
 </section>
 
-<!--
-<section class="slide" id="wherewego">
-### We will learn to build
-<img alt="workflow-publication-start" src="img/workflow-publication-start.png" class="float-right" />
-####A publication workflow where
-
-
-
-- The workflow initiator choose the section and the validator
-- The validator can accept the publication
-
-
-<img alt="workflow-choose-validator" src="img/workflow-choose-validator.png"/>
-
-<img alt="workflow-accept-publication" src="img/workflow-accept-publication.png" />
-
-
-</section>
--->
-    
-<section class="slide" id="newwfengine">
-###Introduction
-####New WF engine 
-    
-- Based on existing infrastructure and using existing features
-    - **Automation chains**, powered by Content Automation
-    - **Layouts**, dynamic forms using the layout system
-    - **Notifications**, using the  freemarker templating  system
-    - **Document**, Stored as a structure of documents
-    - **Content views**
-    
-####A new graph editor in Studio 
-<img alt="workflow-publication-graph" src="img/workflow-publication-graph.png"
-/>
-
+<section class="slide" id="workflow-concepts">
+## Workflow concepts
 </section>
 
-
-
-<section class="slide">
-Demo
-----------------------------------------
+<section class="slide" id="principles">
+### Principles used 
+#### Based on existing infrastructure and using existing features
+- **Automation chains**: powered by Content Automation
+- **Layouts**: dynamic forms using the layout system
+- **Notifications**: using the freemarker templating system
+- **Document**: stored as a structure of documents
 </section>
-
-<!--
-<section class="slide">
-Demo2 - holiday management
------------------------------------------
-</section>
--->
     
 <section class="slide" id="customization-process">
 ### Customization cycle
-#### In Studio, we define the graph and the model 
- - Creation of a new workflow feature
- - Graph design
- - Nodes configuration <div class="further-info">including forms and automation chains if required</div>
- 
+#### In Studio, we create the workflows
+ - By designing the process using the graph
+ - By configuring nodes (steps of the process) and their logic
+  
 #### In Nuxeo UI, we launch the workflows
- - A workflow template ( model )
- - Using this template we start a workflow instance on a document.
- - Start the workflow from the UI using “Workflow Process” widget or using the StartWorkflow operation.
+ - Workflows are stored as templates at server start
+ - Using one of these templates we start a workflow instance on a document.
+ - Workflows can be started from the UI using “Workflow Process” widget or using the StartWorkflow operation.
 </section>
     
-<section class="slide" id="innuxeo">
-###Workflow usage in Nuxeo UI
+<section class="slide" id="innuxeo-1">
+###Workflow usage in Nuxeo UI (1/4)
 ####Summary tab
-- Available workflows or started workflows<img alt="workflow-summary-availables" src="img/workflow-summary-availables.png" class="float-right" />
+- Shows available workflows or started workflows 
 
+<img alt="workflow-summary-availables" src="img/workflow-summary-availables.png" />
+</section>
+
+<section class="slide" id="innuxeo-2">
+###Workflow usage in Nuxeo UI (2/4)
 ####Workflow tab 
-- Running workflows
-- All waiting task for this doc + layout + actions
+- Shows 
+    - Running workflows
+    - All waiting tasks for this document, form and possible actions
     
-    <img alt="workflow-dashboard" src="img/workflow-summary-task.png" class="float-center" />
-    
+<img alt="workflow-dashboard" src="img/workflow-summary-task.png" />
+</section>
+
+<section class="slide" id="innuxeo-3">
+###Workflow usage in Nuxeo UI (3/4)   
 ####Dashboard
-- Waiting tasks for the user + link to the doc 
-                
+- Shows waiting tasks for the user with a link to the document 
+
 <img alt="workflow-dashboard" src="img/workflow-dashboard.png" class="float-right" />       
-    
-    </section>
+</section>
 
-    <section class="slide" id="innuxeo-admin">
-###Workflow usage in Nuxeo UI
+<section class="slide" id="innuxeo-admin">
+### Workflow usage in Nuxeo UI (4/4)
+#### Admin Center: Workflow menu
+- Shows existing workflow models
 
-
-
-####Admin Center: Workflow templates and instances
-        
-- Studio generates workflow configurations
-    - As xml
-    - At startup, generates documents (templates) -> availables  workflows
-
-- When starting a WF
-        
-    - New instance created as documents
-    - Copy of the template
-    - Can restrict access with ACL
 <img alt="workflow-admincenter" src="img/workflow-admincenter.png" class="float-right" />
-
 </section>
 
-
-
-<section class="slide" id="concepts">
-Nuxeo Workflow Concepts
---------------------------------------
+<section class="slide" id="workflow-config">
+## Workflow configuration
 </section>
+
 <section class="slide" id="new-workflow">
-###Create a new Workflow in Studio 
+###Creating a new Workflow in Studio 
 
 <img alt="workflow-definition" src="img/workflow-creation.png" class="float-right" />
 ####New Workflow Definition
 - Template that will be used in DM to start workflows on documents
     
     - ID (must be unique) 
-        - id of the declared workflow template
+        - ID of the declared workflow template
         - Useful for starting a workflow with automation
-    - label
+    - Label
         - Displayed in Nuxeo in the drop down that launches a workflow
         - Supports i18n
-    - description
-        - displayed beside the dropdown that launches a workflow, then the corresponding workflow is selected
+    - Description
+        - Displayed besides the dropdown list of available workflows, when the corresponding workflow is selected
 </section>
 
 <section class="slide" id="workflow-definition">
 ###Definition Tab
+#### To display and edit general information
 
+<img alt="workflow-definition" class="float-right" src="img/workflow-definition.png"/>
 
 - Label
 - Description
 - Icons
-<img alt="workflow-definition" src="img/workflow-definition.png"/>
 </section>
  
      <section class="slide" id="workflow-var">
 ###Variables Tab
 ####Information that can be accessed during the workflow
 
-- Store data that comes from user forms or they are computed by automation chains
-- Available in the automation context using the 
-predefined object WorkflowVariables[]
-- *Similar with these, we can define on every node some Nodes Variables available in the context of that node using the predefined object NodeVariables[]*
+- Stores data that comes from user forms or computed by automation chains
+- Available for any workflow node using the predefined object WorkflowVariables[]
+- *Similarly, we can define node variables available only for that specific node using the predefined object NodeVariables[]*
          
 <img alt="workflow-variables" src="img/workflow-variables.png" class="float-center" />
 
@@ -231,9 +186,8 @@ predefined object WorkflowVariables[]
  
     
  <section class="slide" id="enablements">
-###Availability Tab
-
-####Conditions in which the workflow will be available:
+### Availability Tab
+#### Conditions for the workflow to be available
 <img alt="workflow-availability" src="img/workflow-availability.png" class="float-right" />
 
 - A workflow can be enabled according to
@@ -246,51 +200,45 @@ predefined object WorkflowVariables[]
 </section>
  
 <section class="slide" id="graph-editor-graph">
-###Graph editor Tab
-####Graphical drag and drop workflow editor
-    
+### Graph editor Tab
+#### Graphical drag and drop workflow editor
 
+<img alt="workflow-availability" src="img/workflow-graph-editor.png" class="float-right" />
 
-![a screen shot of the graph editor in studio](img/workflow-graph-editor.png)
+- Defines the workflow nodes 
+- Configures their logic
 </section>
     
 <section class="slide" id="main-concepts">
 ###Workflow Main Concepts
 
 ####Graph  <img alt="workflow-graph-node" src="img/workflow-graph-node.png" class="float-right" /> 
-- The graph is the definition of your process
-    - start node
-    - one or more end nodes
-    - nodes linked by transitions 
+- The graph is the definition of your process, it contains:
+    - A start node
+    - One or more end nodes
+    - Any other type of node
+    - Transitions 
 
 ####Nodes
 - A node is an element of action
-- Can be a simple node or a task
-
+- Can be an automated node not requiring a user action, or a task
 
 ####Transitions
 - Two nodes are linked by a transition
-- A condition set on the transition enables to know if it is possible to go from one node to another one linked via a transition.
-    
+- A condition set on the transition filters the possibility to follow it
 </section>    
     
     
 <section class="slide exercise" id="workshop-simple-workflow">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">    
-###Exercise: Simple Workflow
-
-Even if we didn't discuss yet all the workflow concepts , you can build a simple workflow !
-            
-- Create a simple workflow having only the Start and the Stop nodes
-- Make sure this workflow can be started only on documents of type File and only if the user has the Read and Write permissions on the current document
-- After deploying the workflow in Nuxeo go to the Workflow tab in Admin Center and check that your workflow model is there
-- Automatically start the workflow “SerialDocumentReview” each time a document of type “Note” is created
-    - use an EventHandler
-    - use the StartWorkflow operation        
+### Practice - Start designing a workflow          
+- Create a simple workflow named <code>pressReleaseValidationWorkflow</code> 
+- Make sure this workflow can be started only on documents of type File, and only if the user has the Read and Write permissions on the current document
+- In the graph, add a <code>Start</code> and a <code>Stop</code> node
+- Commit and deploy your changes
+- In Nuxeo, check that your workflow model exists
 </section>    
-    
-    
     
 <section class="slide" id="nodes-and-transitions">
 Nodes and transitions
