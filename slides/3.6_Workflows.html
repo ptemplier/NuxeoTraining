@@ -245,27 +245,22 @@ He has put you in charge to implement something covering his request. Quickly.
 </section>    
     
 <section class="slide" id="nodes-and-transitions">
-## Nodes and transitions 
+## Nodes and transitions configuration
 </section>
     
 <section class="slide" id="node-configuration">         
 ###Node Configuration 
-   
-####Popup editor
-<img alt="Studio node edition form" src="img/workflow-node-general-tab.png" />
 
-- General
-- Node variables
-- Task form ( only if the node is of type “Task” )
-- Transitions
-    
+<img alt="Studio node edition form" class="float-right" src="img/workflow-node-general-tab.png" />
+
 ####General tab
 - General information:  title, directive
 - Input operation chain
     - The automation chain you specify here will be executed just before the workflow engine enters the node
 - Output operation chain
-    - The automation chain you specify here will be executed just before the workflow engine leaves the node.
-- The documents following the workflow are set by the engine as the input documents when these chains are invoked . This chains are executed using an unrestricted session!!  
+    - The automation chain you specify here will be executed just before the workflow engine leaves the node, and follows the transition(s) if any.
+- The documents following the workflow are set by the engine as the input documents when these chains are invoked. 
+These chains are executed using an unrestricted session!
     
 </section>
  
@@ -273,15 +268,15 @@ He has put you in charge to implement something covering his request. Quickly.
 <section class="slide" id="node-variable">
 ###Node Configuration
 ####Variables tab
-- Store information that can be accessed in the context of the current node during the workflow
-- Store data that comes from user forms or computed by automation chains
+- Stores information that can be accessed in the context of the current node during the workflow
+- Stores data that comes from user forms or computed by automation chains
 - Available in the predefined object
     - <code>NodeVariables["nodeVariableName"]</code>
-- predefined variable called “assignees” on every task node
+- A predefined variable called “assignees” exists on every task node
     - Used by <code>Compute Additional Assignees = NodeVariables["assignees"]</code>
-- Variables shared within a node of a workflow instance
-- Accessible in the task layouts
-- Available from notification templates
+- Node variables are available:
+    - In the task layouts
+    - In the email notification templates
 </section>
     
 <section class="slide" id="Transition">
