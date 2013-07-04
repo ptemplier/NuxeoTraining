@@ -181,8 +181,7 @@ He has put you in charge to implement something covering his request. Quickly.
 - Available for any workflow node using the predefined object WorkflowVariables[]
 - *Similarly, we can define node variables available only for that specific node using the predefined object NodeVariables[]*
          
-<img alt="workflow-variables" src="img/workflow-variables.png" class="float-center" />
-
+<img alt="workflow-variables" src="img/workflow-variables.png" />
 </section>
  
     
@@ -243,6 +242,10 @@ He has put you in charge to implement something covering his request. Quickly.
 - Commit and deploy your changes
 - In Nuxeo, check that your workflow model exists
 </section>    
+
+<section class="slide" id="questions-wf-concepts">
+##Questions?
+</section>
     
 <section class="slide" id="nodes-and-transitions">
 ## Nodes and transitions configuration
@@ -261,7 +264,6 @@ He has put you in charge to implement something covering his request. Quickly.
     - The automation chain you specify here will be executed just before the workflow engine leaves the node, and follows the transition(s) if any.
 - The documents following the workflow are set by the engine as the input documents when these chains are invoked. 
 These chains are executed using an unrestricted session!
-    
 </section>
  
 
@@ -283,59 +285,41 @@ These chains are executed using an unrestricted session!
 ###Node Configuration
 ####Transition Tab
     
-- For every transition : an endpoint with the name of the transition, from which you will be able to pull the arrow to connect nodes
+- Every transition creates an endpoint with the name of the transition, from which you will be able to pull the arrow to connect nodes
 - Transition
     - name: only displayed in the graph, and used internally by the engine
     - Condition: condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.
     - Chain: The automation chain will be executed when the workflow engine goes into this transition
-    
+
 <img alt="workflow-transition-arrow" src="img/workflow-transition-arrow.png"/>
- </section>
-
-    
-<section class="slide" id="Transition-condition">
-###Node Configuration
-####Condition
-- Condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.
-    - default value for the condition is “true”
-    - all the transitions having the corresponding condition evaluated to “true” are executed
-    - you have access at all the workflow context variables ( including Node and Workflow variables)
-    - the default condition related to a task button is 
-<code>NodeVariables["button"] == ”idOfTheClickedBtn”</code>
-- Fork
-    - Ex. Two transitions having the condition evaluated to “true” = Fork two branches
-- Conditional nodes 
-    - Ex. On a node having two transitions, the conditions could be :
-<code>WorkflowVariables["status"] == "done"</code> and <code>WorkflowVariables["status"] != "done" </code>
- </section>
-
-    
+ </section>   
     
 <section class="slide exercise" id="workshop-nodes-transition">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-###Exercise: Nodes and transitions
-First we will create an empty workflow
+### Practice - Nodes and transitions
 
-- Create a simple workflow having only the Start and the Stop nodes (mandatory nodes)
-- Make sure this workflow can be started only on documents of type `Book` and only if the user has the Read and Write permissions on the current document
-- After deploying the workflow in Nuxeo go to the Workflow tab in Admin Center and check that your workflow model is there
-- Start the workflow from a `Book` document, the workflow should do nothing
-- Add a new node that
-  - call an automation chain publishing the document in a existing section `/default-domain/sections/section1`
+- Retrieve your <code>newsValidationWorkflow</code> 
+- Add a new node of <code>Approve</code> type
+    - Edit the node's general information
+    - Make sure the node calls an automation chain publishing the document in the existing section `/Best-Books/sections/internalMemos`
+- Connect the node to the start and stop nodes
+- Commit and deploy your changes
+- Create a note and launch your workflow on it, then check the result
 </section>
 
-
+<section class="slide" id="questions-wf-nodes">
+##Questions?
+</section>
 
 <section class="slide" id="tasks">
-Tasks
---------
+## Tasks
 </section>
  
  <section class="slide" id="node-Task">
-###A special Node: Task
+### A special Node: Task
      
-####When the system requires a user intervention to resume the workflow
+#### When the system requires a user intervention to resume the workflow
 - Gives some information through a form and click on a button 
      - Accept/Reject
      - confirm
@@ -350,7 +334,6 @@ Tasks
   - Workflow variables
   - Task variables  
 </section>
-
 
 <section class="slide" id="task-config">
 ###Task Configuration
@@ -573,6 +556,22 @@ If user reject the publication, the workflow initiator can choose another valida
 <section class="slide" id="advanced-wf">
 ##Advanced concepts and usage
 </section>
+
+<section class="slide" id="Transition-condition">
+###Node Configuration
+####Condition
+- Condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.
+    - default value for the condition is “true”
+    - all the transitions having the corresponding condition evaluated to “true” are executed
+    - you have access at all the workflow context variables ( including Node and Workflow variables)
+    - the default condition related to a task button is 
+<code>NodeVariables["button"] == ”idOfTheClickedBtn”</code>
+- Fork
+    - Ex. Two transitions having the condition evaluated to “true” = Fork two branches
+- Conditional nodes 
+    - Ex. On a node having two transitions, the conditions could be :
+<code>WorkflowVariables["status"] == "done"</code> and <code>WorkflowVariables["status"] != "done" </code>
+ </section>
 
  <section class="slide" id="Storage-infos">
 ###How does Nuxeo stores Workflows ?
