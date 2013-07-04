@@ -318,87 +318,65 @@ These chains are executed using an unrestricted session!
  
  <section class="slide" id="node-Task">
 ### A special Node: Task
-     
-#### When the system requires a user intervention to resume the workflow
-- Gives some information through a form and click on a button 
-     - Accept/Reject
-     - confirm
-     - notify
-     - transform etc.
-         
+#### Concepts 
+- Used when the system requires a user intervention to resume the workflow,<br /> 
+Eg. accept/reject task.
 - Can have one or multiple assignees
 - Waits for an assignee action before going into a transition
 - Can set a form to be filled by the assignee
-- Can bind user actions to transitions to take
-- The form set values to
+- The form sets values to
   - Workflow variables
-  - Task variables  
+  - Node variables  
+- User actions (buttons) can be displayed, leading to corresponding transitions
 </section>
 
 <section class="slide" id="task-config">
-###Task Configuration
-####General Tab
+### Task Configuration
+#### General Tab (1/3)
 <img alt="Studio node edition form" src="img/workflow-node-general.png" class="float-right" />
 
 - General information:  title, directive
 - Due date
-    - set here a scripted expression (MVEL syntax)
-    - the dueDate of a task will be  dynamically computed  from this expression when  the workflow is run
-- Assignment : static or dynamic
+    - Set here a scripted expression (MVEL syntax)
+    - The dueDate of a task will be  dynamically computed  from this expression when  the workflow is run
+- Assignment: static or dynamic
+- Security: grant specific permissions to the task assignees on the document following the workflow (automatically removed by the workflow engine once the task is completed)
 - Notification: send a custom notification when a task is assigned
 - Plugin in custom business logic : input & output automation chains
-- Security: grant specific permissions to the task assignees on the document following the workflow (automatically removed by the workflow engine once the task is completed)
 </section>
 
 <section class="slide" id="task-config-assignees">
-###Task Configuration
-####General tab: Assignees
-            
+### Task Configuration
+#### General tab (2/3)
+#### Assignees
 <img alt="Studio node edition form" src="img/workflow-node-assignee.png" class="float-right" />
     
 - Assignees
     - You can add here static assignees, either users or groups, one per input field (click on "add" to add more than one)
-    - You can  prefix users by "user:" like user:jack and groups by "group:" like group:validators.
+    - You can  prefix users by <code>user:</code> like "user:jack" and groups by <code>group:</code> like "group:validators".
 - Compute additional assignees
     - You can set here a scripted expression (MVEL syntax) so as to determine how the assignees on that task will be computed at runtime
-    - You have access to some useful variables in the context, like the WorkflowVariables, NodeVariables, Current User and others
+    - You have access to some useful variables in the context, like the <code>WorkflowVariables</code>, <code>NodeVariables</code>, <code>CurrentUser</code> and others.
 </section>
-
-    
-  <section class="slide" id="task-config-automation">
-###Task Configuration
-####General tab: Automation
-<img alt="Studio node edition form" src="img/workflow-node-general-automation.png" class="float-right" />
-
-- Input operation chain
-    - The automation chain you specify here will be executed just before the workflow engine enters the node
-- Output operation chain
-    - The automation chain you specify here will be executed just before the workflow engine leaves the node.
-- The documents following the workflow are set by the engine as the input documents when these chains are invoked . This chains are executed using an unrestricted session!!  
-  </section>
   
-  <section class="slide" id="task-config-notifications">
-###Task Configuration
-<img alt="Studio node edition form" src="img/" class="float-right" />
-#### General tab: Notifications 
-- Mail Notifications
-      - Specify here the mail template that is going to be used for generating the mail to be sent to the task assignees
-      - if no template is selected, the task assignees are not notified
-      - Custom variables <div class="further-info">can be used in a mail template in this specific case</div>
-<pre><code>
-${workflowStartTime} 
-${workflowInitiator} 
+<section class="slide" id="task-config-notifications">
+### Task Configuration
+#### General tab (3/3)
+#### Email notification
+- Specify the mail template used for generating the mail sent to the task assignees
+- If no template is selected, the task assignees are not notified
+- Predefined and custom variables are available, including:
+<pre><code>${workflowStartTime} 
+${workflowInitiator}
+${workflowDocuments}  
 ${WorkflowVariables} 
 ${NodeVariables}
-${workflowDocuments} 
-..
+...
 </code></pre>
 
 Eg:
 <pre><code>A task on the document ${workflowDocuments[0].dublincore.title} has been assigned to you by ${workflowInitiator}.</code></pre>
 </section>
-    
-   
     
 <section class="slide" id="task-config-form">
 ###Task Configuration
