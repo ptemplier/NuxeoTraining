@@ -58,23 +58,24 @@
 <section class="slide" id="workflows-initial-context">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>
-The library manager wants to make sure press releases are correctly reviewed before their publication.<br /><br />
+The library manager wants to make sure the company news are correctly reviewed before their publication.<br /><br />
 He has put you in charge to implement something covering his request. Quickly.
 </section>
 
 <section class="slide" id="workflows-wherewego">
 ### What we want to do
 #### At the end of the course
-- Create a workflow to validate and publish press releases
+- Create a workflow to validate and publish library news
 </section>
 
-<section class="slide" id="workflow-concepts">
+<section class="slide" id="workflow-agenda">
 ###Agenda
 - Concepts
     - Principles used
     - Customization cycle
     - Workflow usage in Nuxeo UI
 - Configuration
+  - General workflow configuration
   - Nodes and transitions
   - Tasks
   - Forms and variables
@@ -210,22 +211,25 @@ He has put you in charge to implement something covering his request. Quickly.
 </section>
     
 <section class="slide" id="main-concepts">
-###Workflow Main Concepts
+### Graph main concepts
 
-####Graph  <img alt="workflow-graph-node" src="img/workflow-graph-node.png" class="float-right" /> 
+#### Graph  <img alt="workflow-graph-node" src="img/workflow-graph-node.png" class="float-right" /> 
 - The graph is the definition of your process, it contains:
     - A start node
     - One or more end nodes
     - Any other type of node
     - Transitions 
 
-####Nodes
-- A node is an element of action
-- Can be an automated node not requiring a user action, or a task
+#### Nodes
+- A node is a step of your workflow
+- Can be an automated node not requiring a user action, or a task assigned to one or several users
+- Any node can also be a structural node.
+- Can be added by drag and drop using the node library
 
-####Transitions
+#### Transitions
 - Two nodes are linked by a transition
 - A condition set on the transition filters the possibility to follow it
+- A node can contain one or several transitions
 </section>    
     
     
@@ -233,43 +237,40 @@ He has put you in charge to implement something covering his request. Quickly.
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">    
 ### Practice - Start designing a workflow          
-- Create a simple workflow named <code>pressReleaseValidationWorkflow</code> 
-- Make sure this workflow can be started only on documents of type File, and only if the user has the Read and Write permissions on the current document
-- In the graph, add a <code>Start</code> and a <code>Stop</code> node
+- Create a simple workflow having for id <code>newsValidationWorkflow</code> 
+- Make sure this workflow can be started only on documents of type <code>Note</code>, and only if the user has the Read and Write permissions on the current document
+- In the graph, drag and drop a <code>Start</code> and a <code>Stop</code> node using the node library
 - Commit and deploy your changes
 - In Nuxeo, check that your workflow model exists
 </section>    
     
 <section class="slide" id="nodes-and-transitions">
-Nodes and transitions
----------------------------------
+## Nodes and transitions 
 </section>
- 
     
 <section class="slide" id="node-general">
-###Node Definition
+###Nodes
 
-####Node = element of action
+#### Concepts 
+- A node is a step of your workflow
 - On a node, something happens
     - human task
     - server task as an automated set of actions
-- A node = set of properties to determine what happens on the node regarding
-    - automated actions
-    - notifications
-    - graph behavior
-    - task creation
-    - etc.
     
-#### Two kind of nodes
-- Automated **node**
-    - require no user intervention
-    - Eg. A node to send an email, publish a document
-- User **task**
-    - require a user intervention to resume the workflow: Eg. Accept/Reject
+#### A node defines 
+- Actions to be played
+- Notifications to be sent
+- Possible transitions to the next node
+</section>
 
-####Structural nodes 
-- Any automated node or user task can also be a structural node)
-
+<section class="slide" id="different-nodes">
+### Different kinds of nodes
+- Automated node
+    - requires no user intervention. Eg. A node to send an email, publish a document
+- User task
+    - requires a user intervention to resume the workflow: Eg. Accept/Reject
+- Structural nodes 
+    - Any automated node or user task can also be a structural node
 </section>
     
 <section class="slide" id="node-configuration">         
