@@ -379,57 +379,50 @@ Eg:
 </section>
     
 <section class="slide" id="task-config-form">
-###Task Configuration
-####Form tab
+### Task Configuration
+#### Form tab (1/)
 
-- Form layout
-    <img alt="workflow-task-form" src="img/workflow-task-form.png" class="float-right" />
-    - Configure the form that will be displayed to the user for processing the task
-    - Specify which fields have to fill
-    - Layout edition works as usual
-        - pickup the fields on the right
-        - Choose between system properties, workflow variables and node variables. 
-        - If you need the user to set/see some workflow or node variables 
-            - just drag and drop them on the form
-            - the engine will automatically save them when the form is submitted 
-            - you can use them later
+<img alt="workflow-task-form" src="img/workflow-task-form.png" class="float-right" />
+
+- Works as a usual form layout
+- Defines the form that will be displayed to the user processing the task
+- The fields to display can be node or workflow variables
 </section>
- <section class="slide" id="task-config-buttons">
-###Task Configuration
-####Form tab: Buttons
-     
-- Configures the buttons to be displayed for submitting the task form
-- Buttons can be linked to transitions with <code>NodeVariable["Button"] == "buttonId"</code> 
-     
-<img alt="workflow-task-form" src="img/workflow-task-buttons.png" class="float-center" />
 
-- Id
-    - stored in the  built-in NodeVariable called "button" 
-    - can be used for instance to express conditions for knowing which transition the workflow engine should follow after the current node is done
+<section class="slide" id="task-config-buttons">
+### Task Configuration
+#### Form tab (2/)
+#### Buttons
+
+<img alt="workflow-task-form" src="img/workflow-task-buttons.png" class="float-right" />
+
+- Configures the buttons displayed for submitting the task form
+- Buttons can be linked to transitions 
+     
+- Id:
+    - Stored in the  built-in NodeVariable called "button" 
+    - Can be used for instance to express conditions for knowing which transition the workflow engine should follow once the current node is done
 - Label of the button (supports i18n)
-- Filter
-    - Filter to hide or display the button on some conditions
-    - Work only starting from 5.7. (an action filter)
-- Generates the condition for transition 
-    - checked by default when you add a line
-    - helper so that a transition corresponding to the button is automatically declared on the Transitions tab
+- Filter (available since 5.7):  display the button depending on conditions
+- Generates the condition for transition: creates a transition corresponding to the button in the Transitions tab
 </section>
-
-    
 
 <section class="slide exercise" id="exercise-simple-task">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-###Exercise: Simple task
-Create a simple workflow to validate the publishing of a document by Administrator
-
-- the document will be published at a predefined existing location ( manually go and create a section called *Public* in Sections, having the path `/default-domain/sections/Published`)
-- this workflow should be available only on the documents of type `Book`
-- the Administrator can either validate or reject the publication
-(use the predefined `Accept/Reject` task)
-- the due date displayed for the Administrator should be the current date.
+### Practice - Tasks
+#### Update the workflow to add a validation system
+- Replace the node we created previously to publish the document with an accept/reject node
+- Assign the task to <code>Administrator</code>
+- Due date should be the current date
+- The <code>Administrator</code> should fill in a mandatory comment when processing the task. Make sure this comment could be used later in another node.
+- If the document is accepted, use the chain we created to publish the document.
+- If the document is rejected, send an email to the workflow initiator with the comment.
 </section>
 
+<section class="slide" id="questions-wf-tasks">
+##Questions?
+</section>
 
 <section class="slide" id="variables">
 Workflow Variables
