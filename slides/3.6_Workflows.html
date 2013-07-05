@@ -58,14 +58,14 @@
 <section class="slide" id="workflows-initial-context">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>
-The library manager wants to make sure the company news are correctly reviewed before their publication.<br /><br />
+The library manager wants to make sure the company's internal memos are correctly reviewed before their publication.<br /><br />
 He has put you in charge to implement something covering his request. Quickly.
 </section>
 
 <section class="slide" id="workflows-wherewego">
 ### What we want to do
 #### At the end of the course
-- Create a workflow to validate and publish library news
+- Create a workflow to validate and publish library internal memos
 </section>
 
 <section class="slide" id="workflow-agenda">
@@ -173,7 +173,7 @@ He has put you in charge to implement something covering his request. Quickly.
 - Icons
 </section>
  
-     <section class="slide" id="workflow-var">
+<section class="slide" id="workflow-var">
 ###Variables Tab
 ####Information that can be accessed during the workflow
 
@@ -185,7 +185,7 @@ He has put you in charge to implement something covering his request. Quickly.
 </section>
  
     
- <section class="slide" id="enablements">
+<section class="slide" id="enablements">
 ### Availability Tab
 #### Conditions for the workflow to be available
 <img alt="workflow-availability" src="img/workflow-availability.png" class="float-right" />
@@ -230,13 +230,12 @@ He has put you in charge to implement something covering his request. Quickly.
 - A condition set on the transition filters the possibility to follow it
 - A node can contain one or several transitions
 </section>    
-    
-    
+
 <section class="slide exercise" id="workshop-simple-workflow">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">    
 ### Practice - Start designing a workflow          
-- Create a simple workflow having for id <code>newsValidationWorkflow</code> 
+- Create a simple workflow having for id <code>memoValidationWorkflow</code> 
 - Make sure this workflow can be started only on documents of type <code>Note</code>, and only if the user has the Read and Write permissions on the current document
 - In the graph, drag and drop a <code>Start</code> and a <code>Stop</code> node using the node library
 - Commit and deploy your changes
@@ -264,8 +263,7 @@ He has put you in charge to implement something covering his request. Quickly.
     - The automation chain you specify here will be executed just before the workflow engine leaves the node, and follows the transition(s) if any.
 - The documents following the workflow are set by the engine as the input documents when these chains are invoked. 
 These chains are executed using an unrestricted session!
-</section>
- 
+</section> 
 
 <section class="slide" id="node-variable">
 ###Node Configuration
@@ -299,7 +297,7 @@ These chains are executed using an unrestricted session!
       class="exercise-icon">
 ### Practice - Nodes and transitions
 
-- Retrieve your <code>newsValidationWorkflow</code> 
+- Retrieve your <code>memoValidationWorkflow</code> 
 - Add a new node of <code>Approve</code> type
     - Edit the node's general information
     - Make sure the node calls an automation chain publishing the document in the existing section `/Best-Books/sections/internalMemos`
@@ -310,6 +308,13 @@ These chains are executed using an unrestricted session!
 
 <section class="slide" id="questions-wf-nodes">
 ##Questions?
+</section>
+
+<section class="slide" id="workflows-initial-context">
+### Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>
+So we did a first attempt at designing a workflow, but the action is done automatically. That's not really what was expected yet.<br /><br />
+We should improve it by implementing the decision process.
 </section>
 
 <section class="slide" id="tasks">
@@ -349,8 +354,9 @@ Eg. accept/reject task.
 ### Task Configuration
 #### General tab (2/3)
 #### Assignees
+
 <img alt="Studio node edition form" src="img/workflow-node-assignee.png" class="float-right" />
-    
+
 - Assignees
     - You can add here static assignees, either users or groups, one per input field (click on "add" to add more than one)
     - You can  prefix users by <code>user:</code> like "user:jack" and groups by <code>group:</code> like "group:validators".
@@ -368,19 +374,20 @@ Eg. accept/reject task.
 - Predefined and custom variables are available, including:
 <pre><code>${workflowStartTime} 
 ${workflowInitiator}
-${workflowDocuments}  
-${WorkflowVariables} 
-${NodeVariables}
+${workflowDocuments[docNumber].property}
+${workflowDocuments[docNumber].schema.field}  
+${WorkflowVariables['myVariableName']} 
+${NodeVariables['myVariableName']}
 ...
 </code></pre>
 
 Eg:
-<pre><code>A task on the document ${workflowDocuments[0].dublincore.title} has been assigned to you by ${workflowInitiator}.</code></pre>
+<pre><code>A validation request on document ${workflowDocuments[0].dublincore.title} has been started by ${workflowInitiator}.</code></pre>
 </section>
     
 <section class="slide" id="task-config-form">
 ### Task Configuration
-#### Form tab (1/)
+#### Form tab (1/2)
 
 <img alt="workflow-task-form" src="img/workflow-task-form.png" class="float-right" />
 
@@ -391,7 +398,7 @@ Eg:
 
 <section class="slide" id="task-config-buttons">
 ### Task Configuration
-#### Form tab (2/)
+#### Form tab (2/2)
 #### Buttons
 
 <img alt="workflow-task-form" src="img/workflow-task-buttons.png" class="float-right" />
@@ -415,50 +422,41 @@ Eg:
 - Replace the node we created previously to publish the document with an accept/reject node
 - Assign the task to <code>Administrator</code>
 - Due date should be the current date
+- The <code>Administrator</code> should receive a notification email when a document needs validation, 
+including the document title, the workflow initiator and a link to the document.
 - The <code>Administrator</code> should fill in a mandatory comment when processing the task. Make sure this comment could be used later in another node.
-- If the document is accepted, use the chain we created to publish the document.
-- If the document is rejected, send an email to the workflow initiator with the comment.
+- If the document is accepted, use the chain we created to publish the document and end the workflow.
+- If the document is rejected, end the workflow.
 </section>
 
 <section class="slide" id="questions-wf-tasks">
-##Questions?
+## Questions?
+</section>
+
+<section class="slide" id="workflows-initial-context">
+### Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>
+Things are getting better.
 </section>
 
 <section class="slide" id="variables">
-Workflow Variables
----------------------------------
+## Workflow Variables
 </section>
-<section class="slide" id="workflow-variables">
-###Variables in workflows
-    
-####2 types of variables
-- Node variables
-    - Defined on a node and accessible on the node scope
-
-- Workflow variables
-    - Defined at workflow level, accessible from any node
-    - Shared within the whole instance of the workflow
-    - Available in the automation context <code>WorkflowVariables["wfVariableName"]</code>
-    - Can be used in the *Compute additional assignees* of a task
-    - Accessible in the task layouts
-    - Available from notification templates
-    - Have a type: string, float, blob etc.
-    - Can be a date picked up in a calendar, a file, a constrained value etc.
-    
-</section>
-
 
 <section class="slide" id="built-variables">
-###Built-in Variables
-####Available in
+### Built-in Variables
+#### Available in
 
 - chains launched within the nodes (Input chain, output chain, transition chains)  
 - the condition of a transition
 - additional task assignees (if the expression is resolved to a user or group)
 - due date expression (if the expression is resolved to a date)
+</section>
 
+<section class="slide" id="built-variables2">
+### Built-in Variables
 ####List of built-in variables
-- *WorkflowVariables* and *NodeVariables*  (hashmaps), used like this: NodeVariables[“myNodeVar”]
+- *WorkflowVariables* and *NodeVariables* (hashmaps), used like this: NodeVariables[“myNodeVar”]
 - *workflowInitiator*
 - *workflowStartTime* 
     - Time when the workflow was started
@@ -470,7 +468,8 @@ Workflow Variables
 - *nodeStartTime* Time the node was started, useful for exemple when computing a due date (Due date expression: nodeStartTime.days(8))
 - *nodeEndTime*
 - *nodeLastActor* Last actor on the node. Useful for instance to know who closed a task when the task was assigned to a group
-- http://doc.nuxeo.com/x/EQGw
+
+http://doc.nuxeo.com/x/EQGw
  </section>
     
 <section class="slide" id="assignees">
@@ -486,9 +485,7 @@ Workflow Variables
 ####To a static user/group
 - See "group:…" or "user:..."notation 
 - Ex: assignment to hr_manager group in the workflow
-
 </section>
-
             
 <section class="slide" id="set-workflow">
 ###How to set workflow and node variables
@@ -500,7 +497,6 @@ Workflow Variables
 - For instance when the task form should display some pre-initialized variables
     
     ![A task form with a preinitialized field](img/workflow-preinit-var.png)
-
 </section> 
 
 <section class="slide exercise" id="workflow-exercise">
@@ -545,7 +541,7 @@ If user reject the publication, the workflow initiator can choose another valida
  </section>
 
  <section class="slide" id="Storage-infos">
-###How does Nuxeo stores Workflows ?
+###How does Nuxeo store workflows ?
 - Workflow models and instances are stored as documents of type DocumentRoute 
 - default path for workflow models: /document-route-models-root/
      - default path for workflow instances : example
