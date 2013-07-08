@@ -9,9 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Translations</title>
+<title>Nuxeo Training - Advanced workflows</title>
 
-<meta name="description" content="Nuxeo Training - Studio advanced settings">
+<meta name="description" content="Nuxeo Training - Workflows">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -42,98 +42,86 @@
 
 <body class="deck-container">
 
-  <!-- Nuxeo Logo Training -->
-  <div class="nuxeo-logo">
-    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
-      class="sub-part training">Trainings</span>
-  </div>
+<!-- Nuxeo Logo Training -->
+<div class="nuxeo-logo">
+<span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+    class="sub-part training">Trainings</span>
+</div>
 
-<section class="slide" id="translations">
-# Nuxeo training - Translations
+<section class="slide" id="nuxeo-training-advanced-workflows">
+# Nuxeo training - Workflows - Advanced concepts and usage
 </section>
 
-<section class="slide" id="wherewego-context-translations">
-### Context <img src="img/frog-teacher.png" class="float-left" /> 
-<blockquote><p>
-The general manager of the "Best books" library is preparing to open another library abroad, 
-which of course will be using Nuxeo too.<br /><br />
-He asks you to prepare everything for the application to be translated when the new library opens. 
+<section class="slide" id="Storage-infos">
+###How does Nuxeo store workflows ?
+- Workflow models and instances are stored as documents of type DocumentRoute 
+- default path for workflow models: /document-route-models-root/
+     - default path for workflow instances : example
+/default-domain/document-route-instances-root/2012/12/12
+- Workflow nodes are stored as documents of type RouteNode
+     - default path for workflow nodes: example:
+/document-route-models-root/SerialDocumentReview/  
+- Tasks are stored as documents of type TaskDoc  
+     - default path for tasks docs: /tasks-root/
+- Type of task document used by the workflow is configurable in Studio 
+- Each workflow step history is stored in Audit
+</section> 
+    
+<section class="slide" id="chains">
+###Where can I plug Automation chains ?
+
+- Attached to each transition
+- Attached to node input and output
+- The input documents are the documents bound to the workflow
+- Available with the variable *Documents*
+- Transition chains executed before output chains
+<blockquote>These chains are executed using an unrestricted session!!</blockquote>
 </section>
 
-<section class="slide" id="translations-wherewego">
-### What we want to do
-#### At the end of the course
-
-- Give translations to "Book" life cycle states
-<img alt="translation-lifecycle" src="img/translation-lifecycle.png"  />
-
-- Change the name of the "Home" tab
-<img alt="translation-home-french" src="img/translation-home-french.png" />
+<section class="slide" id="Transition-condition">
+### How can I handle conditions ?
+- Default value for the condition is “true”
+- All transitions having the corresponding condition evaluated to “true” are executed
+- You have access at all the workflow context variables (including Node and Workflow variables)
+- The default condition related to a task button is: <br /> <code>NodeVariables["button"] == ”idOfTheClickedBtn”</code>
+- Fork
+    - Ex. Two transitions having the condition evaluated to “true” = Fork two branches
+- Conditional nodes 
+    - Ex. On a node having two transitions, the conditions could be :
+<code>WorkflowVariables["status"] == "done"</code><br /> and <code>WorkflowVariables["status"] != "done" </code>
 </section>
 
-<section class="slide" id="translations-1">
-###Translations
-#### Concepts
-- Nuxeo can be translated in any language
-- Default set of translations
-    - Provided by Nuxeo: english and french
-    - Provided by the community: many others :)
-- Translations are files located in each bundle
-- At server start, Nuxeo concatenates them
+<section class="slide" id="security">
+###How can I manage security during a workflow?
+- Automatically add/remove rights to assignee
+  - from the task definition
+- Operation SetACL
 </section>
 
-<section class="slide" id="translations-2">
-### Translations
-#### More details about translation files
-- Translations are integrated into `messages_LANG.properties` files
-    - LANG being the ISO code (ex: fr)
-    - Mapping is done using `label = my translation`
-    - Files use unicode encoding, be careful with accents!
-- Existing labels can be reused and overriden
-- No specific convention regarding the translation labels
+<section class="slide" id="tracability">
+###Tracability
 
-Example:
-<pre><code>inLibrary=Dans la biblioth\u00e8que
-borrowed=Emprunt\u00e9
-label.main.tab.home=Accueil
-</code></pre>
+- Log with audit with automation audit
+- Can be used for stats
 
-#### Where are the existing translation files ?
-<code>nxserver/nuxeo.war/WEB-INF/classes/messages_LANG.properties</code>
 </section>
 
-<section class="slide" id="translations-3">
-### Translations
-#### How can I add my own?
-<img src="img/translation-widget.png" class="float-right">
-<img src="img/translation-column.png" class="float-right">
-
-- In studio 
-    - Upload your custom messages_LANG.properties files in the resources menu
-    - Be careful: some labels need to be explicitly marked as "translated" or "localized" for the translation to become effective
-
-- Programatically
-    - http://doc.nuxeo.com/x/-YWo
+<section class="slide" id="startworkflow">
+###How can I automatically start a workflow?
+ - From a user action
+ - From a event handler
+ - From a REST call
+ 
+Use the operation *Workflow Context > Start workflow*
 </section>
 
-<section class="slide exercise" id="messages-translations-exercise">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice
-#### Translations
-- Change the name of the "Home" tab
-- Give translations to "Book" life cycle states
-- Commit and deploy your changes
-- Check that your labels have been translated
+<section class="slide" id="end">
+## Questions?
 </section>
 
-<section class="slide" id="questions-translations">
-##Questions?
-</section>
-
-<section class="slide" id="next">
-### Next?
-[XML extensions](3.4_XML-extensions.html)
+<section class="slide" id="next-chapter">
+### What's next ?
+- Next chapter: [Behind Nuxeo studio](4.0_Behind Nuxeo Studio.html)
 </section>
 
   <!-- deck.navigation snippet -->
@@ -183,4 +171,3 @@ label.main.tab.home=Accueil
 
 </body>
 </html>
-
