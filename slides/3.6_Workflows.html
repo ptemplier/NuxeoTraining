@@ -50,7 +50,7 @@
 
 
 <section class="slide" id="nuxeo-training---workflows">
-# Workflows
+# Nuxeo training - Workflows
 
 ######See documentation http://doc.nuxeo.com/x/IwGw
 </section>
@@ -432,7 +432,7 @@ including the document title, the workflow initiator and a link to the document.
 ## Questions?
 </section>
 
-<section class="slide" id="workflows-initial-context">
+<section class="slide" id="workflows-tasks-variables-improvements-context">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>
 Things are getting better.<br /><br />
@@ -531,83 +531,11 @@ When this transition is followed:
 ## Questions?
 </section>
 
-
-
-<section class="slide" id="advanced-wf">
-##Advanced concepts and usage
+<section class="slide" id="fork">
+###Want to go deeper?
+- (optional) [Advanced information](3.6_Workflows-advanced.html)
+- Next chapter: [Behind Nuxeo studio](4.0_Behind Nuxeo Studio.html)
 </section>
-
-<section class="slide" id="Transition-condition">
-###Node Configuration
-####Condition
-- Condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.
-    - default value for the condition is “true”
-    - all the transitions having the corresponding condition evaluated to “true” are executed
-    - you have access at all the workflow context variables ( including Node and Workflow variables)
-    - the default condition related to a task button is 
-<code>NodeVariables["button"] == ”idOfTheClickedBtn”</code>
-- Fork
-    - Ex. Two transitions having the condition evaluated to “true” = Fork two branches
-- Conditional nodes 
-    - Ex. On a node having two transitions, the conditions could be :
-<code>WorkflowVariables["status"] == "done"</code> and <code>WorkflowVariables["status"] != "done" </code>
- </section>
-
- <section class="slide" id="Storage-infos">
-###How does Nuxeo store workflows ?
-- Workflow models and instances are stored as documents of type DocumentRoute 
-- default path for workflow models: /document-route-models-root/
-     - default path for workflow instances : example
-/default-domain/document-route-instances-root/2012/12/12
-- Workflow nodes are stored as documents of type RouteNode
-     - default path for workflow nodes: example:
-/document-route-models-root/SerialDocumentReview/  
-- Tasks are stored as documents of type TaskDoc  
-     - default path for tasks docs: /tasks-root/
-- Type of task document used by the workflow is configurable in Studio 
-- Each workflow step history is stored in Audit
-</section> 
-    
-<section class="slide" id="chains">
-###Where can I plug Automation chains ?
-
-- Attached to each transition
-- Attached to node input and output
-- The input documents are the documents bound to the workflow
-- Available with the variable *Documents*
-- Transition chains executed before output chains
-<blockquote>These chains are executed using an unrestricted session!!</blockquote>
-</section>
-
-<!--
-<section class="slide" id="security">
-###How can I manage security during a workflow?
-- Automatically add/remove rights to assignee
-  - from the task definition
-- Operation SetACL
-</section>
-
-<section class="slide" id="tracability">
-###Tracability
-
-- Log with audit with automation audit
-- Can be used for stats
-
-</section>
--->
-<section class="slide" id="startworkflow">
-###How can I automatically start a workflow?
- - From a user action
- - From a event handler
- - From a REST call
- 
-Use the operation *Workflow Context > Start workflow*
-</section>
-
-<section class="slide" id="end">
-Questions?
-------------
-  </section>
 
   <!-- deck.navigation snippet -->
   <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
