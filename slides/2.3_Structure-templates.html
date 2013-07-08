@@ -49,7 +49,7 @@
   </div>
 
 <section class="slide" id="datastructure">
-#Nuxeo Training - Structure templates
+# Nuxeo training - Structure templates
 </section>
 
 <section class="slide" id="wherewego-context-structure-template">
@@ -63,10 +63,16 @@ The "Best books" library now decides they should be used all over; to do so they
 ####At the end of the course:
 <img src="img/structure-template-booklibrary.png" class="float-right" />
 
-A new structure for the type Domain:
-
-- Sections/Book Library/"Sandbox" (Workspace)
-- Instead of Sections/Templates/Workspaces
+#### A new structure for the type Domain
+- Book Library
+- "Sandbox" (Workspace)
+- Sections
+    - Internal memos
+    
+#### Instead of
+- Sections 
+- Templates 
+- Workspaces
 </section>
 
 <section class="slide" id="structuretemplates">
@@ -107,12 +113,16 @@ The created structure will apply to the chosen document type
 <section class="slide exercise" id="exercise-structure-template">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
       class="exercise-icon">
-###Exercise Structure template
+###Practice - Structure template
 
-- Modify the default structure of the type Domain to have only <code>BookLibrary</code>, <code>Sections</code>, and a <code>Workspace</code> named "Sandbox"
+- Modify the default structure of the type Domain to have: 
+    - <code>BookLibrary</code>, 
+    - A <code>Workspace</code> named "Sandbox"
+    - <code>Sections</code>,
+        - A <code>Section</code> having for id <code>internalMemos</code>, named "Internal memos" 
 - Commit your changes
 - Deploy your changes
-- Create a domain and see what appears
+- Create a domain named "Best-Books" and see what appears
 </section>
 
 <section class="slide" id="questions">
