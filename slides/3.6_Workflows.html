@@ -424,7 +424,6 @@ Eg:
 - Due date should be the current date
 - The <code>Administrator</code> should receive a notification email when a document needs validation, 
 including the document title, the workflow initiator and a link to the document.
-- The <code>Administrator</code> should fill in a mandatory comment when processing the task. Make sure this comment could be used later in another node.
 - If the document is accepted, use the chain we created to publish the document and end the workflow.
 - If the document is rejected, end the workflow.
 </section>
@@ -436,7 +435,11 @@ including the document title, the workflow initiator and a link to the document.
 <section class="slide" id="workflows-initial-context">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>
-Things are getting better.
+Things are getting better.<br /><br />
+
+Still, there are further improvements we need to achieve. 
+For instance, the worklow's initiator should get the manager's comment in case the document is rejected. <br /><br />
+Also, the manager would like to be able to delegate some tasks to a group and possibly to other specific members. 
 </section>
 
 <section class="slide" id="variables">
@@ -474,17 +477,17 @@ http://doc.nuxeo.com/x/EQGw
     
 <section class="slide" id="assignees">
 ###Task Assignment
-#### To a computed variable
-- Use input chain to set a Node variable
-- Leverage vocabulary tables to provide a quick mapping interface between some users and some others (Jack is John's manager)
-    
-#### To the workflow initiator
-- *workflowInitiator* variable
-- See also *nodeLastActor*
-    
 ####To a static user/group
-- See "group:…" or "user:..."notation 
-- Ex: assignment to hr_manager group in the workflow
+- Using "group:…" or "user:..." notation 
+
+#### To the workflow initiator
+- <code>workflowInitiator</code> variable
+- See also <code>nodeLastActor</code>
+
+#### To a computed variable
+- Use input chain to set a Node or Workflow variable
+- Leverage vocabulary tables to provide a quick mapping interface between some users and some others (for example using employee as key and manager as value)    
+
 </section>
             
 <section class="slide" id="set-workflow">
@@ -496,29 +499,39 @@ http://doc.nuxeo.com/x/EQGw
 - Using *Workflow Context > Set Workflow Variable* <code>SetWorkflowVar</code> and *Set Node Var* <code>SetNodeVar</code> operations
 - For instance when the task form should display some pre-initialized variables
     
-    ![A task form with a preinitialized field](img/workflow-preinit-var.png)
+![A task form with a preinitialized field](img/workflow-preinit-var.png)
 </section> 
 
-<section class="slide exercise" id="workflow-exercise">
+<section class="slide exercise" id="exercise-workflow-tasks-variables-1">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-###Exercise: Task Form, Variables
-Let's now create a more complicated workflow to validate the publication of a document.
-We want to publish a document at a chosen location,
-but the publication must be validated by a chosen user (validator) in order to occur.
-If user reject the publication, the workflow initiator can choose another validator or cancel its request
+### Practice - Task form, workflow variables (1/2)
+Time to finalise our workflow !
 
-- This workflow should be available only on the documents of type `Book` and only if the current user is a member of *administrators* group
-- The first task of the workflow is assigned to the user who started the workflow.
-  - This user has to choose here the validator and where he wants to publish the doc. use the widget `Single user suggestion`
-  - Use `Single Document Suggestion` widget type  to choose the section, use the page provider `default_section_suggestion`
-- The chosen validator can approve the publication or reject ( use an  approve/reject task). ( in serial way) .
-  They both need to submit a *comment* when approving or rejecting the task ( mandatory).
-  They both need temporary access to the document being published ( assuming that they don't necessarily have them ).
-  Also he need to know where the doc will be published ( but this info must be displayed in Read only).
-  - notify the validator when a task was assigned to him ( only if you have a mail server configured ) 
-  - for the comment, use a NodeVariable called *comment*
+- In the accept/reject node we added earlier, add a field for the <code>Administrator</code> to fill in a **mandatory** comment. Make sure this comment could be used later in another node.
+- In case the document is rejected, send a notification email to the workflow initiator. The email should contain the manager's comment.
 </section>
+
+<section class="slide exercise" id="exercise-workflow-tasks-variables-2">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Task form, workflow variables (2/2)
+- Add a button in the accept/reject node for the Administrator to delegate the task. This button should generate a transition. 
+When this transition is followed: 
+    - Members of the <code>Communication service</code> group have to be assigned the task by default.
+    - The Administrator should be able to choose one or more people to assign the task to as well.
+    - The assignees should be able to see the manager's comment when processing the task.
+    - Anyone of the assignees can approve the publication or reject.
+    - They need temporary access to the document being published (assuming that they don't necessarily have them).
+    - They need to fill in a mandatory comment when approving or rejecting the task.
+    - In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment.
+</section>
+
+<section class="slide" id="questions-wf-tasks-variables">
+## Questions?
+</section>
+
+
 
 <section class="slide" id="advanced-wf">
 ##Advanced concepts and usage
