@@ -289,7 +289,7 @@ Expression Language offers a loose binding to UI elements
 - JSF lifecycle explained by debug<br />
   <a href="http://balusc.blogspot.fr/2006/09/debug-jsf-lifecycle.html" target="_blank">http://balusc.blogspot.fr/2006/09/debug-jsf-lifecycle.html</a>
 - RichFaces showcase and Ajax features documentation<br />
-  <a href="http://showcase.richfaces.org/" target="_blank">http://showcase.richfaces.org/</a>
+  <a href="http://livedemo.exadel.com/richfaces-demo/index.jsp" target="_blank">http://livedemo.exadel.com/richfaces-demo/index.jsp</a>
 </section>
 
 
@@ -319,6 +319,7 @@ Expression Language offers a loose binding to UI elements
     - Current tabs
     - Caches
     - Document view (request)
+- CDI inspired from Seam
 </section>
 
 <section class="slide" id="seam-principles-1">
@@ -1184,6 +1185,7 @@ URL patterns make the link between the navigation and the URL codec
 ###Custom page providers
 
 Benefit from:
+
 - default page providers API (next, prev, etc...)
 - default content views rendering
     - use layouts loose binding for results rendering
@@ -1348,13 +1350,153 @@ xxx-api, xxx-core, xxx-web
 <section class="slide" id="training-exercise1">
 ### Training exercise 1: define a new view
 
+The server currently needs to be started in dev mode for the exercise
+to complete correctly when using Nuxepo IDE. Edit the <code>bin/nuxeo-sdk.conf</code> file
+in you sdk to set the <code>org.nuxeo.dev</code> property to <code>true</code>.
+
 - Define a new JSF view
   - define the template with a simple "Hello World" content
   - define the navigation case
   - add an action displaying it
+  - display the current document default view layout
   - bind the view to the default theme
   - bind the view to another theme page
-  - display the current document default view layout
+
+<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
+</section>
+
+<section class="slide" id="help-exercise1">
+### Help (1/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Sample template content, at <code>src/main/resources/web/nuxeo.war/hello_world.xhtml</code>
+<pre>
+  <code>
+&lt;div&gt;Hello&lt;/div&gt;
+  </code>
+</pre>
+
+Sample navigation case at <code>src/main/resources/OSGI-INF/deployment-fragment.xml</code>
+<pre>
+  <code>
+&lt;extension target="faces-config#NAVIGATION"&gt;
+  &lt;navigation-case&gt;
+    &lt;from-outcome&gt;hello_world&lt;/from-outcome&gt;
+    &lt;to-view-id&gt;/hello_world.xhtml&lt;/to-view-id&gt;
+    &lt;redirect /&gt;
+  &lt;/navigation-case&gt;
+&lt;/extension&gt;
+  </code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
+<div class="sticker"><a href="#help-exercise2">Need more help?</a></div>
+</section>
+
+<section class="slide" id="help-exercise3">
+### Help (2/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Sample action contribution at <code>src/main/resources/OSGI-INF/extensions/hello-action-contrib.xml</code>
+<pre>
+  <code>
+&lt;?xml version="1.0"?&gt;
+&lt;component name="helloAction"&gt;
+  &lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
+    point="actions"&gt;
+    &lt;action id="hello" link="hello_world" label="Hellowho"&gt;
+      &lt;category&gt;SUBVIEW_UPPER_LIST&lt;/category&gt;
+      &lt;filter-id&gt;helloFilter&lt;/filter-id&gt;
+    &lt;/action&gt;
+  &lt;/extension&gt;
+  &lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
+    point="filters"&gt;
+    &lt;filter id="helloFilter"&gt;
+      &lt;rule grant="true"&gt;
+        &lt;type&gt;Workspace&lt;/type&gt;
+      &lt;/rule&gt;
+    &lt;/filter&gt;
+  &lt;/extension&gt;
+&lt;/component&gt;
+  </code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
+<div class="sticker"><a href="#help-exercise3">Need more help?</a></div>
+</section>
+
+<section class="slide" id="help-exercise3">
+### Help (3/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Add the document view layout to <code>src/main/resources/web/nuxeo.war/hello_world.xhtml</code>
+<pre>
+  <code>
+&lt;div xmlns:nxl="http://nuxeo.org/nxforms/layout"&gt;
+  &lt;nxl:documentLayout mode="view" value="#{currentDocument}" /&gt;
+&lt;/div&gt;
+  </code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
+<div class="sticker"><a href="#help-exercise4">Need more help?</a></div>
+</section>
+
+<section class="slide" id="help-exercise4">
+### Help (3/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Add the theme configuration to <code>src/main/resources/web/nuxeo.war/hello_world.xhtml</code>:
+<pre>
+  <code>
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;nxthemes:composition
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:nxthemes="http://nuxeo.org/nxthemes"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout"&gt;
+
+  &lt;ui:define name="page title"&gt;
+    Hello!
+  &lt;/ui:define&gt;
+
+  &lt;ui:define name="body"&gt;
+    &lt;div&gt;
+      Hello world
+      &lt;nxl:documentLayout
+        mode="view"
+        value="#{currentDocument}" /&gt;
+    &lt;/div&gt;
+  &lt;/ui:define&gt;
+
+&lt;/nxthemes:composition&gt;
+  </code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
+<div class="sticker"><a href="#help-exercise5">Need more help?</a></div>
+</section>
+
+<section class="slide" id="help-exercise5">
+### Help (5/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Sample theme contribution at <code>src/main/resources/OSGI-INF/extensions/hello-theme-contrib.xml</code>
+<pre>
+  <code>
+&lt;extension target="org.nuxeo.theme.services.ThemeService"
+  point="applications"&gt;
+  &lt;application root="${org.nuxeo.ecm.contextPath}"
+    template-engine="jsf-facelets"&gt;
+    &lt;view id="/hello_world.xhtml"&gt;
+      &lt;theme&gt;galaxy/popup&lt;/theme&gt;
+    &lt;/view&gt;
+  &lt;/application&gt;
+&lt;/extension&gt;
+  </code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
 </section>
 
 <section class="slide" id="training-exercise2">
