@@ -48,16 +48,6 @@
       class="sub-part training">Trainings</span>
   </div>
 
-
-  <section class="no-md slide" id="nuxeo-training-day-5">
-    <h3>Nuxeo Training – day 5</h3>
-    <ul>
-      <li>Server Structure, configuration templates</li>
-      <li>Market place package</li>
-      <li>Nuxeo distribution tools</li>
-      <li>Functional tests </li>
-    </ul>
-  </section>
   <section class="no-md slide"
     id="nuxeo-training---nuxeo-distribution-1:-server-structure-configuration-templates">
     <h1>Nuxeo Training - Nuxeo Distribution 1: Server structure,
@@ -198,31 +188,11 @@
       <li>Since 5.6, templates use FreeMarker </li>
     </ul>
   </section>
-  <section class="no-md slide" id="a-long-time-ago">
-    <h3>A long time ago</h3>
-    <ul>
-      <li>In the past, a delivery was done providing all the folder
-        &quot;config&quot; 
-        <ul>
-          <li>Including defaults config files from Nuxeo</li>
-          <li>Including custom config file according to the target</li>
-          <li>Excluding defaults config files from Nuxeo according
-            to the target </li>
-        </ul>
-      </li>
-      <li>For each targets :
-        <ul>
-          <li>Dev1, dev2</li>
-          <li>Qualification servers</li>
-          <li>Production servers</li>
-        </ul>
-      </li>
-    </ul>
-  </section>
+
   <section class="no-md slide" id="why-templates">
     <h3>Why templates ?</h3>
     <ul>
-      <li>It was hard to maintain </li>
+      <li>Easy to maintain </li>
       <li>No more resources duplication 
         <ul>
           <li>without templates, administrators had to add or
@@ -238,6 +208,7 @@
       </li>
     </ul>
   </section>
+  
   <section class="no-md slide" id="behind-the-template-mechanism">
     <h3>Behind the template mechanism</h3>
     <ul>
@@ -249,6 +220,7 @@
       </li>
     </ul>
   </section>
+  
   <section class="no-md slide" id="configuration-templates-1">
     <h3>Configuration templates</h3>
     <ul>
@@ -260,6 +232,7 @@
       <li>File parsing and renaming capabilities </li>
     </ul>
   </section>
+  
   <section class="no-md slide" id="configuration-templates-2">
     <h3>Configuration templates</h3>
     <p>nuxeo.conf</p>
@@ -268,6 +241,7 @@
       <li>Configuration variables to override </li>
     </ul>
   </section>
+  
   <section class="no-md slide" id="nuxeo.conf-location">
     <h3>nuxeo.conf location</h3>
     <p>nuxeo.conf location defined with a environment variable :</p>
@@ -278,9 +252,7 @@ $ NUXEO_CONF=/etc/nuxeo/nuxeo.conf nuxeo-cap-5.6/bin/nuxeoctl console 
 </code>
     </pre>
   </section>
-  <section class="no-md slide" id="demo-configuration-templates">
-    <h2>Demo Configuration Templates</h2>
-  </section>
+
   <section class="no-md slide"
     id="exercise---nuxeo-distribution-1:-server-structure-configuration-templates">
     <h2>Exercise - Nuxeo Distribution 1 : Server structure,
