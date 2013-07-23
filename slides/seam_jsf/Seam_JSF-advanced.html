@@ -60,6 +60,7 @@
 <section class="slide" id="jsf-postback">
 ###JSF Post Back & Context
 
+  <img class="float-right" src="./img/jsf_lifecycle.png" />
   <img src="./img/jsf_postback.png" />
 
   State is restored when posting a form, and when a validation error occurs
@@ -105,7 +106,11 @@
 <section class="slide" id="seam-jsf-role">
 ###Seam & JSF Life Cycle
 
-<img src="./img/jsf-seam-lifecycle.JPG" />
+<img class="float-right" src="./img/jsf-seam-lifecycle.png" />
+
+- Postback is an HTTP POST to the same page that the form is on.
+- JSF 2.0 supports pre-rendering events as part of the .xhtml files as opposed to the page.xml file in Seam. 
+Hence, JSF 2.0 allows your application to be hot deployable.
 </section>
 
 <section class="slide" id="questions-seam">
