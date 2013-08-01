@@ -758,13 +758,14 @@ More sample contributions are available <a href="http://explorer.nuxeo.org/nuxeo
     - Add a `countChildren()` method returning the number of children of the current document
         - Use the `navigationContext` variable to get the current document
         - Use the `documentManager` variable to get the children documents
-    - Deploy your changes on the server
+- Deploy your changes on the server
     
 #### Studio side
-- Create a xhtml file named `showNumberOfChildrenOnFolderishDocs.xhtml`
+- Create a xhtml file named `showChildrenNumber.xhtml`
     - Add the JSF tags to call the method only on `Folderish` documents
 - In Nuxeo studio
     - Add a template widget in the `bookTableLayout` using that file
+    - In the content view's advanced configuration, add a field named `data`
 - Commit and deploy your changes
 - Check the result by going to your "still in library" books tab
 
@@ -818,7 +819,7 @@ The `countChildren()` method:
 	return children.size();
 }</pre></code>
 
-The `showNumberOfChildrenOnFolderishDocs.xhtml` file:
+The `showChildrenNumber.xhtml` file:
 <pre><code>&lt;div>
     &lt;c:if test="#{field.hasFacet('Folderish')}" 
     xmlns:c="http://java.sun.com/jstl/core">
