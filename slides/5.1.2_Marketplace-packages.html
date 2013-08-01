@@ -64,206 +64,132 @@ Using a configuration template to deploy our application is nice, but maybe we c
 - Create a marketplace package to deploy our Nuxeo studio project.
 </section>
 
-  <section class="no-md slide" id="nuxeo-market-place">
-    <h3>Nuxeo Market place</h3>
+<section class="slide" id="marketplace-vs-config-template">
+### Marketplace VS config templates
+<div class="split-box split-50">
+    <h4>Configuration templates</h4>
     <ul>
-      <li>Easy and user friendly interface
-        <ul>
-          <li>Install plugins / libs and configuration templates
-            <ul>
-              <li>Nuxeo Update center (Admin Center)
-                <ul>
-                  <li>Every packages are Marketplace packages</li>
-                  <li>Click to install</li>
-                  <li>Install from your file system</li>
-                </ul>
-              </li>
-              <li><code>nuxeoctl</code> commands (the server should
-                be shutdown):
-                <ul>
-                  <li><code>nuxeoctl mp-add
-                      your-package-1.0-SNAPSHOT.zip</code></li>
-                  <li><code>nuxeoctl mp-install
-                      your-package-1.0-SNAPSHOT</code></li>
-                </ul></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
+        <li>Perfect for a one time configuration</li>
+        <li>No versioning</li>
     </ul>
-  </section>
-  <section class="no-md slide" id="marketplace-pkg-content">
-  <h3>Marketplace pkg content</h3>
-  <ul>
-    <li>Just a zip file
-      <ul>
-        <li><code>package.xml</code>: package descriptor</li>
-        <li><code>Install.xml</code>: instructions while installing</li>
-        <li><code>install/bundles</code>: the Nuxeo plugins to install</li>
-        <li><code>install/templates</code>: the configuration templates lib</li>
-        <li><code>install/lib</code>: the third party lib to install </li>
-      </ul>
-    </li>
-    <li>That's all </li>
-  </ul>
-</section>
-<section class="no-md slide" id="package.xml">
-  <h3>package.xml</h3>
-  <ul>
-    <li>Contains the package description :
-      <ul>
-        <li>Title, description, etc …</li>
-        <li>Dependencies</li>
-        <li>Supported platform </li>
-      </ul>
-      <pre><code>
-&lt;package type=&quot;addon&quot; name=&quot;book-management&quot; version=&quot;1.0.0-SNAPSHOT&quot;&gt;
-      &lt;title&gt;Course Management&lt;/title&gt;
-      &lt;description&gt;Course Management&lt;/description&gt;  
-      &lt;home-page&gt;http://www.nuxeo.com&lt;/home-page&gt;  
-      &lt;vendor&gt;Nuxeo&lt;/vendor&gt;
-      &lt;installer restart=&quot;true&quot; /&gt;
-      &lt;uninstaller restart=&quot;true&quot; /&gt;
-      &lt;production-state&gt;production_ready&lt;/production-state&gt;
-      &lt;supported&gt;true&lt;/supported&gt;
-      &lt;platforms&gt;
-        &lt;platform&gt;cap-5.5&lt;/platform&gt;
-      &lt;/platforms&gt;
-      &lt;dependencies&gt;
-        &lt;package&gt;nuxeo-dm:5.5&lt;/package&gt;
-        &lt;package&gt;nuxeo-content-browser:1.0.0&lt;/package&gt;
-      &lt;/dependencies&gt;
-      &lt;license&gt;LGPL&lt;/license&gt;
-      &lt;license-url&gt;http://www.gnu.org/licenses/lgpl.html&lt;/license-url&gt;
-&lt;/package&gt;
-      </code></pre>
-    </li>
-  </ul>
-</section>
-<section class="no-md slide" id="install.xml">
-  <h3>install.xml</h3>
-  <pre>
-              <code>
-&lt;install\&gt;
-  &lt;update   
-    file=&quot;${package.root}/install/bundles&quot;  
-    todir=&quot;${env.bundles}&quot; /\&gt;
-  &lt;update
-    file=&quot;${package.root}/install/lib&quot;
-    todir=&quot;${env.lib}&quot; /\&gt;
-  &lt;copy
-    dir=&quot;${package.root}/install/templates&quot;
-    todir=&quot;${env.templates}&quot;
-    overwrite=&quot;true&quot; /\&gt;
-  &lt;config  
-    addtemplate=&quot;book-management-common&quot; /\&gt;
-&lt;/install\&gt;
-</code>
-            </pre>
-  <ul>
-    <li>Contains instructions to perform while
-      installing/uninstalling
-      <ul>
-        <li>Copy and deploy bundles</li>
-        <li>Add a template in nuxeo.conf </li>
-      </ul>
-    </li>
-    <li><p>
-        More details in <a href="http://doc.nuxeo.com/x/N4Ge">http://doc.nuxeo.com/x/N4Ge</a> 
-      </p>
-      <p>  </p></li>
-  </ul>
-</section>
-<section class="no-md slide" id="installafterrestart">
-  <h3>installAfterRestart</h3>
-  <ul>
-    <li>In the folder /setupWizardDownloads of the server, you will
-      find ready to install market place packages (renamed with their
-      md5)</li>
-    <li>In the nxserver/data folder, installAfterRestart-XX.log can
-      be rename to installAfterRestart.log to install some downloaded
-      market place package at start up</li>
-    <li>For instance installAfterRestart-SC.log </li>
-  </ul>
+</div>
+
+<div class="split-box split-50">
+<h4>Marketplace packages</h4>
+    <ul>
+        <li>Can be uninstalled</li>
+        <li>Can be versioned</li>
+        <li>Define a platform target version</li>
+        <li>Continuous integration compliant</li>
+        <li>Easy and user friendly interface</li>
+        <li>Can install plugins, libs and configuration templates</li>
+    </ul>
+</div>
 </section>
 
-<section class="no-md slide"
-  id="exercise---nuxeo-distribution-2:-marketplace-package">
-  <h2>Exercise - Nuxeo Distribution 2 : Marketplace package</h2>
+<section class="slide" id="nuxeo-marketplace">
+### Nuxeo marketplace
+#### How to use it
+- With a user interface: from Nuxeo Update center (Admin Center)
+    - Every package is a marketplace package
+    - Packages can be installed by selection or import
+
+- Using the command line: `nuxeoctl` commands (usable when the server is shut down)
+<pre><code>nuxeoctl mp-add /path/to/your/package/packageFileName.zip
+nuxeoctl mp-install packageName
+nuxeoctl mp-list
+nuxeoctl mp-remove packageName</code></pre>
 </section>
 
-<section class="no-md slide exercise"
-  id="manually-create-the-market-place-package">
-      <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+<section class="slide" id="marketplace-pkg-content">
+### Marketplace package content
+#### Just a zip file containing:
+- <code>package.xml</code> package descriptor
+- <code>Install.xml</code> installation and (optionally) uninstallation instructions
+- <code>install/bundles</code> the Nuxeo plugin(s) to install
+- <code>install/templates</code> the configuration templates
+- <code>install/lib</code> the third party lib(s) to install
+
+That's all !
+</section>
+
+<section class="slide" id="package.xml">
+### package.xml
+#### Contains the package description :
+- Title, description, etc…
+- Dependencies
+- Supported platform
+
+<pre><code>&lt;package type="addon" name="BestBooks" version="1.0.0">
+      &lt;title>Best Books&lt;/title>
+      &lt;description>Nuxeo studio project&lt;/description>  
+      &lt;home-page>http://www.nuxeo.com&lt;/home-page>  
+      &lt;vendor>Nuxeo&lt;/vendor>
+      &lt;installer restart="true" />
+      &lt;uninstaller restart="true" />
+      &lt;production-state>production_ready&lt;/production-state>
+      &lt;supported>true&lt;/supported>
+      &lt;platforms>
+        &lt;platform>cap-5.7.1&lt;/platform>
+      &lt;/platforms>
+      &lt;dependencies>
+        &lt;package>nuxeo-dm:5.7.1&lt;/package>
+      &lt;/dependencies>
+      &lt;license>LGPL&lt;/license>
+      &lt;license-url>http://www.gnu.org/licenses/lgpl.html&lt;/license-url>
+&lt;/package></code></pre>
+</section>
+
+<section class="slide" id="install.xml">
+### install.xml
+#### Contains installation and (optionally) uninstallation instructions
+More details in the <a href="http://doc.nuxeo.com/x/94Wo">marketplace package creation documentation</a> 
+
+<pre><code>&lt;install>
+  &lt;update   
+    file="${package.root}/install/bundles"  
+    todir="${env.bundles}" />
+&lt;/install></code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-marketplace-package">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-  <h3>Manually create the market place package</h3>
-  <ul>
-    <li>In your workspace, create a folder that will contain the
-      futur marketplace zip content
-      <ul>
-        <li>Create the following folder and files:
-          <ul>
-            <li> install 
-              <ul>
-                <li>bundles (copy
-                  book-management-1.0.0-SNAPSHOT.jar, and your studio
-                  jar) </li>
-                <li>templates (copy your templates in there)</li>
-                <li>lib (empty folder) </li>
-              </ul>
-            </li>
-            <li>install.xml</li>
-            <li>package.xml</li>
-          </ul>
-        </li>
-        <li>Zip it, your market place package is ready !!!! </li>
-      </ul>
-    </li>
-  </ul>
+### Practice - Marketplace packages (1/2)
+#### Prepare your package
+- On your local disk, create a `BestBooks` folder that will contain the marketplace zip content
+- Inside it, create the following folder and files:
+    - `install.xml`
+    - `package.xml` *Hint: refer to the previous slides if you need help !*
+    - `install` (folder)
+        - `templates` (empty folder)</li>
+        - `lib` (empty folder) </li>
+        - `bundles` (folder) 
+            - Copy your Nuxeo studio project jar inside
+- Compress your folder as a zip file<br />
 </section>
 
-<section class="no-md slide exercise" id="install-your-market-place-package">
-    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+<section class="slide exercise" id="exercise-marketplace-package">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-  <h3>Install your market place package</h3>
-  <ul>
-    <li>Remove the template book-management-common defined in the
-      nuxeo.conf
-      <ul>
-        <li><p>it will be configured automatically with the
-            install.xml </p>
-          <p><code>&lt;config
-            addtemplate=&quot;book-management-common&quot; /&gt;</code></p></li>
-        <li>Remove the existing book-management-common folder (if you use
-          it) as the package will copy it in the nuxeo templates folder </li>
-      </ul>
-    </li>
-    <li>Install the market place package
-      <ul>
-        <li>with the nuxeoctl commands :
-          <ul>
-            <li><code>nuxeoctl mp-add your-package-1.0-SNAPSHOT.zip</code></li>
-            <li><code>nuxeoctl mp-install your-package-1.0-SNAPSHOT</code></li>
-          </ul>
-        </li>
-        <li>Or from the update center </li>
-      </ul>
-    </li>
-    <li>Restart and test it !</li>
-  </ul>
+### Practice - Marketplace packages (2/2)
+#### Install your package
+- Remove the `bestbooks` template defined in the nuxeo.conf
+- Install the market place package
+    - From the update center
+    - **Or** with the nuxeoctl commands
+        - Type a command to add your package
+        - Type a command to install it <br /> *Hint: refer to the previous slides if you need help !*
+- Restart your server and check that your package is deployed
 </section>
 
-<section class="no-md slide exercise" id="next">
-    <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-  <h3>Next ?</h3>
-  <ul>
-    <li>Manual operations are not recommanded</li>
-    <li>The more you are doing manual operations, the more you have
-      chance to make mistakes</li>
-    <li>We are going to use maven, nuxeo-distribution-tools and ant
-      to automatically build our market place package </li>
-  </ul>
+<section class="slide" id="questions-marketplace">
+##Questions?
+</section>
+
+<section class="slide" id="next">
+### What's next?
+- Next chapter: [Nuxeo distribution tools](5.1.3_Nuxeo-distribution-tools.html)
 </section>
 
   <!-- deck.navigation snippet -->
