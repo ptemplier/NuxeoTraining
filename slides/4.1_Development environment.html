@@ -48,117 +48,18 @@
       class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide no-md"
+<section class="slide"
   id="nuxeo-training---development-environment-and-project-structure">
-  <h1>Nuxeo Training - Development Environment and Project
-    Structure</h1>
+# Nuxeo Training - Development environment and project structure</h1>
 </section>
 
-<section class="slide no-md" id="software-required">
-  <h3>Software Required</h3>
-  <ul>
-    <li>Java 6 or Java 7 <a href="./">http://java.sun.com/javase/downloads/index.jsp</a></li>
-    <li>Eclipse 3.6 or 4.2 + Nuxeo IDE from the Eclipse
-      Marketplace <a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a>
-    </li>
-    <li>Maven 2.2.1 <a href="http://maven.apache.org/download.html">http://maven.apache.org/download.html</a></li>
-  </ul>
-  <p>Problems with Nuxeo and Maven &gt; 2.2.1</p>
-</section>
-
-
-<section class="slide no-md" id="software-required2">
-  <h3>Software Required</h3>
-  <ul>
-    <li>Firefox / Chrome / Internet Explorer</li>
-    <li>Nuxeo SDK <a href="http://doc.nuxeo.com/x/b4KE">http://doc.nuxeo.com/x/b4KE</a></li>
-  </ul>
-</section>
-
-
-<section class="slide no-md" id="maven">
-  <h2>Maven?</h2>
-</section>
-
-<section class="slide no-md" id="maven-1">
-  <h3>Maven?</h3>
-  <ul>
-    <li>Software tool for:
-      <ul>
-        <li>Java project management</li>
-        <li>Build automation</li>
-      </ul>
-    </li>
-    <li>Use Project Object Model (POM) to describe the project
-      being built</li>
-    <li>Dynamically downloads Java libraries</li>
-  </ul>
-</section>
-
-<section class="slide no-md" id="why-do-we-use-maven">
-  <h3>Why do we use Maven?</h3>
-  <ul>
-    <li>Building Nuxeo software is complex
-      <ul>
-        <li>Lot of components / modules (500+)</li>
-        <li>Complex dependencies</li>
-      </ul>
-    </li>
-    <li>Packaging Nuxeo software is complex
-      <ul>
-        <li>Lot of components</li>
-        <li>Packaging depends on target server layout</li>
-      </ul>
-    </li>
-    <li>Release process is complex </li>
-  </ul>
-</section>
-
-<section class="slide no-md" id="what-does-maven-provide">
-  <h3>What does Maven provide?</h3>
-  <ul>
-    <li>Declarative dependency management</li>
-    <li>Full build automation</li>
-    <li>Snapshot management via Maven repository</li>
-    <li>Pluggable</li>
-  </ul>
-</section>
-
-<section class="slide no-md" id="maven-basics">
-  <h3>Maven Basics</h3>
-  <ul>
-    <li>Build file is pom.xml
-      <ul>
-        <li>groupId / artifactId: identify artifact</li>
-        <li>parent pom: common dependency</li>
-        <li>dependencies</li>
-      </ul>
-    </li>
-    <li>Useful commands <pre>
-        <code>
-mvn install
-mvn clean install
-mvn test
-mvn -Dmaven.test.skip=true goal
-mvn eclipse:eclipse</code>
-      </pre></li>
-  </ul>
-</section>
-
-<section class="slide no-md" id="maven-phases">
-  <h3>Maven Phases</h3>
-  <ul>
-    <li>Main phases for Maven: 
-      <ul>
-        <li>Validate </li>
-        <li>Compile </li>
-        <li>Test </li>
-        <li>Package </li>
-        <li>Install (in the local repository <code>~.m2/repository</code>)</li>
-        <li>Deploy </li>
-      </ul>
-    </li>
-  </ul>
+<section class="no-md slide" id="software-required">
+<h3>Software Required</h3>
+<ul>
+<li> <a href="http://java.sun.com/javase/downloads/index.jsp" target="_blank">Java 7</a></li>
+<li> <a href="http://www.eclipse.org/downloads/" target="_blank">Eclipse 3.6 or 4.2</a> 
+    and <a href="http://marketplace.eclipse.org/content/nuxeo-ide" target="_blank">Nuxeo IDE</a> from the eclipse marketplace</li>
+<li> <a href="http://doc.nuxeo.com/x/b4KE" target="_blank">Nuxeo SDK</a></li>
 </section>
 
 <section class="slide no-md" id="project-structure">
@@ -218,9 +119,6 @@ mvn eclipse:eclipse</code>
       </ul>
     </li>
   </ul>
-</section>
-<section class="slide no-md" id="demo---installation-workshop">
-  <h2>Demo - Installation workshop</h2>
 </section>
 
 <section class="slide no-md" id="exercise---your-first-bundle">
