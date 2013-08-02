@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo training - Unit testing</title>
+<title>Nuxeo training - Unit tests</title>
 
 <meta name="description" content="Nuxeo Training - Unit testing">
 <meta name="author" content="Nuxeo">
@@ -49,63 +49,34 @@
 </section>
 
 <section class="slide" id="unit-test">
-# Nuxeo training - Unit testing
+# Nuxeo training - Unit tests
 </section>
 
-  <section class="slide no-md" id="why-unit-test">
-    <h3>Why unit test ?</h3>
-    <ul>
-      <li>Detect regressions 
-        <ul>
-          <li>The faster we detect a bug, the easier it is to fix
-            it </li>
-        </ul>
-      </li>
-      <li>Avoid over design 
-        <ul>
-          <li>Test Driven Development</li>
-          <li>Developer user friendly</li>
-        </ul>
-      </li>
-      <li>Step by step validation
+<section class="slide" id="why-unit-test">
+### Why unit test ?</h3>
+#### Detect regressions 
+- The faster we detect a bug, the easier it is to fix it
+
+#### Avoid over design 
+- Test Driven Development (write the test first, implement after)
+- Developer user friendly
+
+#### Simply practical
+- Step by step validation
         <div class="further-info">Don't need to wait for the end
           of all the layers (core/services/ui ...etc ) to make sure your
           code is working</div>
-      </li>
-      <li>Refactoring friendly</li>
-    </ul>
+- Refactoring friendly
+- No need to restart the server to run the tests
   </section>
 
-  <section class="slide no-md" id="test-driven-development">
-    <h3>Test Driven Development</h3>
-    <blockquote>
-      <p>Write the test first,</p>
-      <p>Implement after</p>
-      <p>
-        <cite>Sun TAN</cite>
-      </p>
-    </blockquote>
-    <ul>
-      <li>Help to design nice API </li>
-      <li>Test our development without having to restart Tomcat</li>
+<section class="slide" id="how-to-unit-test-with-nuxeo">
+### Nuxeo provides
+#### A custom Nuxeo JUnit4 runner that:
 
-    </ul>
-    
-  </section>
-
-  <section class="slide no-md" id="how-to-unit-test-with-nuxeo">
-    <h3>Nuxeo provides</h3>
-    <p>A custom Nuxeo JUnit4 runner that</p>
-    <ul>
-      <li>Launch a real Nuxeo Document Repository</li>
-      <li>Deploy Nuxeo bundles,components and extension points</li>
-    </ul>
-  </section>
-
-
-  <section class="slide no-md" id="first-demo-junit">
-    <h2>Demo: running TestBookDocument</h2>
-  </section>
+- Launches a real Nuxeo document repository
+- Allows to deploy Nuxeo bundles, components and extension points
+</section>
 
   <section class="slide no-md" id="unit-testing">
     <h3>Unit testing</h3>
