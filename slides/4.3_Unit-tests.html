@@ -78,36 +78,20 @@
 - Allows to deploy Nuxeo bundles, components and extension points
 </section>
 
-  <section class="slide no-md" id="unit-testing">
-    <h3>Unit testing</h3>
-    <ul>
-      <li>Unit test classes
-        </p>
-        <ul>
-          <li>Should be located in <code>src/test/java</code></li>
-          <li>Should start with Test for instance <code>TestBookType.java</code></li>
-        </ul>
-      </li>
-      <li>Annotations Needed
-        </p>
-        <ul>
-          <li>Use the Nuxeo <code>FeatureRunner</code> junit 4
-            runner to handle <code>@Features</code>, <code>@Deploy</code>
-            and <code>@LocalDeploy</code> annotations
-          </li>
-        </ul>
-      </li>
-    </ul>
-    <pre>
-			<code>
-@RunWith(FeaturesRunner.class)
+<section class="slide" id="unit-testing">
+### Unit testing
+#### Unit test classes
+- Should be located in <code>src/test/java</code></li>
+- Should start with `Test`, for instance <code>TestBookType.java</code></li>
+
+#### Annotations Needed
+- Use the Nuxeo <code>FeatureRunner</code> junit 4 runner to handle <code>@Features</code>,<br /> <code>@Deploy</code> and <code>@LocalDeploy</code> annotations
+<pre><code>@RunWith(FeaturesRunner.class)
 @Features(CoreFeature.class)
 @Deploy({"an.existing.bundle","another.one"})
-@LocalDeploy({"bundle.name:/OSGI-INF/file.xml"})
-</code>
-		</pre>
+@LocalDeploy({"bundle.name:/OSGI-INF/file.xml"})</code></pre>
 
-  </section>
+</section>
 
   <section class="slide no-md" id="unit-testing:-features">
     <h3>
@@ -142,9 +126,7 @@
       <code>Bundle-SymbolicName</code>
       of your bundle MANIFEST.MF file
     </h3>
-    <pre>
-			<code>
-Manifest-Version: 1.0
+<pre><code>Manifest-Version: 1.0
 Require-Bundle: org.nuxeo.runtime
 Bundle-Vendor: Nuxeo
 Bundle-Version: 1.0.0
@@ -152,57 +134,43 @@ Bundle-Name: Nuxeo Studio Extension - studio.extensions.&lt;your_Studio_project_
 Nuxeo-Component: OSGI-INF/extensions.xml
 Bundle-ManifestVersion: 2
 Created-By: Nuxeo Studio
-<span class="bold">Bundle-SymbolicName: studio.extensions.&lt;your_Studio_project_name&gt;</span>
-</code>
-</pre>
+<span class="bold">Bundle-SymbolicName: studio.extensions.&lt;your_Studio_project_name&gt;</span></code></pre>
 
-    <pre>
-      <code>@Deploy("studio.extensions.&lt;your_Studio_project_name&gt;")</code>
-    </pre>
+<pre><code>@Deploy("studio.extensions.&lt;your_Studio_project_name&gt;")</code></pre>
     
-    <h4>Test that a component is loaded</h4>
-    <pre><code>Assert.assertNotNull(Framework.getRuntime().getComponent("studio.extensions.&lt;your_Studio_project_name&gt;"));</code></pre>
+<h4>Test that a component is loaded</h4>
+<pre><code>Assert.assertNotNull(Framework.getRuntime().getComponent("studio.extensions.&lt;your_Studio_project_name&gt;"));</code></pre>
+</section>
 
-  </section>
+<section class="slide no-md" id="injection">
+<h3>Injection</h3>
+<p>Nuxeo services and CoreSession can be injected with Google
+    Guice injection mechanism</p>
+<pre><code>@Inject CoreSession session</code></pre>
+<pre><code>@Inject AutomationService automationService</code></pre>
+<p>More generic way to get a service:
+<pre><code>AutomationService automationService = 
+Framework.getLocalService(AutomationService.class)</code></pre>
+</p>
+</section>
 
-  <section class="slide no-md" id="injection">
-    <h3>Injection</h3>
-    <p>Nuxeo services and CoreSession can be injected with Google
-      Guice injection mechanism</p>
-    <pre>
-      <code>@Inject CoreSession session</code>
-    </pre>
-    <pre>
-      <code>@Inject AutomationService automationService</code>
-    </pre>
-    <p>More generic way to get a service:
-    <pre>
-              <code>
-AutomationService automationService =
-  Framework.getLocalService(AutomationService.class)</code>
-            </pre>
-    </p>
+<section class="slide no-md" id="junit">
+<h3>JUnit test method</h3>
+<ul>
+    <li><code>@Test</code> annotation on a method will run it as
+    a test</li>
+    <li>Use <code>org.junit.Assert</code> static method to assert
+    values is right 
+    </li>
+</ul>
+</section>
 
-  </section>
+<section class="slide no-md" id="unit-testing-2">
+<h3>Unit Testing</h3>
+<p>Add log4j configuration for your test
+    (src/test/resources/log4j.xml)</p>
 
-  <section class="slide no-md" id="junit">
-    <h3>JUnit test method</h3>
-    <ul>
-      <li><code>@Test</code> annotation on a method will run it as
-        a test</li>
-      <li>Use <code>org.junit.Assert</code> static method to assert
-        values is right 
-      </li>
-    </ul>
-  </section>
-
-  <section class="slide no-md" id="unit-testing-2">
-    <h3>Unit Testing</h3>
-    <p>Add log4j configuration for your test
-      (src/test/resources/log4j.xml)</p>
-
-    <pre>
-			<code>
+<pre><code>
  &lt;?xml version="1.0"?&gt;
  &lt;!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"&gt;
  &lt;log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
@@ -210,7 +178,8 @@ AutomationService automationService =
    &lt;appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender"&gt;
      &lt;param name="Target" value="System.out" /&gt;
      &lt;layout class="org.apache.log4j.PatternLayout"&gt;
-       &lt;param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p [%C{1}] %m%n" /&gt;
+       &lt;param name="ConversionPattern" 
+         value="%d{HH:mm:ss,SSS} %-5p [%C{1}] %m%n" /&gt;
      &lt;/layout&gt;
    &lt;/appender&gt;
    &lt;root&gt;
@@ -220,12 +189,8 @@ AutomationService automationService =
    &lt;category name="org.nuxeo.training"&gt;
      &lt;priority value="INFO" /&gt;
    &lt;/category&gt;
- &lt;/log4j:configuration&gt;</code>
-		</pre>
-
-
-
-  </section>
+ &lt;/log4j:configuration&gt;</code></pre>
+</section>
 
   <section class="slide no-md" id="nuxeo-core-api">
     <h3>Nuxeo Core API</h3>
@@ -298,9 +263,7 @@ AutomationService automationService =
         <code>Serializable getPropertyValue(String xpath)</code>
       </p>
       For instance:
-      <pre>
-          <code>String title = (String) doc.getPropertyValue("dc:title");</code>
-        </pre>
+      <pre><code>String title = (String) doc.getPropertyValue("dc:title");</code></pre>
       <p>
         <code>void setPropertyValue(String xpath, Serializable
           value)</code>
@@ -313,28 +276,21 @@ AutomationService automationService =
       <li>Use AutomationService 
         <ul>
           <li>In JUnit4, Nuxeo services injected with Google Guice
-            <code>@Inject</code> annotation<pre>
-              <code>
-@inject AutomationService automationService</code>
-						</pre>
+            <code>@Inject</code> annotation
+            <pre><code>@inject AutomationService automationService</code></pre>
           </li>
-          <li>Or<pre>
-              <code>
-AutomationService automationService =
-  Framework.getLocalService(AutomationService.class)</code>
-            </pre>
+          <li>Or
+          <pre><code>AutomationService automationService =
+  Framework.getLocalService(AutomationService.class)</code></pre>
           </li>
         </ul>
       </li>
       <li>Create an <code>OperationContext</code> with the <code>CoreSession</code>
-        and a document input and call the operation with <pre>
-          <code>
-AutomationService automationService = Framework.getLocalService(AutomationService.class);
+        and a document input and call the operation with: <pre><code>AutomationService automationService = Framework.getLocalService(AutomationService.class);
 OperationContext ctx = new OperationContext();
 ctx.setCoreSession(session);
 ctx.setInput(bookDoc);
-automationService.run(ctx, "borrowChain");
-            </code> </pre>
+automationService.run(ctx, "borrowChain");</code></pre>
       </li>
     </ul>
   </section>
@@ -406,7 +362,6 @@ automationService.run(ctx, "borrowChain");
   </section>
   <section class="slide no-md" id="exercise---unit-testing">
     <h2>Exercise - Unit testing</h2>
-    <h6>Sun Seng David TAN</h6>
   </section>
   <section class="slide no-md exercise" id="exercise-agenda">
     <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
