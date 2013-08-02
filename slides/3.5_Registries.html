@@ -9,9 +9,10 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - XML extensions</title>
+<title>Nuxeo Training - Layouts</title>
 
-<meta name="description" content="Nuxeo Training - Studio advanced settings">
+<meta name="description"
+  content="Nuxeo Training - Layouts">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -48,84 +49,58 @@
       class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide" id="xml-contribs">
-# Nuxeo training - XML extensions
+<section class="slide"
+  id="nuxeo-training-registries">
+# Nuxeo training - Registries
 </section>
 
-<section class="slide" id="wherewego-context-xml-extensions">
+<section class="slide" id="wherewego-context-registries">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>
-The library will soon be recruiting new staff.<br /><br />
-The management team has decided to setup strict procedures to make sure everyone works the same way.<br /><br />
-In application of these new rules, you are requested to simplify the user interface by deactivating a few features.<br />
+The Best Books library's manager has explained to you he will soon have more customizations coming in, including many new document types. 
+<br /><br />
+To prepare the field you understand that being able to differentiate the custom document types with the native ones would be a major asset. 
+The solution should be easy to maintain as well.
+</p></blockquote>
 </section>
 
-<section class="slide" id="xml-contribs-wherewego">
-### What we want to do
-#### At the end of the course
-- Deactivate the "by coverage" and "by subject" navigations
+<section class="slide" id="wherewego">
+###What we want to do
+####At the end of the course:
+- Create a BestBooks facet to distinguish native document types from the custom ones
+- Create a BestBooks document category to visually differentiate them upon creation
 </section>
 
-<section class="slide" id="xml-contribs-concepts">
-### XML extensions
-#### Concepts
-- Nuxeo exposes extension points almost everywhere
-- These extension points can be configured using XML (what studio does)
-- Not all extension points are configurable in studio yet
-    - For these, studio integrates the XML extension functionality
+<section class="slide" id="registries-concepts">
+### Registries
+#### What for ?
+- Make available missing docTypes, layouts, etc… in Studio    
+    - The existing ones in Nuxeo but missing in Studio registries 
+    - The custom ones done in another project 
+- Add new elements that are not configurable yet in Studio
+
+#### How to use them
+- Found in Nuxeo studio's `Settings and versioning` > `Registries` menu
+- Use JSON format to declare your elements
+- Examples are provided to get you started (Click on "see example", then on the "Insert" button)
 </section>
 
-<section class="slide" id="xml-contribs-concepts-2">
-### XML extensions
-#### How does it work? (1/2)
-<div class="split-box split-37">
-<ul><li> Go to <a href="http://explorer.nuxeo.org" target="_blank">explorer.nuxeo.org</a> </li>
-    <li> Select your platform version</li>
-    <li> Go to the extension points</li>
-    <li> Retrieve the component name (the long one)</li>
-    <li> Search for its extension points</li>
-    <li> Look at the extension point XML source</li>
-</div> 
-
-<div class="split-box split-63">
-<img src="img/advanced-settings-extension-points.png" /> 
-<img src="img/advanced-settings-extension-points-point.png" /> 
-<img src="img/advanced-settings-extension-points-xml.png" /> 
-</div>
-</section>
-
-<section class="slide" id="xml-contribs-example">
-### XML extensions
-#### How does it work? (2/2)
-In studio, go to the <code>Advanced settings > XML extensions</code> menu and add your XML code
-<pre><code>&lt;extension target="org.nuxeo.ecm.webapp.directory.DirectoryTreeService"
-  point="trees">
-  &lt;directoryTree name="bySubjectsNavigation" enabled="false" />
-  &lt;directoryTree name="byCoverageNavigation" enabled="false" />
-&lt;/extension>
-</code></pre>
-
-- Target is the component name
-- Point is the extension point
-</section>
-
-<section class="slide exercise" id="xml-contribs-exercise">
+<section class="slide exercise" id="registries-exercise">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice
-#### XML extensions
-- Create an XML extension to deactivate the "by coverage" and "by subject" navigations
-- Commit and deploy your changes
-- Check that these navigations have been removed
+### Practice - Registries
+- Create a "Best Books" document category
+- Create a "BestBooks" document facet
+- Apply your document category and facet to the `Book` and `BookLibrary` document types
 </section>
 
-<section class="slide" id="questions-xml-contribs">
+<section class="slide" id="questions">
 ##Questions?
 </section>
 
 <section class="slide" id="next">
-### Next?
-[Registries](3.5_Registries.html)
+###Next ?
+[Workflows](3.6_Workflows.html)
 </section>
 
   <!-- deck.navigation snippet -->
@@ -155,7 +130,6 @@ In studio, go to the <code>Advanced settings > XML extensions</code> menu and ad
   <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
   <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
 
-
   <!-- Deck Core and extensions -->
   <script src="deck.js/core/deck.core.js"></script>
   <script src="deck.js/extensions/hash/deck.hash.js"></script>
@@ -172,7 +146,5 @@ In studio, go to the <code>Advanced settings > XML extensions</code> menu and ad
 				$.deck('.slide');
 			});
 		</script>
-
 </body>
 </html>
-
