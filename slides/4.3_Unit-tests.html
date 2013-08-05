@@ -186,7 +186,7 @@ Framework.getLocalService(AutomationService.class)</code></pre>
 </section>
 
 <section class="slide" id="nuxeo-core-api">
-### Nuxeo Core API
+### Nuxeo Core API - Useful objects
 #### CoreSession
 - Called when you need to access the repository directly <br /> ex: Store / retrieve documents in the database
     
@@ -194,6 +194,10 @@ Framework.getLocalService(AutomationService.class)</code></pre>
 - Stores document information in memory and transmits it to the CoreSession for storage
 - Called when you need to access and / or update the document properties
 - A document is an instance of a DocumentModel object
+
+#### NuxeoPrincipal
+- Object containing user information
+- Called when you need to create / update / delete a user or a user group
 </section>
 
 <section class="slide" id="useful-methods">
@@ -264,14 +268,7 @@ automationService.run(ctx, "chainId");</code></pre>
     - Calls the `borrowChain` on the Book
     - Checks that the document's lifecycle state is `borrowed`
     - Checks that the `borrowedBy` field is not null
-
-- Create a unit test named `shouldBeInLibrary()` that:
-    - Creates a `Book` document located in the root directory
-    - Calls a chain name `bringBackChain` on the Book
-    - Checks that the document's lifecycle state is `ìnLibrary`
-    - Checks that the `borrowedBy` field is null
-    
-The `bringBackChain` does not exist yet, so our test will fail. However, now we know what our chain is supposed to do so we can easily implement it.
+    - Saves the document in the repository
 </section>
 
 <section class="slide" id="questions-ide-test-automation">
