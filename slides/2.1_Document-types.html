@@ -75,7 +75,7 @@ After a quick discussion, you understand that books need specific metadata to be
   - Author (Complex, multivalued)
   - publicationDate (date)
   - rating (int)
-- We won't display / edit the metadata yet !
+- We won't display / edit the metadata yet!
 </section>
 
 <section class="slide" id="wherewego2">
@@ -98,13 +98,13 @@ Can contain `Book` and `BookLibrary` documents
 <section class="slide" id="doctype-properties">
 ### Document type definition
 ####Additional properties
-- Extends: defines what properties the document type will inherit from
+- Extends: Defines what properties the document type will inherit from
     - Schemas and facets are both inherited
     - Base document type in Nuxeo is "Document", all document types inherit from it
 - Label
-- Category: where the document will be displayed at creation time
+- Category: Where the document will be displayed at creation time
 - Icons
-- Container types: where the document type can be created 
+- Container types: Where the document type can be created 
 </section>
 
 <section class="slide exercise" id="exercise-doctype-creation">
@@ -126,7 +126,7 @@ Can contain `Book` and `BookLibrary` documents
 <section class="slide" id="wherewego-context-booklibrary">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>
-The "Best books" library feels that the Book document type will not be enough to organize their collection. Instead of using folders, they want to implement a somewhat similar document type called BookLibrary which should be able to contain books or other book libraries. No problem, you say !
+The "Best books" library feels that the Book document type will not be enough to organize their collection. Instead of using folders, they want to implement a somewhat similar document type called BookLibrary which should be able to contain books or other book libraries. No problem, you say!
 </p></blockquote>
 </section>
 
@@ -135,9 +135,9 @@ The "Best books" library feels that the Book document type will not be enough to
 ####The folderish facet
 - Any folder in Nuxeo is a document type having the "folderish" facet
 - Applying the "folderish" facet to a document type gives access to:
-    - `Accepted children types`: which document type(s) can be created in it
-    - `Show create child action`: to display the button allowing the creation of a new document in it
-    - `Show view tab`: show the "summary" tab, normally hidden by default for folderish document types
+    - `Accepted children types`: Which document type(s) can be created in it
+    - `Show create child action`: To display the button allowing the creation of a new document in it
+    - `Show view tab`: Show the "summary" tab, normally hidden by default for folderish document types
 </section>
 
 <section class="slide exercise" id="exercise-doctype-folderish">
@@ -180,12 +180,12 @@ Now that their custom document types have been created, the "Best books" library
 <section class="slide" id="metadata-types">
 ###Schema metadata types
 - Common metadata types are:
-    - string: text
-    - int: integer number
-    - float: floating number
-    - date: well, a date
-    - blob: a binary file
-    - complex: see below
+    - string: Text
+    - int: Integer number
+    - float: Floating number
+    - date: Well, a date
+    - blob: aAbinary file
+    - complex: See below
 - Complex type: composed of several fields that can have the same or different types.<br /> For instance an `author` complex type could contain:
       - name (string)
       - first name (string)
@@ -197,7 +197,7 @@ Now that their custom document types have been created, the "Best books" library
 #### What fields do I need to add?
 - When you create a document type, Nuxeo imports:
     - Default schemas: dublincore (title, description, author…), etc.
-    - Inherited schemas: depending on what your document type extends
+    - Inherited schemas: Depending on what your document type extends
 
 #### How / where can I add more?
 - Directly into the `schema` tab of your document type
@@ -227,7 +227,7 @@ Now that their custom document types have been created, the "Best books" library
 #### Try your changes
 - Commit your changes
 - Deploy your changes using hot reload
-- Create a book: can you see the fields you just created?
+- Create a book: Can you see the fields you just created?
 </section>
 
 <section class="slide" id="questions">

@@ -128,7 +128,7 @@ Collection of useful helpers <div class="further-info">available in automation p
   - sets books state as delayed,
   - sends an email to borrower saying:
 <pre><code>Hello "username",
-Please bring the book "book name" back !
+Please bring the book "book name" back!
 Thanks,
 "current user name" @ The Best books library
 </code></pre> 
@@ -181,14 +181,14 @@ Up to now, they are doing this manually and would love to see this information p
 <section class="slide" id="document-events">
 ###Event handlers - Main document events
 #### Document creation
-- `Empty document created`: before the creation form is shown
-- `About to create`: when the user clicks on the "save" button
-- `Document created`: when the document has been persisted into the database
+- `Empty document created`: Before the creation form is shown
+- `About to create`: When the user clicks on the "save" button
+- `Document created`: When the document has been persisted into the database
 - Don't save the document if the document is not created to avoid an error
 
 #### Document modification    
-- `Before document modification`: before the modification form is shown
-- `Document modified`: when the modifications have been persisted into the database
+- `Before document modification`: Before the modification form is shown
+- `Document modified`: When the modifications have been persisted into the database
 - Don't save the document if you deal with document modification events to avoid a possible infinite loop (if you have an event launched at document save)
 </section>
 
@@ -224,7 +224,7 @@ Up to now, they are doing this manually and would love to see this information p
 #### Email template
 <pre><code>
 Hello ${Document.book['borrowedBy']},
-Please bring the book ${Document.dublincore['title']} back !
+Please bring the book ${Document.dublincore['title']} back!
 Thanks,
 ${CurrentUser.name} @ The Best books library
 </code></pre>
@@ -248,7 +248,7 @@ Document > Follow life cycle transition
     Value: to_delayed
 Notification > Send email
     From: noreply@nuxeo.com
-    Message: select your email template (expression editor button)
+    Message: Select your email template (expression editor button)
     Subject: Please bring back the book you borrowed
     To: @{Fn.getEmail(Document['bk:borrowedBy'])}
 </code></pre>

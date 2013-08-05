@@ -89,10 +89,10 @@ He has put you in charge to implement something covering his request. Quickly.
 <section class="slide" id="principles">
 ### Principles used 
 #### Based on existing infrastructure and using existing features
-- **Automation chains**: powered by Content Automation
-- **Layouts**: dynamic forms using the layout system
-- **Notifications**: using the freemarker templating system
-- **Document**: stored as a structure of documents
+- **Automation chains**: Powered by Content Automation
+- **Layouts**: Dynamic forms using the layout system
+- **Notifications**: Using the freemarker templating system
+- **Document**: Stored as a structure of documents
 </section>
     
 <section class="slide" id="customization-process">
@@ -256,7 +256,7 @@ He has put you in charge to implement something covering his request. Quickly.
 <img alt="Studio node edition form" class="float-right" src="img/workflow-node-general-tab.png" />
 
 ####General tab
-- General information:  title, directive
+- General information: Title, directive
 - Input operation chain
     - The automation chain you specify here will be executed just before the workflow engine enters the node
 - Output operation chain
@@ -285,8 +285,8 @@ These chains are executed using an unrestricted session!
     
 - Every transition creates an endpoint with the name of the transition, from which you will be able to pull the arrow to connect nodes
 - Transition
-    - name: only displayed in the graph, and used internally by the engine
-    - Condition: condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.
+    - name: Only displayed in the graph, and used internally by the engine
+    - Condition: Condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.
     - Chain: The automation chain will be executed when the workflow engine goes into this transition
 
 <img alt="workflow-transition-arrow" src="img/workflow-transition-arrow.png"/>
@@ -340,14 +340,14 @@ Eg. accept/reject task.
 #### General Tab (1/3)
 <img alt="Studio node edition form" src="img/workflow-node-general.png" class="float-right" />
 
-- General information:  title, directive
+- General information: Title, directive
 - Due date
     - Set here a scripted expression (MVEL syntax)
     - The dueDate of a task will be  dynamically computed  from this expression when  the workflow is run
-- Assignment: static or dynamic
-- Security: grant specific permissions to the task assignees on the document following the workflow (automatically removed by the workflow engine once the task is completed)
-- Notification: send a custom notification when a task is assigned
-- Plugin in custom business logic : input & output automation chains
+- Assignment: Static or dynamic
+- Security: Grant specific permissions to the task assignees on the document following the workflow (automatically removed by the workflow engine once the task is completed)
+- Notification: Send a custom notification when a task is assigned
+- Plugin in custom business logic: Input & output automation chains
 </section>
 
 <section class="slide" id="task-config-assignees">
@@ -410,8 +410,8 @@ Eg:
     - Stored in the  built-in NodeVariable called "button" 
     - Can be used for instance to express conditions for knowing which transition the workflow engine should follow once the current node is done
 - Label of the button (supports i18n)
-- Filter (available since 5.7):  display the button depending on conditions
-- Generates the condition for transition: creates a transition corresponding to the button in the Transitions tab
+- Filter (available since 5.7): Display the button depending on conditions
+- Generates the condition for transition: Creates a transition corresponding to the button in the Transitions tab
 </section>
 
 <section class="slide exercise" id="exercise-simple-task">
@@ -506,7 +506,7 @@ http://doc.nuxeo.com/x/EQGw
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Task form, workflow variables (1/2)
-Time to finalise our workflow !
+Time to finalise our workflow!
 
 - In the accept/reject node we added earlier, add a field for the <code>Administrator</code> to fill in a **mandatory** comment. Make sure this comment could be used later in another node.
 - In case the document is rejected, send a notification email to the workflow initiator. The email should contain the manager's comment.

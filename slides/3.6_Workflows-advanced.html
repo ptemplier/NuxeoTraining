@@ -56,7 +56,7 @@
 ###How does Nuxeo store workflows?
 - Workflow models and instances are stored as documents of type DocumentRoute 
 - default path for workflow models: /document-route-models-root/
-     - default path for workflow instances : example
+     - default path for workflow instances: example
 /default-domain/document-route-instances-root/2012/12/12
 - Workflow nodes are stored as documents of type RouteNode
      - default path for workflow nodes: example:
@@ -87,7 +87,7 @@
 - Fork
     - Ex. Two transitions having the condition evaluated to “true” = Fork two branches
 - Conditional nodes 
-    - Ex. On a node having two transitions, the conditions could be :
+    - Ex. On a node having two transitions, the conditions could be:
 <code>WorkflowVariables["status"] == "done"</code><br /> and <code>WorkflowVariables["status"] != "done" </code>
 </section>
 

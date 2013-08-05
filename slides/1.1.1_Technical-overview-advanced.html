@@ -105,13 +105,13 @@
 
 <section class="slide" id="configuration-templates">
 ###Configuration templates
-- Goal: complete a « physical » separation between customer set up and the core product so as to make the product upgrade as simple as replacing a file
+- Goal: Complete a « physical » separation between customer set up and the core product so as to make the product upgrade as simple as replacing a file
 - The custom configuration can be done using only the `nuxeo.conf` file and additional configuration files in a custom template
 - See <a href="http://doc.nuxeo.com/x/wIWo" target="_blank">online documentation</a> about it
 </section>
 
 <section class="slide" id="vcs-storage">
-###VCS : storing information in a relational database
+###VCS: Storing information in a relational database
 - A schema in Nuxeo is mapped to a table in the database (= clean SQL mapping)
 - A DBA can easily query, dump, run statistics on the database in the usual way
 - Multiple database vendors support: PostgreSQL, Oracle, MySQL, MS SQL Server, h2, derby
@@ -133,13 +133,13 @@
     - Simple POST
     - Drag&Drop via browser if HTML5 supported
 - Batch import framework (nuxeo-platform-importer)
-    - Manages all technical details: transaction management, batch size, logging, …
+    - Manages all technical details: Transaction management, batch size, logging, …
     - A lot of examples available
 - Low level SQL batch insert (fastest, but must know what you are doing)
 </section>
 
 <section class="slide" id="importing-data">
-###Maintenance: install the hotfixes
+###Maintenance: Install the hotfixes
 - From the Admin Center > Update Center > Nuxeo software updates, with the mouse!
 - Read the information, respect dependencies required by the system
 - Follow the Jira link to know all the details about what the hotfix fixes
