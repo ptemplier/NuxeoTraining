@@ -154,32 +154,31 @@ protected String level = "info";</code></pre>
 ![image](img/customoperation-widget.png)
 </section>
 
-<section class="slide exercise" id="exercise-ide-operations1">
+<section class="slide exercise" id="exercise-custom-operation-unit-test">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Nuxeo IDE
-#### Custom operations (1/2)
-##### In Nuxeo platform
-- Create a user named John
-- Create a user group named BestBooks
-
-##### In Nuxeo IDE
-- Create a unit test named `shouldBeInTheBestBooksGroup()` that:
+#### Custom Operations (1/2) - the Unit Test
+- Create a unit test named `shouldAddUserToGroup()` that:
     - Runs with the `PlatformFeature`
-    - Calls the <a href="http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewService/org.nuxeo.ecm.platform.usermanager.UserManager">`UserManager` service</a>
+    - Injects the <a href="http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewService/org.nuxeo.ecm.platform.usermanager.UserManager">`UserManager` service</a>
+    - Creates a user named "John" and a group named "BestBooks" (see <a href="#help-exercise-custom-operation-unit-test">this page</a> for help)
     - Asserts that the user John and the BestBooks group are not null
-    - Runs the `AddUserToGroup.run()` method with two parameters:<br /> John as username and BestBooks as group
-    - Fetches the user named `John` as a `NuxeoPrincipal` object
+    - Runs the `AddUserToGroup.run()` method
+    - Fetches the user John as a `NuxeoPrincipal` object
     - Asserts that John is a member of the BestBooks group
     
-The test will fail because the method does not exist yet. But now we know what it should do and will be able to implement it easily.
+The test will obviously fail because the method does not exist yet. 
+But now we have thinked about what our method should do, we will be able to implement it easily, and moreover it will be test covered. That's what TDD stands for :)
+
+<div class="sticker"><a href="#help-exercise-custom-operation-unit-test-solution">Need help ?</a></div> 
 </section>
 
-<section class="slide exercise" id="exercise-ide-operations2">
+<section class="slide exercise" id="exercise-custom-operation-operation">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Nuxeo IDE
-#### Custom operations (2/2)
+#### Custom Operations (2/2) - the Operation
 - Create a custom operation named `AddUserToGroup`
 - The operation will take two parameters:
     - `username` (required)
@@ -187,19 +186,63 @@ The test will fail because the method does not exist yet. But now we know what i
 - The operation method should:
     - Call the <a href="http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewService/org.nuxeo.ecm.platform.usermanager.UserManager">`UserManager` service</a>
     - Fetch the user as a `NuxeoPrincipal` object
-    - Get the user's groups and add it to the selected group if not a member already
+    - Get the user's groups 
+    - Add the user to the selected group if not a member already
     
-Re run your test. If you did it correctly, your test should pass !
+- Relaunch your test. It should now pass !
+
+#### Tips
+- Use the `UserManager` service's `getUserModel()` method to retrieve your user as a document and update your user's groups list
+- The schema and field name for this property is `user:groups`
+- You will need to cast the property as a string list as Nuxeo will return an object
+
+<div class="sticker"><a href="#help-exercise-custom-operation-operation-solution">Need help ?</a></div> 
 </section>
 
-  </section>
-  <section class="slide no-md" id="questions">
-    <h2>Questions?</h2>
-  </section>
+<section class="slide" id="questions">
+## Questions?
+</section>
   
 <section class="slide" id="next">
 ### What's next ?
 [Seam and JSF](4.5_Seam-JSF.html)
+</section>
+
+<section class="slide" id="help-exercise-custom-operation-unit-test">
+### Help! <img src="img/frog-teacher.png" class="float-left" /> 
+<div style="clear:both"></div> 
+#### To Get You Started
+Here is the code to create a user and a group that will be necessary to run the test.
+<pre><code>String testUsername = "John";
+String testGroup = "BestBooks";
+
+DocumentModel userModel = userManager.getBareUserModel();
+userModel.setProperty("user", "username", testUsername);
+userManager.createUser(userModel);
+
+DocumentModel groupModel = userManager.getBareGroupModel();
+groupModel.setProperty("group", "groupname", testGroup);
+userManager.createGroup(groupModel);</code></pre>
+
+<div class="sticker"><a href="#exercise-custom-operation-unit-test">Back to the exercise</a></div> 
+</section>
+
+<section class="slide" id="help-exercise-custom-operation-unit-test-solution">
+### Help! <img src="img/frog-teacher.png" class="float-left" /> 
+<div style="clear:both"></div> 
+
+#### <a href="files/TestAddUserToGroup.java" target="_blank">The TestAddUserToGroup class</a>
+
+<div class="sticker"><a href="#exercise-custom-operation-unit-test">Back to the exercise</a></div> 
+</section>
+
+<section class="slide" id="help-exercise-custom-operation-operation-solution">
+### Help! <img src="img/frog-teacher.png" class="float-left" /> 
+<div style="clear:both"></div> 
+
+#### <a href="files/AddUserToGroup.java" target="_blank">The AddUserToGroup class</a>
+
+<div class="sticker"><a href="#exercise-custom-operation-operation">Back to the exercise</a></div> 
 </section>
 
   <!-- deck.navigation snippet -->
