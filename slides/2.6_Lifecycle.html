@@ -106,8 +106,8 @@ If you want to activate the trash feature on a document type that uses a custom 
 ###Practice (2/2)
 #### Life cycle
 - Create the "deleted" state
-    - Add transitions going both ways for each previously created state
-    - Name your transitions: <code>delete</code> and <code>undelete</code>
+    - Add a `delete` transition for each previously created state
+    - Add an `undelete` transition going back to the inLibrary state
 - Apply this lifecycle to the Book document type definition
 - Commit your changes
 - Deploy your changes using hot reload

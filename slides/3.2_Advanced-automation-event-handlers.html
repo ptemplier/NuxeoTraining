@@ -250,7 +250,7 @@ ${CurrentUser.name} @ The Best books library
 <pre><code>Fetch > Query
     SELECT * FROM Book 
     WHERE ecm:isCheckedInVersion = 0 
-    AND bk:borrowedAt < TIMESTAMP 
+    AND bkcommon:borrowedAt < TIMESTAMP 
     '@{CurrentDate.seconds(-60).format('yyyy-MM-dd HH:mm:ss')}' 
     AND ecm:currentLifeCycleState = 'borrowed'
 Document > Follow life cycle transition
@@ -259,7 +259,7 @@ Notification > Send email
     From: noreply@nuxeo.com
     Message: Select your email template (expression editor button)
     Subject: Please bring back the book you borrowed
-    To: @{Fn.getEmail(Document['bk:borrowedBy'])}
+    To: @{Fn.getEmail(Document['bkcommon:borrowedBy'])}
 </code></pre>
 
 <div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div> 
