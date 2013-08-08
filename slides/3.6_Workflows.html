@@ -300,7 +300,8 @@ These chains are executed using an unrestricted session!
 - Retrieve your <code>memoValidationWorkflow</code> 
 - Add a new node of <code>Approve</code> type
     - Edit the node's general information
-    - Make sure the node calls an automation chain publishing the document in the existing section `/Best-Books/sections/internalMemos`
+    - Add an assignee: `Administrator`
+    - As the output, make sure the node calls an automation chain publishing the document in the existing section `/Best-Books/sections/internalMemos` 
 - Connect the node to the start and stop nodes
 - Commit and deploy your changes
 - Create a note and launch your workflow on it, then check the result
@@ -313,8 +314,8 @@ These chains are executed using an unrestricted session!
 <section class="slide" id="workflows-initial-context">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>
-So we did a first attempt at designing a workflow, but the action is done automatically. That's not really what was expected yet.<br /><br />
-We should improve it by implementing the decision process.
+So we did a first attempt at designing a workflow, but that's not really what was expected yet.<br /><br />
+We should improve it by implementing correctly the decision process.
 </section>
 
 <section class="slide" id="tasks">
