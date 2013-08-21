@@ -152,7 +152,7 @@ Thanks,
 The Best books library</code></pre> 
 - Commit and deploy your changes
 - <a href="http://doc.nuxeo.com/x/jQ-F" target="_blank">Set up a test smtp server</a> to receive the emails
-    - Default smtp port is 25, training indicated port is 25000
+    - Default smtp port is 25, indicated port during training installation is 25000
     - Check in your nuxeo.conf if you don't remember what port you indicated during installation :-)
 - Try your new action out and see if you receive your emails
 
@@ -262,8 +262,8 @@ The Best books library</code></pre>
 <pre><code>Fetch > Query
     SELECT * FROM Book 
     WHERE ecm:isCheckedInVersion = 0 
-    AND bkcommon:borrowedAt < TIMESTAMP 
-    '@{CurrentDate.seconds(-60).format('yyyy-MM-dd HH:mm:ss')}' 
+    AND bkcommon:borrowedAt < 
+    TIMESTAMP "@{CurrentDate.seconds(-60).format('yyyy-MM-dd HH:mm:ss')}" 
     AND ecm:currentLifeCycleState = 'borrowed'
 Document > Follow life cycle transition
     Value: to_delayed
