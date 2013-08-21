@@ -92,7 +92,7 @@ If you want to activate the trash feature on a document type that uses a custom 
     class="exercise-icon" />
 ### Practice (1/2)
 #### Life cycle
-- Create a new lifecycle policy called BookLifeCycle
+- Create a new lifecycle policy called `bookLifeCycle`
 - the initial state "inLibrary"
 - Create another state "borrowed"
     - Create transitions to link each other
@@ -106,9 +106,9 @@ If you want to activate the trash feature on a document type that uses a custom 
 ###Practice (2/2)
 #### Life cycle
 - Create the "deleted" state
-    - Add a `delete` transition for each previously created state
-    - Add an `undelete` transition going back to the inLibrary state
-- Apply this lifecycle to the Book document type definition
+- Add a `delete` transition for each previously created state
+- Add an `undelete` transition going back to the inLibrary state
+- Apply this lifecycle to the `Book` document type definition
 - Commit your changes
 - Deploy your changes using hot reload
 - Check the initial state by creating a new Book
