@@ -301,7 +301,7 @@ These chains are executed using an unrestricted session!
 - Add a new node of <code>Approve</code> type
     - Edit the node's general information
     - Add an assignee: `Administrator`
-    - As the output, make sure the node calls an automation chain publishing the document in the existing section `/BestBooks/Sections/Internal memos` 
+    - As the output, make sure the node calls an automation chain named `acceptMemo` publishing the document in the existing section:<br /> `/BestBooks/Sections/Internal memos` 
 - Connect the node to the start and stop nodes
 - Commit and deploy your changes
 - Create a note and launch your workflow on it, then check the result
@@ -420,7 +420,7 @@ Eg:
       class="exercise-icon">
 ### Practice - Tasks
 #### Update the workflow to add a validation system
-- Replace the node we created previously to publish the document with an accept/reject node
+- Replace the `approve` node with an `accept/reject` node
 - Assign the task to <code>Administrator</code>
 - Due date should be the current date
 - The <code>Administrator</code> should receive a notification email when a document needs validation, 
@@ -507,6 +507,7 @@ http://doc.nuxeo.com/x/EQGw
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Task form, workflow variables (1/2)
+#### Implement a validation comment
 Time to finalise our workflow!
 
 - In the accept/reject node we added earlier, add a field for the <code>Administrator</code> to fill in a **mandatory** comment. Make sure this comment could be used later in another node.
@@ -517,15 +518,17 @@ Time to finalise our workflow!
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Task form, workflow variables (2/2)
-- Add a button in the accept/reject node for the Administrator to delegate the task. This button should generate a transition. 
+#### Implement a delegate task button
+- Add a button in the accept/reject node for the Administrator to delegate the task. This button should generate a transition leading to new nodes. 
 When this transition is followed: 
-    - Members of the <code>Communication service</code> group have to be assigned the task by default.
-    - The Administrator should be able to choose one or more people to assign the task to as well.
+    - Create a task for the Administrator to choose one or more people to assign the task to.
+    - Once he has chosen the assignees and validated, they should be assigned an accept/reject task.
+    - Members of the <code>communicationservice</code> group have to be assigned the task by default.
     - The assignees should be able to see the manager's comment when processing the task.
-    - Anyone of the assignees can approve the publication or reject.
-    - They need temporary access to the document being published (assuming that they don't necessarily have them).
-    - They need to fill in a mandatory comment when approving or rejecting the task.
-    - In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment.
+    - Anyone of the assignees can approve the publication or reject it.
+    - The assignees need temporary access to the document being published.
+    - The assignees need to fill in a mandatory comment when approving or rejecting the task.
+    - In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment and the delegates comment.
 </section>
 
 <section class="slide" id="questions-wf-tasks-variables">
