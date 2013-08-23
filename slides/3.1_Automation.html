@@ -246,7 +246,7 @@ Add a button to change the lifecycle state to "borrowed" and update a new field 
   - fetches the current document
   - follows the lifecycle transition `to_borrowed`
   - automatically fills the new field `borrowedBy` with the current user name
-  - refreshes the user interface
+  <!-- - refreshes the user interface - hidden: causes trouble with the uit test on this chain during day 4 -->
 <div class="sticker"><a href="#help-exercise1">Need help?</a></div>
 </section>
 
@@ -286,7 +286,6 @@ Document > Follow life cycle transition
 Document > Update property
     Value: @{CurrentUser.name}    
     Xpath: bookcommon:borrowedBy (bkcommon:borrowedBy works as well)
-User interface > Refresh
 </code></pre>
 
 <div class="sticker"><a href="#exercise-automation1">Back to the exercise</a></div>
