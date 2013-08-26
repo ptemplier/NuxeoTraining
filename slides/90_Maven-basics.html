@@ -54,105 +54,66 @@
 # Nuxeo training - Maven Basics
 </section>
 
-<section class="slide" id="wherewego-context-registries">
-<li>Maven 2.2.1 <a href="http://maven.apache.org/download.html">http://maven.apache.org/download.html</a></li>
- </ul>
- <p>Problems with Nuxeo and Maven &gt; 2.2.1</p>
-</section>
-
-
-<section class="slide no-md" id="software-required2">
- <h3>Software Required</h3>
- <ul>
-   <li>Firefox / Chrome / Internet Explorer</li>
-   <li>Nuxeo SDK <a href="http://doc.nuxeo.com/x/b4KE">http://doc.nuxeo.com/x/b4KE</a></li>
- </ul>
-</section>
-
-
 <section class="slide no-md" id="maven">
  <h2>Maven?</h2>
 </section>
 
-<section class="slide no-md" id="maven-1">
- <h3>Maven?</h3>
- <ul>
-   <li>Software tool for:
-     <ul>
-       <li>Java project management</li>
-       <li>Build automation</li>
-     </ul>
-   </li>
-   <li>Use Project Object Model (POM) to describe the project
-     being built</li>
-   <li>Dynamically downloads Java libraries</li>
- </ul>
+<section class="slide" id="maven-1">
+### Maven?
+#### Concepts 
+- Software tool for:
+    - Java project management
+    - Build automation
+- Uses Project Object Model (POM) to describe the project being built
+- Dynamically downloads Java libraries
+- Use <a href="http://maven.apache.org/download.html" target="_blank">Maven 2.2.1</a> with Nuxeo (problems with Nuxeo and Maven &gt; 2.2.1)
 </section>
 
-<section class="slide no-md" id="why-do-we-use-maven">
- <h3>Why do we use Maven?</h3>
- <ul>
-   <li>Building Nuxeo software is complex
-     <ul>
-       <li>Lot of components / modules (500+)</li>
-       <li>Complex dependencies</li>
-     </ul>
-   </li>
-   <li>Packaging Nuxeo software is complex
-     <ul>
-       <li>Lot of components</li>
-       <li>Packaging depends on target server layout</li>
-     </ul>
-   </li>
-   <li>Release process is complex </li>
- </ul>
+<section class="slide" id="why-do-we-use-maven">
+### Why do we use Maven?
+#### Building Nuxeo software is complex
+- Lot of components / modules (500+)
+- Complex dependencies
+
+#### Packaging Nuxeo software is complex
+- Lots of components
+- Packaging depends on target server layout
+
+#### Release process is complex
 </section>
 
 <section class="slide no-md" id="what-does-maven-provide">
- <h3>What does Maven provide?</h3>
- <ul>
-   <li>Declarative dependency management</li>
-   <li>Full build automation</li>
-   <li>Snapshot management via Maven repository</li>
-   <li>Pluggable</li>
- </ul>
+### What does Maven provide?
+- Declarative dependency management
+- Full build automation
+- Snapshot management via Maven repository
+- Pluggability
 </section>
 
-<section class="slide no-md" id="maven-basics">
- <h3>Maven Basics</h3>
- <ul>
-   <li>Build file is pom.xml
-     <ul>
-       <li>groupId / artifactId: identify artifact</li>
-       <li>parent pom: common dependency</li>
-       <li>dependencies</li>
-     </ul>
-   </li>
-   <li>Useful commands <pre>
-       <code>
-mvn install
+<section class="slide" id="maven-basics">
+### Maven Basics
+- Build file is pom.xml
+    - groupId / artifactId: identify artifact
+    - parent pom: common dependency
+    - dependencies
+
+##### Useful commands:
+<pre><code>mvn install
 mvn clean install
 mvn test
 mvn -Dmaven.test.skip=true goal
-mvn eclipse:eclipse</code>
-     </pre></li>
- </ul>
+mvn eclipse:eclipse</code></pre>
 </section>
 
-<section class="slide no-md" id="maven-phases">
- <h3>Maven Phases</h3>
- <ul>
-   <li>Main phases for Maven: 
-     <ul>
-       <li>Validate </li>
-       <li>Compile </li>
-       <li>Test </li>
-       <li>Package </li>
-       <li>Install (in the local repository <code>~.m2/repository</code>)</li>
-       <li>Deploy </li>
-     </ul>
-   </li>
- </ul> 
+<section class="slide" id="maven-phases">
+### Maven Phases
+- Main phases for Maven: 
+    - Validate
+    - Compile
+    - Test
+    - Package
+    - Install (in the local repository `~.m2/repository`)
+    - Deploy
 </section>
 
   <!-- deck.navigation snippet -->
