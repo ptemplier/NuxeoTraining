@@ -285,7 +285,7 @@ These chains are executed using an unrestricted session!
     
 - Every transition creates an endpoint with the name of the transition, from which you will be able to pull the arrow to connect nodes
 - Transition
-    - name: Only displayed in the graph, and used internally by the engine
+    - Name: Only displayed in the graph, and used internally by the engine
     - Condition: Condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.
     - Chain: The automation chain will be executed when the workflow engine goes into this transition
 
@@ -450,22 +450,22 @@ Also, the manager would like to be able to delegate some tasks to a group and po
 ### Built-in Variables
 #### Available in
 
-- chains launched within the nodes (Input chain, output chain, transition chains)  
-- the condition of a transition
-- additional task assignees (if the expression is resolved to a user or group)
-- due date expression (if the expression is resolved to a date)
+- Chains launched within the nodes (Input chain, output chain, transition chains)  
+- The condition of a transition
+- Additional task assignees (if the expression is resolved to a user or group)
+- Due date expression (if the expression is resolved to a date)
 </section>
 
 <section class="slide" id="built-variables2">
 ### Built-in Variables
 ####List of built-in variables
-- *WorkflowVariables* and *NodeVariables* (hashmaps), used like this: NodeVariables[“myNodeVar”]
+- *WorkflowVariables* and *NodeVariables* (hashmaps), used like this: <code>NodeVariables[“myNodeVar”]</code>
 - *workflowInitiator*
 - *workflowStartTime* 
     - Time when the workflow was started
-    - useful for exemple when computing a due date (Due date expression: workflowStartTime.days(8))
+    - Useful for exemple when computing a due date (Due date expression: workflowStartTime.days(8))
 - *Documents/document* documents bound to the workflow
-    - Those documents are also set as input of chains executed.
+    - These documents are also set as input of chains executed.
 - *button* button id that was clicked for processing the task, if the current node is a task node
 - *nodeId*
 - *nodeStartTime* Time the node was started, useful for exemple when computing a due date (Due date expression: nodeStartTime.days(8))
