@@ -25,7 +25,7 @@ public class TestAddUserToGroup {
     public void shouldAddUserToGroup() throws ClientException {
 
         String testUsername = "John";
-        String testGroup = "BestBooks";
+        String testGroup = "bestbooks";
 
         DocumentModel userModel = userManager.getBareUserModel();
         userModel.setProperty("user", "username", testUsername);
