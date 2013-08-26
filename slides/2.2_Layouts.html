@@ -132,7 +132,7 @@
 ### Practice (1/3)
 #### Form layouts
 - Add the ISBN field in the creation, view, and edit layouts of your `Book` document type
-    - The field used for this widget will be book:isbn (that makes sense, right?) 
+    - The field used for this widget will be bkcommon:isbn (that makes sense, right?) 
 - ISBN as label is really a good choice
 - The label doesn’t need to be translated
 - We want this field editable when we create the document, and then read only when viewing or editing the document 
@@ -154,11 +154,13 @@
       class="exercise-icon">
 ### Practice (3/3)
 #### Some more improvements...
-- Add a widget for the `bk:author` field in each layout
-- Add a new widget for the `bk:publicationDate`
-- This field is required and editable in creation layout 
-  - Not displayed in edit layout 
-  - Read-Only in view layout 
+- Add a widget for the `bkcommon:author` field in each layout
+    - Make sure the subwidgets label is displayed
+- Add a new widget for the `bkcommon:publicationDate`
+    - This field should be: 
+        - Required and editable in creation layout  
+        - Visible in the view layout
+        - Not displayed in edit layout 
 </section>
 
 <section class="slide" id="questions">
@@ -168,7 +170,7 @@
 <section class="slide" id="next">
 ###Next?
 - Back to the [training agenda](0_Introduction.html#day-1)
-- Next chapter: [Vocabulary](2.2.2_Vocabulary.html)
+- [Vocabulary](2.2.2_Vocabulary.html)
 </section>
 
   <!-- deck.navigation snippet -->

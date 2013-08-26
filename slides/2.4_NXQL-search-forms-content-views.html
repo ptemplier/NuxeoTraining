@@ -118,13 +118,13 @@ and a customized advanced search form.</p></blockquote>
     - System fields: `ecm:primaryType`, `ecm:currentLifeCycleSate`
     - Document metadata: `schema_prefix:property_name`
 
-Example: `SELECT * FROM Book WHERE bk:isbn LIKE '%12%'`
+Example: `SELECT * FROM Book WHERE bkcommon:isbn LIKE '%12%'`
 
 #### Tip: Test your query
 Use the advanced search as an administrator and go to the bottom of the screen.
 
 ####Full documentation
-http://doc.nuxeo.com/display/NXDOC56/NXQL
+http://doc.nuxeo.com/display/NXDOC/NXQL
 </section>
 
 <section class="slide" id="nxql-samples">
@@ -193,7 +193,7 @@ AND ecm:parentId = ?</code></pre>
       class="exercise-icon">
 ### Practice (1/2)
 #### Content views
-- Create a new content view `BookLibraryContentView`
+- Create a new content view `bookLibraryContent`
 
 #### Query
 - Customize the query to get the children documents of the current book library. 
@@ -207,7 +207,9 @@ AND ecm:parentId = ?</code></pre>
 ### Practice (2/2)
 #### Results
 - Create a `Table layout` named `bookTableLayout` displaying the following columns:
-    - Doc type Icon, Title (with link), ISBN, Author, Creation date, Version, Lifecycle state
+    - Icon and document type, Title (with link), ISBN, Author, Publication date, Version, Lifecycle state
+    
+- Check the "Add selection checkboxes" option
     
 #### Apply your modifications
 - Setup the content view to use your Table layout
@@ -239,6 +241,8 @@ AND ecm:parentId = ?</code></pre>
     - The title (using ILIKE operator)
     - The path (using STARTSWITH operator)
     - Creation time (using BETWEEN operator)
+    
+- The results should use the `bookTableLayout`
 </section>
 
 <section class="slide" id="questions">
@@ -247,7 +251,7 @@ AND ecm:parentId = ?</code></pre>
 
 <section class="slide" id="next">
 ###Next?
-- Next chapter: [Lifecycle](2.6_Lifecycle.html)
+- [Lifecycle](2.6_Lifecycle.html)
 </section>
 
   <!-- deck.goto snippet -->

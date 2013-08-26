@@ -223,23 +223,46 @@ Unitary and reusable operators that implement a particular documentary function,
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
     class="exercise-icon">
 ### Practice 
-#### User actions and automation
-Add a button to change the lifecycle state to "borrowed" and update a new field "Borrowed by" with the name of the current user
+#### User actions and automation 
+Add a button to change the lifecycle state to "borrowed" and update a new field "Borrowed by" with the name of the current user (1/3)
 
-- Add a new metadata to your book named « borrowedBy ». Not editable in UI
+##### Add a new metadata to your book named « borrowedBy ». 
+(Make sure it is not editable, but it should be visible nonetheless)
+
   - Update your schema
   - Update your layout
-  - Use the `Single user/group suggestion` widget
+  - Use the `Text` widget
+<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-automation1-2">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice 
+#### User actions and automation 
+Add a button to change the lifecycle state to "borrowed" and update a new field "Borrowed by" with the name of the current user (2/3)
      
--  Create a new automation chain that
+##### Create a new automation chain `borrowBook` that:
   - fetches the current document
-  - follows the lifecycle transition « to_borrowed »
-  - automatically fills the new field « borrowedBy » with the current user name
-  - refreshes the user interface
-- Create an action linked to the chain 
-    - Visible for Book documents with a « inLibrary » state
-    - Category: Contextual tools
-    - Icon: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookBorrow16.png" target="_blank">files/bookBorrow16.png</a>
+  - follows the lifecycle transition `to_borrowed`
+  - automatically fills the new field `borrowedBy` with the current user name
+  <!-- - refreshes the user interface - hidden: causes trouble with the uit test on this chain during day 4 -->
+<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-automation1-3">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice 
+#### User actions and automation 
+Add a button to change the lifecycle state to "borrowed" and update a new field "Borrowed by" with the name of the current user (3/3)
+
+##### Create a `borrowBook` action linked to the chain 
+- Visible: 
+    - for `Book` documents with a `inLibrary` state, 
+    - only if the user has the `Write` permission on the document
+- Category: Contextual tools
+- Icon: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookBorrow16.png" target="_blank">files/bookBorrow16.png</a>
 - Commit and deploy your changes
 - Try your button out and see if the book state changes
 <div class="sticker"><a href="#help-exercise1">Need help?</a></div>
@@ -262,8 +285,7 @@ Document > Follow life cycle transition
     Value: to_borrowed
 Document > Update property
     Value: @{CurrentUser.name}    
-    Xpath: book:borrowedBy (bk:borrowedBy works as well)
-User interface > Refresh
+    Xpath: bookcommon:borrowedBy (bkcommon:borrowedBy works as well)
 </code></pre>
 
 <div class="sticker"><a href="#exercise-automation1">Back to the exercise</a></div>

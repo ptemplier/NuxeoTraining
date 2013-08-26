@@ -115,14 +115,17 @@ The created structure will apply to the chosen document type
       class="exercise-icon">
 ###Practice - Structure template
 
-- Modify the default structure of the type Domain to have: 
-    - <code>BookLibrary</code>, 
+- Create a new structure template `bestBooksDomain` with the `Domain` target document type containing: 
+    - A <code>BookLibrary</code> named "Book library", 
     - A <code>Workspace</code> named "Sandbox"
-    - <code>Sections</code>,
-        - A <code>Section</code> having for id <code>internalMemos</code>, named "Internal memos" 
+    - A <code>SectionRoot</code> named "Sections"
+    
+- Create a new structure template `bestBooksSectionRoot` with the `SectionRoot` target document type containing: 
+    - A <code>Section</code> named "Internal memos"
+     
 - Commit your changes
 - Deploy your changes
-- Create a domain named "Best-Books" and see what appears
+- Create a domain named "BestBooks" and see what appears
 </section>
 
 <section class="slide" id="questions">
@@ -132,7 +135,7 @@ The created structure will apply to the chosen document type
 <section class="slide" id="next">
 ###Next?
 - Back to the [training agenda](0_Introduction.html#day-1)
-- Next chapter: [Content views, Search forms](2.4_NXQL-search-forms-content-views.html)
+- [Content views, Search forms](2.4_NXQL-search-forms-content-views.html)
 </section>
 
   <!-- deck.navigation snippet -->

@@ -84,7 +84,7 @@ To achieve these, we will need to define states for our books…</p></blockquote
 #### The trash folder
 The <code>deleted</code> state and the transitions <code>delete</code> and <code>undelete</code> are used to have the «trash» feature on the document whatever lifecycle policy used in the document type.
 
-If you want to activate the trash feature on a document type that uses a custom lifecycle policy, you must add those states and transitions to it.
+If you want to activate the trash feature on a document type that uses a custom lifecycle policy, you must add those state and transitions in it.
 </section>
 
 <section class="slide exercise" id="exercise-lifecycle">
@@ -93,8 +93,8 @@ If you want to activate the trash feature on a document type that uses a custom 
 ### Practice (1/2)
 #### Life cycle
 - Create a new lifecycle policy called BookLifeCycle
-- Initial state: "inLibrary"
-- Create another state: "borrowed"
+- the initial state "inLibrary"
+- Create another state "borrowed"
     - Create transitions to link each other
     - Do not name them
     - Save your lifecycle. What can you see?
@@ -113,7 +113,7 @@ If you want to activate the trash feature on a document type that uses a custom 
 - Deploy your changes using hot reload
 - Check the initial state by creating a new Book
 
-We will create an action to change the life cycle later
+We'll create the action to change the life cycle later
 </section>
 
 <section class="slide" id="questions">

@@ -65,7 +65,7 @@ Now that we have created our life cycle, nothing can stop us from doing so:)</p>
 <section class="slide" id="wherewego">
 ### What we want to do
 #### At the end of the course
-- Add a new tab to see only the <strong>in-house</strong> books of a BookLibrary
+- Add a new tab to see only the <strong>inLibrary</strong> books of a BookLibrary
 - Add a new tab to see only the <strong>borrowed</strong> books of a BookLibrary
 - Add a new tab for the Book document with:
   - the list of books of the same category
@@ -112,11 +112,11 @@ Now that we have created our life cycle, nothing can stop us from doing so:)</p>
       class="exercise-icon">
 ### Practice (1/2)
 #### Tabs
-- For the BookLibrary type, define a new "In library" tab that will show all the in-house Books
-    - Create a new content view that will display the children `inLibrary` Books of the current document
-    - (Use the `bookTableLayout` for the results display)
-    - Go to the BookLibrary doctype > Tabs > Content views, add a new Tab that displays the created content view
-    
+##### Define a new tab that will show all the in-house Books
+- Create a new content view that will display the children `inLibrary` Books of the current document (use the `bookTableLayout` for the results display)
+- Go to the BookLibrary doctype > Tabs > Content views, add a new Tab that displays the created content view
+
+##### Define a similar tab for borrowed Books
 - Copy the content view you previously created and modify it to show the borrowed Books
 - Go to the BookLibrary doctype > Tabs > Content views, add a new Tab that displays this content view as well
 <div class="sticker"><a href="#exercise-tabs-help">Need help?</a></div>
@@ -127,14 +127,13 @@ Now that we have created our life cycle, nothing can stop us from doing so:)</p>
       class="exercise-icon">
 ### Practice (2/2)
 #### Tabs
-- Using the tab designer, add a new tab to the Book document that will show:
-    - A content view with all books from the same category (except the current book!)
+- Using the tab designer, add a new tab to the Book document named `sameCategoryBooks`
+- It will display a content view with all books from the same category (except the current book!)
     - (Use the `bookTableLayout` for the results display)  
-    - A toggleable layout for the bookLayout
-    - The workflow widget (soon to be seen!)
 - Make sure your tab will only appear for Book documents
+- Commit and deploy your changes
+- Check that the new tabs you created exist and show the correct data
 
-- Remove the `Summary` and `Edit` tabs from the Book document type
 <div class="sticker"><a href="#exercise-tabs-help2">Need help?</a></div>
 </section>
 
@@ -170,12 +169,12 @@ AND ecm:parentId = ?</code></pre>
 <pre><code>ecm:mixinType != 'HiddenInNavigation' 
 AND ecm:isCheckedInVersion = 0 
 AND ecm:currentLifeCycleState != 'deleted' 
-AND bk:category = ? 
+AND bkcommon:category = ? 
 AND ecm:uuid != ? 
-AND bk:category IS NOT NULL 
-AND bk:category != ''</code></pre>
+AND bkcommon:category IS NOT NULL 
+AND bkcommon:category != ''</code></pre>
 - Parameters
-<pre><code>#{currentDocument.bk.category}
+<pre><code>#{currentDocument.bkcommon.category}
 #{currentDocument.id}</code></pre>
 <div class="sticker"><a href="#exercise-tabs2">Back to the exercise</a></div>
 <div class="sticker"><a href="#exercise-tabs-help">Previous help</a></div>

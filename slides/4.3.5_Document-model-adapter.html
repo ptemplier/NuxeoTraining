@@ -9,10 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Technical overview</title>
+<title>Nuxeo Training - Document Model Adapter</title>
 
-<meta name="description"
-  content="Nuxeo - Technical overview">
+<meta name="description" content="Nuxeo Training - Document Model Adapter">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -42,97 +41,69 @@
 </head>
 
 <body class="deck-container">
-
   <!-- Nuxeo Logo Training -->
   <div class="nuxeo-logo">
     <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
       class="sub-part training">Trainings</span>
   </div>
-
-
-  <section class="slide" id="nuxeo-techincal-overview-opening-slide">
-Nuxeo - Technical overview
-=======================
-  </section>
-    
-<section class="slide" id="doc-links">
-###Complete documentation available on doc.nuxeo.com
-- <a href="http://doc.nuxeo.com/x/9IWo" target="_blank">Technical documentation center</a>
-- <a href="http://doc.nuxeo.com/x/lYWo" target="_blank">Installation and Administration</a>
 </section>
 
-<section class="slide" id="modules-and-tools">
-### Nuxeo - Packaged modules and configuration tools
-<img src="img/modules-and-tools.png" />
-</section> 
-
-<section class="slide" id="core-technologies">
-###Core technologies
-#### Standard technologies
-- Based on Java standards
-- Uses many open source frameworks / libraries : JBoss Seam / Hibernate / Apache commons
-- Can run in any Servlet container, Java EE Application server, bare JVM or OSGI container, typically: Tomcat, JBoss, Jetty
-
-#### Easy to customize, extend and plug
-- No need to rewrite the source code thanks to the bundle and component system providing extension points
-- Offers content oriented APIs : Webdav, CMIS (Apache chemistry), WSS (Microsoft sharepoint services)
+<section class="slide" id="document-model-adapter">
+# Nuxeo Training - Document Model Adapter
 </section>
 
-<section class="slide" id="nuxeo-runtime">
-###Bundles
-- 1 bundle = 1 Nuxeo plugin
-- located in <code>nxserver/bundles</code> as jar files
-- extension mechanism: Extension point (xml files)
-- loaded by Nuxeo Runtime
-- more than 200 plugins in Nuxeo CAP
+<section class="slide" id="document-model-adapter-concepts">
+### Document Model Adapter
+#### Concepts
+- Wrapper for your document types
+- Wraps document types attributes and possibly more logic (lifecycle transitions, etc…)
+
+#### Advantages
+- Simplifies code writing, ex: `bookAdapter.getPublicationDate()`<br /> (no need to know about the schemas used, allows autocomplete)
+- Refactoring friendly: document model is not accessed directly
+- Fully integrated with Nuxeo IDE
 </section>
 
-<section class="slide" id="extension-points">
-###Extension points
-#### What are they used for?
-- To configure services and components (XML contributions)
-- To extend services and components (Java code or scripting)
-- To dynamically bind components together
+<section class="slide" id="document-model-adapter-declaration">
+### Document Model Adapter
+#### Creating a document model adapter
+- Use the NX icon to launch the Nuxeo wizard and select the `Document Adapter` option
+- Select from which schemas you want to create your adapter, and you're done!
+- You may eventually add more elements (lifecycle transitions, business rules methods) for even easier use.
 
-#### Where and why?
-- Nuxeo Platform uses extension points everywhere
-- Almost every service exposes extension points
-- Makes configuration easy (no need to touch the source code)
-- Allows « clean » contributions easy to maintain (XML)
-- Allows the use of Nuxeo Studio!
+#### Calling a document model adapter
+<pre><code>MyDocTypeAdapter myDocTypeAdapter = documentModelVariable.getAdapter(MyDocTypeAdapterClass.class);</code></pre>
 </section>
 
-<section class="slide" id="administering">
-###Administering
-#### Easy to configure and maintain
-- The `nuxeo.conf` file contains properties to configure many things
-- Editable directly with a text editor or from the Admin center.
-- Many databases supported
-- Clean SQL mapping, easy to administer and retrieve information
-- Hot database backup support
-- Hotfixes can be installed directly from the admin center using the dedicated interface
-</section>
-
-<section class="slide" id="fork">
-###Want to go deeper?
-- [Exercise](1.1.1_Technical-overview.html#exercise-install-hotfixes)
-- (optional) [Advanced information](1.1.1_Technical-overview-advanced.html)
-- [Nuxeo studio](1.3_Nuxeo-studio.html)
-</section>
-
-<section class="slide exercise" id="exercise-install-hotfixes">
+<section class="slide exercise" id="exercise-document-model-adapter">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-###Exercise
-- Install the latest hotfix
-    - From the Admin Center
-    - With `nuxeoctl mp-hotfix`
-- Find where the `nuxeo.conf` file is on your machine (for Windows users you can have a look at this <a href="http://doc.nuxeo.com/pages/viewpage.action?pageId=3345719" target="_blank">page</a>)
+### Practice - Document model adapter
+#### Creation
+- Create a document model adapter for the `bookcommon` schema. <br /> You can name it `BookAdapter`
+- Add the `to_inLibrary` and `to_borrowed` transitions to your adapter
+    
+#### Usage
+- Create a `TestBookAdapter` class and a `testBookAdapter()` method that will:
+    - Get the documents root
+    - Create a `BookLibrary` at the documents root
+    - Assert that this `BookLibrary` has no children
+    - Create a `Book` into the `BookLibrary`
+    - Assert that the `BookLibrary` has a child
+    - Set the `Book` as borrowed
+    - Assert that the book is borrowed
+    
+Use your adapter whenever possible of course :)
+</section>
+
+<section class="slide" id="questions-annotations">
+## Questions?
 </section>
 
 <section class="slide" id="next">
 ###Next?
-- [Nuxeo studio](1.3_Nuxeo-studio.html)
+- Back to the [training agenda](0_Introduction.html#day-4)
+- [Custom operations](4.4_Custom-operations.html)
 </section>
 
   <!-- deck.navigation snippet -->
@@ -161,6 +132,7 @@ Nuxeo - Technical overview
     src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
   <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
 
   <!-- Deck Core and extensions -->
   <script src="deck.js/core/deck.core.js"></script>

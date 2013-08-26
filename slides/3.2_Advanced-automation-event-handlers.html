@@ -62,9 +62,9 @@ The manager wants you to implement something in Nuxeo to remind them of their du
 
 <section class="slide" id="wherewego-advanced-automation">
 ###What we want to do
-####At the end of the course:
-
-#### A user action that:
+####At the end of the course
+<br />
+##### A user action that:
 - Set books borrowed since 1 minute as delayed
 - Sends automatically an email to the borrower
 </section>
@@ -105,7 +105,6 @@ Collection of useful helpers <div class="further-info">available in automation p
 <img alt="automation-fn" src="img/automation-fn.png" class="float-right" />
 
 - getNextId(string) <div class="further-info">returns the next sequence item for the given string (enables to maintain in parallel multiple sequences)</div> 
-- getDate() <div class="further-info">return a Date object from a date property</div> 
 - getVocabularyLabel(VocabularyName, KeyName) <div class="further-info">returns the label for a vocabulary entry. (ex: useful when automatically updating some fields)</div> 
 - getEmailsFromGroup(String groupName), getEmails... <div class="further-info">useful helpers for resolving users, emails, etc, ...</div>
 </section>
@@ -113,34 +112,50 @@ Collection of useful helpers <div class="further-info">available in automation p
 <section class="slide exercise" id="exercise-automation2">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Advanced automation (1/2)
+### Practice - Advanced automation (1/3)
 #### Complete the book borrowing chain
-- Add a new field to your book named « borrowedAt » (date)
-- It should be filled with the current date 
+- Add a new field to your book named `borrowedAt` (date)
 - It must appear as read only, only when viewing a Book
+- It should be filled with the current date when the Book is borrowed
 <div class="sticker"><a href="#help-exercise2">Need help?</a></div>
 </section>
 
 <section class="slide exercise" id="exercise-automation2-p2">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Advanced automation (2/2)
+### Practice - Advanced automation (2/3)
 #### Reminding late borrowers
-- Add a new state named « delayed » on our life cycle. 
-    - It should be accessible from the borrowed state, and authorize reaching the inLibrary and deleted states
-- Create a user action
-    - Displayed only in book libraries
-    - Shows in the contextual tools
-    - Icon: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookRemind16.png" target="_blank">files/bookRemind16.png</a> 
-- Create a new operation chain that:
-  - fetches documents that have been borrowed 1 minute ago
-  - sets books state as delayed,
-  - sends an email to borrower saying:
+##### Add a new state named `delayed` on our life cycle. 
+- It should be accessible from the borrowed state, and authorize reaching the inLibrary and deleted states
+
+##### Create a `remindLateBorrowers` user action
+- Displayed only in book libraries
+- Shows in the contextual tools
+- Icon: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookRemind16.png" target="_blank">files/bookRemind16.png</a> 
+
+<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-automation2-p3">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Advanced automation (3/3)
+#### Reminding late borrowers
+
+##### Create a new operation chain `remindLateBorrowers` that:
+- fetches documents that have been borrowed 1 minute ago
+- sets books state as delayed,
+- sends an email to borrower saying:
 <pre><code>Hello "username",
 Please bring the book "book name" back!
 Thanks,
-"current user name" @ The Best books library
-</code></pre> 
+The Best books library</code></pre> 
+- Commit and deploy your changes
+- <a href="http://doc.nuxeo.com/x/jQ-F" target="_blank">Set up a test smtp server</a> to receive the emails
+    - Default smtp port is 25, indicated port during training installation is 25000
+    - Check in your nuxeo.conf if you don't remember what port you indicated during installation :-)
+- Try your new action out and see if you receive your emails
+
 <div class="sticker"><a href="#help-exercise2">Need help?</a></div>
 </section>
 
@@ -208,10 +223,9 @@ Up to now, they are doing this manually and would love to see this information p
 <section class="slide exercise" id="what-we-want-to-do">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
 ###What we want to do
-- Add an event handler that will set the publicationDate to
-        the current date
-- The event handler should be called before we see the
-        creation view
+- Add an event handler `setPublicationDate` that will set the publicationDate to the current date
+- The event handler should be called before we see the creation view
+- Commit and deploy your changes
 </section>
 
 <section class="slide" id="questions">
@@ -231,12 +245,10 @@ Up to now, they are doing this manually and would love to see this information p
 - Schema prefixes cannot be used in email templates, you need to write the complete schema name.
 
 #### Email template
-<pre><code>
-Hello ${Document.book['borrowedBy']},
+<pre><code>Hello ${Document.bookcommon['borrowedBy']},
 Please bring the book ${Document.dublincore['title']} back!
 Thanks,
-${CurrentUser.name} @ The Best books library
-</code></pre>
+The Best books library</code></pre>
 
 <div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div> 
 <div class="sticker"><a href="#help-exercise2-p2">More help</a></div>
@@ -250,8 +262,8 @@ ${CurrentUser.name} @ The Best books library
 <pre><code>Fetch > Query
     SELECT * FROM Book 
     WHERE ecm:isCheckedInVersion = 0 
-    AND bk:borrowedAt < TIMESTAMP 
-    '@{CurrentDate.seconds(-60).format('yyyy-MM-dd HH:mm:ss')}' 
+    AND bkcommon:borrowedAt < 
+    TIMESTAMP "@{CurrentDate.seconds(-60).format('yyyy-MM-dd HH:mm:ss')}" 
     AND ecm:currentLifeCycleState = 'borrowed'
 Document > Follow life cycle transition
     Value: to_delayed
@@ -259,7 +271,7 @@ Notification > Send email
     From: noreply@nuxeo.com
     Message: Select your email template (expression editor button)
     Subject: Please bring back the book you borrowed
-    To: @{Fn.getEmail(Document['bk:borrowedBy'])}
+    To: @{Fn.getEmail(Document['bkcommon:borrowedBy'])}
 </code></pre>
 
 <div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div> 

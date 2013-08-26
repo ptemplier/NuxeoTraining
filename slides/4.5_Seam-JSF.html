@@ -60,7 +60,7 @@ and see how many documents are contained in a folderish one.
 ####At the end of the course:
 
 - A JSF template that hides the version number for folderish documents
-- A Seam component that counts the numbers of children documents in a folderish document and a JSF template that shows its result
+- A Seam component that counts the number of children documents in a folderish document, and a JSF template that shows its result
 </section>
 
 <section class="slide" id="agenda-intro">
@@ -84,30 +84,30 @@ and see how many documents are contained in a folderish one.
 <section class="slide" id="jsf-intro">
 ### JSF
 - Java framework used for web applications
-- Provides a basic tag library
+- Provides:
+    - Expression Language (EL)
+    - A validation model
+    - A basic tag library
 </section>
 
 <section class="slide" id="jsf-facelets-intro">
 ### JSF Facelets
 - Layer added to enhance JSF logic and rendering
 - Clean rendering engine for JSF
-- Provides:
-    - Expression Language (EL)
-    - A validation model
-    - Templating
+- Provides templating features
 </section>
 
 <section class="slide" id="seam-intro">
 ###Seam
-- web oriented framework
-- natively built for JSF
-- provides extended context management
-- improves JSF experience
-    - improves EL
-    - make bindings simpler
-    - manage components life cycle
-- includes a lot of web tools
-- CDI inspired from Seam
+- Web oriented framework
+- Natively built for JSF
+- Provides extended context management
+- Improves JSF experience
+    - Improves EL
+    - Make bindings simpler
+    - Manage components life cycle
+- Includes a lot of web tools
+- CDI was inspired from Seam
 </section>
 
 <section class="slide" id="richfaces-intro">
@@ -240,11 +240,11 @@ Each phase is done for the whole tree before the next phase
 ###EL Resolvers
 Expression Language offers a loose binding to UI elements
 
-#### standard EL resolvers (bean getters & setters, map values by key, list values by index, ...)
+#### Standard EL resolvers (bean getters & setters, map values by key, list values by index, ...)
 - #{myBean.myAttribute} calls myBean.getMyAttribute()
 - #{myBean.myAttribute} resolves to myBean.getMyAttribute() on get, and myBean.setMyAttribute(attr) on set
 
-#### pluggable EL resolvers, like the DocumentModelResolver
+#### Pluggable EL resolvers, like the DocumentModelResolver
 - #{doc.id} calls doc.getId()
 - #{doc.dublincore.title} resolves to doc.getPropertyValue("dc:title") on get, and doc.setPropertyValue("dc:title", value) on set
 
@@ -300,7 +300,7 @@ Expression Language offers a loose binding to UI elements
 
 - Controller for JSF views
     - Used when server side logic is needed
-- Seam Components are instanced for each user
+- Seam Components are instantiated for each user
 - Injection mechanism for interaction between Seam components
 - Context mechanism :
     - Current doc/super space ...
@@ -369,9 +369,13 @@ public class MyBean implements Serializable {
     - JSF uses named components
     - Scope is managed by seam annotations
     - Seam beans can be called directly in templates, ex:
-<pre><code>                &lt;div>
-                    #{mySeamBeanName.method()}
-                &lt;/div></code></pre>
+<pre>
+  <code>
+&lt;div&gt;
+  #{mySeamBeanName.method()}
+&lt;/div&gt;
+  </code>
+</pre>
 </section>
 
 <section class="slide" id="seam-cdi">
@@ -632,28 +636,24 @@ make Seam scan the jar for components.
 </section>
 
 <section class="slide" id="nuxeo-jsf-layouts-tags">
-###Nuxeo JSF Layouts tags
+###Nuxeo JSF Layout Tags
 
 Binding between a document and a layout:
 
 <pre>
-  <code>
-&lt;nxl:layout
+<code>&lt;nxl:layout
   name="header"
   mode="view"
-  value="#{currentDocument}" /&gt;
-  </code>
+  value="#{currentDocument}" /&gt;</code>
 </pre>
 
 Refined tag for layouts referenced by document types definition:
 
 <pre>
-  <code>
-&lt;nxl:documentLayout
+<code>&lt;nxl:documentLayout
   documentMode="header"
   mode="view"
-  value="#{currentDocument}" /&gt;
-  </code>
+  value="#{currentDocument}" /&gt;</code>
 </pre>
 
 </section>
@@ -705,36 +705,35 @@ Refined tag for layouts referenced by document types definition:
 </section>
 
 <section class="slide" id="actions-xml">
-###Actions definitions
+###Action Definitions
 
 <pre><code>&lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
-    point="actions"&gt;
-    &lt;action id="org.nuxeo.seam.jsf.training.MySeamBean" 
-      link="#{mySeam.doGet}" order="200" 
-      label="label.org.nuxeo.seam.jsf.training.MySeamBean"
-      icon="/icons/org.nuxeo.seam.jsf.training.MySeamBean-action.png"&gt;
-      &lt;category&gt;SUBVIEW_UPPER_LIST&lt;/category&gt;
-      &lt;filter-id&gt;org.nuxeo.seam.jsf.training.MySeamBean&lt;/filter-id&gt;
-    &lt;/action&gt;
-  &lt;/extension&gt;</code></pre>
+  point="actions"&gt;
+  &lt;action id="org.nuxeo.seam.jsf.training.MySeamBean"
+    link="#{mySeam.doGet}" order="200"
+    label="label.org.nuxeo.seam.jsf.training.MySeamBean"
+    icon="/icons/org.nuxeo.seam.jsf.training.MySeamBean-action.png"&gt;
+    &lt;category&gt;SUBVIEW_UPPER_LIST&lt;/category&gt;
+    &lt;filter-id&gt;org.nuxeo.seam.jsf.training.MySeamBean&lt;/filter-id&gt;
+  &lt;/action&gt;
+&lt;/extension&gt;</code>
+</pre>
 
 More sample contributions are available <a href="http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewExtensionPoint/org.nuxeo.ecm.platform.actions.ActionService--actions" target="_blank">on the explorer</a>
 </section>
 
 <section class="slide" id="filters-xml">
-###Filters definitions
+###Filter Definitions
 
 <pre>
-<code>
-  &lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
-    point="filters"&gt;
-    &lt;filter id="org.nuxeo.seam.jsf.training.MySeamBean"&gt;
-      &lt;rule grant="true"&gt;
-        &lt;condition&gt;#{mySeam.accept()}&lt;/condition&gt;
-      &lt;/rule&gt;
-    &lt;/filter&gt;
-  &lt;/extension&gt;
-</code>
+<code>&lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
+  point="filters"&gt;
+  &lt;filter id="org.nuxeo.seam.jsf.training.MySeamBean"&gt;
+  &lt;rule grant="true"&gt;
+    &lt;condition&gt;#{mySeamBean.accept()}&lt;/condition&gt;
+  &lt;/rule&gt;
+  &lt;/filter&gt;
+&lt;/extension&gt;</code>
 </pre>
 
 More sample contributions are available <a href="http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewExtensionPoint/org.nuxeo.ecm.platform.actions.ActionService--filters" target"_blank">on the explorer</a>
@@ -789,7 +788,8 @@ More sample contributions are available <a href="http://explorer.nuxeo.org/nuxeo
 
 <section class="slide" id="next">
 ### Next?
-[Nuxeo distribution - Configuration templates](5.1 - Nuxeo Distribution 1 - Configuration templates.html)
+- Back to the [training agenda](0_Introduction.html#day-5)
+- [Nuxeo distribution - Configuration templates](5.1 - Nuxeo Distribution 1 - Configuration templates.html)
 </section>
 
 <section class="slide" id="help-exercise-nuxeo-webapp">
@@ -797,12 +797,13 @@ More sample contributions are available <a href="http://explorer.nuxeo.org/nuxeo
 <div style="clear:both"></div>
 
 The `hideVersionOnFolderishDocs.xhtml` file:
-<pre><code>&lt;div>
-    &lt;c:if test="#{not field.hasFacet('Folderish')}" 
-    xmlns:c="http://java.sun.com/jstl/core">
-        #{counterBean.showCounter()}
-    &lt;/c:if>
-&lt;/div></code></pre>
+<pre>
+<code>&lt;div xmlns:c="http://java.sun.com/jstl/core"&gt;
+  &lt;c:if test="#{not field.hasFacet('Folderish')}"&gt;
+    #{counterBean.showCounter()}
+  &lt;/c:if&gt;
+&lt;/div&gt;</code>
+</pre>
 
 <div class="sticker"><a href="#exercise-nuxeo-webapp">Back to the exercise</a></div>
 </section>
@@ -812,20 +813,23 @@ The `hideVersionOnFolderishDocs.xhtml` file:
 <div style="clear:both"></div>
 
 The `countChildren()` method:
-<pre><code>public Integer countChildren() throws ClientException {
-	DocumentModel currentDoc = navigationContext.getCurrentDocument();
-	List<DocumentRef> children = documentManager.
-	getChildrenRefs(currentDoc.getRef(), null);
-	return children.size();
-}</pre></code>
+<pre>
+  <code>public Integer countChildren() throws ClientException {
+    DocumentModel currentDoc = navigationContext.getCurrentDocument();
+    List<DocumentRef> children = documentManager.
+    getChildrenRefs(currentDoc.getRef(), null);
+    return children.size();
+}</code>
+</pre>
 
 The `showChildrenNumber.xhtml` file:
-<pre><code>&lt;div>
-    &lt;c:if test="#{field.hasFacet('Folderish')}" 
-    xmlns:c="http://java.sun.com/jstl/core">
-        #{counterBean.countChildren()}
-    &lt;/c:if>
-&lt;/div></code></pre>
+<pre>
+<code>&lt;div xmlns:c="http://java.sun.com/jstl/core"&gt;
+  &lt;c:if test="#{not field.hasFacet('Folderish')}"&gt;
+    #{counterBean.countChildren()}
+  &lt;/c:if&gt;
+&lt;/div&gt;</code>
+</pre>
 
 <div class="sticker"><a href="#exercise-integration-seam">Back to the exercise</a></div>
 </section>

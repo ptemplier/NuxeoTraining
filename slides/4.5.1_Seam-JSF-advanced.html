@@ -223,22 +223,20 @@ Most of the time, actions rendering depends on their category, although
 some improvements have been made in more recent Nuxeo versions.
 
 <pre>
-<code>
-  &lt;nxu:set var="actions" cache="true"
-    value="#{webActions.getActionsList('DOCUMENT_UPPER_ACTION')}"&gt;
-    &lt;nxu:dataList layout="simple" var="action" value="#{actions}"&gt;
-      &lt;nxh:commandLink action="#{action.getLink()}"
-        immediate="#{action.immediate}"
-        onclick="#{action.confirm}"&gt;
-        &lt;h:graphicImage value="#{action.icon}"
-          rendered="#{not empty action.icon}"
-          title="#{messages[action.label]}"
-          alt="#{messages[action.label]}"
-          styleClass="smallIcon" /&gt;
-      &lt;/nxh:commandLink&gt;
-    &lt;/nxu:dataList&gt;
-  &lt;/nxu:set&gt;
-</code>
+<code>&lt;nxu:set var="actions" cache="true"
+  value="#{webActions.getActionsList('DOCUMENT_UPPER_ACTION')}"&gt;
+  &lt;nxu:dataList layout="simple" var="action" value="#{actions}"&gt;
+    &lt;nxh:commandLink action="#{action.getLink()}"
+      immediate="#{action.immediate}"
+      onclick="#{action.confirm}"&gt;
+      &lt;h:graphicImage value="#{action.icon}"
+        rendered="#{not empty action.icon}"
+        title="#{messages[action.label]}"
+        alt="#{messages[action.label]}"
+        styleClass="smallIcon" /&gt;
+    &lt;/nxh:commandLink&gt;
+  &lt;/nxu:dataList&gt;
+&lt;/nxu:set&gt;</code>
 </pre>
 
 </section>
@@ -249,20 +247,18 @@ some improvements have been made in more recent Nuxeo versions.
 New way (from 5.7.1), allows to mix up different renderings depending on
 the action, in the same category:
 <pre>
-<code>
-  &lt;nxl:widgetType name="currentDocumentActionsWithForms"
-    widgetName="documentActionsUpperButtons"
-    mode="view"
-    label=""
-    styleClass="globalActionBar"
-    subStyleClass="contextActions"
-    actionStyleClass="button"
-    actionsDisplay="icons"
-    overallDisplay="horizontal_block"
-    category="DOCUMENT_UPPER_ACTION"
-    maxActionsNumber="5"
-    value="#{currentDocument}" /&gt;
-</code>
+<code>&lt;nxl:widgetType name="currentDocumentActionsWithForms"
+  widgetName="documentActionsUpperButtons"
+  mode="view"
+  label=""
+  styleClass="globalActionBar"
+  subStyleClass="contextActions"
+  actionStyleClass="button"
+  actionsDisplay="icons"
+  overallDisplay="horizontal_block"
+  category="DOCUMENT_UPPER_ACTION"
+  maxActionsNumber="5"
+  value="#{currentDocument}" /&gt;</code>
 </pre>
 
 </section>
@@ -305,26 +301,24 @@ the action, in the same category:
 URL patterns make the link between the navigation and the URL codec
 
 <pre>
-<code>
-  &lt;extension target="org.nuxeo.ecm.platform.ui.web.rest.URLService"
-    point="urlpatterns"&gt;
-    &lt;urlPattern name="default" enabled="true"&gt;
-      &lt;defaultURLPolicy&gt;true&lt;/defaultURLPolicy&gt;
-      &lt;needBaseURL&gt;true&lt;/needBaseURL&gt;
-      [...]
-      &lt;codecName&gt;docpath&lt;/codecName&gt;
-      &lt;actionBinding&gt;
-        #{restHelper.initContextFromRestRequest}
-      &lt;/actionBinding&gt;
-      [...]
-      &lt;bindings&gt;
-        &lt;binding name="tabId" callGetter="false"&gt;
-          #{webActions.currentTabId}
-        &lt;/binding&gt;
-      &lt;/bindings&gt;
-    &lt;/urlPattern&gt;
-  &lt;/extension&gt;
-</code>
+<code>&lt;extension target="org.nuxeo.ecm.platform.ui.web.rest.URLService"
+  point="urlpatterns"&gt;
+  &lt;urlPattern name="default" enabled="true"&gt;
+    &lt;defaultURLPolicy&gt;true&lt;/defaultURLPolicy&gt;
+    &lt;needBaseURL&gt;true&lt;/needBaseURL&gt;
+    [...]
+    &lt;codecName&gt;docpath&lt;/codecName&gt;
+    &lt;actionBinding&gt;
+      #{restHelper.initContextFromRestRequest}
+    &lt;/actionBinding&gt;
+    [...]
+    &lt;bindings&gt;
+      &lt;binding name="tabId" callGetter="false"&gt;
+       #{webActions.currentTabId}
+      &lt;/binding&gt;
+    &lt;/bindings&gt;
+  &lt;/urlPattern&gt;
+&lt;/extension&gt;</code>
 </pre>
 
 </section>
@@ -478,36 +472,34 @@ URL patterns make the link between the navigation and the URL codec
 <section class="slide" id="content-views-xml">
 ###Content Views Definitions
 <pre>
-<code>
-  &lt;extension target="org.nuxeo.ecm.platform.ui.web.ContentViewService"
-    point="contentViews"&gt;
-    &lt;contentView name="document_content"&gt;
-      &lt;coreQueryPageProvider&gt;
-        [...]
-      &lt;/coreQueryPageProvider&gt;
-      &lt;searchLayout name="document_content_filter"
-        filterDisplayType="quick" /&gt;
-      &lt;refresh&gt;
-        &lt;event&gt;documentChanged&lt;/event&gt;
-        &lt;event&gt;documentChildrenChanged&lt;/event&gt;
-      &lt;/refresh&gt;
-      &lt;cacheKey&gt;#{currentDocument.id}&lt;/cacheKey&gt;
-      &lt;cacheSize&gt;10&lt;/cacheSize&gt;
-      &lt;resultLayouts&gt;
-        &lt;layout
-          name="document_listing_ajax"
-          title="document_listing"
-          translateTitle="true"
-          iconPath="/icons/document_listing_icon.png"
-          showCSVExport="true"
-          showPDFExport="false"
-          showSyndicationLinks="true" /&gt;
-      &lt;/resultLayouts&gt;
-      &lt;selectionList&gt;CURRENT_SELECTION&lt;/selectionList&gt;
-      &lt;actions category="CURRENT_SELECTION_LIST" /&gt;
-    &lt;/contentView&gt;
-  &lt;/extension&gt;
-</code>
+<code>&lt;extension target="org.nuxeo.ecm.platform.ui.web.ContentViewService"
+  point="contentViews"&gt;
+  &lt;contentView name="document_content"&gt;
+    &lt;coreQueryPageProvider&gt;
+      [...]
+    &lt;/coreQueryPageProvider&gt;
+    &lt;searchLayout name="document_content_filter"
+      filterDisplayType="quick" /&gt;
+    &lt;refresh&gt;
+      &lt;event&gt;documentChanged&lt;/event&gt;
+      &lt;event&gt;documentChildrenChanged&lt;/event&gt;
+    &lt;/refresh&gt;
+    &lt;cacheKey&gt;#{currentDocument.id}&lt;/cacheKey&gt;
+    &lt;cacheSize&gt;10&lt;/cacheSize&gt;
+    &lt;resultLayouts&gt;
+      &lt;layout
+        name="document_listing_ajax"
+        title="document_listing"
+        translateTitle="true"
+        iconPath="/icons/document_listing_icon.png"
+        showCSVExport="true"
+        showPDFExport="false"
+        showSyndicationLinks="true" /&gt;
+    &lt;/resultLayouts&gt;
+    &lt;selectionList&gt;CURRENT_SELECTION&lt;/selectionList&gt;
+    &lt;actions category="CURRENT_SELECTION_LIST" /&gt;
+  &lt;/contentView&gt;
+&lt;/extension&gt;</code>
 </pre>
 </section>
 
@@ -515,32 +507,30 @@ URL patterns make the link between the navigation and the URL codec
 <section class="slide" id="page-providers-xml">
 ###Page Providers Definitions
 <pre>
-<code>
-  &lt;coreQueryPageProvider&gt;
-    &lt;property name="coreSession"&gt;#{documentManager}&lt;/property&gt;
-    &lt;property name="maxResults"&gt;DEFAULT_NAVIGATION_RESULTS&lt;/property&gt;
-    &lt;whereClause docType="AdvancedSearch"&gt;
-      &lt;predicate parameter="ecm:fulltext" operator="FULLTEXT"&gt;
-        &lt;field schema="advanced_search" name="fulltext_all" /&gt;
-      &lt;/predicate&gt;
-      &lt;predicate parameter="dc:title" operator="FULLTEXT"&gt;
-        &lt;field schema="advanced_search" name="title" /&gt;
-      &lt;/predicate&gt;
-      &lt;predicate parameter="dc:modified" operator="BETWEEN"&gt;
-        &lt;field schema="advanced_search" name="modified_min" /&gt;
-        &lt;field schema="advanced_search" name="modified_max" /&gt;
-      &lt;/predicate&gt;
-      &lt;fixedPart&gt;
-        ecm:parentId = ? AND ecm:isCheckedInVersion = 0
-        AND ecm:mixinType != 'HiddenInNavigation'
-        AND ecm:currentLifeCycleState != 'deleted'
-      &lt;/fixedPart&gt;
-    &lt;/whereClause&gt;
-    &lt;parameter&gt;#{currentDocument.id}&lt;/parameter&gt;
-    &lt;sort column="dc:title" ascending="true" /&gt;
-    &lt;pageSize&gt;20&lt;/pageSize&gt;
-  &lt;/coreQueryPageProvider&gt;
-</code>
+<code>&lt;coreQueryPageProvider&gt;
+  &lt;property name="coreSession"&gt;#{documentManager}&lt;/property&gt;
+  &lt;property name="maxResults"&gt;DEFAULT_NAVIGATION_RESULTS&lt;/property&gt;
+  &lt;whereClause docType="AdvancedSearch"&gt;
+    &lt;predicate parameter="ecm:fulltext" operator="FULLTEXT"&gt;
+      &lt;field schema="advanced_search" name="fulltext_all" /&gt;
+    &lt;/predicate&gt;
+    &lt;predicate parameter="dc:title" operator="FULLTEXT"&gt;
+      &lt;field schema="advanced_search" name="title" /&gt;
+    &lt;/predicate&gt;
+    &lt;predicate parameter="dc:modified" operator="BETWEEN"&gt;
+      &lt;field schema="advanced_search" name="modified_min" /&gt;
+      &lt;field schema="advanced_search" name="modified_max" /&gt;
+    &lt;/predicate&gt;
+    &lt;fixedPart&gt;
+      ecm:parentId = ? AND ecm:isCheckedInVersion = 0
+      AND ecm:mixinType != 'HiddenInNavigation'
+      AND ecm:currentLifeCycleState != 'deleted'
+    &lt;/fixedPart&gt;
+  &lt;/whereClause&gt;
+  &lt;parameter&gt;#{currentDocument.id}&lt;/parameter&gt;
+  &lt;sort column="dc:title" ascending="true" /&gt;
+  &lt;pageSize&gt;20&lt;/pageSize&gt;
+&lt;/coreQueryPageProvider&gt;</code>
 </pre>
 </section>
 
@@ -554,25 +544,22 @@ Benefit from:
     - use layouts loose binding for results rendering
 
 <pre>
-<code>
-  &lt;extension
-    target="org.nuxeo.ecm.platform.query.api.PageProviderService"
-    point="providers"&gt;
-    &lt;genericPageProvider
-      class="org.nuxeo.ecm.platform.audit.api.document.DocumentHistoryPageProvider"
-      name="DOCUMENT_HISTORY_PROVIDER"&gt;
-      &lt;whereClause docType="BasicAuditSearch"&gt;
-        &lt;predicate parameter="log.eventDate" operator="BETWEEN"&gt;
-          &lt;field schema="basicauditsearch" name="startDate" /&gt;
-          &lt;field schema="basicauditsearch" name="endDate" /&gt;
-        &lt;/predicate&gt;
-      &lt;/whereClause&gt;
-      &lt;sort column="log.eventDate" ascending="true" /&gt;
-      &lt;sort column="log.id" ascending="true" /&gt;
-      &lt;pageSize&gt;10&lt;/pageSize&gt;
-    &lt;/genericPageProvider&gt;
-  &lt;/extension&gt;
-</code>
+<code>&lt;extension
+  target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+  point="providers"&gt;
+  &lt;genericPageProvider name="DOCUMENT_HISTORY_PROVIDER"
+    class="org.nuxeo.ecm.platform.audit.api.document.DocumentHistoryPageProvider"&gt;
+    &lt;whereClause docType="BasicAuditSearch"&gt;
+      &lt;predicate parameter="log.eventDate" operator="BETWEEN"&gt;
+        &lt;field schema="basicauditsearch" name="startDate" /&gt;
+        &lt;field schema="basicauditsearch" name="endDate" /&gt;
+      &lt;/predicate&gt;
+    &lt;/whereClause&gt;
+    &lt;sort column="log.eventDate" ascending="true" /&gt;
+    &lt;sort column="log.id" ascending="true" /&gt;
+    &lt;pageSize&gt;10&lt;/pageSize&gt;
+  &lt;/genericPageProvider&gt;
+&lt;/extension&gt;</code>
 </pre>
 </section>
 
@@ -580,15 +567,11 @@ Benefit from:
 ###Content Views usage in xhtml pages
 
 <pre>
-<code>
-  &lt;nxu:set var="contentViewId" value="unique_cv_id"&gt;
+<code>&lt;nxu:set var="contentViewId" value="unique_cv_id"&gt;
   &lt;nxu:set var="contentViewName" value="document_content"&gt;
-
     &lt;ui:decorate template="/incl/content_view.xhtml" /&gt;
-
   &lt;/nxu:set&gt;
-  &lt;/nxu:set&gt;
-</code>
+&lt;/nxu:set&gt;</code>
 </pre>
 </section>
 
@@ -734,14 +717,12 @@ in you sdk to set the <code>org.nuxeo.dev</code> property to <code>true</code>.
 
 Sample template content, at <code>src/main/resources/web/nuxeo.war/hello_world.xhtml</code>
 <pre>
-  <code>
-&lt;div&gt;Hello&lt;/div&gt;
-  </code>
+<code>&lt;div&gt;Hello&lt;/div&gt;</code>
 </pre>
 
 Sample navigation case at <code>src/main/resources/OSGI-INF/deployment-fragment.xml</code>
 <pre>
-  <code>&lt;extension target="faces-config#NAVIGATION"&gt;
+<code>&lt;extension target="faces-config#NAVIGATION"&gt;
   &lt;navigation-case&gt;
     &lt;from-outcome&gt;hello_world&lt;/from-outcome&gt;
     &lt;to-view-id&gt;/hello_world.xhtml&lt;/to-view-id&gt;
@@ -760,7 +741,7 @@ Sample navigation case at <code>src/main/resources/OSGI-INF/deployment-fragment.
 
 Sample action contribution at <code>src/main/resources/OSGI-INF/extensions/hello-action-contrib.xml</code>
 <pre>
-  <code>&lt;?xml version="1.0"?&gt;
+<code>&lt;?xml version="1.0"?&gt;
 &lt;component name="helloAction"&gt;
   &lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions"&gt;
@@ -791,7 +772,7 @@ Sample action contribution at <code>src/main/resources/OSGI-INF/extensions/hello
 
 Add the document view layout to <code>src/main/resources/web/nuxeo.war/hello_world.xhtml</code>
 <pre>
-  <code>&lt;div xmlns:nxl="http://nuxeo.org/nxforms/layout"&gt;
+<code>&lt;div xmlns:nxl="http://nuxeo.org/nxforms/layout"&gt;
   &lt;nxl:documentLayout mode="view" value="#{currentDocument}" /&gt;
 &lt;/div&gt;</code>
 </pre>
@@ -807,7 +788,7 @@ Add the document view layout to <code>src/main/resources/web/nuxeo.war/hello_wor
 
 Add the theme configuration to <code>src/main/resources/web/nuxeo.war/hello_world.xhtml</code>:
 <pre>
-  <code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
 &lt;nxthemes:composition
   xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -841,7 +822,7 @@ Add the theme configuration to <code>src/main/resources/web/nuxeo.war/hello_worl
 
 Sample theme contribution at <code>src/main/resources/OSGI-INF/extensions/hello-theme-contrib.xml</code>
 <pre>
-  <code>&lt;extension target="org.nuxeo.theme.services.ThemeService"
+<code>&lt;extension target="org.nuxeo.theme.services.ThemeService"
   point="applications"&gt;
   &lt;application root="${org.nuxeo.ecm.contextPath}"
     template-engine="jsf-facelets"&gt;
