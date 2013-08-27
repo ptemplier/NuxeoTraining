@@ -85,13 +85,12 @@
     
 #### Usage
 - Create a `TestBookAdapter` class and a `testBookAdapter()` method that will:
-    - Get the documents root
-    - Create a `BookLibrary` at the documents root
-    - Assert that this `BookLibrary` has no children
-    - Create a `Book` into the `BookLibrary`
-    - Assert that the `BookLibrary` has a child
-    - Set the `Book` as borrowed
-    - Assert that the book is borrowed
+    - Create a `Book` at the documents root
+    - Set an ISBN value for the Book
+    - Set the Book as borrowed
+    - Saves the document into the repository
+    - Assert the operations you just made
+    - Run your test and check the result
     
 Use your adapter whenever possible of course :)
 </section>
