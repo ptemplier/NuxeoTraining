@@ -54,10 +54,10 @@ public class CounterBean extends DocumentContextBoundActionBean implements Seria
     }
     
     // Method that returns a basic counter incremented at each reload
-    int counter = 0;
+    //int counter = 0;
     public String showCounter() {
-    	counter = counter + 1 ;
-    	return "count = " + counter;
+    	//counter = counter + 1 ;
+    	return "count = ";// + counter;
 	}
     
     // Method that returns the current document's number of children
