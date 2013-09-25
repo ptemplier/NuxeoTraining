@@ -112,8 +112,9 @@ Collection of useful helpers <div class="further-info">available in automation p
 <section class="slide exercise" id="exercise-automation2">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Advanced automation (1/3)
-#### Complete the book borrowing chain
+### Practice - Advanced automation 
+#### Create an action to remind late borrowers of their duty (1/4)
+##### Complete the book borrowing chain
 - Add a new field to your book named `borrowedAt` (date)
 - It must appear as read only, only when viewing a Book
 - It should be filled with the current date when the Book is borrowed
@@ -123,8 +124,25 @@ Collection of useful helpers <div class="further-info">available in automation p
 <section class="slide exercise" id="exercise-automation2-p2">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Advanced automation (2/3)
-#### Reminding late borrowers
+### Practice - Advanced automation 
+#### Create an action to remind late borrowers of their duty (2/4)
+##### Create an email template
+- Go to `Templates` > `Mail templates`
+- Create an email template named `remindLateBorrowers`
+- Your template should contain the following message:
+<pre><code>Hello &lt;borrower username>,
+Please bring the book &lt;book title> back!
+Thanks,
+The Best books library</code></pre> 
+<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-automation2-p3">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Advanced automation
+#### Create an action to remind late borrowers of their duty (3/4)
+##### Reminding late borrowers
 ##### Add a new state named `delayed` on our life cycle. 
 - It should be accessible from the borrowed state, and authorize reaching the inLibrary and deleted states
 
@@ -136,20 +154,18 @@ Collection of useful helpers <div class="further-info">available in automation p
 <div class="sticker"><a href="#help-exercise2">Need help?</a></div>
 </section>
 
-<section class="slide exercise" id="exercise-automation2-p3">
+<section class="slide exercise" id="exercise-automation2-p4">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Advanced automation (3/3)
-#### Reminding late borrowers
+### Practice - Advanced automation 
+#### Create an action to remind late borrowers of their duty (4/4)
+##### Reminding late borrowers
 
 ##### Create a new operation chain `remindLateBorrowers` that:
 - fetches documents that have been borrowed 1 minute ago
 - sets books state as delayed,
-- sends an email to borrower saying:
-<pre><code>Hello "username",
-Please bring the book "book name" back!
-Thanks,
-The Best books library</code></pre> 
+- sends an email to borrower (use the `remindLateBorrowers` email template)
+
 - Commit and deploy your changes
 - <a href="http://doc.nuxeo.com/x/jQ-F" target="_blank">Set up a test smtp server</a> to receive the emails
     - Default smtp port is 25, indicated port during training installation is 25000
@@ -157,6 +173,10 @@ The Best books library</code></pre> 
 - Try your new action out and see if you receive your emails
 
 <div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+</section>
+
+<section class="slide" id="questions-advanced-automation">
+##Questions?
 </section>
 
 <section class="slide" id="event-handlers">
