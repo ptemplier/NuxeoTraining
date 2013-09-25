@@ -282,8 +282,7 @@ The Best books library</code></pre>
 <pre><code>Fetch > Query
     SELECT * FROM Book 
     WHERE ecm:isCheckedInVersion = 0 
-    AND bkcommon:borrowedAt < 
-    TIMESTAMP "@{CurrentDate.seconds(-60).format('yyyy-MM-dd HH:mm:ss')}" 
+    AND bkcommon:borrowedAt < @{CurrentDate.seconds(-60)} 
     AND ecm:currentLifeCycleState = 'borrowed'
 Document > Follow life cycle transition
     Value: to_delayed
