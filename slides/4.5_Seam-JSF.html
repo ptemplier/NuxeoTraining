@@ -398,7 +398,7 @@ What Nuxeo uses in Seam has been incorporated into CDI:
     - In the src/main/java folder:
         - Create a `package` named `org.nuxeo.training.seamjsf`
         - Create a new `class`, name it `CounterBean`
-        - Replace its content with the one in this file: <a href="files/CounterBean-exercise1-done.java" target="_blank">CounterBean-exercise1-done.java</a>
+        - Replace its content with the one in this file: <a href="files/CounterBean-base.java" target="_blank">CounterBean-base.java</a>
     - In the src/main/resources folder:
         - Create a new `file` named seam.properties
         - Leave it empty
@@ -507,7 +507,9 @@ Display a document property
 #### Nuxeo JSF webapp
 - Create a xhtml file named `hideVersionOnFolderishDocs.xhtml`
 - Place JSF tags to make sure the version number will be shown <br /> **only** on documents **not** having the `Folderish` facet
-- In Nuxeo studio, replace the version widget in the `bookTableLayout` by this one
+- In Nuxeo studio :
+    - replace the version widget in the `bookTableLayout` by this one
+    - In the template widget's options, add a field named `data` 
 - Commit and deploy your changes
 - Check the result by going to your "still in library" books tab
 
@@ -762,10 +764,9 @@ More sample contributions are available <a href="http://explorer.nuxeo.org/nuxeo
 - Create a xhtml file named `showChildrenNumber.xhtml`
     - Add the JSF tags to call the method only on `Folderish` documents
 - In Nuxeo studio
-    - Add a template widget in the `bookTableLayout` using that file
-    - In the content view's advanced configuration, add a field named `data`
+    - Add a template widget in the header layout of the BookLibrary document type, using that file
 - Commit and deploy your changes
-- Check the result by going to your "still in library" books tab
+- Check the result by going to your book library's content tab
 
 <div class="sticker"><a href="#help-exercise-integration-seam">Need help ?</a></div>
 </section>
@@ -799,7 +800,7 @@ The `hideVersionOnFolderishDocs.xhtml` file:
 <pre>
 <code>&lt;div xmlns:c="http://java.sun.com/jstl/core"&gt;
   &lt;c:if test="#{not field.hasFacet('Folderish')}"&gt;
-    #{counterBean.showCounter()}
+    #{field.uid.major_version}.#{field.uid.minor_version}
   &lt;/c:if&gt;
 &lt;/div&gt;</code>
 </pre>
@@ -824,7 +825,7 @@ The `countChildren()` method:
 The `showChildrenNumber.xhtml` file:
 <pre>
 <code>&lt;div xmlns:c="http://java.sun.com/jstl/core"&gt;
-  &lt;c:if test="#{not field.hasFacet('Folderish')}"&gt;
+  &lt;c:if test="#{field.hasFacet('Folderish')}"&gt;
     #{counterBean.countChildren()}
   &lt;/c:if&gt;
 &lt;/div&gt;</code>
