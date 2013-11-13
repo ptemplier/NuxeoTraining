@@ -341,7 +341,7 @@ Eg. accept/reject task.
 
 <section class="slide" id="task-config">
 ### Task Configuration
-#### General Tab (1/3)
+#### General Tab (1/4)
 <img alt="Studio node edition form" src="img/workflow-node-general.png" class="float-right" />
 
 - General information: Title, directive
@@ -356,7 +356,7 @@ Eg. accept/reject task.
 
 <section class="slide" id="task-config-assignees">
 ### Task Configuration
-#### General tab (2/3)
+#### General tab (2/4)
 #### Assignees
 
 <img alt="Studio node edition form" src="img/workflow-node-assignee.png" class="float-right" />
@@ -366,12 +366,31 @@ Eg. accept/reject task.
     - You can  prefix users by <code>user:</code> like "user:jack" and groups by <code>group:</code> like "group:validators".
 - Compute additional assignees
     - You can set here a scripted expression (MVEL syntax) so as to determine how the assignees on that task will be computed at runtime
-    - You have access to some useful variables in the context, like the <code>WorkflowVariables</code>, <code>NodeVariables</code>, <code>CurrentUser</code> and others.
+    - You have access to some useful variables in the context, like the <code>WorkflowVariables</code>, <code>NodeVariables</code>, <code>CurrentUser</code> and others.    
+</section>
+
+<section class="slide" id="task-config-delegation">
+### Task Configuration
+#### General tab (3/4)
+#### Delegation and reassignment
+
+Tasks in Nuxeo can be delegated or potentially reassigned.
+
+- Allow task reassignment option
+    - Used to let the user select other assignees instead of him to accomplish the task
+    - Unchecked by default
+
+- Task delegation
+    - Native functionality
+    - Allows the user to add more assignees to the task but does not remove his assignment
+
+- Delegation and reassignment can be accessed by document's workflow tab or home menu, workflow sub menu
+- Tasks can be reassigned or delegated without limit !
 </section>
   
 <section class="slide" id="task-config-notifications">
 ### Task Configuration
-#### General tab (3/3)
+#### General tab (4/4)
 #### Email notification
 - Specify the mail template used for generating the mail sent to the task assignees
 - If no template is selected, the task assignees are not notified
@@ -385,8 +404,9 @@ ${NodeVariables['myVariableName']}
 ...
 </code></pre>
 
-Eg:
-<pre><code>A validation request on document ${workflowDocuments[0].dublincore.title} has been started by ${workflowInitiator}.</code></pre>
+Workflow email notifications use HTML format. Eg:
+<pre><code>A validation request on document ${workflowDocuments[0].dublincore.title} has been started by ${workflowInitiator}.&lt;br /&gt;&lt;br /&gt;
+Click &lt;a href="${docUrl}"&gt;here&lt;/a&gt; to see the document.</code></pre>
 </section>
     
 <section class="slide" id="task-config-form">
@@ -430,6 +450,8 @@ Eg:
 including the document title, the workflow initiator and a link to the document.
 - If the document is accepted, use the chain we created to publish the document and end the workflow.
 - If the document is rejected, end the workflow.
+- Commit and update your changes.
+- Run the workflow and delegate the validation task to Barbara.
 </section>
 
 <section class="slide" id="questions-wf-tasks">
@@ -442,8 +464,8 @@ including the document title, the workflow initiator and a link to the document.
 Things are getting better.<br /><br />
 
 Still, there are further improvements we need to achieve. 
-For instance, the worklow's initiator should get the manager's comment in case the document is rejected. <br /><br />
-Also, the manager would like to be able to delegate some tasks to a group and possibly to other specific members. 
+For instance, the manager would like to leave comments on the document, and make sure it is received by the worklow's initiator in case the document is rejected. <br /><br />
+Also, the manager would like to be able to delegate some tasks to specific people.
 </section>
 
 <section class="slide" id="variables">
