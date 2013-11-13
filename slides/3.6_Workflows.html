@@ -79,7 +79,8 @@ He has put you in charge to implement something covering his request. Quickly.
   - Nodes and transitions
   - Tasks
   - Forms and variables
-  - Advanced usage
+  - Escalation rules
+  - Advanced usage (optional)
 </section>
 
 <section class="slide" id="workflow-concepts">
@@ -460,18 +461,30 @@ Also, the manager would like to be able to delegate some tasks to a group and po
 <section class="slide" id="built-variables2">
 ### Built-in Variables
 ####List of built-in variables
-- *WorkflowVariables* and *NodeVariables* (hashmaps), used like this: <code>NodeVariables[“myNodeVar”]</code>
-- *workflowInitiator*
-- *workflowStartTime* 
-    - Time when the workflow was started
-    - Useful for exemple when computing a due date (Due date expression: workflowStartTime.days(8))
-- *Documents/document* documents bound to the workflow
-    - These documents are also set as input of chains executed.
-- *button* button id that was clicked for processing the task, if the current node is a task node
-- *nodeId*
-- *nodeStartTime* Time the node was started, useful for exemple when computing a due date (Due date expression: nodeStartTime.days(8))
-- *nodeEndTime*
-- *nodeLastActor* Last actor on the node. Useful for instance to know who closed a task when the task was assigned to a group
+##### <code>WorkflowVariables</code> and <code>NodeVariables</code> (hashmaps)
+- Can store your own variables
+- Used like this: <code>NodeVariables[“myNodeVar”]</code> <code>WorkflowVariables[“myWfVar”]</code>
+
+##### <code>NodeVariables["button"]</code>
+- Button id that was clicked for processing the task, if the current node is a task node
+
+##### <code>NodeVariables["tasks"]</code>
+##### <code>NodeVariables["numberOfTasks"]</code>
+##### <code>NodeVariables["numberOfProcessedTasks"]</code>
+- When using multiple tasks, used to calculate approval percentage for instance
+ </section>
+ 
+<section class="slide" id="built-variables3">
+### Built-in Variables
+####List of built-in variables
+##### Context variables
+- <code>nodeStartTime</code>
+- <code>workflowInitiator</code>
+- <code>workflowStartTime</code>
+  - Time when the workflow was started
+  - Useful for exemple when computing a due date (Due date expression: workflowStartTime.days(8))
+- <code>workflowInstanceId</code> and <code>taskDueTime</code>
+  - Useful for getting open tasks on a document, and eventually close them using an escalation rule (more details later)
 
 http://doc.nuxeo.com/x/EQGw
  </section>
