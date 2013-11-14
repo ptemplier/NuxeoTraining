@@ -80,7 +80,7 @@ He has put you in charge to implement something covering his request. Quickly.
   - Nodes and transitions
   - Tasks
   - Forms and variables
-  - Escalation rules
+  - Escalation rules (optional)
   - Advanced usage (optional)
 </section>
 
@@ -325,14 +325,16 @@ We should improve it by implementing correctly the decision process.
 ## Tasks
 </section>
  
- <section class="slide" id="node-Task">
+<section class="slide" id="node-Task">
 ### A special Node: Task
 #### Concepts 
 - Used when the system requires a user intervention to resume the workflow,<br /> 
 Eg. accept/reject task.
 - Can have one or multiple assignees
 - Waits for an assignee action before going into a transition
-- Can set a form to be filled by the assignee
+
+#### Task form
+- A form can be shown for the assignee to fill it
 - The form sets values to
   - Workflow variables
   - Node variables  
@@ -341,7 +343,7 @@ Eg. accept/reject task.
 
 <section class="slide" id="task-config">
 ### Task Configuration
-#### General Tab (1/4)
+#### General Tab (1/5)
 <img alt="Studio node edition form" src="img/workflow-node-general.png" class="float-right" />
 
 - General information: Title, directive
@@ -356,7 +358,7 @@ Eg. accept/reject task.
 
 <section class="slide" id="task-config-assignees">
 ### Task Configuration
-#### General tab (2/4)
+#### General tab (2/5)
 #### Assignees
 
 <img alt="Studio node edition form" src="img/workflow-node-assignee.png" class="float-right" />
@@ -366,12 +368,25 @@ Eg. accept/reject task.
     - You can  prefix users by <code>user:</code> like "user:jack" and groups by <code>group:</code> like "group:validators".
 - Compute additional assignees
     - You can set here a scripted expression (MVEL syntax) so as to determine how the assignees on that task will be computed at runtime
-    - You have access to some useful variables in the context, like the <code>WorkflowVariables</code>, <code>NodeVariables</code>, <code>CurrentUser</code> and others.    
+    - You have access to some useful variables in the context, like the <code>workflowInitiator</code>, <code>nodeLastActor</code>, <code>WorkflowVariables</code>, <code>NodeVariables</code>, <code>CurrentUser</code> and others.
+</section>
+
+<section class="slide" id="multiple-tasks">
+### Task Configuration
+#### General tab (3/5)
+#### Multiple tasks
+- By default one task will be created for all assignees.
+    - The first user completing the task will close it for all other assignees as well.
+
+- When using the <code>multiple tasks</code> node, it is possible to create a task per assignee, by checking the corresponding option.
+    - If this option is checked : 
+        - the engine waits for all users to complete the task before going into a transition
+        - specific conditions can be defined for transitions, for example depending on the percentage of approval
 </section>
 
 <section class="slide" id="task-config-delegation">
 ### Task Configuration
-#### General tab (3/4)
+#### General tab (4/5)
 #### Delegation and reassignment
 
 Tasks in Nuxeo can be delegated or potentially reassigned.
@@ -390,7 +405,7 @@ Tasks in Nuxeo can be delegated or potentially reassigned.
   
 <section class="slide" id="task-config-notifications">
 ### Task Configuration
-#### General tab (4/4)
+#### General tab (5/5)
 #### Email notification
 - Specify the mail template used for generating the mail sent to the task assignees
 - If no template is selected, the task assignees are not notified
@@ -446,8 +461,7 @@ Click &lt;a href="${docUrl}"&gt;here&lt;/a&gt; to see the document.</code></pre>
 - Replace the `approve` node with an `accept/reject` node
 - Assign the task to <code>Administrator</code>
 - Due date should be the current date
-- The <code>Administrator</code> should receive a notification email when a document needs validation, 
-including the document title, the workflow initiator and a link to the document.
+- The assignee should receive a notification email (use the default notification template)
 - If the document is accepted, use the chain we created to publish the document and end the workflow.
 - If the document is rejected, end the workflow.
 - Commit and update your changes.
@@ -465,7 +479,8 @@ Things are getting better.<br /><br />
 
 Still, there are further improvements we need to achieve. 
 For instance, the manager would like to leave comments on the document, and make sure it is received by the worklow's initiator in case the document is rejected. <br /><br />
-Also, the manager would like to be able to delegate some tasks to specific people.
+He also realised that he often ends up delegating the task to the communication service and would like a button to do it quicker.<br /><br />
+The communication service, on its side, wants to validate the document only if the majority approves it.
 </section>
 
 <section class="slide" id="variables">
@@ -511,23 +526,8 @@ Also, the manager would like to be able to delegate some tasks to specific peopl
   - Useful for getting open tasks on a document, and eventually close them using an escalation rule (more details later)
 
 http://doc.nuxeo.com/x/EQGw
- </section>
-    
-<section class="slide" id="assignees">
-###Task Assignment
-####To a static user/group
-- Using "group:…" or "user:..." notation 
-
-#### To the workflow initiator
-- <code>workflowInitiator</code> variable
-- See also <code>nodeLastActor</code>
-
-#### To a computed variable
-- Use input chain to set a Node or Workflow variable
-- Leverage vocabulary tables to provide a quick mapping interface between some users and some others (for example using employee as key and manager as value)    
-
 </section>
-            
+
 <section class="slide" id="set-workflow">
 ###How to set workflow and node variables
 ####From the task form
@@ -556,16 +556,92 @@ Time to finalise our workflow!
       class="exercise-icon">
 ### Practice - Task form, workflow variables (2/2)
 #### Implement a delegate task button
-- Add a button in the accept/reject node for the Administrator to delegate the task. This button should generate a transition leading to new nodes. 
+- Add a button in the accept/reject node for the Administrator to send a validation task to the communication service. This button should generate a transition leading to new nodes. 
 When this transition is followed: 
-    - Create a task for the Administrator to choose one or more people to assign the task to.
-    - Once he has chosen the assignees and validated, they should be assigned an accept/reject task.
-    - Members of the <code>communicationservice</code> group have to be assigned the task by default.
-    - The assignees should be able to see the manager's comment when processing the task.
-    - Anyone of the assignees can approve the publication or reject it.
-    - The assignees need temporary access to the document being published.
-    - The assignees need to fill in a mandatory comment when approving or rejecting the task.
-    - In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment and the delegates comment.
+    - Each group member of the <code>communicationservice</code> group has to be assigned the task.
+    - They should be able to see the manager's comment when processing the task.
+    - They need temporary access to the document.
+    - They should validate or refuse the document within 3 minutes (they're quick !).
+    - Add a button and transition for them to potentially refuse the validation.
+    - Using transition conditions and variables, make sure the document is approved only if the majority votes for it.
+    - If the document is approved, publish it. If not end the workflow.
+</section>
+
+<section class="slide" id="questions-wf-tasks-variables">
+## Questions?
+</section>
+
+<section class="slide" id="fork">
+###Want to go deeper?
+- (optional) [Escalation rules](3.6_Workflows.html#workflows-escalation-context)
+- (optional) [Advanced information](3.6_Workflows-advanced.html)
+- Back to the [training agenda](0_Introduction.html#day-3)
+- [Ending](99_Ending.html)
+- [Extension points](4.0_Extension-points.html)
+</section>
+
+<section class="slide" id="workflows-escalation-context">
+### Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>
+Our workflow is almost perfect. One last detail is that in case people from the communication service do not process the task in time, it should be considered that the document is refused by default. Let's handle it.
+</section>
+
+<section class="slide" id="escalation">
+## Escalation rules
+</section>
+
+<section class="slide" id="escalation-concepts">
+### Escalation rules
+#### Concepts 
+- Used to process automatic tasks on workflows depending on conditions
+- A scheduler checks periodically the rules conditions and executes the corresponding chains when evaluated to true
+- Escalation rules can be executed once or multiple times
+- Escalation rules are only available on suspended task nodes, awaiting for a user action
+
+#### Why do I need them ?
+- Common use cases include :
+    - Sending friendly reminders by email periodically
+    - Close automatically a task / follow a transition if the task due time is over
+</section>
+
+<section class="slide" id="escalation-usage">
+### Escalation rules
+#### Usage
+- In task nodes edition, escalation rules are accessible using the corresponding tab.
+
+#### Properties
+- Id: unique id for the escalation rule
+- Condition: condition to be checked. For example:<br />
+<code>@{CurrentDate.calendar.compareTo(Context["taskDueTime"])>0}</code><br />
+means "as soon as task due time is over".
+- Chain: automation chain to be executed if condition is evaluated to true.
+- Multiple execution: chain will be launched only once unless you check that option.
+</section>
+
+<section class="slide" id="escalation-chain">
+### Escalation rules
+#### Related automation chain operations
+Operations are available in the <code>workflow context</code> category in order to be used with escalation rules:
+
+#### <code>Get open tasks</code>
+- After having fetched the context document, this allows to get open tasks for a specific workflow instance.
+- To be used with:
+    - The node id (available from the node's general tab)
+    - The <code>Context["workflowInstanceId"]</code> variable in order to fetch the workflow instance id.
+
+#### <code>Complete task</code>
+- Once open tasks have been fetched, allows to simulate the click of a button by the user in order to follow a transition.
+</section>
+
+<section class="slide exercise" id="exercise-escalation-rules">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Escalation rules
+#### Completing a task as soon as due time is over
+- In the communication service validation task:
+    - add an escalation rule with id <code>closeOnDueTime</code>
+    - Set a condition for the rule to be executed as soon as due task time is over
+    - The chain should complete the task by following a refusal transition
 </section>
 
 <section class="slide" id="questions-wf-tasks-variables">
@@ -576,6 +652,7 @@ When this transition is followed:
 ###Want to go deeper?
 - (optional) [Advanced information](3.6_Workflows-advanced.html)
 - Back to the [training agenda](0_Introduction.html#day-3)
+- [Ending](99_Ending.html)
 - [Extension points](4.0_Extension-points.html)
 </section>
 
