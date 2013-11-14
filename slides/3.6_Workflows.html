@@ -300,7 +300,7 @@ These chains are executed using an unrestricted session!
 ### Practice - Nodes and transitions
 
 - Retrieve your <code>memoValidationWorkflow</code> 
-- Add a new node of <code>Simple task</code> type
+- Add a new node of <code>Node</code> type
     - Edit the node's general information
     - Add a transition named <code>validation</code> and leave the default condition.
     - Upon following this transition, an automation chain named `acceptMemo` should be launched. 
@@ -458,7 +458,7 @@ Click &lt;a href="${docUrl}"&gt;here&lt;/a&gt; to see the document.</code></pre>
       class="exercise-icon">
 ### Practice - Tasks
 #### Update the workflow to add a validation system
-- Replace the `approve` node with an `accept/reject` node
+- Replace the `Node` node with an `accept/reject` node
 - Assign the task to <code>Administrator</code>
 - Due date should be the current date
 - The assignee should receive a notification email (use the default notification template)
@@ -545,8 +545,6 @@ http://doc.nuxeo.com/x/EQGw
       class="exercise-icon">
 ### Practice - Task form, workflow variables (1/2)
 #### Implement a validation comment
-Time to finalise our workflow!
-
 - In the accept/reject node we added earlier, add a field for the <code>Administrator</code> to fill in a **mandatory** comment. Make sure this comment could be used later in another node.
 - In case the document is rejected, send a notification email to the workflow initiator. The email should contain the manager's comment.
 </section>
