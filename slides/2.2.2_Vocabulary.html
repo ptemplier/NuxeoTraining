@@ -79,7 +79,7 @@
     - Order: Integer used in some widget to order the list
 - Stored in the database (one table per vocabulary)
 - Existing vocabularies can be managed in the admin center by administrators or members of the power users group
-- Can be used with the "Vocabulary" or "Chained vocabulary" widgets
+- Can be used with the <code>Vocabulary</code>, <code>Chained vocabulary</code> or <code>Single directory suggestion</code> widgets
 </section>
 
 <section class="slide" id="severalvoc">
@@ -88,7 +88,7 @@
 - Simple: Can be used alone or as a parent vocabulary
 - Child: Entries are linked to a simple vocabulary
 - Hierarchical: Both parent and child entries are defined at the same time
-    - 2 levels max (in studio), unlimited levels programatically
+    - Unlimited levels using Studio with the <code>Single directory suggestion</code> widget, 2 levels max with the <code>Vocabulary</code> or <code>Chained vocabulary</code> widgets.
 </section>
 
 <section class="slide" id="vocpolicy">
@@ -132,7 +132,7 @@
 #### Add the widget
 - Add a new widget for the category to the `Book` layout
    - Stores selected value in <code>bkcommon:category</code>
-   - <code>Chained vocabulary</code> widget type
+   - <code>Single directory suggestion</code> widget type
    - Takes values from the <code>category</code> vocabulary
    - Required
    
