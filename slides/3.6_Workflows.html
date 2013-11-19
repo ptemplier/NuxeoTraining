@@ -477,10 +477,8 @@ Click &lt;a href="${docUrl}"&gt;here&lt;/a&gt; to see the document.</code></pre>
 <blockquote><p>
 Things are getting better.<br /><br />
 
-Still, there are further improvements we need to achieve. 
-For instance, the manager would like to leave comments on the document, and make sure it is received by the worklow's initiator in case the document is rejected. <br /><br />
-He also realised that he often ends up delegating the task to the communication service and would like a button to do it quicker.<br /><br />
-The communication service, on its side, wants to validate the document only if the majority approves it.
+Still, there are further improvements we need to achieve. <br />
+For instance, the manager would like to leave comments on the document, and make sure it is received by the worklow's initiator in case the document is rejected.
 </section>
 
 <section class="slide" id="variables">
@@ -540,13 +538,65 @@ http://doc.nuxeo.com/x/EQGw
 ![A task form with a preinitialized field](img/workflow-preinit-var.png)
 </section> 
 
-<section class="slide exercise" id="exercise-workflow-tasks-variables-1">
+<section class="slide exercise" id="exercise-workflow-tasks-variables-normal-1">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Task form, workflow variables (1/2)
+### Practice - Task form, workflow variables
 #### Implement a validation comment
-- In the accept/reject node we added earlier, add a field for the <code>Administrator</code> to fill in a **mandatory** comment. Make sure this comment could be used later in another node.
+- Add a workflow variable named <code>validatorComment</code>, of string type.
+- In the accept/reject node's form, add the <code>validatorComment</code> as a required field so that the validators (in this case the Administrator) can fill his comment.
+- In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment.
+</section>
+
+<section class="slide" id="questions-wf-tasks-variables-1">
+## Questions?
+</section>
+
+<section class="slide" id="fork-task-variables">
+###Want to go deeper?
+- (optional) [Advanced exercise](3.6_Workflows.html#workflows-variables-exercise-2-context)
+- Back to the [training agenda](0_Introduction.html#day-3)
+- [Ending](99_Ending.html)
+- [Extension points](4.0_Extension-points.html)
+</section>
+
+<section class="slide" id="workflows-variables-exercise-2-context">
+### Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>
+The manager ends up validating every memo, and loses too much time.<br />
+He asks you to let the workflow initiator choose who should validate his memo.
+</section>
+
+<section class="slide exercise" id="exercise-workflow-tasks-variables-normal-2">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Task form, workflow variables (optional)
+#### Let the user choose who will validate the doc
+- In the accept/reject node we added earlier, add a field <code>validatorComment</code> for the validator (in the case the Administrator) to fill in a mandatory comment. Make sure this comment could be used later in another node.
 - In case the document is rejected, send a notification email to the workflow initiator. The email should contain the manager's comment.
+</section>
+
+<section class="slide" id="questions-wf-tasks-variables-2">
+## Questions?
+</section>
+
+<section class="slide" id="fork-task-variables">
+###Want to go deeper?
+- (optional) [Advanced exercise](3.6_Workflows.html#workflows-advanced-tasks-variables-context)
+- (optional) [Escalation rules](3.6_Workflows.html#workflows-escalation-context)
+- (optional) [Advanced information](3.6_Workflows-advanced.html)
+- Back to the [training agenda](0_Introduction.html#day-3)
+- [Ending](99_Ending.html)
+- [Extension points](4.0_Extension-points.html)
+</section>
+
+<section class="slide" id="workflows-advanced-tasks-variables-context">
+### Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>
+There is one optional request the manager would like to see implemented.<br /><br />
+
+He realised that the validation task often ends up in the hands of the communication service and would like a button to do it quicker.<br /><br />
+The communication service, on its side, wants to validate the document only if the majority approves it.
 </section>
 
 <section class="slide exercise" id="exercise-workflow-tasks-variables-2">
@@ -565,11 +615,11 @@ When this transition is followed:
     - If the document is approved, publish it. If not end the workflow.
 </section>
 
-<section class="slide" id="questions-wf-tasks-variables">
+<section class="slide" id="questions-exercise-tasks-variables-2">
 ## Questions?
 </section>
 
-<section class="slide" id="fork">
+<section class="slide" id="fork-advanced-task-variables">
 ###Want to go deeper?
 - (optional) [Escalation rules](3.6_Workflows.html#workflows-escalation-context)
 - (optional) [Advanced information](3.6_Workflows-advanced.html)
@@ -646,7 +696,7 @@ Operations are available in the <code>workflow context</code> category in order 
 ## Questions?
 </section>
 
-<section class="slide" id="fork">
+<section class="slide" id="fork-wf-advanced">
 ###Want to go deeper?
 - (optional) [Advanced information](3.6_Workflows-advanced.html)
 - Back to the [training agenda](0_Introduction.html#day-3)
