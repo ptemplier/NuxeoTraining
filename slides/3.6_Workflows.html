@@ -543,8 +543,8 @@ http://doc.nuxeo.com/x/EQGw
       class="exercise-icon">
 ### Practice - Task form, workflow variables
 #### Implement a validation comment
-- Add a workflow variable named <code>validatorComment</code>, of string type.
-- In the accept/reject node's form, add the <code>validatorComment</code> as a required field so that the validators (in this case the Administrator) can fill his comment.
+- Add a workflow variable named <code>validatorsComment</code>, of string type.
+- In the accept/reject node's form, add the <code>validatorsComment</code> as a required field so that the validators (in this case the Administrator) can fill his comment.
 - In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment.
 </section>
 
@@ -572,8 +572,10 @@ He asks you to let the workflow initiator choose who should validate his memo.
       class="exercise-icon">
 ### Practice - Task form, workflow variables (optional)
 #### Let the user choose who will validate the doc
-- In the accept/reject node we added earlier, add a field <code>validatorComment</code> for the validator (in the case the Administrator) to fill in a mandatory comment. Make sure this comment could be used later in another node.
-- In case the document is rejected, send a notification email to the workflow initiator. The email should contain the manager's comment.
+- Add a workflow variable named <code>validators</code>.
+- Between the start node and the accept/reject node, add a task node so the workflow initiator can choose who should validate the doc. This should be mandatory.
+- The form should fill in the <code>validators</code> workflow variable.
+- In the accept/reject node, remove the administrator as an assignee and make sure the <code>validators</code> workflow variable is used instead.
 </section>
 
 <section class="slide" id="questions-wf-tasks-variables-2">
