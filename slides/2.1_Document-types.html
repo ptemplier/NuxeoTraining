@@ -54,11 +54,7 @@
 
 <section class="slide" id="wherewego-context-book">
 ###Context <img src="img/frog-teacher.png" class="float-left" /> 
-<blockquote><p>The "Best books" library has decided to implement Nuxeo in order to manage its book collection. 
-<br /><br />
-And YOU will be in charge of their project. 
-<br /><br />    
-After a quick discussion, you understand that books need specific metadata to be saved, so you decide to start by creating a corresponding document type.</p></blockquote>
+<blockquote><p>Now that you have collected the users needs, you understand that in order to manage a book library properly, specific metadata needs to be saved. So you decide to start by creating corresponding document types.</p></blockquote>
 </section>
 
 <section class="slide" id="wherewego">
@@ -83,7 +79,7 @@ After a quick discussion, you understand that books need specific metadata to be
 ####At the end of the course:
 <img src="img/folderish-booklibrary.png" class="float-right" />
 A <code>BookLibrary</code> document type <br />
-Can contain `Book` and `BookLibrary` documents
+Can contain `Book` documents
 </section>
 
 <section class="slide" id="document-type">
@@ -93,18 +89,18 @@ Can contain `Book` and `BookLibrary` documents
 - a set of schemas to define its storage structure 
 - a set of facets which defines the document behavior or capabilities
   - eg: <code>Folderish</code>, <code>Versionable</code>, <code>Commentable</code>
+- its parent type : every document type you create inherits from another one
+    - Schemas and facets are both inherited
+    - Base document type in Nuxeo is `Document`, all document types inherit at least from it
+- Container types: Where the document type can be created
 </section>
 
 <section class="slide" id="doctype-properties">
 ### Document type definition
-####Additional properties
-- Extends: Defines what properties the document type will inherit from
-    - Schemas and facets are both inherited
-    - Base document type in Nuxeo is "Document", all document types inherit from it
+####UI properties
 - Label
 - Category: Where the document will be displayed at creation time
-- Icons
-- Container types: Where the document type can be created 
+- Icons 
 </section>
 
 <section class="slide exercise" id="exercise-doctype-creation">
@@ -119,6 +115,7 @@ Can contain `Book` and `BookLibrary` documents
     - Category: Document
     - Icons: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/book16.png" target="_blank">files/book16.png (small icon)</a> & <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/book32.png" target="_blank">files/book32.png (large icon)</a>
     - Add the `Versionable` facet
+    - Add the `Publishable` facet
 - Commit your changes.
 - Deploy your changes using hot reload and see if you can create a book.
 </section>
@@ -126,7 +123,7 @@ Can contain `Book` and `BookLibrary` documents
 <section class="slide" id="wherewego-context-booklibrary">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>
-The "Best books" library feels that the Book document type will not be enough to organize their collection. Instead of using folders, they want to implement a somewhat similar document type called BookLibrary which should be able to contain books or other book libraries. No problem, you say!
+The "Best books" library feels that the Book document type will not be enough to organize their collection. Instead of using folders, they want to implement a somewhat similar document type called BookLibrary which should be able to contain books. No problem, you say!
 </p></blockquote>
 </section>
 
@@ -152,7 +149,7 @@ The "Best books" library feels that the Book document type will not be enough to
     - Category: Collaborative spaces
     - Icons: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookLibrary16.png" target="_blank">files/bookLibrary16.png (small icon)</a> & <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookLibrary32.png" target="_blank">files/bookLibrary32.png (large icon)</a>
     - Container types: Folder, Workspace
-    - Accepted children types: Book, BookLibrary
+    - Accepted children types: Book
     - `Folderish` facet
 - Commit your changes.
 - Deploy your changes using hot reload. 
@@ -172,9 +169,16 @@ Now that their custom document types have been created, the "Best books" library
 - a unique name
 - a prefix (a kind of namespace or short name)
 - A set of different fields/metadata 
+
+
+#### Metadata concepts
 - Each metadata has:
   - A name 
   - A type 
+  
+- Metadatas can have the same name as long as they are located in different schemas
+- To get or set a metadata Nuxeo uses a unique id, called a `xpath`
+- A xpath is represented as `schemaname:metadataname`
 </section>
 
 <section class="slide" id="metadata-types">
@@ -184,7 +188,7 @@ Now that their custom document types have been created, the "Best books" library
     - int: Integer number
     - float: Floating number
     - date: Well, a date
-    - blob: aAbinary file
+    - blob: A binary file
     - complex: See below
 - Complex type: composed of several fields that can have the same or different types.<br /> For instance an `author` complex type could contain:
       - name (string)
@@ -209,15 +213,13 @@ Now that their custom document types have been created, the "Best books" library
       class="exercise-icon"/>
 ### Practice (1/2)
 #### Schemas
-- Define a new `bookcommon` schema (prefix will be `bkcommon`). Let’s say that, for now, a Book is defined by: 
+- Edit the `Book`'s schema schema. Let’s say that, for now, a Book is defined by: 
   - Its ISBN: `isbn` (string) 
   - Its publication date: `publicationDate` (date) 
   - A `rating` (int)
   - Its `author` (complex, multivalued), composed of:
         - A `name` (string)
         - A first name: `firstName` (string) 
-- Make sure this schema can be reused for another document type.
-- Add this schema to the `Book` document type definition.
 </section>
 
 <section class="slide exercise" id="exercise-schema-book-try">
@@ -237,7 +239,7 @@ Now that their custom document types have been created, the "Best books" library
 <section class="slide" id="next">
 ###Next?
 - Back to the [training agenda](0_Introduction.html#day-1)
-- [Layouts (forms and view)](2.2_Layouts.html)
+- [Versioning](2.1.2_Versioning.html)
 </section>
 
   <!-- deck.navigation snippet -->

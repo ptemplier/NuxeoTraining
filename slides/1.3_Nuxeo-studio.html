@@ -52,6 +52,15 @@
 # Nuxeo training - Introduction to Nuxeo studio
 </section>
 
+<section class="slide" id="wherewego-context-studio">
+###Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>The "Best books" library has decided to implement Nuxeo in order to manage its book collection. 
+<br /><br />
+And YOU will be in charge of their project. 
+<br /><br />    
+Specifications are being written at the moment. In the meantime, you need to familiarize yourself with the tools you are going to use.</p></blockquote>
+</section>
+
 <section class="slide" id="studio-introduction">
 ##Understanding Nuxeo studio
 </section>
@@ -76,67 +85,56 @@
 
 <section class="slide" id="online-tools-1">
 ###Nuxeo studio - How does it work?
+
+<img alt="studio-principles" src="img/studio-principles.png" />
+
 - Direct access via <a href="http://connect.nuxeo.com/nuxeo/site/studio/ide" target="_blank">Connect portal</a>
 - 30 days free trial
 - Provides a jar file with your project configuration 
-- studio produces no compiled code, XML only
+- studio produces no compiled code, XML only. Your local Nuxeo instance connects to Studio and deploys the configuration made
 - Development tools integration (Maven and Nuxeo IDE)
 </section>
 
-<section class="slide" id="main-features">
-###Nuxeo studio - Main features
-- Branding (Theme configuration)
-- Document types and forms configuration
-- Content views and search features
-- Lifecycle, workflows, automation, notifications
-- Roles, permissions, users and groups
-- Ability to import pre-built Application Templates
+<section class="slide" id="studio-navigation-project-info">
+###Nuxeo studio - Navigation and features
+#### Project information 
+<img alt="studio-navigation" src="img/studio-navigation-project-info.png" />
+Get the essential information right away.
 </section>
 
-<section class="slide exercise" id="exercise-studio">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="hibou exercise"
-      class="exercise-icon">
-###Practice Nuxeo studio
-#### Connect
-- Create a <a href="https://connect.nuxeo.com/nuxeo/site/connect/trial/form" target="_blank">trial account</a> and access Nuxeo studio
-- Configure your Nuxeo Connect account on your Nuxeo instance: Admin Center > Nuxeo Connect
+<section class="slide" id="studio-navigation-project-menu">
+###Nuxeo studio - Navigation and features
+#### Project menu
+<img alt="studio-navigation" src="img/studio-navigation-project-menu.png" style="float:right; vertical-align:text-top;" /> Configure your application by adding new components. <br />
+
+##### Buttons
+- New : add a new element
+- Import : import pre built application templates
+- Download : retrieve your project as a jar file
+- Commit : commit your changes into studio's versioning tool
+
+##### Sub menus
+- Resources : upload new elements (images, translation files...)
+- Branding : define your logo, colors...
+- Content model : create your document types, schemas (metadata)...
+- Workflows 
+- Listing and views : customize your documents presentation and navigation
+- Automation : implement your business logic
+- Templates : email and document templates creation
+- Roles and permissions : define your own permissions and default users / groups
+- Vocabularies : handle lists of pre defined options
+- Advanced settings : extend your platform even further
 </section>
 
-<section class="slide" id="studio-versioning">
-##Nuxeo studio - Versioning
-</section>
+<section class="slide" id="studio-navigation-settings-menu">
+###Nuxeo studio - Navigation and features
+#### Settings and versioning menu
+<img alt="studio-navigation" src="img/studio-navigation-project-settings.png" style="display:inline; vertical-align:text-top;" /> Define your target platform and general options there. <br />
 
-<section class="slide" id="versioning">
-###Nuxeo studio - Versioning
-#### Concepts 
-- Save your project state
-- Revert to a previous state anytime
-- Release versions and deploy them easily
-- Simplified versioning tool: No branching and no conflict management
-</section>
-
-<section class="slide" id="versioning-stages">
-###Nuxeo studio - Versioning
-#### Three different stages
-- Commits
-    - Preferably used for small changes
-    - Do not hesitate to commit often so you can revert a change if needed without losing too much
-- Tags
-    - When you feel the version is complete enough
-    - Any commit can be tagged
-    - Tags remain available even if you revert to a commit done before the tag
-- Snapshots
-    - When you feel the version can be released for production
-    - Snapshots can be downloaded and installed directly from the admin center
-</section>
-
-<section class="slide" id="studio-versioning-management">
-###Nuxeo studio - Versioning
-#### Management
-- Define your commit style from Settings and versioning > Project settings
-    - On save: Automatic commit each time you press save on a screen
-    - On build: When you create a tag or a snapshot- Manual: Only when you choose to
-    - No branching and no conflict management implementation
+- Project settings : define your general settings including the platform target version
+- Versioning : manage your application versions with this integrated tool
+- Application templates : import pre built application templates (identical to the import button)
+- Registries : advanced feature - declare your custom developed elements to use them in studio 
 </section>
 
 <section class="slide exercise" id="exercise-studio-versioning">
@@ -145,8 +143,6 @@
 #### Familiarize with studio
  * Connect to your Nuxeo studio Account, either with Direct Access URL or from Nuxeo DM <br /> `Admin center` > `Update Center` > `Studio` > `Go to Nuxeo studio` link
  * Unimport the DM Default Template<br />`Settings and versioning` > `Application templates` > `Nuxeo DM default configuration` > `Remove`
- * Set your project commit style to manual <br /> `Settings and versioning` > `Project settings`
- * Go to `Settings and Versioning` > `Versioning`, create a tag called `emptyProject`: Goal will be to be able to switch back to an empty project at anytime of your project 
  * Create a new branding called `bestBooksTheme` <br /> `Project` > `Branding`
     * Leave the default values except for the logo image: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bestBooksLogo.png" target="_blank">files/bestBooksLogo.png</a>
     * Save
@@ -156,7 +152,9 @@
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="hibou exercise" class="exercise-icon">
 ###Practice Nuxeo studio (2/2)
 #### Test your changes
- * Deploy your studio project on DM <br /> `Admin Center` > `Update Center` > `Nuxeo studio` > `Update`
+ * **Deploy your studio project on your local DM instance** <br /> `Admin Center` > `Update Center` > `Nuxeo studio` > `Update`
+ * Activate the development mode to allow use of the hot reload functionality
+ * Restart your instance
  * Check that your project is correctly deployed (look at the logo on the top left)
 </section>
 

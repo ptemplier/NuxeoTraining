@@ -265,7 +265,7 @@ Up to now, they are doing this manually and would love to see this information p
 - Schema prefixes cannot be used in email templates, you need to write the complete schema name.
 
 #### Email template
-<pre><code>Hello ${Document.bookcommon['borrowedBy']},
+<pre><code>Hello ${Document.book['borrowedBy']},
 Please bring the book ${Document.dublincore['title']} back!
 Thanks,
 The Best books library</code></pre>
@@ -282,7 +282,7 @@ The Best books library</code></pre>
 <pre><code>Fetch > Query
     SELECT * FROM Book 
     WHERE ecm:isCheckedInVersion = 0 
-    AND bkcommon:borrowedAt < @{CurrentDate.seconds(-60)} 
+    AND book:borrowedAt < @{CurrentDate.seconds(-60)} 
     AND ecm:currentLifeCycleState = 'borrowed'
 Document > Follow life cycle transition
     Value: to_delayed
@@ -290,7 +290,7 @@ Notification > Send email
     From: noreply@nuxeo.com
     Message: Select your email template (expression editor button)
     Subject: Please bring back the book you borrowed
-    To: @{Fn.getEmail(Document['bkcommon:borrowedBy'])}
+    To: @{Fn.getEmail(Document['book:borrowedBy'])}
 </code></pre>
 
 <div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div> 

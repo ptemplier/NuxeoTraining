@@ -165,12 +165,12 @@ AND ecm:parentId = ?</code></pre>
 <pre><code>ecm:mixinType != 'HiddenInNavigation' 
 AND ecm:isCheckedInVersion = 0 
 AND ecm:currentLifeCycleState != 'deleted' 
-AND bkcommon:category = ? 
+AND book:category = ? 
 AND ecm:uuid != ? 
-AND bkcommon:category IS NOT NULL 
-AND bkcommon:category != ''</code></pre>
+AND book:category IS NOT NULL 
+AND book:category != ''</code></pre>
 - Parameters
-<pre><code>#{currentDocument.bkcommon.category}
+<pre><code>#{currentDocument.book.category}
 #{currentDocument.id}</code></pre>
 <div class="sticker"><a href="#exercise-tabs2">Back to the exercise</a></div>
 <div class="sticker"><a href="#exercise-tabs-help">Previous help</a></div>
