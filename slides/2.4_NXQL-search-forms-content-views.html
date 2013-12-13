@@ -108,6 +108,10 @@ and a customized advanced search form.</p></blockquote>
 - A layout defines the columns displayed for the result
 </section>
 
+<section class="slide" id="NXQLTitle">
+## NXQL
+</section>
+
 <section class="slide" id="NXQL">
 ###NXQL - Nuxeo Query Language
 #### Concepts
@@ -180,26 +184,63 @@ SELECT * FROM Book WHERE ecm:fulltext = 'world'
 ## Questions?
 </section>
 
+<section class="slide" id="CVTitle">
+## Content views definition
+</section>
+
 <section class="slide" id="queryFilter">
-### Query filter
-- Uses "where" clause of NXQL
-- Can use variables (EL expression language, giving access to Seam beans), ex:
+### Content views
+#### Query and form tab - Query filter
+
+<img alt="query" src="img/contentview-query.png" />
+
+- Base query that will provide a first set of results
+- Can be static or dynamic (using variable)
+- Filters can be added to let users refine the search
+</section>
+
+<section class="slide" id="queryVariables">
+### Variables usage
+#### Concepts
+- Nuxeo uses different languages throughout the platform, each having its own syntax :
+  - EL
+  - MVEL
+  - Freemarker
+
+- Metadata and available variables can be different depending on language and context
+http://doc.nuxeo.com/x/L4PZ
+
+- Content views use EL expression language, giving access to many properties, ex:
     - `#{currentDocument.id}`
     - `#{currentDocument.path}`
-    - `#{currentDocument.schema.property}`
+    - `#{currentDocument.schema.metadata}`
     - `#{currentUser.name}`
 - Use `?` In the query filter and add query parameters in the same order to use variables
-- Example query
+
+#### Example query
 <pre><code>ecm:mixinType != 'HiddenInNavigation' 
 AND ecm:isCheckedInVersion = 0 
 AND ecm:currentLifeCycleState != 'deleted' 
 AND ecm:parentId = ?</code></pre>
-- Parameters
+
+Parameters
 <pre><code>#{currentDocument.id}</code></pre>
+</section>
+
+<section class="slide" id="querySearchLayout">
+### Content views
+#### Query and form tab - Search layout
+
+<img alt="searchlayout" src="img/contentview-searchlayout.png" />
+
+- Filters to let the user refine the base query
+- Drag and drop your widgets as usual
 </section>
 
 <section class="slide" id="result-layout">
 ###Result layout
+<img alt="results" src="img/contentview-results.png" style="float:right" />
+
 - Defines the result columns
 - Displays fields with layout widgets
 - Only valid for the current content view if created in it
