@@ -56,17 +56,15 @@
 <section class="slide" id="wherewego-context-tabs">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>Remember, you were being requested to add:<br /><br />
-- A separate view of books <strong>still in library</strong> when viewing a book library <br /><br />
-- A separate view of <strong>borrowed</strong> books when viewing a book library <br /><br />
+- A separate view of books <strong>still in library</strong> and <strong>borrowed</strong> when viewing a `BookLibrary` <br /><br />
 - A listing of books from the same category when viewing a Book.<br /><br />
-Now that we have created our life cycle, nothing can stop us from doing so:)</p></blockquote>
+Now that we have created our life cycle, nothing can stop us from doing so :)</p></blockquote>
 </section>
 
 <section class="slide" id="wherewego">
 ### What we want to do
 #### At the end of the course
-- Add a new tab to see only the <strong>inLibrary</strong> books of a `BookLibrary`
-- Add a new tab to see only the <strong>borrowed</strong> books of a `BookLibrary`
+- Add a new tab to see only the <strong>inLibrary</strong> and <strong>borrowed</strong> books of a `BookLibrary`
 - Add a new tab for the `Book` document type listing books of the same category
 </section>
 
@@ -108,25 +106,21 @@ Now that we have created our life cycle, nothing can stop us from doing so:)</p>
       class="exercise-icon">
 ### Practice (1/2)
 #### Tabs
-##### Define a new tab that will show all the in-house Books
+##### Define a new tab that will show all the in-house and borrowed books
 - Create a new content view that will display the children `inLibrary` Books of the current document (use the `bookTableLayout` for the results display)
-- Go to the BookLibrary doctype > Tabs > Content views, add a new Tab that displays the created content view
-
-##### Define a similar tab for borrowed Books
 - Copy the content view you previously created and modify it to show the borrowed Books
-- Go to the BookLibrary doctype > Tabs > Content views, add a new Tab that displays this content view as well
-<div class="sticker"><a href="#exercise-tabs-help">Need help?</a></div>
-</section>
+- Go to `Listing and views` > `Tabs`, create a tab named `booksByStatus` and use the content view widget
+- Make sure your tab will only appear for `BookLibrary` documents 
 
 <section class="slide exercise" id="exercise-tabs2">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice (2/2)
 #### Tabs
-- Using the tab designer, add a new tab to the Book document named `sameCategoryBooks`
-- It will display a content view with all books from the same category (except the current book!)
+##### Define a new tab that will show all books of the same category when viewing a Book
+- Create a content view that will display a content view with all books from the same category (except the current book!)
     - (Use the `bookTableLayout` for the results display)  
-- Make sure your tab will only appear for Book documents
+- Make sure your tab will only appear for `Book` documents
 - Commit and deploy your changes
 - Check that the new tabs you created exist and show the correct data
 
@@ -166,9 +160,7 @@ AND ecm:parentId = ?</code></pre>
 AND ecm:isCheckedInVersion = 0 
 AND ecm:currentLifeCycleState != 'deleted' 
 AND book:category = ? 
-AND ecm:uuid != ? 
-AND book:category IS NOT NULL 
-AND book:category != ''</code></pre>
+AND ecm:uuid != ?</code></pre>
 - Parameters
 <pre><code>#{currentDocument.book.category}
 #{currentDocument.id}</code></pre>

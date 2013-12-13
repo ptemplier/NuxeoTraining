@@ -9,9 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Life cycle</title>
+<title>Nuxeo - Nuxeo studio versioning</title>
 
-<meta name="description" content="Nuxeo Training - LifeCycle, Automation chains, User actions, Tabs">
+<meta name="description" content="Nuxeo - Introduction to Nuxeo studio">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -47,81 +47,64 @@
     <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
       class="sub-part training">Trainings</span>
   </div>
-
-<section class="slide">
-# Nuxeo training - Life cycle
-</section>
-
-<section class="slide" id="wherewego-context-lifecycle">
-### Context <img src="img/frog-teacher.png" class="float-left" /> 
-<blockquote><p>Seeing what you have done with their book libraries, you are now kindly being requested to add more:<br /><br />
-- A separate view of books <strong>still in library</strong> and <strong>borrowed</strong> when viewing a `BookLibrary` <br /><br />
-- A listing of books from the same category when viewing a `Book`.<br /><br /> 
-To achieve these, we will need to define states for our books…</p></blockquote>
-</section>
-
-<section class="slide" id="wherewego">
-###What we want to do
-####At the end of the course
-<img alt="Book life cycle" class="float-right" src="img/lifecycle-book.png" />
-
-- Create a life cycle for <code>Book</code> documents
-- Apply this life cycle to the <code>Book</code> document type
-</section>
   
-<section class="slide" id="life-cycle">
-###Life cycle
-#### Concepts
-- Defines the state of a document
-- Defines allowed transitions from a state to another
-- Builtin core feature: All documents in Nuxeo have a life cycle and a state
-- Each document type can have its own life cycle
+<section class="slide" id="title">
+# Nuxeo training - Nuxeo studio versioning
 </section>
 
-<section class="slide" id="trash-folder">
-### Life cycle
-#### The trash folder
-The <code>deleted</code> state and the transitions <code>delete</code> and <code>undelete</code> are used to have the «trash» feature on the document whatever life cycle policy used in the document type.
-
-If you want to activate the trash feature on a document type that uses a custom life cycle policy, you must add those states and transitions to it.
+<section class="slide" id="wherewego-versioning">
+###Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>You just deployed your new document types and realised they do not show the proper information on screen.<br /><br /> It makes you think about an important feature: how may I cancel a change if someday I make a mistake ? Having a versioning tool would be appropriate. Fortunately, Studio integrates this feature natively. Let's see how.</p></blockquote>
 </section>
 
-<section class="slide exercise" id="exercise-lifecycle">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-    class="exercise-icon" />
-### Practice (1/2)
-#### Life cycle
-- Create a new life cycle policy called BookLifeCycle
-- Initial state: "inLibrary"
-- Create another state "borrowed"
-    - Create transitions to link each other
-    - Do not name them
-    - Save the life cycle. What are you seeing?
+<section class="slide" id="versioning">
+###Nuxeo studio - Versioning
+#### Concepts 
+- Save your project state
+- Revert to a previous state anytime
+- Release versions and deploy them easily
+- Simplified versioning tool: No branching and no conflict management
 </section>
 
-<section class="slide exercise" id="exercise-lifecycle">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-    class="exercise-icon" />
-###Practice (2/2)
-#### Life cycle
-- Create the "deleted" state
-- Add a `delete` transition for each previously created state
-- Add an `undelete` transition going back to the inLibrary state
-- Apply this life cycle to the `Book` document type definition
-- Commit your changes
-- Deploy your changes using hot reload
-- Check the initial state by creating a new Book
-
-We will create an action to change the life cycle later
+<section class="slide" id="versioning-stages">
+###Nuxeo studio - Versioning
+#### Managed in `Settings and versioning` > `Versioning` menu
+#### Three different stages
+- Commits
+    - Preferably used for small changes
+    - Do not hesitate to commit often so you can revert a change if needed without losing too much
+- Tags
+    - When you feel the version is complete enough
+    - Any commit can be tagged
+    - Tags remain available even if you revert to a commit done before the tag
+- Snapshots
+    - When you feel the version can be released for production
+    - Snapshots can be downloaded and installed directly from the admin center
 </section>
 
-<section class="slide" id="questions">
-##Questions?
+<section class="slide" id="studio-versioning-management">
+###Nuxeo studio - Versioning
+#### Management
+- Define your commit style from `Settings and versioning` > `Project settings`
+    - On save: Automatic commit each time you press save on a screen
+    - On build: When you create a tag or a snapshot- Manual: Only when you choose to
+    - No branching and no conflict management implementation
+</section>
+
+<section class="slide exercise" id="exercise-studio-versioning">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="hibou exercise"
+      class="exercise-icon">
+###Practice Nuxeo studio
+#### Versioning
+- Check your commit style in your project settings
+- Make sure you have commited your changes so far
+- Create a tag from your commit
 </section>
 
 <section class="slide" id="next">
-### What's next?
-- [Tabs](2.8_Tabs.html)
+###Next?
+- Back to the [training agenda](0_Introduction.html#day-1)
+- [Layouts (forms)](2.2_Layouts.html)
 </section>
 
   <!-- deck.navigation snippet -->
