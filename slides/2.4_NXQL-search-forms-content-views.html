@@ -122,8 +122,29 @@ Example: `SELECT * FROM Book WHERE book:isbn LIKE '%12%'`
 
 #### Tip: Test your query
 Use the advanced search as an administrator and go to the bottom of the screen.
+</section>
 
-####Full documentation
+<section class="slide" id="nxql-useful-properties">
+###NXQL - Useful properties 
+#### How to filter documents using...
+- Facets : <code>ecm:mixinType = 'MyFacet'</code>
+- Children of a `Folderish` document : <code>ecm:parentId = 'parentDocId'</code>
+- Document type : <code>ecm:primaryType</code>
+- Document metadata (`xpath`) : <code>schemaName:metadataName</code> <code>STARTSWITH / = / LIKE / ILIKE</code> <code>'value'</code>
+- Fulltext search (any indexed metadata) <code>ecm:fulltext = 'keyword'</code>
+- Document path : <code>ecm:path</code> <code>STARTSWITH / =</code> <code>'documentPath'</code>
+- Document status : <code>ecm:currentLifeCycleState = 'myState'</code>
+- Document tags (since 5.7.3) : <code>ecm:tag</code>
+- Document versions (or current working copy) : <code>ecm:isVersion = '0'</code>
+
+#### Querying complex properties
+- If your metadata is **not** multivalued : <code>schemaName:complexMetadataName/subMetadataName</code><br />
+Ex : <code>book:author/firstName</code>
+
+- If your metadata **is** multivalued : <code>schemaName:complexMetadataName/*/subMetadataName</code><br />
+Ex : <code>book:author/`*`/firstName</code>
+
+#### Full documentation
 http://doc.nuxeo.com/display/NXDOC/NXQL
 </section>
 
@@ -139,7 +160,7 @@ SELECT * FROM Document WHERE dc:coverage STARTSWITH 'foo/bar'
 
 SELECT * FROM Document WHERE dc:title = 'hello world 1' ORDER BY ecm:currentLifeCycleState
 
-SELECT * FROM Document WHERE ecm:fulltext = 'world'
+SELECT * FROM Book WHERE ecm:fulltext = 'world'
 </code></pre>
 </section>
 
@@ -152,6 +173,7 @@ SELECT * FROM Document WHERE ecm:fulltext = 'world'
     - All documents of <code>Book</code> type
     - All non-folderish documents
     - All documents created today
+    - All `Books` where an author's first name is filled
 </section>
 
 <section class="slide exercise" id="questions-nxql">
