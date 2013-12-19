@@ -188,9 +188,21 @@ SELECT * FROM Book WHERE ecm:fulltext = 'world'
 ## Content views definition
 </section>
 
+<section class="slide" id="CVZones">
+### Content views
+#### What it looks like in the platform
+
+<img alt="query" src="img/contentview-zones.png" />
+
+- Orange: <strong>Query filter</strong>. Defines which documents will be shown, using a NXQL query. It can be static or dynamic (using variables)
+- Purple: <strong>Search layout</strong>. To let users refine the search.
+- Blue: <strong>Results</strong>. Defines the metadata to be displayed for the resulting documents.
+</section>
+
 <section class="slide" id="queryFilter">
 ### Content views
-#### Query and form tab - Query filter
+#### How it is configured in Studio
+##### Query and form tab - Query filter
 
 <img alt="query" src="img/contentview-query.png" />
 
@@ -229,7 +241,8 @@ Parameters
 
 <section class="slide" id="querySearchLayout">
 ### Content views
-#### Query and form tab - Search layout
+#### How it is configured in Studio
+##### Query and form tab - Search layout
 
 <img alt="searchlayout" src="img/contentview-searchlayout.png" />
 
@@ -238,7 +251,9 @@ Parameters
 </section>
 
 <section class="slide" id="result-layout">
-###Result layout
+### Content views
+#### How it is configured in Studio
+##### Result layout
 <img alt="results" src="img/contentview-results.png" style="float:right" />
 
 - Defines the result columns

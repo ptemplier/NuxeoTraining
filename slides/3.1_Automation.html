@@ -73,6 +73,10 @@ Indeed, the tab displaying the in-house books won't be of much use if we cannot 
 <section class="slide" id="automation-concepts">
 ### Automation
 #### Concepts
+- Automation lets you implement business logic into your application ; a few examples :
+  - Change the document status when a user clicks on a button
+  - Add / update a PDF copy of a document when a document is created / modified
+  - Publish a document when it has been validated through a workflow and send an email to inform your users
 - Nuxeo uses automation chains to execute operations on documents
 
 #### An automation chain…
@@ -89,7 +93,7 @@ Indeed, the tab displaying the in-house books won't be of much use if we cannot 
 ### Automation - Operations
 #### What is it?
 <blockquote>
-Unitary and reusable operators that implement a particular documentary function, such as "move a document", "update a property", "change the lifecycle state", "transform to PDF", "send an email"...
+Unitary and reusable operators that implement a particular function, such as "move a document", "update a property", "change the lifecycle state", "transform to PDF", "send an email"...
 </blockquote>
 
 ####An operation is defined by
@@ -130,6 +134,7 @@ Unitary and reusable operators that implement a particular documentary function,
 ###A Chain in Studio
 
 <img alt="A chain in studio" src="img/automation-studio-chain.png" class="float-right" />
+<img src="img/automation-fetch.png" class="float-right" />
 
 - Ordered set of operations
 - Respecting input and output of operations
@@ -166,6 +171,7 @@ Unitary and reusable operators that implement a particular documentary function,
     <li> Some specific UI contextual document</li>
       <ul><li> <code>Fetch > UI CurrentWorkspace</code>,</li>
       <li> <code>Fetch > UI Current Domain</code>,</li>
+      <li> <code>Fetch > UI selected documents</code>,</li>
       <li> …</li>
       </ul>
     </ul>
@@ -185,12 +191,15 @@ Unitary and reusable operators that implement a particular documentary function,
 
 <section class="slide" id="useful-operation">
 ###Useful operations
-- Document > Create: Creates a document right below the input one
-- Document > Update Property / Document > Update Properties
-- Document > Move
-- Document > Copy
-- Document > Publish Document
-- Document > Delete
+- <code>Document > Create</code>: Creates a document right below the input one
+- <code>Document > Follow life cycle transition</code>
+- <code>Document > Update Property</code> / <code>Document > Update Properties</code>
+- <code>Document > Move</code>
+- <code>Document > Copy</code>
+- <code>Document > Publish Document</code>
+- <code>Document > Delete</code>
+- <code>Notification > Send email</code>
+- <code>User interface > Add info message</code>
 </section>
 
 <section class="slide" id="actions-h2">
@@ -199,20 +208,24 @@ Unitary and reusable operators that implement a particular documentary function,
 
 <section class="slide" id="user-actions">
 ###User actions
-#### Concepts
+#### What are user actions ?
 - User actions are buttons or links used throughout the platform
+- They are linked to an automation chain
+
+#### Where do they appear ?
 - Every user action belongs to a category, defining where it is displayed:
    - Contextual tools
-   - Header links
+   - Document list toolbar
    - Etc ..
     
-    http://doc.nuxeo.com/x/uYAk
+    http://doc.nuxeo.com/x/fYvZ
+    
+#### When do they appear ?
 - Filters can be set to display them depending on:
    - The current document type
    - The current user permissions
    - The current document lifecycle state 
    - Etc...
-- User actions are linked to an automation chain
 </section>
 
 <section class="slide" id="exercise-user-actions-automation-chains">
