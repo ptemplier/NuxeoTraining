@@ -505,10 +505,10 @@ For instance, the administrator would like to leave comments on the document, an
 ##### <code>NodeVariables["button"]</code>
 - Button id that was clicked for processing the task, if the current node is a task node
 
-##### <code>NodeVariables["tasks"]</code>
-##### <code>NodeVariables["numberOfTasks"]</code>
+##### <code>NodeVariables["tasks"].getNumberEndedWithStatus("MyStatus")</code> : how many people have approved / rejected a document for instance
+##### <code>NodeVariables["numberOfTasks"]</code> : total number of tasks created (useful to calculate an approval percentage)
 ##### <code>NodeVariables["numberOfProcessedTasks"]</code>
-- When using multiple tasks, used to calculate approval percentage for instance
+- When using multiple tasks, these variables are usually combined to calculate approval percentage for instance
  </section>
  
 <section class="slide" id="built-variables3">
@@ -545,7 +545,7 @@ http://doc.nuxeo.com/x/EQGw
 #### Implement a validation comment
 - Add a workflow variable named <code>validatorsComment</code>, of string type.
 - In the accept/reject node's form, add the <code>validatorsComment</code> as a required field so that the validators (in this case the Administrator) can fill his comment.
-- In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment.
+- In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment.<br /> Your email template can be created in Studio into the <code>Templates > Mail templates</code> menu.
 </section>
 
 <section class="slide" id="questions-wf-tasks-variables-1">
