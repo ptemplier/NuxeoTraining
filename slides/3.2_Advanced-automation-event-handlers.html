@@ -55,30 +55,34 @@
 <section class="slide" id="wherewego-context-automation">
 ### Context <img src="img/frog-teacher.png" class="float-left" /> 
 <blockquote><p>
-Too many people forget to bring books back to the library. <br /><br />
-The manager wants you to implement something in Nuxeo to remind them of their duty.
+The users want to go further : <br />
+- They would like to know who borrows a book <br />
+- and would like to borrow several books at the same time.<br />
+Fine, we'll add it !
 </p></blockquote>
 </section>
 
 <section class="slide" id="wherewego-advanced-automation">
 ###What we want to do
-####At the end of the course
-<br />
-##### A user action that:
-- Set books borrowed since 1 minute as delayed
-- Sends automatically an email to the borrower
+#### Update our content model and automation chain:
+- So that we can tell who borrowed a book
+
+#### A user action that:
+- Fetches all books selected in a book library
+- Sets them as borrowed
+- Handles the possibility that the user can click without selecting books first
 </section>
 
-<section class="slide" id="Context-variable">
-##Advanced Automation - Context variables
-</section>
-  
-<section class="slide" id="exectution-context">
-### Context variables
-#### Concepts
-- Set input into a variable
-- Restore the variable somewhere else as the output
-- The variable is kept during the whole automation chain execution
+<section class="slide" id="advanced-automation-possibilities">
+### Advanced Automation - Possibilities
+#### Many things are possible using automation:
+
+- Setting variables
+- Doing loops
+- Using conditions
+- Running sub chains
+
+Let's see a few examples and practice.
 </section>
 
 <section class="slide" id="mvel-scripting-title">
@@ -89,35 +93,124 @@ The manager wants you to implement something in Nuxeo to remind them of their du
 ###Inject dynamic values with MVEL
 <img alt="automation-object-browser" src="img/automation-object-browser.png" class="float-right" />
 
-- In operation parameters: <code>@{mvel script evaluated}</code>
-- Objects browser in Studio, from each operation parameters <div class="further-info">will help you use the good syntax</div>
-- Object Fn, the Document Wrapper, the Date Wrapper.
+- In operation parameters use the <code>@{mvel script evaluated}</code> syntax to call variables
+- Use the expression editor button to insert your variable directly: <img src="img/automation/automation-expression-editor.png" style="display:inline-block; vertical-align:top;"/> 
+- With it, you can use the context variables, the Fn object, the Document Wrapper, the Date Wrapper, the current user...
 - Uses MVEL expression language
 
     http://doc.nuxeo.com/x/kYAV
 </section>
 
+<section class="slide exercise" id="exercise-automation1">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice 
+#### User actions and automation 
+Update a new field "Borrowed by" with the name of the current user (1/3)
+
+##### Add a new metadata to your book named « borrowedBy ». 
+(Make sure it is not editable, but it should be visible nonetheless)
+
+  - Update your schema
+  - Update your layout
+  - Use the `Text` widget
+<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-automation1-2">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice 
+#### User actions and automation 
+Update a new field "Borrowed by" with the name of the current user (2/3)
+     
+##### Update the automation chain `borrowBook` to:
+  - fetch the current document
+  - automatically fill the new field `borrowedBy` with the current user name
+  <!-- - refreshes the user interface - hidden: causes trouble with the unit test on this chain during day 4 -->
+<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-automation1-3">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice 
+#### User actions and automation 
+Update a new field "Borrowed by" with the name of the current user (3/3)
+
+- Commit and deploy your changes
+- Try your button out and see if the information is updated
+<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
+</section>
+
+<section class="slide" id="Context-variable">
+##Advanced Automation - Context variables
+</section>
+
+<section class="slide" id="execution-context">
+### Context variables
+#### Concepts
+- Set input into a variable
+- Restore the variable somewhere else as the output
+- The variable is kept during the whole automation chain execution
+
+#### What variables can I set ?
+- A text, a date, a number...<br />
+<code>Execution context > Set context variable</code>
+
+- One or several documents or files that are the output of the last operation:<br />
+<code>Execution context > Set context variable from input</code>
+
+#### How can I call my variable ?
+- You used <code>Execution context > Set context variable</code> >> <code>@{Context["variableName"]}</code>
+- You used <code>Execution context > Set context variable from input</code> >> <code>Execution Context > Restore ... Input</code> operations
+</section>
+
+<section class="slide" id="Context-variable">
+##Advanced Automation - Fn Object
+</section>
+
 <section class="slide" id="Fn">
 ###«Fn» Object
 
-Collection of useful helpers <div class="further-info">available in automation parameters when using the script (« @{ script_expression}»)</div>
+#### Collection of useful helpers <div class="further-info">available in automation parameters when using the script (« @{ script_expression}»)</div>
 
 <img alt="automation-fn" src="img/automation-fn.png" class="float-right" />
 
 - getNextId(string) <div class="further-info">returns the next sequence item for the given string (enables to maintain in parallel multiple sequences)</div> 
 - getVocabularyLabel(VocabularyName, KeyName) <div class="further-info">returns the label for a vocabulary entry. (ex: useful when automatically updating some fields)</div> 
 - getEmailsFromGroup(String groupName), getEmails... <div class="further-info">useful helpers for resolving users, emails, etc, ...</div>
+
+#### Use cases
+- <code>getNextId(String)</code> - Create a counter for a business logic specific id
+- <code>getVocabularyLabel</code> - Update a document's metadata, depending on the metadata's original value (original value = key, final value = label). 
+</section>
+
+<section class="slide" id="boolean-conditions">
+##Advanced Automation - Conditions
+</section>
+
+<section class="slide" id="boolean-conditions-concepts">
+### Conditions
+
+#### How can I use conditions ?
+- You can use the MVEL syntax to express your conditions.
+
+#### Use cases
+Run a different sub chain depending on a condition. <br />
+<pre><code>Execution Flow > Run Chain
+  id: @{Document.id == 'toto' ? 'chainIdIfTrue' : 'chainIdIfFalse'}</code></pre>
 </section>
   
 <section class="slide exercise" id="exercise-automation2">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Advanced automation 
-#### Create an action to remind late borrowers of their duty (1/4)
-##### Complete the book borrowing chain
-- Add a new field to your book named `borrowedAt` (date)
-- It must appear as read only, only when viewing a Book
-- It should be filled with the current date when the Book is borrowed
+#### Borrow several books at once (1/3)
+##### Create a `borrowSeveralBooks` user action
+- Displayed only in book libraries
+- Shows in the <code>Document list toolbar</code> category
+
 <div class="sticker"><a href="#help-exercise2">Need help?</a></div>
 </section>
 
@@ -125,54 +218,38 @@ Collection of useful helpers <div class="further-info">available in automation p
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Advanced automation 
-#### Create an action to remind late borrowers of their duty (2/4)
-##### Create an email template
-- Go to `Templates` > `Mail templates`
-- Create an email template named `remindLateBorrowers`
-- Your template should contain the following message:
-<pre><code>Hello &lt;borrower username>,
-Please bring the book &lt;book title> back!
-Thanks,
-The Best books library</code></pre> 
+#### Borrow several books at once (2/3)
+##### Create a `borrowSeveralBooks` automation chain that:
+- Fetches the selected documents in the UI
+- Filters the list to get only <code>inLibrary</code> books
+- Updates the books status by following the transition <code>to_borrowed</code>
+- Refreshes the user interface
+- Shows an info message in the user interface for confirmation
+
 <div class="sticker"><a href="#help-exercise2">Need help?</a></div>
 </section>
 
 <section class="slide exercise" id="exercise-automation2-p3">
 <img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Advanced automation
-#### Create an action to remind late borrowers of their duty (3/4)
-##### Reminding late borrowers
-##### Add a new state named `delayed` on our life cycle. 
-- It should be accessible from the borrowed state, and authorize reaching the inLibrary and deleted states
-
-##### Create a `remindLateBorrowers` user action
-- Displayed only in book libraries
-- Shows in the contextual tools
-- Icon: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookRemind16.png" target="_blank">files/bookRemind16.png</a> 
-
-<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+### Practice - Advanced automation 
+#### Borrow several books at once (3/3)
+##### Try your user action
+- Select one or several books and try to borrow them
+- Don't select any book and click on your user action
 </section>
 
-<section class="slide exercise" id="exercise-automation2-p4">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Advanced automation 
-#### Create an action to remind late borrowers of their duty (4/4)
-##### Reminding late borrowers
+<section class="slide" id="debug-chains">
+##Advanced Automation - Debugging
+</section>
 
-##### Create a new operation chain `remindLateBorrowers` that:
-- fetches documents that have been borrowed 1 minute ago
-- sets books state as delayed,
-- sends an email to borrower (use the `remindLateBorrowers` email template)
+<section class="slide" id="debugging-concepts">
+### Debugging automation chains
 
-- Commit and deploy your changes
-- <a href="http://doc.nuxeo.com/x/jQ-F" target="_blank">Set up a test smtp server</a> to receive the emails
-    - Default smtp port is 25, indicated port during training installation is 25000
-    - Check in your nuxeo.conf if you don't remember what port you indicated during installation :-)
-- Try your new action out and see if you receive your emails
-
-<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+#### How can I debug my chain ?
+- If it crashes, look at the server log
+- Debug log tells you exactly where your chain crashed and why at a glance
+- Debug traces can be enabled for further information: http://doc.nuxeo.com/x/24MPAQ
 </section>
 
 <section class="slide" id="questions-advanced-automation">
@@ -256,45 +333,35 @@ Up to now, they are doing this manually and would love to see this information p
 ### Next?
 [Translations](3.3_Translations.html)
 </section>
+
+<section class="slide" id="help-exercise1">
+### Help! <img src="img/frog-teacher.png" class="float-left" /> 
+- Operations to use in your automation chain:
+<pre><code>Fetch > Context document
+Document > Follow life cycle transition
+    Value: to_borrowed
+Document > Update property
+    Value: @{CurrentUser.name}    
+    Xpath: book:borrowedBy
+</code></pre>
+
+<div class="sticker"><a href="#exercise-automation1">Back to the exercise</a></div>
+</section>
   
 <section class="slide" id="help-exercise2">
-### Help! (1/2) <img src="img/frog-teacher.png" class="float-left" /> 
-<div style="clear:both"></div> 
-#### Tips
-- You need to create an email template to send the email notification<br /> (`Templates` > `Mail templates`) 
-- Schema prefixes cannot be used in email templates, you need to write the complete schema name.
-
-#### Email template
-<pre><code>Hello ${Document.book['borrowedBy']},
-Please bring the book ${Document.dublincore['title']} back!
-Thanks,
-The Best books library</code></pre>
-
-<div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div> 
-<div class="sticker"><a href="#help-exercise2-p2">More help</a></div>
-</section>
-
-<section class="slide" id="help-exercise2-p2">
-### Help! (2/2) <img src="img/frog-teacher.png" class="float-left" /> 
-<div style="clear:both"></div> 
-
+### Help!<img src="img/frog-teacher.png" class="float-left" /> 
+<div style="clear:both"></div>
 #### Automation chain:
-<pre><code>Fetch > Query
-    SELECT * FROM Book 
-    WHERE ecm:isCheckedInVersion = 0 
-    AND book:borrowedAt < @{CurrentDate.seconds(-60)} 
-    AND ecm:currentLifeCycleState = 'borrowed'
-Document > Follow life cycle transition
-    Value: to_delayed
-Notification > Send email
-    From: noreply@nuxeo.com
-    Message: Select your email template (expression editor button)
-    Subject: Please bring back the book you borrowed
-    To: @{Fn.getEmail(Document['book:borrowedBy'])}
+<pre><code>Fetch > UI selected documents
+  Document > Filter List
+    lifecycle: inLibrary
+  Document > Follow Life Cycle Transition
+    transition: to_borrowed
+  User Interface > Refresh
+  User Interface > Add Info Message
 </code></pre>
 
 <div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div> 
-<div class="sticker"><a href="#help-exercise2">Previous help page</a></div>
 </section>
 
   <!-- deck.navigation snippet -->
