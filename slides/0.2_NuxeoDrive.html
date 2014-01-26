@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Nuxeo Quota add-on</title>
+<title>Nuxeo Training - Nuxeo Drive add-on</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -48,89 +48,45 @@
       class="sub-part training">Trainings</span>
   </div>
   
-<section class="slide" id="nuxeo-quota">
-# Nuxeo Training - Nuxeo Quota Add-On
+<section class="slide" id="nuxeo-drive">
+# Nuxeo Training - Nuxeo Drive Add-On
 </section>
 
-<section class="slide" id="wherewego-context-quota">
+<section class="slide" id="wherewego-context-drive">
 ###Context <img src="img/frog-teacher.png" class="float-left" /> 
-<blockquote><p>Managing quotas is a frequent need.<br /> Let's see how we can handle it the easy way.</p></blockquote>
+<blockquote><p>How easy it would be if I could just synchronise my work with my repository automatically... wait, maybe Nuxeo has something to offer in that regard ?</p></blockquote>
 </section>
 
-<!--
 <section class="slide" id="wherewego">
 ###What we want to do
 ####At the end of the course:
 
-<img src="img/quota/quota-admin-center-user-workspace.png" class="float-right" alt="user workspaces quota" />
-
-- Set a size limitation on user workspaces.
-</section>
--->
-
-<section class="slide" id="quota-principles">
-###Nuxeo Quota Add-On
-####Principles
-
-<img src="img/quota/quota-scenario3.png" class="float-right" alt="scenario 3" style="padding-left:70px;" />
-<img src="img/quota/quota-scenario2.png" class="float-right" alt="scenario 2" style="padding-left:70px;" />
-<img src="img/quota/quota-scenario1.png" class="float-right" alt="scenario 1" />
-
-- Add-on directly available from the <a href="http://marketplace.nuxeo.com" target="_blank" />Nuxeo marketplace</a>
-- Lets you define quotas on every Folderish document
-- Quotas are inherited from their parent
-- Quotas can be set on user workspaces, on a per user basis
+- Synchronise folders / workspaces with our computer
 </section>
 
-<section class="slide" id="quota-ui">
-###Nuxeo Quota Add-On
-####UI usage
+<section class="slide" id="drive-principles">
+###Nuxeo Drive Add-On
+### Principles
+- Synchronizes server spaces with your computer
+- Once a folder is synchronized, you can edit files directly from the server
 
-<div class="split-box split-50">
-
-<h4>Step 1 - Install the add-on</h4>
-<h4>Step 2 - Compute initial statistics about the existing docs</h4>
-<h4>Step 3 - Set quotas</h4>
-<ul>
-  <li>Quotas can be set:</li>
-  <ul>
-    <li>From the admin center (for user workspaces)</li>
-    <li>From each folderish document</li>
-  </ul>
-</ul>
-<h4>Rights needed</h4>
-<ul>
-  <li>Quotas statistics can be seen by anyone with read access to a space</li>
-  <li>Quotas can be managed by users having "Manage Everything" right on a space</li>
-</ul>
-
-</div>
-<div class="split-box split-50">
-<a target="_blank" href="img/quota/quota-installation.png"><img src="img/quota/quota-installation.png" alt="installation" /></a>
-<a target="_blank" href="img/quota/quota-admin-center-initial-stats.png"><img src="img/quota/quota-admin-center-initial-stats.png" alt="initial stats" /></a>
-<a target="_blank" href="img/quota/quota-admin-center-user-workspace.png"><img src="img/quota/quota-admin-center-user-workspace.png" alt="user workspaces quota" /></a>
-</div>
+#### Installation
+- Server-side, add-on directly available from the <a href="http://marketplace.nuxeo.com" target="_blank" />Nuxeo marketplace</a>
+- Client-side, a software needs to be installed
 </section>
 
-<!--
-<section class="slide exercise" id="exercise-quotas">
-<img src="nuxeo-slide-template/themes/exercise.svg" alt="hibou exercise" class="exercise-icon">
-###Practice Quotas
-#### Setup a quota on users workspaces
-- Install the Nuxeo quota add-on from the <code>Admin Center > Update Center > Nuxeo Marketplace Packages</code>
-- Compute the initial statistics of your repository
-- Setup a quota on user workspaces
+<section class="slide" id="drive-ui">
+###Nuxeo Drive Add-On
+#### UI usage
+- After add-on installation, go to home > Nuxeo drive to get the client software
+- Install software and link it to your server, ex: <br />
+<code>http://localhost:8080/nuxeo<br /> Administrator / Administrator</code>
+- Use the synchronize icon to launch synchro
+- Create / edit documents directly from your computer, or use the live edit icon to open them
 </section>
--->
 
 <section class="slide" id="questions">
 ##Questions?
-</section>
-
-<section class="slide" id="next">
-###Next?
-- Back to the [training agenda](0_Introduction.html#day-1)
-- [Drive](0.2_NuxeoDrive.html)
 </section>
 
   <!-- deck.navigation snippet -->

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Advanced automation and event handlers</title>
+
+<meta name="description" content="Nuxeo Training - Advanced automation Event Handlers">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide" id="advanced-automation">
+# Nuxeo training - Advanced automation and event handlers
+</section>
+
+<section class="slide" id="wherewego-context-automation">
+### Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>
+Too many people forget to bring books back to the library. <br /><br />
+The manager wants you to implement something in Nuxeo to remind them of their duty.
+</p></blockquote>
+</section>
+
+<section class="slide" id="wherewego-advanced-automation">
+###What we want to do
+####At the end of the course
+<br />
+##### A user action that:
+- Set books borrowed since 1 minute as delayed
+- Sends automatically an email to the borrower
+</section>
+
+<section class="slide" id="Context-variable">
+##Advanced Automation - Context variables
+</section>
+  
+<section class="slide" id="exectution-context">
+### Context variables
+#### Concepts
+- Set input into a variable
+- Restore the variable somewhere else as the output
+- The variable is kept during the whole automation chain execution
+</section>
+
+<section class="slide" id="mvel-scripting-title">
+##Advanced Automation - Mvel scripting
+</section>
+
+<section class="slide" id="mvel-scripting">
+###Inject dynamic values with MVEL
+<img alt="automation-object-browser" src="img/automation-object-browser.png" class="float-right" />
+
+- In operation parameters: <code>@{mvel script evaluated}</code>
+- Objects browser in Studio, from each operation parameters <div class="further-info">will help you use the good syntax</div>
+- Object Fn, the Document Wrapper, the Date Wrapper.
+- Uses MVEL expression language
+
+    http://doc.nuxeo.com/x/kYAV
+</section>
+
+<section class="slide" id="Fn">
+###«Fn» Object
+
+Collection of useful helpers <div class="further-info">available in automation parameters when using the script (« @{ script_expression}»)</div>
+
+<img alt="automation-fn" src="img/automation-fn.png" class="float-right" />
+
+- getNextId(string) <div class="further-info">returns the next sequence item for the given string (enables to maintain in parallel multiple sequences)</div> 
+- getVocabularyLabel(VocabularyName, KeyName) <div class="further-info">returns the label for a vocabulary entry. (ex: useful when automatically updating some fields)</div> 
+- getEmailsFromGroup(String groupName), getEmails... <div class="further-info">useful helpers for resolving users, emails, etc, ...</div>
+</section>
+  
+<section class="slide exercise" id="exercise-automation2">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Advanced automation 
+#### Create an action to remind late borrowers of their duty (1/4)
+##### Complete the book borrowing chain
+- Add a new field to your book named `borrowedAt` (date)
+- It must appear as read only, only when viewing a Book
+- It should be filled with the current date when the Book is borrowed
+<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-automation2-p2">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Advanced automation 
+#### Create an action to remind late borrowers of their duty (2/4)
+##### Create an email template
+- Go to `Templates` > `Mail templates`
+- Create an email template named `remindLateBorrowers`
+- Your template should contain the following message:
+<pre><code>Hello &lt;borrower username>,
+Please bring the book &lt;book title> back!
+Thanks,
+The Best books library</code></pre> 
+<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-automation2-p3">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Advanced automation
+#### Create an action to remind late borrowers of their duty (3/4)
+##### Reminding late borrowers
+##### Add a new state named `delayed` on our life cycle. 
+- It should be accessible from the borrowed state, and authorize reaching the inLibrary and deleted states
+
+##### Create a `remindLateBorrowers` user action
+- Displayed only in book libraries
+- Shows in the contextual tools
+- Icon: <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/files/bookRemind16.png" target="_blank">files/bookRemind16.png</a> 
+
+<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-automation2-p4">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Advanced automation 
+#### Create an action to remind late borrowers of their duty (4/4)
+##### Reminding late borrowers
+
+##### Create a new operation chain `remindLateBorrowers` that:
+- fetches documents that have been borrowed 1 minute ago
+- sets books state as delayed,
+- sends an email to borrower (use the `remindLateBorrowers` email template)
+
+- Commit and deploy your changes
+- <a href="http://doc.nuxeo.com/x/jQ-F" target="_blank">Set up a test smtp server</a> to receive the emails
+    - Default smtp port is 25, indicated port during training installation is 25000
+    - Check in your nuxeo.conf if you don't remember what port you indicated during installation :-)
+- Try your new action out and see if you receive your emails
+
+<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
+</section>
+
+<section class="slide" id="questions-advanced-automation">
+##Questions?
+</section>
+
+<section class="slide" id="event-handlers">
+##Nuxeo Training - Event handlers
+</section>
+
+<section class="slide" id="wherewego-context-event-handlers">
+### Context <img src="img/frog-teacher.png" class="float-left" /> 
+<blockquote><p>
+The librarians have come to you with a request:<br /><br />
+Every time they add a book, they set today as the publication date. 
+Up to now, they are doing this manually and would love to see this information pre-filled.
+</p></blockquote>
+</section>
+
+<section class="slide" id="wherewearegoing">
+### What we want to do
+#### At the end of the course
+<img alt="event-publicationDate" src="img/event-publicationDate.png" class="float-right" />
+
+- The publication date is pre-filled with the current date in the creation layout
+</section>
+
+<section class="slide" id="event-handlers-definition">
+### Event Handlers
+#### Concepts 
+- Event handlers launch automation chains automatically when events are raised
+- They allow custom and dynamic behaviors without having to change the code
+- They can be run asynchronously
+- Filters can be assigned to customize their scope
+</section>
+
+<section class="slide" id="event-handlers-types">
+###Event Handlers
+#### 2 types of event handlers
+   - Synchronous
+     - Same thread, coreSession and context
+   - Post Commit asynchronous
+     - Executed after a commit on the coreSession
+     - New thread, new coreSession, new context
+     - Isolated from each other
+     - It will be executed asynchronously
+     - Useful for external notification, when we want to be sure that the modifications are commited in the DB 
+</section>
+
+<section class="slide" id="document-events">
+###Event handlers - Main document events
+#### Document creation
+- `Empty document created`: Before the creation form is shown
+- `About to create`: When the user clicks on the "save" button
+- `Document created`: When the document has been persisted into the database
+- Don't save the document if the document is not created to avoid an error
+
+#### Document modification    
+- `Before document modification`: Before the modifications are saved into the database
+- `Document modified`: When the modifications have been persisted into the database
+- Don't save the document if you deal with document modification events to avoid a possible infinite loop (if you have an event launched at document save)
+</section>
+
+<section class="slide" id="exercise-event-handlers">
+##Exercise - Event handlers
+</section>
+
+<section class="slide exercise" id="what-we-want-to-do">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
+###What we want to do
+- Add an event handler `setPublicationDate` that will set the publicationDate to the current date
+- The event handler should be called before we see the creation view
+- Commit and deploy your changes
+</section>
+
+<section class="slide" id="questions">
+##Questions?
+</section>
+
+<section class="slide" id="next">
+### Next?
+[Translations](3.3_Translations.html)
+</section>
+  
+<section class="slide" id="help-exercise2">
+### Help! (1/2) <img src="img/frog-teacher.png" class="float-left" /> 
+<div style="clear:both"></div> 
+#### Tips
+- You need to create an email template to send the email notification<br /> (`Templates` > `Mail templates`) 
+- Schema prefixes cannot be used in email templates, you need to write the complete schema name.
+
+#### Email template
+<pre><code>Hello ${Document.book['borrowedBy']},
+Please bring the book ${Document.dublincore['title']} back!
+Thanks,
+The Best books library</code></pre>
+
+<div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div> 
+<div class="sticker"><a href="#help-exercise2-p2">More help</a></div>
+</section>
+
+<section class="slide" id="help-exercise2-p2">
+### Help! (2/2) <img src="img/frog-teacher.png" class="float-left" /> 
+<div style="clear:both"></div> 
+
+#### Automation chain:
+<pre><code>Fetch > Query
+    SELECT * FROM Book 
+    WHERE ecm:isCheckedInVersion = 0 
+    AND book:borrowedAt < @{CurrentDate.seconds(-60)} 
+    AND ecm:currentLifeCycleState = 'borrowed'
+Document > Follow life cycle transition
+    Value: to_delayed
+Notification > Send email
+    From: noreply@nuxeo.com
+    Message: Select your email template (expression editor button)
+    Subject: Please bring back the book you borrowed
+    To: @{Fn.getEmail(Document['book:borrowedBy'])}
+</code></pre>
+
+<div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div> 
+<div class="sticker"><a href="#help-exercise2">Previous help page</a></div>
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>
