@@ -160,7 +160,7 @@ Bundle-ManifestVersion: 2
       class="exercise-icon">
 ### Practice - Nuxeo IDE
 #### Unit test methods
-- In your class, create a test method named `ShouldDeployNuxeoRuntime()` returning <code>void</code>
+- In your class, create a test method named `shouldDeployNuxeoRuntime()` returning <code>void</code>
     - Use <code>Framework.getRuntime()</code> (<code>org.nuxeo.runtime.api</code>) and place it into a <code>runtime</code> variable
     - Assert that the <code>runtime</code> variable is not null
     - Launch your test
@@ -236,6 +236,7 @@ For instance: <code>String title = (String) doc.getPropertyValue("dc:title");</c
 ### Practice - Nuxeo IDE
 #### Document creation and modification
 - Deploy your Nuxeo Studio bundle (project ID is in the project settings menu > manifest tab)
+- Deploy the <code>org.nuxeo.ecm.automation.core</code> bundle
 - Inject a <code>CoreSession</code> (make sure you deploy the correct feature !)
 
 - Create a unit test named `shouldHaveAPublicationDate()` that:
@@ -256,7 +257,7 @@ For instance: <code>String title = (String) doc.getPropertyValue("dc:title");</c
 <section class="slide" id="test-existing-automation-chains">
 ### Testing existing automation chains
 - Use AutomationService 
-    - In JUnit4, Nuxeo services are injected with Google Guice <code>@Inject</code> annotation <pre><code>@inject AutomationService automationService</code></pre>
+    - In JUnit4, Nuxeo services are injected with Google Guice <code>@Inject</code> annotation <pre><code>@Inject AutomationService automationService</code></pre>
     - Or <pre><code>AutomationService automationService = Framework.getLocalService(AutomationService.class)</code></pre> (works also outside of a unit test)
 - Create an <code>OperationContext</code> with the <code>CoreSession</code> and a document input and call the operation with: <pre><code>AutomationService automationService = Framework.getLocalService(AutomationService.class);
 OperationContext ctx = new OperationContext();
