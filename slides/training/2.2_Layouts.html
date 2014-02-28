@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Layouts</title>
+
+<meta name="description"
+  content="Nuxeo Training - Layouts">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide" id="nuxeo-training-form-layouts">
+# Nuxeo training - Form layouts
+</section>
+
+<section class="slide" id="wherewego-context-layouts">
+### Context <img src="img/frog-teacher.png" class="float-left" />
+<blockquote><p>So the metadata we want on screen for our custom document types is not displayed yet. What a shame… you should get it sorted out asap!</p></blockquote>
+</section>
+
+<section class="slide" id="wherewego">
+###What we want to do (1/3)
+####At the end of the course:
+<img src="img/layout-create-book.png" class="float-right" />
+
+- Create a Book document with a custom creation form
+</section>
+
+<section class="slide" id="wherewego2">
+###What we want to do (2/3)
+####At the end of the course:
+<img src="img/layout-view-book.png" class="float-right" />
+
+- View the custom fields from the `Summary` tab
+</section>
+
+<section class="slide" id="wherewego3">
+###What we want to do (3/3)
+####At the end of the course:
+<img src="img/layout-edit-book.png" class="float-right" />
+
+- Edit the custom fields from the `Edit` tab
+</section>
+
+<section class="slide" id="layouts">
+### Layouts?
+#### Define…
+- What metadata is shown on screen
+- Where (on top, on bottom, to the left...)
+- When (when creating, editing, viewing a document...)
+- How (as a text field, text area, calendar…)
+
+####Main layouts
+- Creation layout: Displayed when creating the document.
+- Edit layout: Displayed when going on the edit tab of a document.
+- View layout displayed on the «summary» tab.
+- Header layout: Displayed on top of the tabs when viewing a document in Nuxeo DM.
+</section>
+
+<section class="slide" id="layouts-usage">
+### Layouts in Nuxeo Studio
+#### How / where can I create them?
+<img src="img/layout-what-where-when.png" class="float-right">
+
+- Directly in your document type
+- In the `Listing and views` > `Form layouts` menu in order to make it reusable for another document type.
+
+#### How to use them?
+- Head to the tab corresponding to the layout you wish to define
+- Define your table structure
+- Drag and drop widgets from the right side of the screen to a table cell
+</section>
+
+<section class="slide" id="widget">
+### Widget?
+<img src="img/widget-how.png" class="float-right" />
+
+- Used to display or fill in document metadata
+- Defines how the field will be shown to the user
+- Behaves differently in edit or view mode <div class="further-info">Ex: For a calendar, in view mode, the calendar widget displays the date value, in edit mode, it displays a calendar to select a value</div>
+- Many different widgets types available:
+  - Text: Simple input text field
+  - Single User/group suggestion: Lists users and groups
+  - Document suggest: Select another existing document
+  - Vocabulary and Chained vocabularies: A list of values, on one or two levels
+  - And many others...
+</section>
+
+<section class="slide exercise" id="exercise-book-layout">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice (1/3)
+#### Form layouts
+- Add the ISBN field in the creation, view, and edit layouts of your `Book` document type
+    - The field used for this widget will be book:isbn (that makes sense, right?) 
+- ISBN as label is really a good choice
+- The label doesn’t need to be translated
+- We want this field editable when we create the document, and then read only when viewing or editing the document 
+</section>
+
+<section class="slide exercise" id="exercise-book-layout-try">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice (2/3)
+#### Try out your changes
+- Deploy your changes using hot reload
+- Create a new Book
+- Check that when creating it, you can enter the fields title, description and ISBN
+- When editing, the ISBN must be unmodifiable
+</section>
+
+<section class="slide exercise" id="exercise-book-layout-improvements">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice (3/3)
+#### Some more improvements...
+- Add a widget for the `book:author` field in each layout
+    - Make sure the subwidgets label is displayed
+    - The subwidgets should be required when filling an author
+- Add a new widget for the `book:publicationDate`
+    - This field should be:
+        - Required and editable in creation layout 
+        - Visible in the view layout
+        - Not displayed in edit layout 
+</section>
+
+<section class="slide" id="questions">
+## Questions?
+</section>
+
+<section class="slide" id="next">
+###Next?
+- Back to the [training agenda](0_Introduction.html#day-1)
+- [Vocabulary](2.2.2_Vocabulary.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+</body>
+</html>

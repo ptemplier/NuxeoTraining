@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Nuxeo DM Installation and Demo</title>
+
+<meta name="description"
+  content="Nuxeo Training - Nuxeo DM Installation and Demo">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+
+  <section class="slide" id="nuxeo-installWS-opening-slide">
+# Nuxeo training - Installation Workshop and Introduction to Nuxeo DM
+  </section>
+
+<section class="slide" id="installation-workshop">
+##Installation workshop http://doc.nuxeo.com/x/G4AO
+</section>
+
+  <section class="slide" id="downloads">
+### Downloads
+####Nuxeo Website [http://www.nuxeo.com/en/downloads](http://www.nuxeo.com/en/downloads)
+- Windows installer <div class="further-info">Based on Tomcat, it also installs a JVM, OpenOffice.org and ImageMagick if necessary</div>
+- Debian or Ubuntu <div class="further-info">Based on Tomcat, it also installs dependencies and adds an init script</div>
+- Multi-platform package <div class="further-info">A zipped Nuxeo server based on Tomcat, all in the same folder</div>
+- Virtual Machine images
+</section>
+
+<section class="slide" id="installoption">
+### Install options
+According to your options:
+
+- Multi-platform: just unzip
+- Debian or Ubuntu
+  - [http://doc.nuxeo.com/x/94RH](http://doc.nuxeo.com/x/94RH)
+  - `apt-get install nuxeo`
+- Windows installer
+  - Launch .exe file
+  - Let default values
+</section>
+
+<section class="slide" id="startstop">
+### Start/stop the server
+####Debian/Ubuntu packaging
+
+- `sudo service nuxeo start` or `sudo /etc/init.d/nuxeo start`
+- `sudo service nuxeo stop` or `sudo /etc/init.d/nuxeo stop`
+
+####Zip packaging
+
+- use `bin/nuxeoctl`
+  - `console`
+  - `start`
+  - `stop`
+  - `gui`
+- Windows
+  - `bin/nuxeoctl.bat` will launch the GUI
+  - `nuxeoctl.bat console --gui false` <div class="further-info">to launch Nuxeo without the Gui</div>
+</section>
+
+
+<section class="slide" id="install-wizard">
+###First start: install wizard
+Configures
+
+- Database <div class="further-info">done previously for some packaging</div>
+ - h2 <div class="further-info">For demo/testing/development only</div>
+ - postgres (recommended for production)
+ - oracle (recommended for production)
+- Smtp <div class="further-info">SMTP Configuration used by Nuxeo to send mails (notifications, etc ...) to users</div>
+- Proxy <div class="further-info">Nuxeo server may need to access to external services like Nuxeo Connect</div>
+- Connect
+- Main Nuxeo Addons
+</section>
+
+<section class="slide exercise" id="exercise-install">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+####Nuxeo installation
+- Download Nuxeo SDK from http://community.nuxeo.com/static/releases website
+- Start Nuxeo: nuxeoctl start
+- Connect to
+    -[http://localhost:8080](http://localhost:8080)
+- Complete the wizard, including filling the registration form on Connect
+    - id/password will be useful for using Nuxeo Studio
+- Install Nuxeo DM module
+- (Optional) install OpenOffice or LibreOffice + pdftohtml, then restart Nuxeo
+    - See http://doc.nuxeo.com/x/zgJc
+</section>
+
+<section class="slide" id="Nuxeo-tour">
+##Nuxeo DM 5.8 Functional tour http://doc.nuxeo.com/x/-ISo
+</section>
+
+<section class="slide" id="Nuxeo-demo">
+###Nuxeo DM Main tabs
+####Main tabs
+- Home
+- Document Management
+- Admin Center
+
+####Addons tabs
+- DAM
+- Collaboration
+</section>
+
+<section class="slide" id="DocumentManagement">
+## Home tab
+</section>
+
+<section class="slide" id="home">
+###Home tab
+<div class="further-info">Users have a Home tab, that offers user-centric information</div>
+
+####User-centric tab that provides access to
+- Personal dashboard
+- Profile
+- Local preferences
+- Subscribed notifications
+- etc ...
+
+http://doc.nuxeo.com/x/KQBz
+</section>
+
+<section class="slide" id="DocumentManagement">
+## Document management tab
+</section>
+
+<section class="slide" id="DocumentManagement-structure-navigation">
+## Document management tab - Structure and navigation
+</section>
+
+<section class="slide" id="DMUI">
+### Nuxeo DM UI
+![Nuxeo DM UI](img/dm-ui.png)
+
+http://doc.nuxeo.com/x/X4Wo
+<div class="further-info">
+Current tab of the current document: the current document can be a folder (In Nuxeo, folders are documents)
+</div>
+</section>
+
+<section class="slide" id="dm-domains">
+###DM Domain
+
+- `Sections`, `workspaces` and `templates` are grouped in `domains`
+- A domain can be considered as a mini-application in Nuxeo or a root in the application.
+- Typically you can use domains to open the application to two or more very different populations of users
+    - For instance, you can have an "intranet" domain and an "extranet" domain
+- Domains are can be totally independent or not, depending on the access rights you set on each domain.
+
+    http://doc.nuxeo.com/x/XoWo
+</section>
+
+<section class="slide" id="DMDomain">
+### DM Domain default structure
+<img class="float-right" alt="domain" src="img/domain.png">
+####Workspaces
+A workspace is for a group of users that work together, usually preferences (security, notifications) are set on workspaces
+####Folders
+Inside a workspace, to organize content
+#### Sections
+To publish content
+####Templates
+Pre-initialize a workspace structure.
+</section>
+
+<section class="slide" id="doctabs-summary">
+###Viewing a list of documents - Content tab
+- Available only for `Folderish` documents
+- Shows children documents
+
+![content tab](img/DM-ordered-folder-content-updated.png)
+</section>
+
+<section class="slide" id="doctabs-summary">
+###Viewing a single document - Document summary tab
+- Available only for non `Folderish` documents
+
+####Displays a summary view of the document
+
+- Main document metadata and content
+- Special properties
+  - Version
+  - Life cycle state
+  - Contributors
+  - Tags
+  - Comments
+  - Tasks
+  - etc ...
+</section>
+
+<section class="slide" id="DocumentManagement-doc-creation">
+## Document management tab - Document concept and creation
+</section>
+
+<section class="slide" id="whatisadoc-img">
+###What is a document?
+![doc](img/whatisadoc.png)
+</section>
+
+<section class="slide" id="whatisadoc-explanations">
+###What is a document?
+####Not just a « file ».
+####An instance of a Document type (File, Note, Folder, Invoice, Contract…)
+- Is defined by a set of information called `metadata`
+    - Metadata can be filled automatically (creation date, name of the file…) or manually (description, subject...)
+    - Metadata is grouped into `schemas`. A document can have many different schemas, and schemas can be shared between document types.
+- Has a specific `lifecycle` (ie Draft->Valid->Archived)
+- Has `facets` defining its behavior and what you can do with it (Folderish, Versionable, Commentable...)
+- Can inherit facets and schemas from another document type (eg: Module extends Folder)
+</section>
+
+<section class="slide" id="create-a-document">
+###Creating a new document manually - Step 1/3
+ - `New document`
+ - Select the document type
+    - The list of available document types depends on the container document type
+
+![Available doc types](img/available-documents-workspace.png)
+</section>
+
+<section class="slide" >
+###Creating a new document manually  - Step 2/3 - Choosing a doc type
+#### Main doc types
+ - `File`, document with an attached file
+ - `Note`, document with a rich text
+ - `Workspace`, a folder where users can collaborate
+ - `Folder`, a limited folder used to organize documents inside a workspace
+
+#### More ...
+ - `Picture`
+ - `Picture book`
+ - `Website`
+ - etc
+
+    http://doc.nuxeo.com/x/S4Ek
+</section>
+
+<section class="slide" >
+###Creating a document manually - Step 3/3 - Filling metadata
+![note-creation](img/note-text.png)
+</section>
+
+<section class="slide" id="upload-a-document">
+###Creating a document automatically - Step 1/1 - Using drag and drop / Import
+ - `Import a file` or drag and drop your file(s)
+ ![doc import 001](img/docimport001.png)
+ - Let Nuxeo handle the metadata filling or do it manually
+ ![doc import 002](img/docimport002.png)
+</section>
+
+<section class="slide exercise" id="exercise-doc-creation">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+#### Navigation and document creation
+- Create three sections:
+    - Press releases
+    - Internal memos
+    - Product information
+- Create a workspace:
+    - Communication service
+- Create a document manually into the "Communication service" workspace:
+    - Type: Note
+    - Name: Signature memo
+    - Description: Reminder about email signature update
+    - Note: <em>Please update your email signature before the end of the month by adding the following line:
+    A major update regarding our products will take place soon. Visit our website (our website should link to www.nuxeo.com) for more information.</em>
+- Import the <a href="https://github.com/nuxeo/NuxeoTraining/tree/master/slides/files/nuxeo-drive-press-release.odt" target="_blank">nuxeo drive press release</a> into the "Communication service" workspace.
+</section>
+
+<section class="slide" id="DocumentManagement-doc-edition">
+## Document management tab - Document edition
+</section>
+
+<section class="slide">
+###Editing a document - Document edit tab
+####Edit the metadata of the document
+![Edit tab](img/workspace_edit_form.png)
+</section>
+
+<section class="slide" id="DocumentManagement-doc-deletion">
+## Document management tab - Document deletion
+</section>
+
+<section class="slide" id="deletion">
+###Deleting a document
+- Check one or several document(s) from a folder or workspace and hit `delete`
+- Deleted documents are put in the trash
+- Trash is accessible from the `manage` tab, `trash` subtab
+- Deleted documents can be restored or permanently deleted
+</section>
+
+<section class="slide" id="deletion-img">
+###Deleting a document
+#### Content tab: document deletion
+![deletion 001](img/deletion001.png)
+#### Manage tab, trash subtab: restore or permanently delete the document
+![deletion 002](img/deletion002.png)
+</section>
+
+<section class="slide" id="DocumentManagement-doc-versioning">
+## Document management tab - Document versioning
+</section>
+
+<section class="slide" id="versioning">
+###Versioning a document
+####Avoids copying and renaming
+
+- On Edit tab while saving
+    - Skip version increment
+    - Increment minor version
+    - Increment major version
+
+- Versions available
+    - History tab, Archived versions
+    - View versions
+    - Restore
+    - Compare (With the nuxeo-diff addon)
+</section>
+
+<section class="slide" id="versioning-img">
+###Versioning a document
+#### Edit tab: version change
+![versioning 001](img/versioning001.png)
+#### History tab: retrieve and restore versions
+![versioning 002](img/versioning002.png)
+</section>
+
+<section class="slide" id="DocumentManagement-doc-publication">
+## Document management tab - Document publication
+</section>
+
+<section class="slide" id="publication">
+###Publishing a document - Document publish tab
+#### Concepts
+ - Documents are meant to be published when a document version is good enough to be released
+ - Documents are published into sections
+ - Documents located into sections cannot be modified
+![publication](img/publishing-tab.png)
+</section>
+
+<section class="slide" id="publication-2">
+###Publishing a document - Behind the publication mechanism
+#### Publishing a document
+
+- Creates a version of the document if necessary
+- Creates a `proxy` document into the selected section
+    - A proxy is like a shortcut that points to the versioned document
+</section>
+
+<section class="slide" id="publication-wf">
+###Publishing a document - Publication workflow
+#### Built-in publishing workflow
+
+- User with only Read permission on the Section needs approval from section manager to validate the publishing
+- User with the Write permission on the Section will publish without approval
+- Permission for ability to publish is managed from the section
+
+#### Publishing targets
+- Preferences of publishing targets are managed from the workspace in the `Manage` tab
+
+![Publication workflow](img/publishing-rights.png)
+</section>
+
+<section class="slide exercise" id="exercise-doc-versioning">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+#### Document versioning and publishing
+##### Publication targets
+- Into the <strong>communication service workspace</strong>, define the target publishing sections. Allow :
+    - Press releases
+    - Internal memos
+- Publish the press release into the press releases section. Check that you <strong>can't</strong> publish the document into the "Product information" section.
+
+##### Publication versioning mechanism
+- Edit the internal memo:
+    - Replace "end of the month" by "end of the week"
+    - Skip the version increase.
+    - Save your work
+- Publish the internal memo into the internal memos section. What can you see?
+</section>
+
+<section class="slide" id="DocumentManagement-doc-search">
+## Document management tab - Document search
+</section>
+
+<section class="slide" id="advanced-search">
+###Searching the Nuxeo Platform
+#### Several ways to search the content of the application
+- Simple search, can be accessed from any site page
+- Advanced search
+- Faceted search (Document Management module only)
+- Search form can be customized in Studio
+- Search results are displayed depending on user rights
+
+![Advanced search link](img/search-box.png)
+![Advanced search form](img/DM-advanced_search_filter.png)
+</section>
+
+<section class="slide" id="faceted-search">
+###Faceted Search
+<img alt="Faceted search" src="img/DM-faceted-search-tab.png" class="float-right"/>
+
+- Easy way to browse the content of your application
+    - By creating filters on the content of the application
+- You can filter content using:
+    - Keywords (full text search based on stemming)
+    - Dates (creation and last modification dates)
+    - Author
+    - Documents categorization (nature, coverage, subjects of documents)
+    - Location of the documents in the folders
+
+- Faceted search is available on the Document Management module of the Platform, on the left hand side of the page
+
+http://doc.nuxeo.com/x/YIEk
+</section>
+
+<section class="slide" id="fulltext">
+###Fulltext search
+<img alt="Full text Search" src="img/search-box.png" class="float-right"/>
+
+- Any text metadata indexed
+- Office, pdf, text, html files are full-text indexed <div class="further-info">thanks to a text extraction from the document itself</div>
+- Relies on the database (Oracle, Postgres or MSSQL Server) full text capabilities
+  - Linguistic support <div class="further-info">Searching for the word "satisfies", will match the documents containing "satisfy"</div>
+  - Optimized for searching
+</section>
+
+<section class="slide" id="DocumentManagement-doc-other-services">
+## Document management tab - Other services
+</section>
+
+<section class="slide" id="otherservices">
+###Other document services
+- Relations
+- Comments
+- Annotations
+- Tags
+- Notifications
+- Workflows
+- Pictures
+- Export
+
+    http://doc.nuxeo.com/x/MoEk
+</section>
+
+<section class="slide" id="AdminCenterTab">
+## Admin center tab
+</section>
+
+<section class="slide" id="admincenter-usage">
+###Admin center tab
+#### Retrieve server and application usage summary information
+- System information tab provides information about the server and your instance configuration
+- Setup tab provides configuration information and ability to update it easily
+- Activity menu to retrieve information and statistics about the application
+- Monitoring menu to monitor some technical information and display messages to users
+</section>
+
+<section class="slide" id="admincenter-updates">
+###Admin center tab
+#### Grants you access to upgrades, patches, the Nuxeo Marketplace, and Nuxeo Studio projects
+- Nuxeo Connect to direct link your Nuxeo instance with your Nuxeo Connect account
+- Update Center provides all the updates you may need (updates and patches, Nuxeo Marketplace packages, direct access to your Nuxeo Studio packages, local packages)
+</section>
+
+<section class="slide" id="admincenter-customization">
+###Admin center tab
+#### Provides application exploitation and customization
+- Users & Groups to create, edit, delete users and user groups
+- Vocabularies to customize and adapt the values displayed in lists in the application.
+- Themes to customize the application presentation.
+- OAuth/OpenSocial enables administrators to manage the authentication with other applications using OAuth protocol and to add new gadgets
+- Dashboards enables administrators to define the dashboard displayed by default to users and to add new gadgets
+
+    http://doc.nuxeo.com/x/lYFH
+</section>
+
+<section class="slide exercise" id="exercise-admin-center">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+#### Admin center
+- Create a `communicationservice` user group
+- Create three users: Barbara, Jenny and Lucy
+- Assign these users to the `communicationservice` and `members` user groups
+</section>
+
+<section class="slide" id="DocumentManagement-acl">
+## Document management tab - Access rights management
+</section>
+
+<section class="slide" id="acl">
+###Access rights
+####Are available
+- On all `Folderish` documents
+- For users being granted the `Manage everything` right
+- Using the `Manage` tab, `Access rights` subtab
+
+####Concepts
+- Access rights are inherited from their parent document (1)
+- Local rights can be granted or denied to override inherited permissions (2 & 3)
+- Inheritance can be blocked for specific rights to be defined on a document more easily (1)
+
+http://doc.nuxeo.com/x/UYEk
+</section>
+
+<section class="slide" id="acl-DM">
+###Access rights
+![Access rights](img/access-rights-interface.png)
+</section>
+
+<section class="slide" id="acl2">
+###Access rights
+####Default permissions
+- Read
+- Version (manage versioning + Read)
+- Write (+ Delete + Read)
+- Remove (usually denied to users having write permission to avoid them deleting documents)
+- Manage Everything
+
+####Default user groups
+- Members: includes everyone, have read access by default
+- Power users: functional admins; can create users and groups, vocabulary entries
+- Administrators: can manage everything
+
+####Access rights priority
+- Local rights have the prority over inherited rights
+- Denied rights have priority over granted rights
+
+<div class="further-info">Some permissions are composed of sub permissions. See http://explorer.nuxeo.org/nuxeo/site/distribution/current/viewExtensionPoint/org.nuxeo.ecm.core.security.SecurityService--permissions for existing permissions.</div>
+</section>
+
+<section class="slide exercise" id="exercise-access-rights">
+<img src="nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+#### Access rights
+- Block permissions inheritance on the communication service workspace
+- Grant write access to the "communication service" user group on the "communication service" workspace
+- Save your changes
+</section>
+
+<section class="slide" id="questions">
+##Questions?
+</section>
+
+<section class="slide" id="next">
+###Next?
+- Back to the [training agenda](0_Introduction.html#day-1)
+- [Technical overview](1.1.1_Technical-overview.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="deck.js/core/deck.core.js"></script>
+  <script src="deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="deck.js/extensions/status/deck.status.js"></script>
+  <script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>

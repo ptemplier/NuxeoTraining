@@ -1,21 +1,12 @@
 [submodule "slides/nuxeo-slide-template"]
 	path = slides/nuxeo-slide-template
 	url = https://github.com/nuxeo/nuxeo-slide-template.git
-[submodule "functional-training-5.8/nuxeo-slide-template"]
-        path = functional-training-5.8/nuxeo-slide-template
-        url = https://github.com/nuxeo/nuxeo-slide-template.git
 [submodule "slides/deck.js"]
 	path = slides/deck.js
-	url = https://github.com/imakewebthings/deck.js.git
-[submodule "functional-training-5.8/deck.js"]
-	path = functional-training-5.8/deck.js
 	url = https://github.com/imakewebthings/deck.js.git
 [submodule "slides/deck.js-markdown"]
 	path = slides/deck.js-markdown
 	url = https://github.com/tmbrggmn/deck.js-markdown.git
-[submodule "functional-training-5.8/deck.js-markdown"]
-        path = functional-training-5.8/deck.js-markdown
-        url = https://github.com/tmbrggmn/deck.js-markdown.git
 [submodule "slides/deck2pdf"]
 	path = slides/deck2pdf
 	url = https://github.com/imakewebthings/deck2pdf.git
