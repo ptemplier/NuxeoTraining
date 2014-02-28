@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Nuxeo distribution tools</title>
+
+<meta name="description"
+  content="Nuxeo Training - Nuxeo distribution tools">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide" id="nuxeo-distribution-tools">
+# Nuxeo training - Nuxeo distribution tools</h1>
+</section>
+
+<section class="slide" id="nuxeo-distribution">
+### Nuxeo Distribution
+- Tools to package and assemble applications based on Nuxeo
+    - Nuxeo-distribution-tools: Ant extension tasks to access to Maven and Nuxeo bundles
+    - Pre-package distributions available from Maven that can be reused
+    - (optional) [More information about Maven](90_Maven-basics.html)
+</section>
+
+  <section class="slide no-md" id="from-maven">
+    <h3>From Maven</h3>
+    <ul>
+      <li>Automatically build the marketplace package using Maven
+        and Ant</li>
+      <li>Created the package as a Maven artifact.</li>
+    </ul>
+  </section>
+
+  <section class="slide no-md" id="it-calls-an-ant-file">
+    <h3>It calls an ant file</h3>
+    <p>In the distribution pom.xml, we specify which script ant to
+      run with nuxeo-distribution-tools</p>
+    <pre>
+      <code>
+        &lt;build&gt;
+          &lt;plugins&gt;
+            &lt;plugin&gt;
+              &lt;groupId&gt;org.nuxeo.build&lt;/groupId&gt;
+              &lt;artifactId&gt;nuxeo-distribution-tools&lt;/artifactId&gt;
+              &lt;configuration&gt;
+                &lt;buildFiles&gt;
+                  &lt;buildFile&gt;${basedir}/src/main/assemble/assembly.xml&lt;/buildFile&gt;
+                &lt;/buildFiles&gt;
+              &lt;/configuration&gt;
+            &lt;/plugin&gt;
+           &lt;/plugins&gt;
+        &lt;/build&gt;
+</code>
+    </pre>
+  </section>
+
+  <section class="slide no-md" id="nuxeo-distribution-tools">
+    <h3>Nuxeo distribution tools</h3>
+    <ul>
+      <li>This Ant file will contains command to
+        <ul>
+          <li>Download/get the needed Maven artifacts to be include
+            in the package</li>
+          <li>Copy these artifact in the right folder</li>
+          <li>Copy the resource in the right folder (templates,
+            install.xml, package.xml) </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md" id="assembly.xml-sample">
+    <h3>assembly.xml sample</h3>
+    <p>
+      <a
+        href="https://github.com/nuxeo/nuxeo-marketplace-sample/blob/master/marketplace-explicit/src/main/assemble/assembly.xml">assembly.xml
+        sample from the market place sample project</a>
+    </p>
+    <pre>
+      <code>
+     &lt;project name=&quot;nuxeo-assembly&quot; default=&quot;build&quot; xmlns:nx=&quot;urn:nuxeo-build&quot; xmlns:artifact=&quot;urn:nuxeo-artifact&quot;&gt;
+        &lt;taskdef resource=&quot;org/nuxeo/build/antlib.xml&quot; uri=&quot;urn:nuxeo-build&quot; /&gt;
+        &lt;taskdef resource=&quot;org/nuxeo/build/artifact/antlib.xml&quot; uri=&quot;urn:nuxeo-artifact&quot; /&gt;
+
+        &lt;target name=&quot;build&quot; description=&quot;Build Book Management Marketplace package&quot;&gt;
+            &lt;tstamp /&gt;
+            &lt;delete failonerror=&quot;false&quot; dir=&quot;${maven.project.build.directory}/marketplace&quot; /&gt;
+            &lt;mkdir dir=&quot;${maven.project.build.directory}/marketplace&quot; /&gt;
+            &lt;!-- copy all files from src/main/resources to the market place folder --&gt;
+            &lt;copy todir=&quot;${maven.project.build.directory}/marketplace&quot;&gt;
+                &lt;fileset dir=&quot;src/main/resources/&quot; /&gt;
+                &lt;filterset&gt;
+                    &lt;filter token=&quot;VERSION&quot; value=&quot;${book.mgt.version}&quot; /&gt;
+                    &lt;filter token=&quot;STUDIOVERSION&quot; value=&quot;${studio.project.version}&quot; /&gt;
+                &lt;/filterset&gt;
+            &lt;/copy&gt;
+            &lt;!-- copy our needed bundles --&gt;
+            &lt;copy todir=&quot;${maven.project.build.directory}/marketplace/install/bundles&quot;&gt;
+                &lt;artifact:resolveFile key=&quot;org.nuxeo.training:nuxeo-book-management::jar&quot; /&gt;
+                &lt;!-- TODO copy studio bundle --&gt;
+            &lt;/copy&gt;
+            &lt;!-- additional configuration templates --&gt;
+            &lt;zip destfile=&quot;${maven.project.build.directory}/${maven.project.artifactId}-${maven.project.version}.zip&quot; basedir=&quot;${maven.project.build.directory}/marketplace&quot; /&gt;
+            &lt;artifact:attach file=&quot;${maven.project.build.directory}/${maven.project.artifactId}-${maven.project.version}.zip&quot; target=&quot;${maven.project.groupId}:${maven.project.artifactId}&quot; type=&quot;zip&quot; /&gt;
+        &lt;/target&gt;
+    &lt;/project&gt;
+</code>
+    </pre>
+  </section>
+
+  <section class="slide no-md" id="useful-ant-task">
+    <h3>Useful ant task</h3>
+    <ul>
+      <li>From distribution-tools :
+        <ul>
+          <li><code>&lt;artifact:resolveFile&gt;</code> get or download an maven
+            artifact. To be used with ant set task such as copy or unzip</li>
+          <li><code>&lt;artifact:attach&gt;</code> attach a file as a maven
+            artifact :
+            <ul>
+              <li><code>mvn package</code> will create the zip file</li>
+              <li><code>mvn install</code> will create the zip file and copy to
+                the local repository</li>
+              <li><code>mvn deploy</code> will create the zip file and copy to
+                the local repository and deploy to a remote maven
+                repository</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md"
+    id="maven-properties-are-available-in-the-ant-file">
+    <h3>Maven properties are available in the ant file</h3>
+    <ul>
+      <li>Injected with nuxeo-distribution-tools
+        <ul>
+          <li><code>${maven.project.build.directory}</code>
+            <ul>
+              <li><code>${project.build.directory}</code> in maven</li>
+            </ul>
+          </li>
+          <li><code>${maven.project.version}</code>
+            <ul>
+              <li><code>${project.version}</code> in maven</li>
+            </ul>
+          </li>
+          <li><code>${maven.project.groupId}</code></li>
+          <li><code>${maven.project.artifactId}</code></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md"
+    id="other-way-to-build-the-market-place-package">
+    <h3>Other way to build the market place package</h3>
+    <ul>
+      <li>EAR builds and diff</li>
+      <li>No EAR method</li>
+      <li>Explicit method (the method we are using)</li>
+    </ul>
+    <p>
+      See <a
+        href="https://github.com/nuxeo/nuxeo-marketplace-sample#about-the-three-sample-marketplace-package-solutions">README.md</a>
+      of the sample.
+    </p>
+  </section>
+
+  <section class="slide no-md" id="rtfm">
+    <h3>RTFM</h3>
+    <ul>
+      <li>Nuxeo distribution documentation:
+       <a href="http://doc.nuxeo.com/x/BIAO">http://doc.nuxeo.com/display/CORG/Creating+your+own+distribution</a> </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md"
+    id="exercise---nuxeo-distribution-3:-nuxeo-distribution-tools">
+    <h2>Exercise - Nuxeo Distribution 3: Nuxeo distribution tools</h2>
+  </section>
+
+  <section class="slide no-md exercise" id="what-do-we-want">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>What do we want?</h3>
+    <ul>
+      <li>Refactor our maven project structure with a parent pom,
+        one bundle project, a marketplace distribution project</li>
+      <li>The ant/maven marketplace project to build a ready to use
+        market place package</li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="parent-pom-project">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Parent pom project</h3>
+    <ul>
+      <li><p>Create a pom.xml file in the book-management
+          parent folder </p> <pre>
+            <code>
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;parent&gt;
+    &lt;groupId&gt;org.nuxeo.ecm.platform&lt;/groupId&gt;
+    &lt;artifactId&gt;nuxeo-features-parent&lt;/artifactId&gt;
+    &lt;version&gt;5.6.0-HF07&lt;/version&gt;
+  &lt;/parent&gt;
+  &lt;groupId&gt;org.nuxeo.training&lt;/groupId&gt;
+  &lt;artifactId&gt;book-management-parent&lt;/artifactId&gt;
+  &lt;name&gt;book-management-parent&lt;/name&gt;
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+&lt;/project&gt;
+</code>
+          </pre></li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="testing-your-parent-project">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Testing your parent project</h3>
+    <ul>
+      <li>Your parent project do nothing at the moment</li>
+      <li>Packaging « pom » means that you won't generate any jar
+        (<code>mvn clean install</code> doesn't generate any target folder)</li>
+      <li>Try <code>mvn clean install</code></li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="setting-the-project-version">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Setting the project version</h3>
+    <ul>
+      <li><p>Set a version for the project. The properties can
+          be reused else where in the pom like:  <code>${book.mgt.version}</code> </p> <pre>
+            <code>  ...
+  &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+  &lt;name&gt;book-management-parent&lt;/name&gt;
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+  &lt;properties&gt;
+    &lt;book.mgt.version&gt;1.0.0-SNAPSHOT&lt;/book.mgt.version&gt;
+  &lt;/properties&gt;
+&lt;/project&gt;
+</code>
+          </pre></li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="dependencies-management">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Dependencies management</h3>
+    <ul>
+      <li><p>In dependency management, define all the
+          dependencies version you may need to use in your project: </p> <pre>
+            <code>
+   &lt;properties&gt;
+     &lt;book.mgt.version&gt;1.0.0-SNAPSHOT&lt;/book.mgt.version&gt;
+   &lt;/properties&gt;
+   &lt;dependencyManagement&gt;
+     &lt;dependencies&gt;
+       &lt;dependency&gt;
+         &lt;groupId&gt;org.nuxeo.training&lt;/groupId&gt;
+         &lt;artifactId&gt;book-management&lt;/artifactId&gt;
+         &lt;version&gt;${book.mgt.version}&lt;/version&gt;
+       &lt;/dependency&gt;
+      &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+&lt;/project&gt;
+</code>
+          </pre></li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="adapting-the-ide-project">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Adapting the ide project</h3>
+    <ul>
+      <li>In the Nuxeo ide project pom.xml
+        <ul>
+          <li>Change the referenced parent pom to the new one
+            created (instead of nuxeo-feature-parent)</li>
+          <li>Remove all the versions (&lt;version&gt;) used in the
+            dependency as they are now define in the parent pom. The
+            parent pom.xml is now the single point of modification of
+            your dependency version</li>
+          <li>Remember, You still have to set version
+            1.0.0-SNAPSHOT when referencing to the parent project.</li>
+          <li>You can remove version 1.0.0-SNAPSHOT for the
+            project, it will take the parent one if not defined. Same
+            for the groupId </li>
+        </ul> 
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="adapting-the-ide-project-2">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>Adapting the ide project 2</h3>
+    <ul>
+      <li><p>In the parent pom.xml, you need to tell maven to
+          build the project when building the parent: </p> <pre>
+            <code>
+  &lt;modules&gt;
+    &lt;module&gt;nuxeo-book-management&lt;/module&gt;
+  &lt;/modules&gt;
+</code>
+          </pre></li>
+      <li><p>Try to build the parent project, it should also
+          build the main project </p></li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="what-do-we-want-1">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>What do we want?</h3>
+    <ul>
+      <li class="slide">Refactor our maven project structure with a parent
+        pom, one bundle project, a marketplace distribution project</li>
+      <li class="slide">The ant/maven marketplace project to build a ready
+          to use market place package</li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="what-is-needed">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>What is needed ?</h3>
+    <ul>
+      <li>A « marketplace » project that will contains
+        <ul>
+          <li>Plugins and libs to be installed</li>
+          <li>Ressources (templates mainly)</li>
+          <li>The marketplace descriptors: package.xml and
+            install.xml </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
+  <section class="slide no-md exercise" id="to-achieve-that-...">
+      <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+    <h3>To achieve that ...</h3>
+    <ul>
+      <li>We will create a maven project
+        « book-management-marketplace »
+        <ul>
+          <li>Create the assembly.xml that will generates the ear</li>
+          <li>The assembly.xml will be executed by ant </li>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      Take the <a
+        href="https://github.com/nuxeo/nuxeo-marketplace-sample/tree/master/marketplace-explicit">explicit
+        sample</a> and adapt it.  
+    </p>
+  </section>
+
+  <section class="slide no-md" id="questions">
+    <h2>Questions?</h2>
+  </section>
+
+    <section class="slide" id="next">
+### What's next?
+- (optional) [Functional testing](5.3_Functional-testing.html)
+- Back to the [training agenda](0_Introduction.html#day-5)
+- [Ending](99_ending.html)
+  </section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>

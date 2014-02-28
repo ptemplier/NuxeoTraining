@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo training - Advanced Seam & JSF</title>
+
+<meta name="description" content="Nuxeo - Configuration and Integration">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<section class="slide" id="title">
+# Nuxeo training - Advanced Seam & JSF
+</section>
+
+<section class="slide" id="jsf">
+##JSF main concepts - Advanced information
+</section>
+
+<section class="slide" id="jsf-lifecycle-tree">
+###Life Cycle & Component Tree
+
+  <img src="./img/jsf_lifecycle_tree.png" />
+
+</section>
+
+<section class="slide" id="jsf-postback">
+###JSF Post Back & Context
+
+  <img class="float-right" src="./img/jsf_lifecycle.png" />
+  <img src="./img/jsf_postback.png" />
+
+  State is restored when posting a form, and when a validation error occurs
+
+</section>
+
+<section class="slide" id="jsf-facelets-schema">
+### JSF & Facelets
+  <img src="./img/jsf_facelets.png" />
+</section>
+
+<section class="slide" id="jsf-special-cases">
+###JSF Special Cases
+
+- Cross validation
+    - problem: need validate before the update model phase
+    - solution: add a hidden component that retrieves values on other components and validate them
+
+- Ajax interactions
+    - fine control over behaviour (posting, rerendering,... )
+    - fine control over validation and update
+</section>
+
+<section class="slide" id="jsf-lifecycle-schema-immediate">
+###JSF Life Cycle - immediate use case
+
+  <img src="./img/jsf_immediate.png" />
+</section>
+
+<section class="slide" id="questions-jsf">
+##Questions?
+</section>
+
+<section class="slide" id="next-jsf">
+### What's next?
+<a href="4.5_Seam-JSF.html#seam">Seam main concepts</a>
+</section>
+
+<section class="slide" id="seam">
+##Seam Main Concepts - Advanced information
+</section>
+
+<section class="slide" id="seam-jsf-role">
+###Seam & JSF Life Cycle
+
+<img class="float-right" src="./img/jsf-seam-lifecycle.png" />
+
+- Postback is an HTTP POST to the same page that the form is on.
+- JSF 2.0 supports pre-rendering events as part of the .xhtml files as opposed to the page.xml file in Seam.
+Hence, JSF 2.0 allows your application to be hot deployable.
+</section>
+
+<section class="slide" id="questions-seam">
+##Questions?
+</section>
+
+<section class="slide" id="next-seam">
+### What's next?
+<a href="4.5_Seam-JSF.html#nuxeo-webapp">Nuxeo JSF Webapp</a>
+</section>
+
+<section class="slide" id="nuxeo-webapp">
+##Nuxeo JSF WebApp - Advanced information
+</section>
+
+<section class="slide" id="global-picture">
+###Global picture
+
+<img src="./img/global_picture.png" />
+</section>
+
+<section class="slide" id="nuxeo-webapp-event-invalidations">
+###Event based invalidation
+
+- Conversation beans hold some cache
+    - data computed about the currentDocument (relations, history ....)
+- Cache invalidation is needed
+- Seam Events are used for that: components are notified via <code>@Observers</code>
+- Can also use <code>DocumentContextBoundActionBean</code> for optimization
+</section>
+
+<section class="slide" id="nuxeo-seam-delegates">
+###Seam Delegates in Nuxeo
+
+- Use <code>@Unwrap</code> annotation to access Nuxeo Service as native Seam components
+- can access Nuxeo services via injection
+    - <code>@In</code> CoreSession documentManager
+    - <code>@In</code> RelationManager relationManager
+
+- Framework.getLocalService can be an alternative for service lookup
+</section>
+
+<section class="slide" id="nuxeo-seam-factories">
+###Seam Factories in Nuxeo
+
+Seam factories are used to fill the context
+
+- avoids multiple calls
+- avoids managing state in the components
+</section>
+
+<section class="slide" id="questions-jsf-webapp">
+##Questions?
+</section>
+
+<section class="slide" id="next-jsf-webapp">
+### What's next?
+<a href="4.5_Seam-JSF.html#nuxeo-jsf">Nuxeo JSF Integration</a>
+</section>
+
+<section class="slide" id="nuxeo-jsf-integration">
+##Nuxeo JSF integration - Advanced information
+</section>
+
+<section class="slide" id="agenda-nuxeo-jsf-integration">
+### Nuxeo JSF integration
+#### Agenda
+- <a href="#nuxeo-jsf-integration"><span class="bold">Nuxeo JSF integration</a>
+- <a href="#actions">Actions - Advanced information</span></a>
+- <a href="#themes">Themes</a>
+- <a href="#content-views">Content views</a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise">Training Exercise</a>
+</section>
+
+<section class="slide" id="nuxeo-jsf-tag-libraries">
+###Nuxeo JSF Tag libraries
+
+Nuxeo provides several tag libraries
+
+- nxu: utility functions (nxu:inputList, nxu:set, nxu:valueHolder)
+- nxd: document related functions (nxd:titleOrId(document), etc...)
+- nxl: layout/widgets support
+- nxdir: directorybound components
+</section>
+
+<section class="slide" id="questions-nuxeo-jsf-integration">
+##Questions?
+</section>
+
+<section class="slide" id="agenda-nuxeo-actions">
+### Nuxeo JSF integration
+#### Agenda
+- <a href="#nuxeo-jsf-integration">Nuxeo JSF integration</a>
+- <a href="#actions"><span class="bold">Actions - Advanced information</span></a>
+- <a href="#themes">Themes</a>
+- <a href="#content-views">Content views</a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise">Training Exercise</a>
+</section>
+
+<section class="slide" id="actions">
+  <h2>Actions - Advanced information</h2>
+</section>
+
+<section class="slide" id="actions-xhtml">
+###Actions Usage in xhtml Pages
+
+Most of the time, actions rendering depends on their category, although
+some improvements have been made in more recent Nuxeo versions.
+
+<pre>
+<code>&lt;nxu:set var="actions" cache="true"
+  value="#{webActions.getActionsList('DOCUMENT_UPPER_ACTION')}"&gt;
+  &lt;nxu:dataList layout="simple" var="action" value="#{actions}"&gt;
+    &lt;nxh:commandLink action="#{action.getLink()}"
+      immediate="#{action.immediate}"
+      onclick="#{action.confirm}"&gt;
+      &lt;h:graphicImage value="#{action.icon}"
+        rendered="#{not empty action.icon}"
+        title="#{messages[action.label]}"
+        alt="#{messages[action.label]}"
+        styleClass="smallIcon" /&gt;
+    &lt;/nxh:commandLink&gt;
+  &lt;/nxu:dataList&gt;
+&lt;/nxu:set&gt;</code>
+</pre>
+
+</section>
+
+<section class="slide" id="actions-xhtml2">
+###Actions Usage in xhtml Pages
+
+New way (from 5.7.1), allows to mix up different renderings depending on
+the action, in the same category:
+<pre>
+<code>&lt;nxl:widgetType name="currentDocumentActionsWithForms"
+  widgetName="documentActionsUpperButtons"
+  mode="view"
+  label=""
+  styleClass="globalActionBar"
+  subStyleClass="contextActions"
+  actionStyleClass="button"
+  actionsDisplay="icons"
+  overallDisplay="horizontal_block"
+  category="DOCUMENT_UPPER_ACTION"
+  maxActionsNumber="5"
+  value="#{currentDocument}" /&gt;</code>
+</pre>
+
+</section>
+
+
+<section class="slide" id="url-service">
+###URL Service
+
+- JSF uses POSTs everywhere
+    - urls are not bookmarkable
+- Nuxeo adds an URL service
+    - let define URL codecs
+        - define what must be encoded in urls
+            - Document Uid based urls
+            - Document Path based urls
+            - File download urls
+            - ...
+    - provides RESTful (GET) navigation in JSF
+        - simple navigation in Nuxeo is done via simple GET
+</section>
+
+<section class="slide" id="url-codecs">
+###URL Codecs
+
+- URL Codecs
+  - Transform an url into a  « document view »
+  - Restore context from this « document view » and map additional parameters
+  - Examples:
+      - http://localhost:8080/nuxeo/<code>nxdoc</code>/default/fa431bc8-014d-4d19-9338-216d732ae5b2/view_documents
+      - http://localhost:8080/nuxeo/<code>nxpath</code>/default/default-domain/workspaces@view_documents
+      - http://localhost:8080/nuxeo/<code>nxfile</code>/default/5003772a-27c8-4231-a5d5-7d19608fbfb7/blobholder:0/Screenshot%20at%202013-06-25%2000%3A11%3A35.png
+- As a service because it has to be accessible by:
+  - core services (example: notifications)
+  - other frameworks (example: opensocial gadgets)
+</section>
+
+<section class="slide" id="url-patterns">
+###URL Patterns
+
+URL patterns make the link between the navigation and the URL codec
+
+<pre>
+<code>&lt;extension target="org.nuxeo.ecm.platform.ui.web.rest.URLService"
+  point="urlpatterns"&gt;
+  &lt;urlPattern name="default" enabled="true"&gt;
+    &lt;defaultURLPolicy&gt;true&lt;/defaultURLPolicy&gt;
+    &lt;needBaseURL&gt;true&lt;/needBaseURL&gt;
+    [...]
+    &lt;codecName&gt;docpath&lt;/codecName&gt;
+    &lt;actionBinding&gt;
+      #{restHelper.initContextFromRestRequest}
+    &lt;/actionBinding&gt;
+    [...]
+    &lt;bindings&gt;
+      &lt;binding name="tabId" callGetter="false"&gt;
+       #{webActions.currentTabId}
+      &lt;/binding&gt;
+    &lt;/bindings&gt;
+  &lt;/urlPattern&gt;
+&lt;/extension&gt;</code>
+</pre>
+
+</section>
+
+<section class="slide" id="questions-actions">
+##Questions?
+</section>
+
+<section class="slide" id="agenda-nuxeo-themes">
+### Nuxeo JSF integration
+#### Agenda
+- <a href="#nuxeo-jsf-integration">Nuxeo JSF integration</a>
+- <a href="#actions">Actions - Advanced information</a>
+- <a href="#themes"><span class="bold">Themes</span></a>
+- <a href="#content-views">Content views</a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise">Training Exercise</a>
+</section>
+
+<section class="slide" id="themes">
+##Themes
+</section>
+
+<section class="slide" id="nuxeo-themes-overview">
+  <h3>Themes</h3>
+  <div>
+    <img src="./img/themes.png" />
+  </div>
+</section>
+
+<section class="slide" id="nuxeo-themes-role">
+  <h3>Themes Role</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Define the branding of an application</li>
+      <li>Define global page layouts with reusable components</li>
+      <li>Handle CSS/Javascript resources</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/flavors.png" />
+  </div>
+</section>
+
+<section class="slide" id="theme-features">
+  <h3>Themes Features</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Use JSF and Freemarker features</li>
+      <li>Define sets of reusable CSS files to handle addons and applications</li>
+      <li>Provide flavors for easier customization</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/nuxeo_theme_includes.jpg" />
+  </div>
+</section>
+
+<section class="slide" id="theme-studio">
+  <h3>Branding in Nuxeo Studio</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Customize login page</li>
+      <li>Define flavors</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/studio_new_branding.png" />
+  </div>
+</section>
+
+<section class="slide" id="theme-xml">
+###Theme XML Extensions
+
+- declare the theme
+- reference the page layout, referencing view fragments
+- link CSS/JS resources
+- apply flavours
+</section>
+
+<section class="slide" id="nuxeo-theme-more">
+###More About Themes
+
+- Themes reference documentation
+  <br />
+  <a href="http://doc.nuxeo.com/x/N4AO" target="_blank">http://doc.nuxeo.com/x/N4AO</a>
+- Showcase for CSS syling of a Nuxeo application
+  <br />
+  <a href="http://showcase.nuxeo.com/nuxeo/styleGuide/" target="_blank">http://showcase.nuxeo.com/nuxeo/styleGuide/</a>
+</section>
+
+<section class="slide" id="questions-themes">
+##Questions?
+</section>
+
+<section class="slide" id="agenda-nuxeo-content-views">
+### Nuxeo JSF integration
+#### Agenda
+- <a href="#nuxeo-jsf-integration">Nuxeo JSF integration</a>
+- <a href="#actions">Actions - Advanced information</a>
+- <a href="#themes">Themes</a>
+- <a href="#content-views"><span class="bold">Content views</span></a>
+- <a href="#design-advice">Design notes & standard pitfalls</a>
+- <a href="#training-exercise">Training Exercise</a>
+</section>
+
+<section class="slide" id="content-views">
+  <h2>Content Views</h2>
+</section>
+
+<section class="slide" id="content-views-overview">
+  <h3>Content Views</h3>
+  <div>
+    <img src="./img/content_view.png" />
+  </div>
+</section>
+
+<section class="slide" id="content-views-role">
+  <h3>Content Views</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Define the query to retrieve documents (or other resources)</li>
+      <li>Pass on contextual parameters to the query</li>
+      <li>Define a filtering form</li>
+      <li>Define rendering of items in a table</li>
+      <li>Handle selection and actions on items</li>
+      <li>Handle sorting and pagination</li>
+      <li>Handle cache</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/contentview.png" />
+  </div>
+</section>
+
+<section class="slide" id="content-views-features">
+  <h3>Content Views Features</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Reuse underlying layouts and actions features</li>
+      <li>Accept pluggable page providers to query custom databases</li>
+      <li>Benefit from loose binding of listing layouts</li>
+      <li>Pass contextual properties to the page provider (core session for instance)</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/contentview_history.png" />
+  </div>
+</section>
+
+<section class="slide" id="content-views-xml">
+###Content Views Definitions
+<pre>
+<code>&lt;extension target="org.nuxeo.ecm.platform.ui.web.ContentViewService"
+  point="contentViews"&gt;
+  &lt;contentView name="document_content"&gt;
+    &lt;coreQueryPageProvider&gt;
+      [...]
+    &lt;/coreQueryPageProvider&gt;
+    &lt;searchLayout name="document_content_filter"
+      filterDisplayType="quick" /&gt;
+    &lt;refresh&gt;
+      &lt;event&gt;documentChanged&lt;/event&gt;
+      &lt;event&gt;documentChildrenChanged&lt;/event&gt;
+    &lt;/refresh&gt;
+    &lt;cacheKey&gt;#{currentDocument.id}&lt;/cacheKey&gt;
+    &lt;cacheSize&gt;10&lt;/cacheSize&gt;
+    &lt;resultLayouts&gt;
+      &lt;layout
+        name="document_listing_ajax"
+        title="document_listing"
+        translateTitle="true"
+        iconPath="/icons/document_listing_icon.png"
+        showCSVExport="true"
+        showPDFExport="false"
+        showSyndicationLinks="true" /&gt;
+    &lt;/resultLayouts&gt;
+    &lt;selectionList&gt;CURRENT_SELECTION&lt;/selectionList&gt;
+    &lt;actions category="CURRENT_SELECTION_LIST" /&gt;
+  &lt;/contentView&gt;
+&lt;/extension&gt;</code>
+</pre>
+</section>
+
+
+<section class="slide" id="page-providers-xml">
+###Page Providers Definitions
+<pre>
+<code>&lt;coreQueryPageProvider&gt;
+  &lt;property name="coreSession"&gt;#{documentManager}&lt;/property&gt;
+  &lt;property name="maxResults"&gt;DEFAULT_NAVIGATION_RESULTS&lt;/property&gt;
+  &lt;whereClause docType="AdvancedSearch"&gt;
+    &lt;predicate parameter="ecm:fulltext" operator="FULLTEXT"&gt;
+      &lt;field schema="advanced_search" name="fulltext_all" /&gt;
+    &lt;/predicate&gt;
+    &lt;predicate parameter="dc:title" operator="FULLTEXT"&gt;
+      &lt;field schema="advanced_search" name="title" /&gt;
+    &lt;/predicate&gt;
+    &lt;predicate parameter="dc:modified" operator="BETWEEN"&gt;
+      &lt;field schema="advanced_search" name="modified_min" /&gt;
+      &lt;field schema="advanced_search" name="modified_max" /&gt;
+    &lt;/predicate&gt;
+    &lt;fixedPart&gt;
+      ecm:parentId = ? AND ecm:isCheckedInVersion = 0
+      AND ecm:mixinType != 'HiddenInNavigation'
+      AND ecm:currentLifeCycleState != 'deleted'
+    &lt;/fixedPart&gt;
+  &lt;/whereClause&gt;
+  &lt;parameter&gt;#{currentDocument.id}&lt;/parameter&gt;
+  &lt;sort column="dc:title" ascending="true" /&gt;
+  &lt;pageSize&gt;20&lt;/pageSize&gt;
+&lt;/coreQueryPageProvider&gt;</code>
+</pre>
+</section>
+
+<section class="slide" id="custom-page-providers">
+###Custom page providers
+
+Benefit from:
+
+- default page providers API (next, prev, etc...)
+- default content views rendering
+    - use layouts loose binding for results rendering
+
+<pre>
+<code>&lt;extension
+  target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+  point="providers"&gt;
+  &lt;genericPageProvider name="DOCUMENT_HISTORY_PROVIDER"
+    class="org.nuxeo.ecm.platform.audit.api.document.DocumentHistoryPageProvider"&gt;
+    &lt;whereClause docType="BasicAuditSearch"&gt;
+      &lt;predicate parameter="log.eventDate" operator="BETWEEN"&gt;
+        &lt;field schema="basicauditsearch" name="startDate" /&gt;
+        &lt;field schema="basicauditsearch" name="endDate" /&gt;
+      &lt;/predicate&gt;
+    &lt;/whereClause&gt;
+    &lt;sort column="log.eventDate" ascending="true" /&gt;
+    &lt;sort column="log.id" ascending="true" /&gt;
+    &lt;pageSize&gt;10&lt;/pageSize&gt;
+  &lt;/genericPageProvider&gt;
+&lt;/extension&gt;</code>
+</pre>
+</section>
+
+<section class="slide" id="content-views-xhtml">
+###Content Views usage in xhtml pages
+
+<pre>
+<code>&lt;nxu:set var="contentViewId" value="unique_cv_id"&gt;
+  &lt;nxu:set var="contentViewName" value="document_content"&gt;
+    &lt;ui:decorate template="/incl/content_view.xhtml" /&gt;
+  &lt;/nxu:set&gt;
+&lt;/nxu:set&gt;</code>
+</pre>
+</section>
+
+<section class="slide" id="questions-content-views">
+##Questions?
+</section>
+
+<section class="slide" id="agenda-nuxeo-design-advice">
+### Nuxeo JSF integration
+#### Agenda
+- <a href="#nuxeo-jsf-integration">Nuxeo JSF integration</a>
+- <a href="#actions">Actions - Advanced information</a>
+- <a href="#themes">Themes</a>
+- <a href="#content-views">Content views</a>
+- <a href="#design-advice"><span class="bold">Design notes & standard pitfalls</span></a>
+- <a href="#training-exercise">Training Exercise</a>
+</section>
+
+<section class="slide" id="design-advice">
+##Design advice
+</section>
+
+<section class="slide" id="jsf-pitfalls">
+### JSF  pitfalls
+
+- Building a JSF component from the ground:
+    - is a lot of work
+    - can be hard
+  => Use facelets and composition to build new custom components
+- Rendered clause impact on performance
+- Variables exposure: build time vs render time
+- Duplicate id issues
+- Ajax and queues and re-render zones
+- Back button management
+- Server side state saving (limited by memory usage)
+- ...
+
+</section>
+
+<section class="slide" id="jsf-pitfalls-rendered-clause-1">
+### JSF rendered clause issue
+
+- JSF rendered clause is evaluated during each phase
+    - clause is evaluated 6 time per components
+- Associated with a loops this can completely kill the performances of an application
+</section>
+
+<section class="slide" id="jsf-pitfalls-rendered-clause-2">
+###Render clause problem
+
+  <img src="./img/render_clause.png" />
+</section>
+
+<section class="slide" id="jsf-pitfalls-rendered-clause-3">
+###Render clause solution
+- Use built-time conditions
+    - c:if, c:choose, c:forEach
+- Bind conditions to context variables
+    - use Seam factories to compute variable only once per event
+- use nxu:set tag with cache property to "true"
+</section>
+
+<section class="slide" id="seam-pitfalls-1">
+###Seam components design advice
+
+- It's easy to put all logic in the Seam beans (seam book push in that direction)
+
+but it's bad
+
+- because the code is hard to test
+- because the code is not reusable
+- because it's gives packaging constraints
+
+=> Separate UI/Logic/Storage layers
+xxx-api, xxx-core, xxx-web
+</section>
+
+<section class="slide" id="seam-pitfalls-2">
+### Seam pitfalls
+
+- Scope management
+    - do not use conversation scope too much
+    - same for session components
+    - conversation and session calls are synchronized
+
+- Circular dependencies between Seam components
+
+- Interceptors overhead: can be useful to bypass them
+</section>
+
+<section class="slide" id="nuxeo-pitfalls">
+### Nuxeo pitfalls
+
+- Nuxeo and ELs
+    - JSF/Seam EL for layouts & widgets
+    - JEXL for actions with a restricted context
+    - MVEL for operations<br /><br />
+http://doc.nuxeo.com/x/L4PZ
+
+- Override of default templates or Seam components: not advised for easier migration
+</section>
+
+<section class="slide" id="debugging">
+### Debugging & Troubleshoot
+
+- use the dev mode for refresh of xhtml templates
+- use Nuxeo IDE for Seam hot reload support and debugging features
+</section>
+
+<section class="slide exercise" id="training-exercise">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice
+#### Define a new view
+
+The server currently needs to be started in dev mode for the exercise
+to complete correctly when using Nuxeo IDE. Edit the <code>bin/nuxeo-sdk.conf</code> file
+in you sdk to set the <code>org.nuxeo.dev</code> property to <code>true</code>.
+
+- Define a new JSF view
+  - define the template with a simple "Hello World" content
+  - define the navigation case
+  - add an action displaying it
+  - display the current document default view layout
+  - bind the view to the default theme
+  - bind the view to another theme page
+
+<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
+</section>
+
+<section class="slide" id="questions-nuxeo-jsf">
+##Questions?
+</section>
+
+<section class="slide" id="next">
+### Next?
+[Nuxeo distribution - Configuration templates](5.1.1_Nuxeo-server-structure-deployment-configuration.html)
+</section>
+
+<section class="slide" id="help-exercise1">
+### Help (1/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Sample template content, at <code>src/main/resources/web/nuxeo.war/hello_world.xhtml</code>
+<pre>
+<code>&lt;div&gt;Hello&lt;/div&gt;</code>
+</pre>
+
+Sample navigation case at <code>src/main/resources/OSGI-INF/deployment-fragment.xml</code>
+<pre>
+<code>&lt;extension target="faces-config#NAVIGATION"&gt;
+  &lt;navigation-case&gt;
+    &lt;from-outcome&gt;hello_world&lt;/from-outcome&gt;
+    &lt;to-view-id&gt;/hello_world.xhtml&lt;/to-view-id&gt;
+    &lt;redirect /&gt;
+  &lt;/navigation-case&gt;
+&lt;/extension&gt;</code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
+<div class="sticker"><a href="#help-exercise2">Need more help?</a></div>
+</section>
+
+<section class="slide" id="help-exercise2">
+### Help (2/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Sample action contribution at <code>src/main/resources/OSGI-INF/extensions/hello-action-contrib.xml</code>
+<pre>
+<code>&lt;?xml version="1.0"?&gt;
+&lt;component name="helloAction"&gt;
+  &lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
+    point="actions"&gt;
+    &lt;action id="hello" link="hello_world" label="Hellowho"&gt;
+      &lt;category&gt;SUBVIEW_UPPER_LIST&lt;/category&gt;
+      &lt;filter-id&gt;helloFilter&lt;/filter-id&gt;
+    &lt;/action&gt;
+  &lt;/extension&gt;
+  &lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
+    point="filters"&gt;
+    &lt;filter id="helloFilter"&gt;
+      &lt;rule grant="true"&gt;
+        &lt;type&gt;Workspace&lt;/type&gt;
+      &lt;/rule&gt;
+    &lt;/filter&gt;
+  &lt;/extension&gt;
+&lt;/component&gt;</code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
+<div class="sticker"><a href="#help-exercise3">Need more help?</a></div>
+<div class="sticker"><a href="#help-exercise1">Previous help page</a></div>
+</section>
+
+<section class="slide" id="help-exercise3">
+### Help (3/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Add the document view layout to <code>src/main/resources/web/nuxeo.war/hello_world.xhtml</code>
+<pre>
+<code>&lt;div xmlns:nxl="http://nuxeo.org/nxforms/layout"&gt;
+  &lt;nxl:documentLayout mode="view" value="#{currentDocument}" /&gt;
+&lt;/div&gt;</code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
+<div class="sticker"><a href="#help-exercise4">Need more help?</a></div>
+<div class="sticker"><a href="#help-exercise2">Previous help page</a></div>
+</section>
+
+<section class="slide" id="help-exercise4">
+### Help (4/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Add the theme configuration to <code>src/main/resources/web/nuxeo.war/hello_world.xhtml</code>:
+<pre>
+<code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;nxthemes:composition
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:nxthemes="http://nuxeo.org/nxthemes"
+  xmlns:nxl="http://nuxeo.org/nxforms/layout"&gt;
+
+  &lt;ui:define name="page title"&gt;
+    Hello!
+  &lt;/ui:define&gt;
+
+  &lt;ui:define name="body"&gt;
+    &lt;div&gt;
+      Hello world
+      &lt;nxl:documentLayout
+        mode="view"
+        value="#{currentDocument}" /&gt;
+    &lt;/div&gt;
+  &lt;/ui:define&gt;
+
+&lt;/nxthemes:composition&gt;</code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
+<div class="sticker"><a href="#help-exercise5">Need more help?</a></div>
+<div class="sticker"><a href="#help-exercise3">Previous help page</a></div>
+</section>
+
+<section class="slide" id="help-exercise5">
+### Help (5/5)! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+Sample theme contribution at <code>src/main/resources/OSGI-INF/extensions/hello-theme-contrib.xml</code>
+<pre>
+<code>&lt;extension target="org.nuxeo.theme.services.ThemeService"
+  point="applications"&gt;
+  &lt;application root="${org.nuxeo.ecm.contextPath}"
+    template-engine="jsf-facelets"&gt;
+    &lt;view id="/hello_world.xhtml"&gt;
+      &lt;theme&gt;galaxy/popup&lt;/theme&gt;
+    &lt;/view&gt;
+  &lt;/application&gt;
+&lt;/extension&gt;</code>
+</pre>
+
+<div class="sticker"><a href="#training-exercise1">Back to the exercise</a></div>
+<div class="sticker"><a href="#help-exercise4">Previous help page</a></div>
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+    $(function() {
+       $.deck('.slide');
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo training - Seam & JSF</title>
+
+<meta name="description" content="Nuxeo - Configuration and Integration">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<section class="slide" id="title">
+# Nuxeo training - Seam & JSF
+</section>
+
+<section class="slide" id="wherewego-context-seamjsf">
+### Context <img src="img/frog-teacher.png" class="float-left" />
+<blockquote><p>
+All major requests have been handled, therefore you are asked for a finer tuning of the application.<br /><br />
+The Best books library employees would appreciate not to see the version displayed on folderish documents in a listing,
+and see how many documents are contained in a folderish one.
+</p></blockquote>
+</section>
+
+<section class="slide" id="wherewego-structure-template">
+###What we want to do
+####At the end of the course:
+
+- A JSF template that hides the version number for folderish documents
+- A Seam component that counts the number of children documents in a folderish document, and a JSF template that shows its result
+</section>
+
+<section class="slide" id="agenda-intro">
+###Agenda
+- <a href="#technologies-overview"><span class="bold">Technologies overview</span></b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+</section>
+
+<section class="slide" id="technologies-overview">
+##Technologies Overview<br /><em>Actors in Nuxeo Web Framework</em>
+</section>
+
+<section class="slide" id="technologies-stack">
+###Technologies Stack
+  <img src="./img/technologies_stack.png" />
+</section>
+
+<section class="slide" id="jsf-intro">
+### JSF
+- Java framework used for web applications
+- Provides:
+    - Expression Language (EL)
+    - A validation model
+    - A basic tag library
+</section>
+
+<section class="slide" id="jsf-facelets-intro">
+### JSF Facelets
+- Layer added to enhance JSF logic and rendering
+- Clean rendering engine for JSF
+- Provides templating features
+</section>
+
+<section class="slide" id="seam-intro">
+###Seam
+- Web oriented framework
+- Natively built for JSF
+- Provides extended context management
+- Improves JSF experience
+    - Improves EL
+    - Make bindings simpler
+    - Manage components life cycle
+- Includes a lot of web tools
+- CDI was inspired from Seam
+</section>
+
+<section class="slide" id="richfaces-intro">
+###Richfaces / Ajax4JSF
+
+- Provides high level components
+    - file upload
+    - trees
+    - tables
+    - popups
+    - suggestion boxes
+    - ...
+- Based on Ajax4JSF framework
+    - provides partial JSF component tree rendering
+    - provides native Ajax integration
+</section>
+
+<section class="slide" id="technologies-stack-simple-webapp">
+###Simple Webapp Stack
+  <img src="./img/simple_webapp_stack.png" />
+</section>
+
+<section class="slide" id="technologies-stack-complex-webapp">
+###Complex Webapp Stack
+  <img src="./img/complex_webapp_stack.png" />
+</section>
+
+<section class="slide" id="agenda-jsf">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf"><span class="bold">JSF main concepts</span></a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+</section>
+
+<section class="slide" id="jsf">
+##JSF main concepts<br /><em>Understand the basis of JSF in 5 minutes</em>
+</section>
+
+<section class="slide" id="jsf-basics">
+### JSF
+#### Concepts
+- JSF is component oriented
+    - each UI block is a component
+        - holds state (local value)
+        - can be bound to a backing bean
+    - JSF sees a page as a component tree “like the HTML DOM”
+- JSF is stateful: component tree holds state
+- JSF includes validators and converters
+- JSF manages navigation
+</section>
+
+<section class="slide" id="jstl">
+### JSTL
+#### Concepts
+- Standard tag library
+- Provides different libraries to display HTML, query a database…
+- Declared into xhtml files by using XML tags, ex:
+<pre><code>&lt;div xmlns:h="http://java.sun.com/jsf/html">
+  &lt;h:outputText
+  value="This is escaped text." escape="true" />
+&lt;/div></code></pre>
+- Xhtml files can be uploaded in studio and used as template widgets for custom display
+</section>
+
+<section class="slide" id="jsf-tree">
+###JSF Components Tree
+#### Sample xhtml code:
+<pre>
+<code>
+  &lt;div&gt;
+    &lt;h:form&gt;
+      #{messages['label']}
+      &lt;h:inputText ... /&gt;
+      &lt;h:commandButton ... /&gt;
+    &lt;/h:form&gt;
+  &lt;/div&gt;
+</code>
+</pre>
+</section>
+
+<section class="slide" id="jsf-lifecycle">
+###JSF Life Cycle: 6 steps
+
+<img class="float-right" src="./img/jsf_lifecycle.png" />
+
+#### 1. Build tree (Restore View)
+- parses JSP/Facelets and creates component tree
+
+#### 2. Apply request values
+- parses request and set component tree local values
+
+#### 3. Process validations
+- apply validators
+
+#### 4. Update model (EL value)
+- update backing beans
+
+#### 5. Invoke Application (navigation/action)
+- parses JSP/Facelets and creates component tree
+
+#### 6. Render response (EL value)
+<br />
+Each phase is done for the whole tree before the next phase
+</section>
+
+<section class="slide" id="jsf-facelets-basics">
+### JSF & Facelets
+#### What Facelets provide to JSF
+- Rendering engine
+- Templating engine with composition
+- Life cycle default view handler
+- Dynamic control over component tree construction
+    - Example: build rendering structures from layouts definitions
+</section>
+
+<section class="slide" id="jsf-context-management">
+### JSF Context Management
+#### JSF defines 4 contexts
+- Event context: one http request
+- Page context: complete life-cycle
+    - 2 requests: GET + POST
+- Session context: standard http session scope
+- Global application context: shared by all user
+</section>
+
+<section class="slide" id="jsf-el-resolvers">
+###EL Resolvers
+Expression Language offers a loose binding to UI elements
+
+#### Standard EL resolvers (bean getters & setters, map values by key, list values by index, ...)
+- #{myBean.myAttribute} calls myBean.getMyAttribute()
+- #{myBean.myAttribute} resolves to myBean.getMyAttribute() on get, and myBean.setMyAttribute(attr) on set
+
+#### Pluggable EL resolvers, like the DocumentModelResolver
+- #{doc.id} calls doc.getId()
+- #{doc.dublincore.title} resolves to doc.getPropertyValue("dc:title") on get, and doc.setPropertyValue("dc:title", value) on set
+
+#### Other examples
+- #{currentDocument.dublincore.title}
+- #{currentDocument.dc.contributors[0]}
+</section>
+
+<section class="slide exercise" id="exercise-jsf">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice
+#### JSF
+- Create a xhtml file named `helloWorld.xhtml`
+- This file should display "Hello world!".
+- Add a `template` widget to your `bookTableLayout` that uses your xhtml file
+- Commit and deploy your changes
+- Check the result by going to your "still in library" books tab
+</section>
+
+<section class="slide" id="jsf-more">
+###More About JSF
+
+- <a href="4.5.1_Seam-JSF-advanced.html#jsf">Advanced JSF information</a>
+- JSF introduction and lifecycle explanation<br />
+  <a href="http://www.ibm.com/developerworks/library/j-jsf1/" target="_blank">http://www.ibm.com/developerworks/library/j-jsf1/</a><br />
+  <a href="http://www.ibm.com/developerworks/library/j-jsf2/" target="_blank">http://www.ibm.com/developerworks/library/j-jsf2/</a>
+- JSF lifecycle explained by debug<br />
+  <a href="http://balusc.blogspot.fr/2006/09/debug-jsf-lifecycle.html" target="_blank">http://balusc.blogspot.fr/2006/09/debug-jsf-lifecycle.html</a>
+- RichFaces showcase and Ajax features documentation<br />
+  <a href="http://livedemo.exadel.com/richfaces-demo/index.jsp" target="_blank">http://livedemo.exadel.com/richfaces-demo/index.jsp</a>
+</section>
+
+<section class="slide" id="questions-jsf-basics">
+##Questions?
+</section>
+
+<section class="slide" id="agenda-seam">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam"><span class="bold">Seam main concepts</span></a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+</section>
+
+<section class="slide" id="seam">
+##Seam Main Concepts
+</section>
+
+<section class="slide" id="seam-role">
+###Seam Role
+
+- Controller for JSF views
+    - Used when server side logic is needed
+- Seam Components are instantiated for each user
+- Injection mechanism for interaction between Seam components
+- Context mechanism :
+    - Current doc/super space ...
+    - Current tabs
+    - Caches
+    - Document view (request)
+</section>
+
+<section class="slide" id="seam-principles-1">
+###Seam Principles
+
+- Seam component
+    - Pojos or EJB3
+    - identified by a name (<code>@Name</code>)
+- Seam context
+    - <code>ScopeType</code>: Stateless, Event, Page, <span class="bold">Conversation</span>, Session, Application
+    - Life cycle management: Seam components and outjected values have a scope
+</section>
+
+<section class="slide" id="seam-principles-2">
+###Seam Principles
+
+- Injections (<code>@In</code>)
+  can ask for injection of named components
+- Outjections (<code>@Out</code>, <code>@Factory</code>)
+  can push components or values in context
+- Life cycle call backs
+  can be notified by seam
+- Event system (<code>@Observer</code>)
+- Override of existing components (<code>@Install</code>)
+</section>
+
+<section class="slide" id="seam-bean-declaration">
+###Seam Bean Example
+<pre>
+  <code>
+@Scope(ScopeType.CONVERSATION)
+@Name(&quot;myActions&quot;)
+public class MyBean implements Serializable {
+  private static final long serialVersionUID = 1L;
+
+  @In(create = true)
+  protected transient NavigationContext navigationContext;
+
+  @In(create = true)
+  protected transient CoreSession documentManager;
+
+  @In(create = true)
+  protected transient FacesMessages facesMessages;
+  ...
+  public String myMethod() {
+    return &quot;A String!&quot;;
+  }
+  ...
+  public String getMyProperty(){
+  ...
+}
+  </code>
+</pre>
+</section>
+
+<section class="slide" id="seam-jsf-binding">
+###Seam & JSF Binding
+- No more XML declaration of backing beans
+- JSF components directly access seam context
+    - JSF uses named components
+    - Scope is managed by seam annotations
+    - Seam beans can be called directly in templates, ex:
+<pre>
+  <code>
+&lt;div&gt;
+  #{mySeamBeanName.method()}
+&lt;/div&gt;
+  </code>
+</pre>
+</section>
+
+<section class="slide" id="seam-cdi">
+###Seam & CDI
+
+What Nuxeo uses in Seam has been incorporated into CDI:
+
+- Components binding
+- Injections
+- Context management
+- Events management
+- Interceptors
+</section>
+
+<section class="slide exercise" id="exercise-seam">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+###Practice - Seam (1/2)
+#### Eclipse side
+- In your eclipse project
+    - In the src/main/java folder:
+        - Create a `package` named `org.nuxeo.training.seamjsf`
+        - Create a new `class`, name it `CounterBean`
+        - Replace its content with the one in this file: <a href="files/CounterBean-base.java" target="_blank">CounterBean-base.java</a>
+    - In the src/main/resources folder:
+        - Create a new `file` named seam.properties
+        - Leave it empty
+    - Deploy your changes on the server
+</section>
+
+<section class="slide exercise" id="exercise-seam2">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+###Practice - Seam (2/2)
+#### Studio side
+- Create a xhtml file named `showCounter.xhtml`
+- In Nuxeo studio
+    - Replace the template widget in the `bookTableLayout` by this one
+- Commit and deploy your changes
+- Check the result by going to your "still in library" books tab, reload it and see what happens
+- What would have been different if you had set the seam bean to an `EVENT` scope ?
+</section>
+
+<section class="slide" id="seam-more">
+###More About Seam
+
+- <a href="4.5.1_Seam-JSF-advanced.html#seam">Seam advanced information</a>
+- Seam reference documentation<br />
+  <a href="http://docs.jboss.org/seam/2.1.0.GA/reference/en-US/html/" target="_blank">http://docs.jboss.org/seam/2.1.0.GA/reference/en-US/html/</a>
+- Seam website<br />
+  <a href="http://www.seamframework.org/" target="_blank">http://www.seamframework.org/</a>
+</section>
+
+<section class="slide" id="questions-seam-basics">
+##Questions?
+</section>
+
+<section class="slide" id="wherewego-context-seamjsf-in-nuxeo">
+### Context <img src="img/frog-teacher.png" class="float-left" />
+<blockquote><p>
+Now that we have understood the basis of Seam and JSF, it is time to move on and see how they apply in Nuxeo.<br /><br />
+We still have tuning to do, remember ? We will start by hiding the version number for folderish documents.
+</p></blockquote>
+</section>
+
+<section class="slide" id="agenda-nuxeo-webapp">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-webapp"><span class="bold">Nuxeo JSF Webapp</span></a>
+- <a href="#nuxeo-jsf">Nuxeo JSF Integration</a>
+</section>
+
+<section class="slide" id="nuxeo-webapp">
+##Nuxeo JSF WebApp
+</section>
+
+<section class="slide" id="nuxeo-webapp-scope">
+###Scope management
+
+- User related components are <span class="bold">session</span> based
+    - <code>currentUser</code>: currently identified user (can be anonymous)
+- Stateless components are stateless or event scoped
+    - <code>selectionActions</code>
+- Other components are <span class="bold">conversation</span> based: the
+  application can support multiple parallel conversations
+    - <code>navigationContext</code>
+    - <code>documentManager</code>: session to the Nuxeo core repository
+</section>
+
+<section class="slide" id="nuxeo-webapp-navigation-context">
+###Navigation context
+#### Seam component named <code>navigationContext</code>
+- Provides a central navigation service
+    - provides context information: <code>currentDocument</code>, <code>currentSuperSpace</code>,...
+    - manages cache and invalidation events
+    - provides central points to let all components share navigation related state
+- Most components inject the navigationContext
+    - to know what is the current document
+    - to perform navigation actions
+</section>
+
+<section class="slide" id="nuxeo-webapp-seam-components">
+### Other major seam components
+#### `documentManager`
+- Link to the repository
+    - Provides the usual actions used on documents: creation, copy, permissions, publication…
+
+#### `currentNuxeoPrincipal`
+- Link to the current user
+    - Provides useful actions on the current user: get email, get/set roles…
+</section>
+
+<section class="slide" id="nuxeo-webapp-usefultags">
+### Useful JSF tags
+#### JSTL core tags
+##### xmlns:c="http://java.sun.com/jstl/core" <br /><br />
+
+`<c:if test="#{field.hasFacet('MyFacet')}"> </c:if>` <br />
+Display information only if a document has a specific facet <br /> <br />
+`#{field.schema.property}` <br />
+Display a document property
+</section>
+
+<section class="slide exercise" id="exercise-nuxeo-webapp">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+###Practice
+#### Nuxeo JSF webapp
+- Create a xhtml file named `hideVersionOnFolderishDocs.xhtml`
+- Place JSF tags to make sure the version number will be shown <br /> **only** on documents **not** having the `Folderish` facet
+- In Nuxeo studio :
+    - replace the version widget in the `bookTableLayout` by this one
+    - In the template widget's options, add a field named `data`
+- Commit and deploy your changes
+- Check the result by going to your "still in library" books tab
+
+<div class="sticker"><a href="#help-exercise-nuxeo-webapp">Need help?</a></div>
+</section>
+
+<section class="slide" id="questions-nuxeo-webapp">
+##Questions?
+<div class="sticker">Want to go deeper? <br /><a href="4.5.1_Seam-JSF-advanced.html#nuxeo-webapp">Nuxeo JSF webapp advanced information</a></div>
+</section>
+
+<section class="slide" id="wherewego-context-seamjsf-integration">
+### Context <img src="img/frog-teacher.png" class="float-left" />
+<blockquote><p>
+First step complete! Good!<br /><br />
+Yet we still need to show the number of children documents, preferably only for folderish ones.
+</p></blockquote>
+</section>
+
+<section class="slide" id="agenda-nuxeo-jsf">
+###Agenda
+- <a href="#technologies-overview">Technologies overview</b>
+- <a href="#jsf">JSF main concepts</a>
+- <a href="#seam">Seam main concepts</a>
+- <a href="#nuxeo-webapp">Nuxeo JSF Webapp</a>
+- <a href="#nuxeo-jsf"><span class="bold">Nuxeo JSF Integration</span></a>
+</section>
+
+<section class="slide" id="nuxeo-jsf">
+##Nuxeo JSF Integration<br /><em>What we added to the framework</em>
+</section>
+
+<section class="slide" id="nuxeo-webapp-overview">
+###Main Concepts
+
+  <img src="./img/complex_webapp_stack.png" />
+
+</section>
+
+<section class="slide" id="nuxeo-ui-summary">
+  <h3>Nuxeo UI Framework</h3>
+  <div>
+    <img src="./img/nuxeo_ui_framework_detail.png" />
+  </div>
+</section>
+
+<section class="slide" id="defining-xhtml-pages">
+### Defining elements
+#### xhtml pages
+- JSF xhtml page are contributed by several plugins
+- Pages are stored in the `nuxeo.war` folder
+- The `deployment-fragment.xml` file is used to copy ressources for each bundle
+- When overriding an existing template, a `require` tag in the `deployment-fragment.xml` file is needed to make sure the page to override is copied before.
+<pre><code>&lt;?xml version="1.0"?&gt;
+&lt;fragment version="1"&gt;
+  &lt;require&gt;org.nuxeo.ecm.platform.tag.web&lt;/require&gt;
+  &lt;install&gt;
+    &lt;unzip from="${bundle.fileName}" to="/" prefix="web"&gt;
+      &lt;include&gt;web/nuxeo.war/**&lt;/include&gt;
+    &lt;/unzip&gt;
+  &lt;/install&gt;
+&lt;/fragment&gt;</code></pre>
+
+#### Seam components
+- Only the presence of a file named <code>seam.properties</code> in the bundle jar will
+make Seam scan the jar for components.
+</section>
+
+<section class="slide" id="layouts">
+##Layouts &amp; Widgets</h3>
+</section>
+
+<section class="slide" id="layouts-features">
+  <h3>Layouts &amp; Widgets Features</h3>
+  <div class="split-box split-37">
+    <ul>
+      <li>Use JSF/Facelets features</li>
+      <li>Benefit from existing JSF libraries (RichFaces)</li>
+      <li>Use Expression Language for loose binding to underlying model: a
+        layout can apply to a document or a bean</li>
+    </ul>
+  </div>
+  <div class="split-box split-63">
+    <img src="./img/reusable_demo.png" />
+  </div>
+</section>
+
+<section class="slide" id="nuxeo-jsf-xml-extensions-layouts">
+###Nuxeo JSF XML Extensions - Layouts
+
+<pre><code>&lt;layout name="dublincore"&gt;
+  &lt;templates&gt;
+    &lt;template mode="any"&gt;
+      /layouts/layout_default_template.xhtml
+    &lt;/template&gt;
+  &lt;/templates&gt;
+  &lt;rows&gt;
+    &lt;row&gt;
+      &lt;widget&gt;nature&lt;/widget&gt;
+    &lt;/row&gt;
+    &lt;row&gt;
+      &lt;widget&gt;subjects&lt;/widget&gt;
+    &lt;/row&gt;
+  &lt;/rows&gt;
+&lt;/layout&gt;</code></pre>
+</section>
+
+<section class="slide" id="nuxeo-jsf-xml-extensions-widgets">
+###Nuxeo JSF XML Extensions - Widgets
+
+<pre><code>&lt;widget name="title" type="text"&gt;
+  &lt;labels&gt;
+    &lt;label mode="any"&gt;title&lt;/label&gt;
+  &lt;/labels&gt;
+  &lt;translated&gt;true&lt;/translated&gt;
+  &lt;fields&gt;
+    &lt;field&gt;dc:title&lt;/field&gt;
+  &lt;/fields&gt;
+  &lt;properties widgetMode="edit"&gt;
+    &lt;property name="required"&gt;true&lt;/property&gt;
+    &lt;property name="styleClass"&gt;DataInputText&lt;/property&gt;
+  &lt;/properties&gt;
+&lt;/widget&gt;</code></pre>
+
+</section>
+
+<section class="slide" id="nuxeo-jsf-layouts-tags">
+###Nuxeo JSF Layout Tags
+
+Binding between a document and a layout:
+
+<pre>
+<code>&lt;nxl:layout
+  name="header"
+  mode="view"
+  value="#{currentDocument}" /&gt;</code>
+</pre>
+
+Refined tag for layouts referenced by document types definition:
+
+<pre>
+<code>&lt;nxl:documentLayout
+  documentMode="header"
+  mode="view"
+  value="#{currentDocument}" /&gt;</code>
+</pre>
+
+</section>
+
+<section class="slide" id="nuxeo-layouts-more">
+###More About Layouts
+
+- Layouts reference documentation<br />
+  <a href="http://doc.nuxeo.com/x/OoAO" target="_blank">http://doc.nuxeo.com/x/OoAO</a>
+- Layout showcase<br />
+  <a href="http://showcase.nuxeo.com/nuxeo/layoutDemo/" target="_blank">http://showcase.nuxeo.com/nuxeo/layoutDemo/</a>
+- Nuxeo JSF tag library documentation<br />
+  <a href="http://community.nuxeo.com/api/nuxeo/5.6/tlddoc/" target="_blank">http://community.nuxeo.com/api/nuxeo/5.6/tlddoc/</a>
+- JSF/Ajax troubleshoot documentation<br />
+  <a href="http://doc.nuxeo.com/x/OgCW" target="_blank">http://doc.nuxeo.com/x/OgCW</a>
+</section>
+
+<section class="slide" id="questions-nuxeo-layouts">
+##Questions?
+</section>
+
+<section class="slide" id="actions">
+  <h2>Actions</h2>
+</section>
+
+<section class="slide" id="actions-features">
+  <h3>Actions Features</h3>
+  <div class="split-box split-63">
+    <ul>
+      <li>Handle navigation, provide bookmarkable URLs</li>
+      <li>
+        Filter UI elements
+        <ul>
+          <li>Check current user permissions using the core security model</li>
+          <li>Check current document type, facet, schema, group...</li>
+          <li>Use Expression Language for custom conditions</li>
+        </ul>
+      </li>
+      <li>Adapt rendering depending on configurable options</li>
+      <li>Build incremental layouts</li>
+    </ul>
+  </div>
+  <div class="split-box split-37">
+    <div>
+      <img src="./img/actions_dashboard.png" />
+      <pre><code>Dashboard layout excerpt</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="actions-xml">
+###Action Definitions
+
+<pre><code>&lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
+  point="actions"&gt;
+  &lt;action id="org.nuxeo.seam.jsf.training.MySeamBean"
+    link="#{mySeam.doGet}" order="200"
+    label="label.org.nuxeo.seam.jsf.training.MySeamBean"
+    icon="/icons/org.nuxeo.seam.jsf.training.MySeamBean-action.png"&gt;
+    &lt;category&gt;SUBVIEW_UPPER_LIST&lt;/category&gt;
+    &lt;filter-id&gt;org.nuxeo.seam.jsf.training.MySeamBean&lt;/filter-id&gt;
+  &lt;/action&gt;
+&lt;/extension&gt;</code>
+</pre>
+
+More sample contributions are available <a href="http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewExtensionPoint/org.nuxeo.ecm.platform.actions.ActionService--actions" target="_blank">on the explorer</a>
+</section>
+
+<section class="slide" id="filters-xml">
+###Filter Definitions
+
+<pre>
+<code>&lt;extension target="org.nuxeo.ecm.platform.actions.ActionService"
+  point="filters"&gt;
+  &lt;filter id="org.nuxeo.seam.jsf.training.MySeamBean"&gt;
+  &lt;rule grant="true"&gt;
+    &lt;condition&gt;#{mySeamBean.accept()}&lt;/condition&gt;
+  &lt;/rule&gt;
+  &lt;/filter&gt;
+&lt;/extension&gt;</code>
+</pre>
+
+More sample contributions are available <a href="http://explorer.nuxeo.org/nuxeo/site/distribution/Nuxeo%20Platform-5.6/viewExtensionPoint/org.nuxeo.ecm.platform.actions.ActionService--filters" target"_blank">on the explorer</a>
+</section>
+
+<section class="slide" id="actions-more">
+###More About Actions & URLs
+
+- Actions reference documentation<br />
+  <a href="http://doc.nuxeo.com/x/EYAO" target="_blank">http://doc.nuxeo.com/x/EYAO</a>
+- URLs reference documentation<br />
+  <a href="http://doc.nuxeo.com/x/hwFu" target="_blank">http://doc.nuxeo.com/x/hwFu</a>
+</section>
+
+<section class="slide exercise" id="exercise-integration-seam">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+###Practice - Nuxeo JSF Integration
+#### Eclipse side
+- Update your `CounterBean` class
+    - Add a `countChildren()` method returning the number of children of the current document
+        - Use the `navigationContext` variable to get the current document
+        - Use the `documentManager` variable to get the children documents
+- Deploy your changes on the server
+
+#### Studio side
+- Create a xhtml file named `showChildrenNumber.xhtml`
+    - Add the JSF tags to call the method only on `Folderish` documents
+- In Nuxeo studio
+    - Add a template widget in the header layout of the BookLibrary document type, using that file
+- Commit and deploy your changes
+- Check the result by going to your book library's content tab
+
+<div class="sticker"><a href="#help-exercise-integration-seam">Need help ?</a></div>
+</section>
+
+<section class="slide exercise" id="exercise-integration-seam-widget">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice - Define a new widget type (optional)
+
+- Define a widget template
+- Define the widget type
+- Use this widget type in a layout
+</section>
+
+<section class="slide" id="questions-nuxeo-actions">
+##Questions?
+<div class="sticker">Want to go deeper? <br /><a href="4.5.1_Seam-JSF-advanced.html#nuxeo-jsf-integration">Nuxeo JSF integration advanced information</a></div>
+</section>
+
+<section class="slide" id="next">
+### Next?
+- Back to the [training agenda](0_Introduction.html#day-5)
+- [Nuxeo distribution - Configuration templates](5.1 - Nuxeo Distribution 1 - Configuration templates.html)
+</section>
+
+<section class="slide" id="help-exercise-nuxeo-webapp">
+### Help! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+The `hideVersionOnFolderishDocs.xhtml` file:
+<pre>
+<code>&lt;div xmlns:c="http://java.sun.com/jstl/core"&gt;
+  &lt;c:if test="#{not field.hasFacet('Folderish')}"&gt;
+    #{field.uid.major_version}.#{field.uid.minor_version}
+  &lt;/c:if&gt;
+&lt;/div&gt;</code>
+</pre>
+
+<div class="sticker"><a href="#exercise-nuxeo-webapp">Back to the exercise</a></div>
+</section>
+
+<section class="slide" id="help-exercise-integration-seam">
+### Help! <img src="img/frog-teacher.png" class="float-left" />
+<div style="clear:both"></div>
+
+The `countChildren()` method:
+<pre>
+  <code>public Integer countChildren() throws ClientException {
+    DocumentModel currentDoc = navigationContext.getCurrentDocument();
+    List<DocumentRef> children = documentManager.
+    getChildrenRefs(currentDoc.getRef(), null);
+    return children.size();
+}</code>
+</pre>
+
+The `showChildrenNumber.xhtml` file:
+<pre>
+<code>&lt;div xmlns:c="http://java.sun.com/jstl/core"&gt;
+  &lt;c:if test="#{field.hasFacet('Folderish')}"&gt;
+    #{counterBean.countChildren()}
+  &lt;/c:if&gt;
+&lt;/div&gt;</code>
+</pre>
+
+<div class="sticker"><a href="#exercise-integration-seam">Back to the exercise</a></div>
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+    $(function() {
+       $.deck('.slide');
+    });
+  </script>
+
+</body>
+</html>

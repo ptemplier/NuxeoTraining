@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Advanced workflows</title>
+
+<meta name="description" content="Nuxeo Training - Workflows">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<!-- Nuxeo Logo Training -->
+<div class="nuxeo-logo">
+<span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+    class="sub-part training">Trainings</span>
+</div>
+
+<section class="slide" id="nuxeo-training-advanced-workflows">
+# Nuxeo training - Workflows - Advanced concepts and usage
+</section>
+
+<section class="slide" id="Storage-infos">
+###How does Nuxeo store workflows?
+- Workflow models and instances are stored as documents of type DocumentRoute
+- default path for workflow models: /document-route-models-root/
+     - default path for workflow instances: example
+/default-domain/document-route-instances-root/2012/12/12
+- Workflow nodes are stored as documents of type RouteNode
+     - default path for workflow nodes: example:
+/document-route-models-root/SerialDocumentReview/
+- Tasks are stored as documents of type TaskDoc
+     - default path for tasks docs: /tasks-root/
+- Type of task document used by the workflow is configurable in Studio
+- Each workflow step history is stored in Audit
+</section>
+
+<section class="slide" id="chains">
+###Where can I plug Automation chains?
+
+- Attached to each transition
+- Attached to node input and output
+- The input documents are the documents bound to the workflow
+- Available with the variable *Documents*
+- Transition chains executed before output chains
+<blockquote>These chains are executed using an unrestricted session!!</blockquote>
+</section>
+
+<section class="slide" id="Transition-condition">
+### How can I handle conditions?
+- Default value for the condition is “true”
+- All transitions having the corresponding condition evaluated to “true” are executed
+- You have access to all the workflow context variables (including Node and Workflow variables)
+- The default condition related to a task button is: <br /> <code>NodeVariables["button"] == ”idOfTheClickedBtn”</code>
+- Fork
+    - Ex. Two transitions having the condition evaluated to “true” = Fork two branches
+- Conditional nodes
+    - Ex. On a node having two transitions, the conditions could be:
+<code>WorkflowVariables["status"] == "done"</code><br /> and <code>WorkflowVariables["status"] != "done" </code>
+</section>
+
+<section class="slide" id="security">
+###How can I manage security during a workflow?
+- Automatically add/remove rights to assignee
+  - from the task definition
+- Operation SetACL
+</section>
+
+<section class="slide" id="tracability">
+###Tracability
+
+- Log with audit with automation audit
+- Can be used for stats
+
+</section>
+
+<section class="slide" id="startworkflow">
+###How can I automatically start a workflow?
+ - From a user action
+ - From a event handler
+ - From a REST call
+
+Use the operation *Workflow Context > Start workflow*
+</section>
+
+<section class="slide" id="end">
+## Questions?
+</section>
+
+<section class="slide" id="next-chapter">
+### What's next?
+- [Extension points](4.0_Extension-points.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>
