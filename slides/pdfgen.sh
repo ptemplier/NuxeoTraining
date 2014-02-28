@@ -40,6 +40,8 @@ for i in **/*.html; do
  cd target/phantomjs/bin
  ./phantomjs deck2png.js "../../../$i"
  ./phantomjs png2pdf.js
+ parentDir=$(dirname "../../pdfs/$i.pdf")
+ mkdir -p $parentDir
  mv output.pdf "../../pdfs/$i.pdf"
  cd ../../../
 done;
