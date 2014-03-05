@@ -35,11 +35,13 @@ rm $FILE
 echo "### copy deck2pdf next to phantomjs"
 cp deck2pdf/*.js target/phantomjs/bin
 
-for i in *.html; do
+for i in **/*.html; do
  echo "### generating slides for $i"
  cd target/phantomjs/bin
  ./phantomjs deck2png.js "../../../$i"
  ./phantomjs png2pdf.js
+ parentDir=$(dirname "../../pdfs/$i.pdf")
+ mkdir -p $parentDir
  mv output.pdf "../../pdfs/$i.pdf"
  cd ../../../
 done;
