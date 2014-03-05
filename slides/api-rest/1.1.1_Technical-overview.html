@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - Technical overview</title>
+
+<meta name="description"
+  content="Nuxeo - Technical overview">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+
+  <section class="slide" id="nuxeo-technical-overview-opening-slide">
+Nuxeo - Technical overview
+=======================
+  </section>
+
+<section class="slide" id="doc-links">
+###Complete documentation available on doc.nuxeo.com
+- <a href="http://doc.nuxeo.com/x/9IWo" target="_blank">Technical documentation center</a>
+- <a href="http://doc.nuxeo.com/x/lYWo" target="_blank">Installation and Administration</a>
+</section>
+
+<section class="slide" id="core-technologies">
+###Core technologies
+#### Standard technologies
+- Based on Java standards
+- Uses many open source frameworks / libraries : JBoss Seam / Hibernate / Apache commons
+- Can run in any Servlet container, Java EE Application server, bare JVM or OSGI container, typically: Tomcat, JBoss, Jetty
+
+#### Easy to customize, extend and plug
+- No need to rewrite the source code thanks to the bundle and component system providing extension points
+- Offers content oriented APIs : Webdav, CMIS (Apache chemistry), WSS (Microsoft sharepoint services)
+</section>
+
+<section class="slide" id="nuxeo-runtime">
+###Bundles
+- 1 bundle = 1 Nuxeo plugin
+- located in <code>nxserver/bundles</code> as jar files
+- extension mechanism: Extension point (xml files)
+- loaded by Nuxeo Runtime
+- more than 200 plugins in Nuxeo CAP
+</section>
+
+<section class="slide" id="extension-points">
+###Extension points
+#### What are they used for?
+- To configure services and components (XML contributions)
+- To extend services and components (Java code or scripting)
+- To dynamically bind components together
+
+#### Where and why?
+- Nuxeo Platform uses extension points everywhere
+- Almost every service exposes extension points
+- Makes configuration easy (no need to touch the source code)
+- Allows « clean » contributions easy to maintain (XML)
+- Allows the use of Nuxeo Studio!
+</section>
+
+<section class="slide" id="administering">
+###Administering
+#### Easy to configure and maintain
+- The `nuxeo.conf` file contains properties to configure many things
+- Editable directly with a text editor or from the Admin center.
+- Many databases supported
+- Clean SQL mapping, easy to administer and retrieve information
+- Hot database backup support
+- Hotfixes can be installed directly from the admin center using the dedicated interface
+</section>
+
+<section class="slide" id="fork">
+###Want to go deeper?
+- [Exercise](1.1.1_Technical-overview.html#exercise-install-hotfixes)
+- (optional) [Advanced information](1.1.1_Technical-overview-advanced.html)
+- [Nuxeo studio](1.3_Nuxeo-studio.html)
+</section>
+
+<section class="slide exercise" id="exercise-install-hotfixes">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+###Exercise
+- Install the latest hotfix
+    - From the Admin Center
+    - With `nuxeoctl mp-hotfix`
+- Find where the `nuxeo.conf` file is on your machine (for Windows users you can have a look at this <a href="http://doc.nuxeo.com/pages/viewpage.action?pageId=3345719" target="_blank">page</a>)
+</section>
+
+<section class="slide" id="next">
+###Next?
+- [Nuxeo studio](1.3_Nuxeo-studio.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>

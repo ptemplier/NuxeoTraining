@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo training - Unit tests</title>
+
+<meta name="description" content="Nuxeo Training - Unit testing">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+</section>
+
+<section class="slide" id="unit-test">
+# Nuxeo training - Unit tests
+</section>
+
+<section class="slide" id="why-unit-test">
+### Why unit test ?</h3>
+#### Code faster
+- No need to restart your instance every time
+
+#### Code coverage
+- Avoid regressions
+- The sooner a bug is detected, the easier it can be fixed
+
+#### Refactoring friendly
+- Make sure the logic remains working after code changes
+</section>
+
+<section class="slide" id="how-to-unit-test-with-nuxeo">
+### Unit testing
+#### Nuxeo provides a custom Nuxeo JUnit4 runner that:
+- Allows to deploy Nuxeo bundles, components and extension points
+- Launches a separate test Nuxeo document repository, reset after every test
+- Make sure:
+  - you deploy the needed bundles,
+  - initialize your documents,
+  - and create the needed users before running your tests !
+
+#### Unit test classes
+- Should be located in <code>src/test/java</code></li>
+- Should start with `Test`, for instance <code>TestBookType.java</code></li>
+</section>
+
+<section class="slide" id="deploying-bundles-without-features-runner">
+### Deploying components
+#### XML contributions
+<code>@LocalDeploy({"bundle.name:/OSGI-INF/file.xml"})</code>
+
+#### Bundles
+<code>@Deploy({"an.existing.bundle","another.one"})</code>
+
+- Every bundle has a unique ID
+- In the <code>@Deploy</code>: use the <code>Bundle-SymbolicName</code> of your bundle's <code>src/main/resources/META-INF/MANIFEST.MF</code> file
+<pre><code>Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Manifest-Version: 1.0
+Bundle-Name: best-books
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-Vendor: Nuxeo
+Bundle-Version: 1.0.qualifier
+Bundle-ManifestVersion: 2
+<span style="font-weight: bold;">Bundle-SymbolicName: best-books</span></code></pre>
+</section>
+
+<section class="slide" id="deploying-bundles">
+### Deploying bundles
+#### Which bundles should I deploy ?
+- Probably many !
+- To help deploying the common bundles, Nuxeo uses Junit 4's <code>FeatureRunner</code>
+
+#### What's a feature ?
+- A class extending the <code>SimpleFeature</code> class
+- Annotated just as a test class
+- Containing an <code>@Deploy</code> annotation, with the layer's bundles
+
+#### How can I use it ?
+- Add the following annotations to your test class:
+<pre><code>@RunWith(FeaturesRunner.class)
+@Features(FeatureName.class)</code></pre>
+</section>
+
+<section class="slide" id="available-features">
+### Available features
+<img src="../customization-integration/img/unit-test/unit-test-stack.png" class="float-left" style="padding-right: 50px;" />
+
+#### Which features are available ?
+- <code>RuntimeFeature</code>
+- <code>CoreFeature</code>
+- <code>PlatformFeature</code>
+- <code>RestFeature</code>
+
+#### What do they bring ?
+- A feature exists for most of the platform's layers
+- The UI layer is not unit testable, for this we use integration tests
+</section>
+
+<section class="slide exercise" id="exercise-unit-test-feature">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Nuxeo IDE
+#### Annotations
+- Create a test class named `TestStudioBundle`
+    - Make it run with the <code>RuntimeFeature</code>
+    - Run the class as a JUnit test class (right click, run as, JUnit test)
+    - What happens ?
+</section>
+
+<section class="slide" id="questions-features">
+## Questions?
+</section>
+
+<section class="slide" id="test-method">
+### Using test methods
+- Every test method needs to be annotated with <code>@Test</code>
+- Your method should contain one or more <code>assertions</code>
+- To declare an assertion, use JUnit's <code>assert...</code> methods, ex: <code>assertNotNull(MyObject)</code>
+</section>
+
+<section class="slide exercise" id="exercise-unit-test-feature">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Nuxeo IDE
+#### Unit test methods
+- In your class, create a test method named `shouldDeployNuxeoRuntime()` returning <code>void</code>
+    - Use <code>Framework.getRuntime()</code> (<code>org.nuxeo.runtime.api</code>) and place it into a <code>runtime</code> variable
+    - Assert that the <code>runtime</code> variable is not null
+    - Launch your test
+    - What happens ?
+</section>
+
+<section class="slide" id="questions-methods">
+## Questions?
+</section>
+
+<section class="slide" id="injection">
+### Nuxeo services injection
+
+#### How can I work on documents from my unit tests ?
+- To work on documents, you need a <code>CoreSession</code>
+
+#### A <code>CoreSession</code> ?
+- Is different from a HTTP session
+- Is sort of a special <code>service</code>
+- Contains methods to work on your repository (create, save... documents)
+- Needs the <code>CoreFeature</code> or more
+
+#### How do I call it in a unit test ?
+- CoreSession can be injected with Google Guice injection mechanism
+<pre><code>@Inject CoreSession documentManager;</code></pre>
+</section>
+
+<section class="slide" id="nuxeo-core-api">
+### Nuxeo Core API - Useful objects
+#### CoreSession
+- Called when you need to access the repository directly <br /> ex: Store / retrieve documents in the database
+
+#### DocumentModel
+- Stores document information in memory and transmits it to the CoreSession for storage
+- Called when you need to access and / or update the document properties
+- A document is an instance of a DocumentModel object
+
+#### NuxeoPrincipal
+- Object containing user information
+- Called when you need to create / update / delete a user or a user group
+</section>
+
+<section class="slide" id="useful-methods">
+### Useful methods
+#### CoreSession
+<code>DocumentModel createDocumentModel(String parentPath, String id, String typeName)</code><br />
+Creates the DocumentModel object. Not stored nor created in the repository.
+<div class="further-info">This method calls the EmptyDocumentCreated event we have seen previously in Studio.</div>
+
+<code>DocumentModel createDocument(DocumentModel model)</code><br />
+Create the document in the repository using the provided DocumentModel (instantiated with createDocumentModel).
+<div class="further-info">This method calls both AboutToCreate and DocumentCreated events.</div>
+
+<code>DocumentModel saveDocument(DocumentModel docModel)</code><br />
+Save a doc from its model. Changes are not stored into the database yet, but marked for storage.
+<div class="further-info">This method calls beforeDocumentModification and documentModified events.</div>
+
+<code>CoreSession save()</code><br />
+Calling this method stores in database all changes made to the documents.
+
+<code>DocumentModel getDocument(DocumentRef docRef)</code><br />
+Get a documentModel object from its ref (IdRef or PathRef).
+
+#### DocumentModel
+<code>Serializable getPropertyValue(String xpath)</code><br />
+For instance: <code>String title = (String) doc.getPropertyValue("dc:title");</code><br />
+<code>void setPropertyValue(String xpath, Serializable value)</code>
+</section>
+
+<section class="slide exercise" id="exercise-ide-doc-creation">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Nuxeo IDE
+#### Document creation and modification
+- Deploy your Nuxeo Studio bundle (project ID is in the project settings menu > manifest tab)
+- Deploy the <code>org.nuxeo.ecm.automation.core</code> bundle
+- Inject a <code>CoreSession</code> (make sure you deploy the correct feature !)
+
+- Create a unit test named `shouldHaveAPublicationDate()` that:
+    - Creates a `Book` document located in the root directory
+    - Checks that the book's publication date is not null
+
+- Create a unit test named `shouldHaveCorrectTitle()` that:
+    - Creates a `Book` document located in the root directory
+    - Sets a title to the Book: `Da Nuxeo code`
+    - Saves the book in the repository
+    - Fetches the book from the repository and assert that the book's title is equal to what you expected
+</section>
+
+<section class="slide" id="questions-api">
+## Questions?
+</section>
+
+<section class="slide" id="test-existing-automation-chains">
+### Testing existing automation chains
+- Use AutomationService 
+    - In JUnit4, Nuxeo services are injected with Google Guice <code>@Inject</code> annotation <pre><code>@Inject AutomationService automationService</code></pre>
+    - Or <pre><code>AutomationService automationService = Framework.getLocalService(AutomationService.class)</code></pre> (works also outside of a unit test)
+- Create an <code>OperationContext</code> with the <code>CoreSession</code> and a document input and call the operation with: <pre><code>AutomationService automationService = Framework.getLocalService(AutomationService.class);
+OperationContext ctx = new OperationContext();
+ctx.setCoreSession(session);
+ctx.setInput(myInputDocument);
+automationService.run(ctx, "chainId");</code></pre>
+      </li>
+    </ul>
+  </section>
+
+<section class="slide exercise" id="exercise-ide-automation">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Nuxeo IDE
+#### Testing automation chains
+- Create a unit test named `shouldBeBorrowedBySomeone()` that:
+    - Creates a `Book` document located in the root directory
+    - Saves the document in the repository
+    - Calls the `borrowBook` chain on the Book
+    - Asserts that the document's lifecycle state is `borrowed`
+    - Asserts that the `borrowedBy` field is not null
+</section>
+
+<section class="slide" id="questions-ide-test-automation">
+## Questions?
+</section>
+
+<section class="slide" id="next">
+###Next?
+- Back to the [training agenda](0.0.1_Agenda.html#day-4)
+- (optional) [Document model adapter](4.3.5_Document-model-adapter.html)
+- [Custom operations](4.4_Custom-operations.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>
