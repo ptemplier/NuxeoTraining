@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<settings>
+<servers>
+  <server>
+    <id>nuxeo-studio</id>
+    <username>yourConnectLogin</username>
+    <password>yourConnectPassword</password>
+  </server>
+</servers>
+<profiles>
+ <profile>
+      <id>qa</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <repositories>
+        <repository>
+          <id>internal-releases</id>
+          <url>http://maven.in.nuxeo.com/nexus/content/groups/internal-releases</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+        <repository>
+          <id>internal-snapshots</id>
+          <url>http://maven.in.nuxeo.com/nexus/content/groups/internal-snapshots</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+          </snapshots>
+        </repository>
+      </repositories>
+      <properties>
+        <connect.password>testingwizardregistrationandinstallation</connect.password>
+      </properties>
+    </profile>
+</profiles>
+</settings>
