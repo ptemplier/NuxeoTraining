@@ -61,7 +61,6 @@ If we want to implement business logic for example to archive our documents, bei
 <section class="slide" id="wherewego">
 ###What we want to do
 ####At the end of the course
-<img alt="Book life cycle" class="float-right" src="../customization-integration/img/lifecycle-book.png" />
 
 - Create a life cycle for <code>Meeting</code> documents
 - Apply this life cycle to the <code>Meeting</code> document type
@@ -89,9 +88,9 @@ If you want to activate the trash feature on a document type that uses a custom 
     class="exercise-icon" />
 ### Practice (1/2)
 #### Life cycle
-- Create a new life cycle policy called BookLifeCycle
-- Initial state: "inLibrary"
-- Create another state "borrowed"
+- Create a new life cycle policy called MeetingLifeCycle
+- Initial state: "draft"
+- Create other states : "borrowed", "archived"
     - Create transitions to link each other
     - Do not name them
     - Save the life cycle. What are you seeing?
@@ -104,13 +103,13 @@ If you want to activate the trash feature on a document type that uses a custom 
 #### Life cycle
 - Create the "deleted" state
 - Add a `delete` transition for each previously created state
-- Add an `undelete` transition going back to the inLibrary state
+- Add an `undelete` transition going back to the draft state
 - Apply this life cycle to the `Book` document type definition
 - Commit your changes
 - Deploy your changes using hot reload
-- Check the initial state by creating a new Book
+- Check the initial state by creating a new Meeting
 
-We will create an action to change the life cycle later
+We will implement business logic to change the life cycle later
 </section>
 
 <section class="slide" id="questions">
@@ -119,7 +118,7 @@ We will create an action to change the life cycle later
 
 <section class="slide" id="next">
 ### What's next?
-- [Automation](3.1_Automation.html)
+- [NXQL](2.8_NXQL.html)
 </section>
 
   <!-- deck.navigation snippet -->
