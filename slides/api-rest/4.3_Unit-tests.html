@@ -52,16 +52,26 @@
 # Nuxeo training - Unit tests
 </section>
 
+<section class="slide" id="wherewego-context-unit-tests">
+### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
+<blockquote><p>
+Users would like to mix users and groups in the meetings participants list.<br /><br />
+This is causing us some trouble to retrieve the corresponding email adresses.<br /><br />
+In order to create a custom operation helping us to implement that logic, we should first take a look at the Nuxeo API.
+</p></blockquote>
+</section>
+
 <section class="slide" id="why-unit-test">
 ### Why unit test ?</h3>
-#### Code faster
-- No need to restart your instance every time
+#### To test your operations
+- You can contribute your own operations and export them into Studio
+- Testing them brings:
 
-#### Code coverage
+##### Code coverage
 - Avoid regressions
 - The sooner a bug is detected, the easier it can be fixed
 
-#### Refactoring friendly
+##### Refactoring capabilities
 - Make sure the logic remains working after code changes
 </section>
 
@@ -239,15 +249,11 @@ For instance: <code>String title = (String) doc.getPropertyValue("dc:title");</c
 - Deploy the <code>org.nuxeo.ecm.automation.core</code> bundle
 - Inject a <code>CoreSession</code> (make sure you deploy the correct feature !)
 
-- Create a unit test named `shouldHaveAPublicationDate()` that:
-    - Creates a `Book` document located in the root directory
-    - Checks that the book's publication date is not null
-
-- Create a unit test named `shouldHaveCorrectTitle()` that:
-    - Creates a `Book` document located in the root directory
-    - Sets a title to the Book: `Da Nuxeo code`
-    - Saves the book in the repository
-    - Fetches the book from the repository and assert that the book's title is equal to what you expected
+- Create a unit test named `shouldHaveDraftState()` that:
+    - Creates a `Meeting` document located in the root directory
+    - Sets a title to the Meeting: `test document`
+    - Saves the meeting in the repository
+    - Fetches the meeting from the repository and assert that the meeting's state is <code>draft</code>
 </section>
 
 <section class="slide" id="questions-api">
@@ -273,12 +279,11 @@ automationService.run(ctx, "chainId");</code></pre>
       class="exercise-icon">
 ### Practice - Nuxeo IDE
 #### Testing automation chains
-- Create a unit test named `shouldBeBorrowedBySomeone()` that:
-    - Creates a `Book` document located in the root directory
-    - Saves the document in the repository
-    - Calls the `borrowBook` chain on the Book
-    - Asserts that the document's lifecycle state is `borrowed`
-    - Asserts that the `borrowedBy` field is not null
+- Create a unit test named `shouldHaveValidatedState()` that:
+  - Creates a `Meeting` document located in the root directory
+  - Saves the meeting in the repository
+  - Calls the `publishMeeting` chain on the meeting
+  - Asserts that the document's lifecycle state is `validated`
 </section>
 
 <section class="slide" id="questions-ide-test-automation">
@@ -288,7 +293,6 @@ automationService.run(ctx, "chainId");</code></pre>
 <section class="slide" id="next">
 ###Next?
 - Back to the [training agenda](0.0.1_Agenda.html#day-4)
-- (optional) [Document model adapter](4.3.5_Document-model-adapter.html)
 - [Custom operations](4.4_Custom-operations.html)
 </section>
 

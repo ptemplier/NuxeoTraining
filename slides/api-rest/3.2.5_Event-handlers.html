@@ -54,7 +54,9 @@
 
 <section class="slide" id="wherewego-context-event-handlers">
 ### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
-<blockquote><p>When a validated document is modified, people would like to have it go back to the draft state automatically. We can handle that.
+<blockquote><p>Our users would like to have some logic done automatically:<br />
+When a meeting is created, it should have a unique meeting id.<br />
+When a validated document is modified, it should go back to the draft state.<br />
 </p></blockquote>
 </section>
 
@@ -94,10 +96,23 @@
 - Don't save the document if you deal with document modification events to avoid a possible infinite loop (if you have an event launched at document save)
 </section>
 
-<section class="slide exercise" id="practice-event-handlers">
+<section class="slide exercise" id="practice-event-handlers-meetingid">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
 ### Practice
-<blockquote><p>When a validated document is modified, people would like to have it go back to the draft state automatically.</p></blockquote>
+<blockquote><p>When a meeting is created, it should have a unique meeting id.</p></blockquote>
+#### Fill in a meeting id
+- Add an event handler and a chain `setMeetingId` that will set update the <code>meetingId</code> field
+- The event handler should be called before the document is saved into the database
+- Meeting id will be a unique number
+  - Use the button on the right side and insert the <code>Fn.getNextId("key")</code>
+  - We will talk in detail about this functionality in the next chapter ;-)
+- Deploy your changes, modify a meeting and check your result
+</section>
+
+<section class="slide exercise" id="practice-event-handlers-changestate">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
+### Practice
+<blockquote><p>When a validated document is modified, it should go back to the draft state automatically.</p></blockquote>
 #### Put a meeting back to draft after a change
 - Add an event handler and a chain `toDraftState` that will set the meeting's status back to the draft state
 - The event handler should be called after a <code>Meeting</code> document has been modified, only if it is in validated state
