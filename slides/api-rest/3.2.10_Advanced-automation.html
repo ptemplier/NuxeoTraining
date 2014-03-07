@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Advanced automation and event handlers</title>
+<title>Nuxeo Training - Advanced automation</title>
 
 <meta name="description" content="Nuxeo Training - Advanced automation Event Handlers">
 <meta name="author" content="Nuxeo">
@@ -49,28 +49,16 @@
   </div>
 
 <section class="slide" id="advanced-automation">
-# Nuxeo training - Advanced automation and event handlers
+# Nuxeo training - Advanced automation
 </section>
 
 <section class="slide" id="wherewego-context-automation">
 ### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
 <blockquote><p>
-The users want to go further : <br />
-- They would like to know who borrows a book <br />
-- and would like to borrow several books at the same time.<br />
-Fine, we'll add it !
+Once again we need to add business logic for our application: <br />
+- Set the meeting author, create a pdf copy and store it before a meeting publication<br />
+- Send an email to the participants, to inform them about the publication<br /> 
 </p></blockquote>
-</section>
-
-<section class="slide" id="wherewego-advanced-automation">
-###What we want to do
-#### Update our content model and automation chain:
-- So that we can tell who borrowed a book
-
-#### A user action that:
-- Fetches all books selected in a book library
-- Sets them as borrowed
-- Handles the possibility that the user can click without selecting books first
 </section>
 
 <section class="slide" id="advanced-automation-possibilities">
@@ -83,6 +71,49 @@ Fine, we'll add it !
 - Running sub chains
 
 Let's see a few examples and practice.
+</section>
+
+<section class="slide" id="debug-chains">
+##Advanced Automation - Debugging
+</section>
+
+<section class="slide" id="debugging-concepts">
+### Debugging automation chains
+
+#### How can I debug my chain ?
+- If it crashes, look at the server log
+- Debug log tells you exactly where your chain crashed and why at a glance
+- Debug traces can be enabled for further information: 
+  - Use <a href="http://localhost:8080/nuxeo/site/automation/doc" target="_blank">local automation doc</a> and enable them<br />
+  - http://doc.nuxeo.com/x/24MPAQ
+</section>
+
+<section class="slide exercise" id="exercise-automation-debug">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Advanced automation
+#### Enable traces to help debugging
+- Go to your <a href="http://localhost:8080/nuxeo/site/automation/doc" target="_blank">local automation doc</a>
+- Enable the traces by choosing an operation and clicking on the corresponding option
+</section>
+
+<section class="slide" id="variables">
+##Advanced Automation - Variables
+</section>
+
+<section class="slide" id="el-languages">
+### Variables usage
+#### Concepts
+- Nuxeo uses different languages throughout the platform, each having its own syntax :
+  - EL
+  - MVEL
+  - Freemarker
+
+- Metadata and available variables can be different depending on language and context
+http://doc.nuxeo.com/x/L4PZ
+
+- Automation chains use the <a href="http://mvel.codehaus.org/" target="_blank">MVEL</a> language
+- Email notifications use the <a href="http://www.freemarker.org/" target="_blank">freemarker</a> templating language
 </section>
 
 <section class="slide" id="mvel-scripting-title">
@@ -105,42 +136,11 @@ Let's see a few examples and practice.
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
     class="exercise-icon">
 ### Practice
-#### User actions and automation
-Update a new field "Borrowed by" with the name of the current user (1/3)
-
-##### Add a new metadata to your book named « borrowedBy ».
-(Make sure it is not editable, but it should be visible nonetheless)
-
-  - Update your schema
-  - Update your layout
-  - Use the `Text` widget
-<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
-</section>
-
-<section class="slide exercise" id="exercise-automation1-2">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-    class="exercise-icon">
-### Practice
-#### User actions and automation
-Update a new field "Borrowed by" with the name of the current user (2/3)
-
-##### Update the automation chain `borrowBook` to:
-  - fetch the current document
-  - automatically fill the new field `borrowedBy` with the current user name
-  <!-- - refreshes the user interface - hidden: causes trouble with the unit test on this chain during day 4 -->
-<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
-</section>
-
-<section class="slide exercise" id="exercise-automation1-3">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-    class="exercise-icon">
-### Practice
-#### User actions and automation
-Update a new field "Borrowed by" with the name of the current user (3/3)
-
-- Commit and deploy your changes
-- Try your button out and see if the information is updated
-<div class="sticker"><a href="#help-exercise1">Need help?</a></div>
+<blockquote><p>Set the meeting author before a meeting publication</p></blockquote>
+#### Set the meeting author
+- Update your chain to set the meeting author's first name and last name 
+- Use the current user's information
+- Launch your chain through the automation client and see if it works correctly
 </section>
 
 <section class="slide" id="Context-variable">
@@ -166,6 +166,46 @@ Update a new field "Borrowed by" with the name of the current user (3/3)
 - You used <code>Execution context > Set context variable from input</code> >> <code>Execution Context > Restore ... Input</code> operations
 </section>
 
+<section class="slide" id="push-pop">
+##Advanced Automation - Push and pop
+</section>
+
+<section class="slide" id="push-pop-concepts">
+### Push and pop
+
+#### Concepts
+- Put one or several documents on a stack and call them back when needed
+- Allows you to:
+  - get another document's information 
+  - put the original document back as input for the next operation
+  
+#### Use cases
+- Get info from a parent / different document and: 
+  - Copy it into the initial doc
+  - Use it to execute something conditionally
+</section>
+
+<section class="slide" id="push-pop-usage">
+### Push and pop  
+#### Usage
+- Use push to add documents on top the stack
+- Use pop to take documents from the top (the last document added)
+- Use pull to take documents from the bottom (the first document added) 
+- Any document taken back is removed from the stack
+- <a href="3.2.5_Push-pop.html" target="_blank">Detailed explanations</a>
+</section>
+
+<section class="slide exercise" id="exercise-automation-pdf-conversion">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+<blockquote><p>create a pdf copy and store it before a meeting publication</p></blockquote>
+#### Update your chain to:
+- Convert the document as PDF 
+- Update the document to store the PDF copy
+- Launch your chain through the automation client and see if it works correctly
+</section>
+
 <section class="slide" id="Context-variable">
 ##Advanced Automation - Fn Object
 </section>
@@ -186,6 +226,44 @@ Update a new field "Borrowed by" with the name of the current user (3/3)
 - <code>getVocabularyLabel</code> - Update a document's metadata, depending on the metadata's original value (original value = key, final value = label).
 </section>
 
+<section class="slide exercise" id="exercise-automation-email-notification1">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+<blockquote><p>Send an email to the participants, to inform them about the publication (1/3)</p></blockquote>
+#### Build your intranet URL
+- Stop your server
+- In your <code>nuxeo-sdk.conf</code> file, create a <code>bestbooks.portal.meeting.publication.baseurl</code> variable 
+- The variable should contain your intranet's URL to access the document
+- Restart your server to apply the changes
+</section>
+
+<section class="slide exercise" id="exercise-automation-email-notification2">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+<blockquote><p>Send an email to the participants, to inform them about the publication (2/3)</p></blockquote>
+#### Create an email template
+- In Studio, go to <code>Templates &gt; Email templates</code> and create a template named <code>meetingPublicationTpl</code>
+- The template should contain the following information: 
+<blockquote><p style="font-size: 0.6em;">Hello,<br />
+The document (document title) is now available on the intranet.<br />
+(meeting publication base url)/(document id)
+</p></blockquote>
+- Use the <a href="http://doc.nuxeo.com/x/24fZ" target="_blank">available variables in email templates documentation</a> to help you
+</section>
+
+<section class="slide exercise" id="exercise-automation-email-notification3">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+<blockquote><p>Send an email to the participants, to inform them about the publication (3/3)</p></blockquote>
+#### Update your chain to:
+- Send an email to the people listed in the meeting's participants
+  - Make sure you retrieve their email adresses, not their usernames !
+- Launch your chain through the automation client and see if it works correctly
+</section>
+
 <section class="slide" id="boolean-conditions">
 ##Advanced Automation - Conditions
 </section>
@@ -202,166 +280,30 @@ Run a different sub chain depending on a condition. <br />
   id: @{Document.id == 'toto' ? 'chainIdIfTrue' : 'chainIdIfFalse'}</code></pre>
 </section>
 
-<section class="slide exercise" id="exercise-automation2">
+<section class="slide exercise" id="exercise-automation-conditions-subchains">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Advanced automation
-#### Borrow several books at once (1/3)
-##### Create a `borrowSeveralBooks` user action
-- Displayed only in book libraries
-- Shows in the <code>Document list toolbar</code> category
+    class="exercise-icon">
+### Practice
+<blockquote><p>Isolate the pdf copy conversion in a sub chain<br />
+Launch it only if the file is not a PDF</p></blockquote>
+#### Isolate the PDF copy conversion in a sub chain
+- Create a <code>voidChain</code> containing only a <code>Fetch > Context</code> document operation
+- Copy the publishMeeting chain and name the copy <code>publishMeeting_pdfConversion</code>
+- Refactor the <code>publishMeeting_pdfConversion</code> chain to keep only the needed operations
 
-<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
-</section>
-
-<section class="slide exercise" id="exercise-automation2-p2">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Advanced automation
-#### Borrow several books at once (2/3)
-##### Create a `borrowSeveralBooks` automation chain that:
-- Fetches the selected documents in the UI
-- Filters the list to get only <code>inLibrary</code> books
-- Updates the books status by following the transition <code>to_borrowed</code>
-- Refreshes the user interface
-- Shows an info message in the user interface for confirmation
-
-<div class="sticker"><a href="#help-exercise2">Need help?</a></div>
-</section>
-
-<section class="slide exercise" id="exercise-automation2-p3">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Advanced automation
-#### Borrow several books at once (3/3)
-##### Try your user action
-- Select one or several books and try to borrow them
-- Don't select any book and click on your user action
-</section>
-
-<section class="slide" id="debug-chains">
-##Advanced Automation - Debugging
-</section>
-
-<section class="slide" id="debugging-concepts">
-### Debugging automation chains
-
-#### How can I debug my chain ?
-- If it crashes, look at the server log
-- Debug log tells you exactly where your chain crashed and why at a glance
-- Debug traces can be enabled for further information: http://doc.nuxeo.com/x/24MPAQ
+#### Launch PDF conversion only if the file is not a PDF
+- Refactor the <code>publishMeeting</code> chain to:
+  - Call the <code>publishMeeting_pdfConversion</code> chain only if **file's mimetype is not** <code>application/pdf</code>
+  - Remove the operations corresponding to the PDF conversion
 </section>
 
 <section class="slide" id="questions-advanced-automation">
 ##Questions?
 </section>
 
-<section class="slide" id="event-handlers">
-##Nuxeo Training - Event handlers
-</section>
-
-<section class="slide" id="wherewego-context-event-handlers">
-### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
-<blockquote><p>
-The librarians have come to you with a request:<br /><br />
-Every time they add a book, they set today as the publication date.
-Up to now, they are doing this manually and would love to see this information pre-filled.
-</p></blockquote>
-</section>
-
-<section class="slide" id="wherewearegoing">
-### What we want to do
-#### At the end of the course
-<img alt="event-publicationDate" src="../customization-integration/img/event-publicationDate.png" class="float-right" />
-
-- The publication date is pre-filled with the current date in the creation layout
-</section>
-
-<section class="slide" id="event-handlers-definition">
-### Event Handlers
-#### Concepts
-- Event handlers launch automation chains automatically when events are raised
-- They allow custom and dynamic behaviors without having to change the code
-- They can be run asynchronously
-- Filters can be assigned to customize their scope
-</section>
-
-<section class="slide" id="event-handlers-types">
-###Event Handlers
-#### 2 types of event handlers
-   - Synchronous
-     - Same thread, coreSession and context
-   - Post Commit asynchronous
-     - Executed after a commit on the coreSession
-     - New thread, new coreSession, new context
-     - Isolated from each other
-     - It will be executed asynchronously
-     - Useful for external notification, when we want to be sure that the modifications are commited in the DB 
-</section>
-
-<section class="slide" id="document-events">
-###Event handlers - Main document events
-#### Document creation
-- `Empty document created`: Before the creation form is shown
-- `About to create`: When the user clicks on the "save" button
-- `Document created`: When the document has been persisted into the database
-- Don't save the document if the document is not created to avoid an error
-
-#### Document modification
-- `Before document modification`: Before the modifications are saved into the database
-- `Document modified`: When the modifications have been persisted into the database
-- Don't save the document if you deal with document modification events to avoid a possible infinite loop (if you have an event launched at document save)
-</section>
-
-<section class="slide" id="exercise-event-handlers">
-##Exercise - Event handlers
-</section>
-
-<section class="slide exercise" id="what-we-want-to-do">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
-###What we want to do
-- Add an event handler `setPublicationDate` that will set the publicationDate to the current date
-- The event handler should be called before we see the creation view
-- Commit and deploy your changes
-</section>
-
-<section class="slide" id="questions">
-##Questions?
-</section>
-
 <section class="slide" id="next">
 ### Next?
 [Translations](3.3_Translations.html)
-</section>
-
-<section class="slide" id="help-exercise1">
-### Help! <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
-- Operations to use in your automation chain:
-<pre><code>Fetch > Context document
-Document > Follow life cycle transition
-    Value: to_borrowed
-Document > Update property
-    Value: @{CurrentUser.name}
-    Xpath: book:borrowedBy
-</code></pre>
-
-<div class="sticker"><a href="#exercise-automation1">Back to the exercise</a></div>
-</section>
-
-<section class="slide" id="help-exercise2">
-### Help!<img src="../customization-integration/img/frog-teacher.png" class="float-left" />
-<div style="clear:both"></div>
-#### Automation chain:
-<pre><code>Fetch > UI selected documents
-  Document > Filter List
-    lifecycle: inLibrary
-  Document > Follow Life Cycle Transition
-    transition: to_borrowed
-  User Interface > Refresh
-  User Interface > Add Info Message
-</code></pre>
-
-<div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div>
 </section>
 
   <!-- deck.navigation snippet -->

@@ -9,9 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Life cycle</title>
+<title>Nuxeo Training - event handlers</title>
 
-<meta name="description" content="Nuxeo Training - LifeCycle, Automation chains, User actions, Tabs">
+<meta name="description" content="Nuxeo Training - Advanced automation Event Handlers">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -48,71 +48,60 @@
       class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide">
-# Nuxeo training - Life cycle
+<section class="slide" id="advanced-automation">
+# Nuxeo training - Event handlers
 </section>
 
-<section class="slide" id="wherewego-context-lifecycle">
+<section class="slide" id="wherewego-context-event-handlers">
 ### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
-<blockquote><p>Our document types are now ready to be used. Or almost. <br /><br />
-If we want to implement business logic for example to archive our documents, being able to set a status on them will be necessary.</p></blockquote>
+<blockquote><p>When a validated document is modified, people would like to have it go back to the draft status automatically. We can handle that.
+</p></blockquote>
 </section>
 
-<section class="slide" id="wherewego">
-###What we want to do
-####At the end of the course
-
-- Create a life cycle for <code>Meeting</code> documents
-- Apply this life cycle to the <code>Meeting</code> document type
-</section>
-
-<section class="slide" id="life-cycle">
-###Life cycle
+<section class="slide" id="event-handlers-definition">
+### Event Handlers
 #### Concepts
-- Defines the state of a document
-- Defines allowed transitions from a state to another
-- Builtin core feature: All documents in Nuxeo have a life cycle and a state
-- Each document type can have its own life cycle
+- Event handlers launch automation chains automatically when events are raised
+- They allow custom and dynamic behaviors without having to change the code
+- They can be run asynchronously
+- Filters can be assigned to customize their scope
 </section>
 
-<section class="slide" id="trash-folder">
-### Life cycle
-#### The trash folder
-The <code>deleted</code> state and the transitions <code>delete</code> and <code>undelete</code> are used to have the «trash» feature on the document whatever life cycle policy used in the document type.
-
-If you want to activate the trash feature on a document type that uses a custom life cycle policy, you must add those states and transitions to it.
+<section class="slide" id="event-handlers-types">
+###Event Handlers
+#### 2 types of event handlers
+   - Synchronous
+     - Same thread, coreSession and context
+   - Post Commit asynchronous
+     - Executed after a commit on the coreSession
+     - New thread, new coreSession, new context
+     - Isolated from each other
+     - It will be executed asynchronously
+     - Useful for external notification, when we want to be sure that the modifications are commited in the DB 
 </section>
 
-<section class="slide exercise" id="exercise-lifecycle1">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-    class="exercise-icon" />
-### Practice (1/2)
-#### Life cycle
+<section class="slide" id="document-events">
+###Event handlers - Main document events
+#### Document creation
+- `Empty document created`: Before the creation form is shown
+- `About to create`: When the user clicks on the "save" button
+- `Document created`: When the document has been persisted into the database
+- Don't save the document if the document is not created to avoid an error
 
-<img class="float-right" src="img/lifecycle/meeting-lifecycle.png" alt="meeting-lifecycle.png" />
-
-- Create a new life cycle policy called <code>meetingLifeCycle</code>
-- Initial state: "draft"
-- Create other states : "validated", "archived"
-    - Create transitions to link them as in the image besides
-    - Do not name them
-    - Save the life cycle. What are you seeing?
+#### Document modification
+- `Before document modification`: Before the modifications are saved into the database
+- `Document modified`: When the modifications have been persisted into the database
+- Don't save the document if you deal with document modification events to avoid a possible infinite loop (if you have an event launched at document save)
 </section>
 
-<section class="slide exercise" id="exercise-lifecycle2">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-    class="exercise-icon" />
-###Practice (2/2)
-#### Life cycle
-- Create the "deleted" state
-- Add a `delete` transition for each previously created state
-- Add an `undelete` transition going back to the draft state
-- Apply this life cycle to the `Meeting` document type definition
-- Commit your changes
-- Deploy your changes using hot reload
-- Check the initial state by creating a new Meeting
-
-We will implement business logic to change the life cycle later
+<section class="slide exercise" id="practice-event-handlers">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
+### Practice
+<blockquote><p>When a validated document is modified, people would like to have it go back to the draft status automatically.</p></blockquote>
+#### Put a meeting back to draft after a change
+- Add an event handler and a chain `toDraftState` that will set the meeting's status back to the draft state
+- The event handler should be called after a <code>Meeting</code> document has been modified, only if it is in validated state
+- Deploy your changes, modify a meeting and check your result
 </section>
 
 <section class="slide" id="questions">
@@ -120,8 +109,8 @@ We will implement business logic to change the life cycle later
 </section>
 
 <section class="slide" id="next">
-### What's next?
-- [NXQL](2.8_NXQL.html)
+### Next?
+[Advanced automation](3.2.10_Advanced-automation.html)
 </section>
 
   <!-- deck.navigation snippet -->
