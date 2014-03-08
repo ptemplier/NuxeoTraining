@@ -55,13 +55,13 @@
 <section class="slide" id="marketplace-initial-context">
 ### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
 <blockquote><p>
-Using a configuration template to deploy our application is nice, but maybe we could do things in a more flexible way. Let's see what we can do about it.
+Now that we have implemented a custom operation and some Studio configuration, we should deploy it properly on the server.
 </section>
 
 <section class="slide" id="marketplace-wherewego">
 ### What we want to do
 #### At the end of the course
-- Create a marketplace package to deploy our Nuxeo studio project.
+- Create a marketplace package to deploy our Java and Nuxeo studio projects.
 </section>
 
 <section class="slide" id="marketplace-vs-config-template">
@@ -155,32 +155,17 @@ More details in the <a href="http://doc.nuxeo.com/x/94Wo">marketplace package cr
 <section class="slide exercise" id="exercise-marketplace-package">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Marketplace packages (1/2)
-#### Prepare your package
-- On your local disk, create a `BestBooks` folder that will contain the marketplace zip content
-- Inside it, create the following folder and files:
-    - `install.xml`
-    - `package.xml` *Hint: Refer to the previous slides if you need help!*
-    - `install` (folder)
-        - `templates` (empty folder)</li>
-        - `lib` (empty folder) </li>
-        - `bundles` (folder)
-            - Copy your Nuxeo studio project jar inside
-- Compress your folder as a zip file<br />
-</section>
-
-<section class="slide exercise" id="exercise-marketplace-package">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Marketplace packages (2/2)
-#### Install your package
-- Remove the `bestbooks` template defined in the nuxeo.conf
-- Install the market place package
-    - From the update center
-    - **Or** with the nuxeoctl commands
-        - Type a command to add your package
-        - Type a command to install it <br /> *Hint: Refer to the previous slides if you need help!*
-- Restart your server and check that your package is deployed
+### Practice - Marketplace packages
+#### Setup maven
+- Use the Nuxeo marketplace package template in Nuxeo IDE
+- Setup maven to add the Nuxeo Studio repository 
+  - Copy and edit the <a href="../customization-integration/files/settings.xml" target="_blank">settings.xml</a> into your **~/.m2** or **C:\users\username\\.m2** folder 
+  - Add <a href="../customization-integration/files/studio-repo.txt" target="_blank">the studio repository</a> and <a href="../customization-integration/files/java-version-plugin.txt" target="_blank">Java configuration</a> in your project's pom.xml file
+  
+#### Build the marketplace package
+- Use a terminal and:
+- **In the project's folder**, build the project's jar using maven's <code>mvn clean install</code> command
+- **In the marketplace package project's folder**, build the marketplace package using the <code>mvn clean package</code> command
 </section>
 
 <section class="slide" id="questions-marketplace">
@@ -191,7 +176,6 @@ More details in the <a href="http://doc.nuxeo.com/x/94Wo">marketplace package cr
 ### What's next?
 - Back to the [training agenda](0.0.1_Agenda.html#day-5)
 - [Ending](99_ending.html)
-- (optional) [Nuxeo distribution tools](5.1.3_Nuxeo-distribution-tools.html)
 </section>
 
   <!-- deck.navigation snippet -->

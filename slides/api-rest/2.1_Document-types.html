@@ -67,6 +67,7 @@
   - Participants (String, multivalued)
   - Meeting date (date)
   - Pdf copy (blob)
+  - Meeting id (String)
 - We won't display / edit the metadata yet!
 </section>
 
@@ -106,7 +107,7 @@
 - Create a new document type, named `Meeting`.
 - Keep the default settings and set the following properties:
     - Label: Meeting
-    - Extends `Nothing / Document`
+    - Extends `File`
     - Category: Document
     - Icons: <a href="files/meeting16.png" target="_blank">files/meeting16.png (small icon)</a> & <a href="files/meeting32.png" target="_blank">files/meeting32.png (large icon)</a>
     - Add the `Versionable` facet
@@ -209,18 +210,20 @@ Now that their custom document types have been created, the "Best books" library
       class="exercise-icon"/>
 ### Practice (1/2)
 #### Schemas
-- Create a <code>meetingSchema</code>. Let’s say that, for now, a <code>Meeting</code> is defined by: 
-  - Its <code>participants</code> (String, multivalued)
-  - <code>meetingDate</code> (date)
-  - <code>pdfCopy</code> (blob)
-  - a <code>meetingWriter</code> (complex), containing :
-    - <code>name</code> (String)
-    - <code>firstName</code> (String)
-  - a <code>meetingId</code> (String)
+#### Create a <code>meetingSchema</code>. Let’s say that, for now, a <code>Meeting</code> is defined by: 
+- <code>participants</code> (String, multivalued)
+- <code>meetingDate</code> (date)
+- <code>pdfCopy</code> (blob)
+- <code>meetingId</code> (String)
+- <code>meetingPublisher</code> (complex), containing :
+  - <code>name</code> (String)
+  - <code>firstName</code> (String)
+
   
-- Create a <code>meetingArchivesSchema</code>, containing :
-  - a <code>category</code> (String)
-  
+#### Create a <code>meetingArchivesSchema</code>, containing :
+- <code>category</code> (String)
+
+#### Apply the schemas  
 - Apply the <code>meetingSchema</code> schema and the <code>file</code> schema to the <code>Meeting</code> document type
 - Apply the <code>meetingArchivesSchema</code> schema to the <code>MeetingArchives</code> document type
 </section>
