@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo training - Custom operations</title>
+<title>Nuxeo training - REST API</title>
 
 <meta name="description" content="Nuxeo training - Custom operations">
 <meta name="author" content="Nuxeo">
@@ -48,146 +48,199 @@
       class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide" id="nuxeo-training-custom-operations">
-# Nuxeo Training - Custom operations
+<section class="slide" id="nuxeo-training-rest-api">
+# Nuxeo Training - REST API
 </section>
 
-<section class="slide" id="wherewego-context-unit-tests">
+<section class="slide" id="wherewego-context-rest-api">
 ### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
 <blockquote><p>
-We would like to setup a custom operation to archive one or several documents.<br />
-This operation should delete proxies (shortcuts to published versions), and set as archived the live documents.<br />
+The REST API in Nuxeo is not limited to the automation client. <br />
+Let's discover some complementary tools we could make use of.
 </p></blockquote>
 </section>
 
-<section class="slide" id="java-operations">
-### Java operations
-#### What are they ?
-- Operations that you can call in an automation chain, for example in Nuxeo studio
-
-#### Why code Java operations ?
-- Lots of available operations are available in Nuxeo studio, but it may not be enough
-- Studio is suited for chains configuration, Java for advanced customization:
-    - Access to services
-    - Custom behaviour that can't be generic and integrated in Studio by Nuxeo
-    - Missing operations in Studio that are not developed yet
+<section class="slide" id="wherewego">
+### What we want to do
+#### At the end of the course
+- Use the REST API to:
+  - Upload a batch of files and bind them to a document
 </section>
 
-<section class="slide" id="create-a-java-operation">
-### Creating a java operation
-#### Create the class
-- Use the NX wizard to create a new operation <img alt="NX icon" src="../customization-integration/img/eclipse-nx-icon.png" style="display:inline; margin-top:5px; vertical-align:top;" />
+<section class="slide" id="automation-vs-rest">
+### Automation client VS pure REST API calls
+<div class="split-box split-50">
+    <h4>Automation client</h4>
+    <ul>
+        <li><strong>Command oriented</strong></li>
+        <li>Integrated in many languages</li>
+        <li>A single endpoint, used to call operations and chains</li>
+        <li>Returns objects depending on the operation / chain's output</li>
+        <li>Perfect for server-side oriented calls</li>
+    </ul>
+</div>
 
-#### Annotate
-- The class with <code>@Operation</code>  
-- The runnable method with <code>@OperationMethod</code>
-- Operation parameters with <code>@Param</code> on attributes
-
-#### The runnable methods
-- Multiple operation methods can have the same name (with different signatures)
-- Inputs as method parameters
-- Output as returned object
+<div class="split-box split-50">
+<h4>Pure REST API calls</h4>
+    <ul>
+        <li><strong>Resources oriented</strong></li>
+        <li>Versatile (call a URL, send / get JSON)</li>
+        <li>Different endpoints available, complementary to the automation client (ex: users, groups)</li>
+        <li>Very useful for client-side calls (ex: javascript)</li>
+    </ul>
+</div>
 </section>
 
-<section class="slide" id="custom-operation-import-context">
-### Using the <code>@Context</code> annotation
-- In an operation, the <code>@Context</code> annotation can be used to call:
+<section class="slide" id="rest-api-concepts">
+### REST API concepts
+#### Endpoints
+- Called to fetch a resource
+- Available endpoints can be found in the <a href="http://localhost:8080/nuxeo/api/v1/doc" target="_blank">local api documentation</a>
+- Try it out: <a href="http://localhost:8080/nuxeo/site/api/v1/user/Administrator">http://localhost:8080/nuxeo/site/api/v1/user/Administrator</a>
 
-#### The CoreSession
-<pre><code>@Context
-protected CoreSession session;</code></pre>
-#### A Nuxeo service
-<pre><code>@Context
-protected AutomationService automation;
+#### Adapters
+- Combined to an endpoint call, to do something specific on the resource
+  - Ex: launch an operation, get ACLs...
+  - Add /@AdapterName 
+  - Try it out: <a href="http://localhost:8080/nuxeo/site/api/v1/path///@acl">http://localhost:8080/nuxeo/site/api/v1/path///@acl</a>
 
-@Context
-protected UserManager um;</code></pre>
-#### The chain context
-<pre><code>@Context
-protected OperationContext ctx;</code></pre>
-
-- Then you can get:
-  - The current user: ctx.getPrincipal().getName();
-  - The operation input: ctx.getInput();
+#### Contributors
+- To get custom properties in the answer
+- Contributors can be added through Java code
 </section>
 
-<section class="slide" id="operation-sample">
-### Operation sample
-<pre><code>@Operation(id = SampleOperation.ID, category = Constants.CAT_SERVICES,
-label = &quot;Sample Operation&quot;, description = &quot;An example.&quot;)
+<section class="slide" id="rest-api-crud">
+### REST API concepts
+#### Create Read Update Delete tips and tricks
+##### Entity type
+- <code>entity-type</code> is often required for <code>POST</code> (create) or <code>PUT</code> (update)
+- Use the <code>GET</code> request to know the expected entity-type
 
-public class SampleOperation {
-  public static final Log log = LogFactory.getLog(SampleOperation.class);
-  public static final String ID = &quot;Sample.Operation&quot;;
+##### Updating a user or a document
+- Username / document id are needed both in the URL and in the parameters
 
-  @Context
-  protected CoreSession session;
+##### Deleting
+- Delete does not need JSON in the request body 
+</section>
 
-  @Context
-  protected OperationContext ctx;
+<section class="slide" id="rest-api-blobs">
+### REST API concepts
+#### Working with blobs (recommended method)
+- Use the batch upload endpoint to upload files 
+- Create your document
+- Bind your files to your document
+</section>
 
-  @Param(name = &quot;type&quot;)
-  protected String type;
+<section class="slide" id="rest-api-batch-upload">
+### REST API concepts
+#### The batch upload endpoint
+- Upload files using <code>POST</code> <code>http://localhost:8080/nuxeo/site/automation/batch/upload</code>
+- Batch will be deleted automatically after its first use
+- Specific headers need to be set
+  - <code>X-Batch-Id</code>	Batch identifier (required)
+  - <code>X-File-Idx</code>	Index of the file inside the batch (required)
+  - <code>X-File-Name</code>	Name of the file (required)
+  - <code>X-File-Size</code>	Size of the file in bytes
+  - <code>X-File-Type</code>	Mime type of the file
+  - <code>Content-Type</code>	Should be set to "binary/octet-stream"
 
-  @Param(name = &quot;name&quot;, required = false)
-  protected String name;
+curl example:<br />
+<code>curl -H "X-Batch-Id: mybatchid" -H "X-File-Idx:0" -H "X-File-Name:myFile.zip" -F file=@myFile.zip -u Administrator:Administrator http://localhost:8080/nuxeo/api/v1/automation/batch/upload</code>
 
-  @OperationMethod
-  public DocumentModel run(DocumentModel doc) throws Exception {
-    log.info(&quot;running sample operation with params: type=&quot; + type + &quot;; name=&quot; + name);
-    return doc;
+<code>curl -H "X-Batch-Id: mybatchid" -H "X-File-Idx:1" -H "X-File-Name:anotherFile.zip" -F file=@myOtherFile.zip -u Administrator:Administrator http://localhost:8080/nuxeo/api/v1/automation/batch/upload</code>
+
+http://doc.nuxeo.com/x/OYLZ
+</section>
+
+<section class="slide" id="rest-api-binding-file-lazy">
+### REST API concepts
+#### Binding a file to a document
+##### Lazy binding 
+<code>curl -X POST -H "Content-Type: application/json+nxrequest" -d '{"params":{"operationId":"FileManager.Import","batchId":"mybatchid"},"context":{"currentDocument":"/default-domain/workspaces/communication service"} }' -u Administrator:Administrator http://localhost:8080/nuxeo/site/automation/batch/execute</code>
+
+- Nuxeo will automatically create a document and determine the document type
+- Set the mimetype header to ensure the document type created
+</section>
+
+<section class="slide" id="rest-api-binding-file-detailed-unique">
+### REST API concepts
+#### Binding a file to a document
+##### Detailed binding
+- With one file
+
+Header <code>Content-Type: application/json</code><br /><br />
+<code>POST</code> <code>http://localhost:8080/nuxeo/api/v1/path/default-domain/workspaces/communication%20service</code>
+<code><pre>{
+  "entity-type": "document",
+  "name":"myNewDoc",
+  "type": "File",
+  "properties" : {
+    "dc:title":"My new doc",
+    "file:content": {
+      "upload-batch":"mybatchid",
+      "upload-fileId":"0"
+    }
   }
-}</code></pre>
-Result (click for a complete view):
-<a href="../customization-integration/img/customoperation-sample.png" target="_blank"><img src="../customization-integration/img/customoperation-sample-thumbnail.png" /></a>
+}</pre></code>
 </section>
 
-<section class="slide" id="a-contribution-to-an-extension-point">
-### Register the operation
+<section class="slide" id="rest-api-binding-file">
+### REST API concepts
+#### Binding files to a document
+##### Detailed binding
+- With several files
+
+Header <code>Content-Type: application/json</code><br /><br />
+<code>POST</code> <code>http://localhost:8080/nuxeo/api/v1/path/default-domain/workspaces/communication%20service</code>
+<code><pre> { "entity-type" : "document", 
+  "name" : "myNewDoc2", 
+  "type" : "File", 
+  "properties" : { "dc:title" : "My new doc2", 
+      "files:files" : [ { "file" : { "upload-batch" : "mybatchid", 
+                "upload-fileId" : "0" 
+              }, 
+            "filename" : "myFile.zip" 
+          }, 
+          { "file" : { "upload-batch" : "mybatchid", 
+                "upload-fileId" : "1" 
+              }, 
+            "filename" : "myOtherFile.zip" 
+          } 
+        ] 
+    } 
+}</pre></code>
+</section>
+
+<section class="slide" id="adding-a-contributor">
+### Adding a contributor
 #### Registration is done in two steps
-- A XML contribution to use it in the platform
+- An XML contribution to use it in the platform
 - An export to use it into Studio
 </section>
 
-<section class="slide" id="integrate-your-operation-into-studio">
-### Declaring the operation
-#### Declaring the operation in the platform
-- Use an XML extension register it
-- Nuxeo IDE creates it automatically if you used the operation wizard
-
-<pre><code>&lt;extension
-  target=&quot;org.nuxeo.ecm.core.operation.OperationServiceComponent&quot;
-  point=&quot;operations&quot;&gt;
-  &lt;operation class=&quot;org.nuxeo.example.TestOperation&quot; /&gt;
-&lt;/extension&gt;</code></pre>
-
-#### Export the operation in Studio
-- Use the export button in the top left Nuxeo Studio tab and follow the wizard <img alt="NX icon" src="../customization-integration/img/export-operations-icon.png" style="display:inline; margin-top:5px; vertical-align:top;" />
-</section>
-
-<section class="slide exercise" id="exercise-custom-operation-get-participants-emails">
+<section class="slide exercise" id="exercise-rest-api-blobs">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice
 <blockquote><p>
-Setup a custom operation to archive one or several documents.
+Use the REST API to batch upload files.
 </p></blockquote>
-#### The operation should:
-- Take a document as input and output
-- Be an iterable operation
-- Check if the input is a proxy
-  - If yes, remove the document
-  - If no follow a transition given as a parameter to put the document in the "archived" state
-- Export your operation and see if you can use it in Studio
+#### Setup your environment
+- In firefox, install the RESTClient extension (or POSTMAN in chrome)
+- Download and install <a href="http://curl.haxx.se/dlwiz/?type=bin" target="_blank">cUrl</a>
+ 
+#### Do a batch upload
+- <strong>Using cUrl</strong> Create a batch upload for two files: <a href="files" target="_blank">myFile.zip and myOtherFile.zip</a>
+- <strong>Using RESTClient</strong> Create a <code>File</code> document at the domain level and bind your batch to it 
 </section>
 
 <section class="slide" id="questions-context">
 ## Questions?
 </section>
 
-<section class="slide" id="next-advanced">
+<section class="slide" id="next-rest-api">
 ### What's next ?
-- [REST API](4.6_REST-API.html)
+- [Ending](99_Ending.html)
 </section>
 
   <!-- deck.navigation snippet -->

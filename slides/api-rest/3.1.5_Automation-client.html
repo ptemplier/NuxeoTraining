@@ -90,16 +90,21 @@ Now that we have an operation chain, we should call it and see if it works as in
 <section class="slide" id="setting-automation-client">
 ### Automation client
 #### Setting up the automation client
+
+##### PHP
+- The automation client is called using an <code>include</code>
+- <a href="https://github.com/nuxeo/nuxeo-automation-php-client" target="_blank">sources are available on github</a>
+
 ##### Java 
-A maven dependency needs to be declared in the project's <code>pom.xml</code> file using the following syntax
-<pre><code>&lt;dependency>
+- Add the nuxeo-automation-client jar into Nuxeo IDE's user libraries
+  - Go to <a href="https://maven-eu.nuxeo.org/nexus/index.html#nexus-search;quick~nuxeo-automation-client" target="_blank">maven.nuxeo.org</a> and search for nuxeo-automation-client
+  - Download the jar
+  - Declare it as a user library into Nuxeo IDE (<code>Window -> preferences -> Nuxeo -> User libraries</code>)
+  - A maven dependency needs to be declared in the project's <code>pom.xml</code> file using the following syntax<pre><code>&lt;dependency>
     &lt;groupId>org.nuxeo.ecm.automation&lt;/groupId>
     &lt;artifactId>nuxeo-automation-client&lt;/artifactId>
     &lt;version>...&lt;/version>
 &lt;/dependency></code></pre>
-
-##### PHP
-The automation client is called using an <code>include</code>
 </section>
 
 <section class="slide exercise" id="exercise-automation-client1">
@@ -235,6 +240,31 @@ Errrrrm... publishing a meeting without a file attached will not be that useful.
 - Right click on your class declaration
 - Choose run as, java application
 - Check the result in the UI
+</section>
+
+<section class="slide" id="questions-automation-client-blobs">
+##Questions?
+</section>
+
+<section class="slide" id="automation-client-headers">
+### Headers
+#### Concepts
+- Headers help setting specific properties
+- Used with <code>setHeaders(String headerName, Object value)</code>
+
+#### What headers are available ?
+- <code>X-NXVoidOperation</code> (true / false)
+  - Set to false in order to avoid getting a blob back after an upload
+- <code>Nuxeo-Transaction-Timeout</code> (integer, in seconds)
+  - Useful for large uploads
+- <code>X-NXDocumentProperties</code> (schemas: "dublincore", "meetingSchema" or "*")
+  - When fetching a doc, to indicate the schemas wanted
+- <code>X-NXRepository</code> reponame
+  - When working on a specific repository
+</section>
+
+<section class="slide" id="questions-automation-client-blobs">
+##Questions?
 </section>
 
 <section class="slide" id="next">
