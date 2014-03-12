@@ -145,6 +145,18 @@ public static void main(String[] args) throws Exception {
 }</code></pre>
 </section>
 
+<section class="slide exercise" id="exercise-automation-client-connection">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+#### Use automation client to get meetings
+- Create a new class named MeetingPublication
+- Create an automation client instance on your local server
+- Login to the server as Administrator
+- Get all meetings
+- Shutdown your client
+</section>
+
 <section class="slide" id="using-automation-client-operations">
 ### Automation client
 #### Using the operations
@@ -162,6 +174,14 @@ public static void main(String[] args) throws Exception {
 - Globally: <code>newRequest(String operationId, Map&lt;String, Object> ctx)</code>
 
 ##### Launch the command with the <code>execute()</code> method
+</section>
+
+<section class="slide exercise" id="exercise-automation-client-connection">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+#### Get meetings in draft state
+- Use the <code>Document</code> > <code>Filter List</code> operation to filter meetings only in draft state
 </section>
 
 <section class="slide" id="using-automation-client-docadapter">

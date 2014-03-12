@@ -89,28 +89,6 @@ This operation should delete proxies (shortcuts to published versions), and set 
 - Output as returned object
 </section>
 
-<section class="slide" id="custom-operation-import-context">
-### Using the <code>@Context</code> annotation
-- In an operation, the <code>@Context</code> annotation can be used to call:
-
-#### The CoreSession
-<pre><code>@Context
-protected CoreSession session;</code></pre>
-#### A Nuxeo service
-<pre><code>@Context
-protected AutomationService automation;
-
-@Context
-protected UserManager um;</code></pre>
-#### The chain context
-<pre><code>@Context
-protected OperationContext ctx;</code></pre>
-
-- Then you can get:
-  - The current user: ctx.getPrincipal().getName();
-  - The operation input: ctx.getInput();
-</section>
-
 <section class="slide" id="operation-sample">
 ### Operation sample
 <pre><code>@Operation(id = SampleOperation.ID, category = Constants.CAT_SERVICES,
@@ -142,6 +120,51 @@ Result (click for a complete view):
 <a href="../customization-integration/img/customoperation-sample.png" target="_blank"><img src="../customization-integration/img/customoperation-sample-thumbnail.png" /></a>
 </section>
 
+<section class="slide" id="custom-operation-import-context">
+### Using the <code>@Context</code> annotation
+- In an operation, the <code>@Context</code> annotation can be used to call:
+
+#### The CoreSession
+<pre><code>@Context
+protected CoreSession session;</code></pre>
+#### A Nuxeo service
+<pre><code>@Context
+protected AutomationService automation;
+
+@Context
+protected UserManager um;</code></pre>
+#### The chain context
+<pre><code>@Context
+protected OperationContext ctx;</code></pre>
+
+- Then you can get:
+  - The current user: ctx.getPrincipal().getName();
+  - The operation input: ctx.getInput();
+</section>
+
+<section class="slide exercise" id="exercise-custom-operation-has-permission">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice
+<blockquote><p>
+Setup a custom operation to check a permission
+</p></blockquote>
+#### Create your operation
+- Create a new operation using the wizard
+- Operation name should be HasUserPermission
+- Will take a document as input and output
+- Is **not** iterable
+- Will have two parameters : 
+  - username (String, required)
+  - permission (String, required)
+
+#### The operation should:
+- Inject the CoreSession
+- Check if user has the permission on the document
+- If yes return the document
+- If no return null
+</section>
+
 <section class="slide" id="a-contribution-to-an-extension-point">
 ### Register the operation
 #### Registration is done in two steps
@@ -165,7 +188,15 @@ Result (click for a complete view):
 - Use the export button in the top left Nuxeo Studio tab and follow the wizard <img alt="NX icon" src="../customization-integration/img/export-operations-icon.png" style="display:inline; margin-top:5px; vertical-align:top;" />
 </section>
 
-<section class="slide exercise" id="exercise-custom-operation-get-participants-emails">
+<section class="slide exercise" id="exercise-custom-operation-export">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice
+#### Export your operation
+- Using Nuxeo IDE, export your HasUserPermission operation
+</section>
+
+<section class="slide exercise" id="exercise-custom-operation-set-archive">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice
