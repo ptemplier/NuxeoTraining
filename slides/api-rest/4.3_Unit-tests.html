@@ -55,8 +55,7 @@
 <section class="slide" id="wherewego-context-unit-tests">
 ### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
 <blockquote><p>
-Users would like to mix users and groups in the meetings participants list.<br /><br />
-This is causing us some trouble to retrieve the corresponding email adresses.<br /><br />
+We would like to implement something to check easily a permission on a document.<br /><br />
 In order to create a custom operation helping us to implement that logic, we should first take a look at the Nuxeo API.
 </p></blockquote>
 </section>
@@ -247,7 +246,7 @@ For instance: <code>String title = (String) doc.getPropertyValue("dc:title");</c
 #### Document creation and modification
 - Deploy your Nuxeo Studio bundle (project ID is in the project settings menu > manifest tab)
 - Deploy the <code>org.nuxeo.ecm.automation.core</code> bundle
-- Inject a <code>CoreSession</code> (make sure you deploy the correct feature !)
+- Inject a <code>CoreSession</code> (make sure you deploy the <code>CoreFeature</code> !)
 
 - Create a unit test named `shouldHaveDraftState()` that:
     - Creates a `Meeting` document located in the root directory

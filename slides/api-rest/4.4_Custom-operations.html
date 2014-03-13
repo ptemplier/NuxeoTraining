@@ -152,7 +152,7 @@ Setup a custom operation to check a permission
 #### Create your operation
 - Create a new operation using the wizard
 - Operation name should be HasUserPermission
-- Will take a document as input and output
+- Will take a document as input and custom output (boolean)
 - Is **not** iterable
 - Will have two parameters : 
   - username (String, required)
@@ -161,8 +161,8 @@ Setup a custom operation to check a permission
 #### The operation should:
 - Inject the CoreSession
 - Check if user has the permission on the document
-- If yes return the document
-- If no return null
+- If yes return true
+- If no return false
 </section>
 
 <section class="slide" id="a-contribution-to-an-extension-point">
