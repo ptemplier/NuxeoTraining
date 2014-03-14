@@ -19,12 +19,12 @@ elif [ "$ARCH" == 'x86_64' ]; then
     echo "### downloading phantomjs for 64bits"
     TARGET=phantomjs-$PHANTOMJS_VERSION-linux-x86_64
     FILE=$TARGET.tar.bz2
-    CMD=tar -jxvf
+    CMD='tar -jxvf'
 else
     echo "### downloading phantomjs for 32bits"
     TARGET=phantomjs-$PHANTOMJS_VERSION-linux-i686
     FILE=$TARGET.tar.bz2
-    CMD=tar -jxvf
+    CMD='tar -jxvf'
 fi
 
 wget http://phantomjs.googlecode.com/files/$FILE
