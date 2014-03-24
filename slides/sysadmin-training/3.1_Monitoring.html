@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo SysAdmin Training - Monitoring</title>
+
+<meta name="description" content="Nuxeo - Configuration and Integration">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet" href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet" href="../themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet" href="../themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet" href="../themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span>
+    <span class="slash">/</span>
+    <span class="sub-part training">Trainings</span>
+  </div>
+
+  <section class="slide" id="day-3">
+### Agenda − Day 3
+####Goals
+- Monitoring
+- Reporting
+- Optimization
+
+####Agenda
+- [Monitoring, Analysis, Supervision, Benchmark](3.1_Monitoring.html)
+  - Logs
+  - Nuxeo Tools (Shell, Admin Center, FunkLoad)
+  - VCS and Database Analysis
+  - System Tools (Linux)
+  - Java Tools
+- [Reporting, Support](3.2_Reporting.html)
+  - nuxeoctl
+  - Connect
+  </section>
+
+  <section class="slide" id="summary">
+  <div class="sticker" style="max-width: 100em;">[ADMINDOC/Monitoring+and+Maintenance](http://doc.nuxeo.com/x/LoAO)</div>
+###Monitoring, Analysis, Supervision, Benchmark
+####Logs
+####Nuxeo Tools (Shell, Admin Center, FunkLoad)
+####VCS and Database Analysis
+####System Tools (Linux)
+####Java Tools
+  </section>
+
+  <section class="slide exercise" id="monitoring1">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+  <div class="sticker" style="max-width: 100em;">[ADMINDOC/Logs+Analysis](http://doc.nuxeo.com/x/mYDZ)<br/>
+  https://hg.nuxeo.org/tools/logchart
+  </div>
+###Logs
+####Log4J configuration
+- <code>$NUXEO_HOME/lib/log4j.xml</code>
+- Filter log level (`ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`)
+- Increase logs for specific services
+
+####Analyze log files content
+- `nuxeoctl.log`, `console.log`, `server.log`, `nuxeo-error.log` and `stderr.log`
+- `DeploymentPreprocessor` pre-processing order
+- `FrameworkLoader` configuration summary
+- `OSGiRuntimeService` startup summary
+
+####logchart
+  </section>
+
+  <section class="slide exercise" id="monitoring2.1">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+  <div class="sticker" style="max-width: 100em;">
+  http://localhost:8080/nuxeo/runningstatus<br/>
+  https://github.com/tiry/nuxeo-automation-jsshell
+  </div>
+###Nuxeo Tools
+####Raw performances
+- Admin Center activity (sessions, events, charts)
+- Admin Center monitoring (status, probes, event bus, Shell)
+![probes](../img/tech/probes.png)
+- Server and components statuses (Launcher, Runtime and Core)
+- Nuxeo Shell
+  - Technical administration, Mass operations, Testing
+  - Pluggable commands system (via automation or scripting)
+  - Batch mode (scripting)
+- JS Automation Shell
+  </section>
+  <section class="slide exercise" id="monitoring2.2">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+  <div class="sticker" style="max-width: 100em;">
+  https://github.com/nuxeo/FunkLoad/
+  </div>
+###Nuxeo Tools
+####Performances via HTTP
+- FunkLoad, LoadRunner, OpenSTA, JMeter, ...
+
+![MonitorCPU](../img/tech/MonitorCPU.png)
+  </section>
+  
+  <section class="slide exercise" id="monitoring3">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+  <div class="sticker" style="max-width: 100em;">
+  [NXDOC/VCS+Architecture](http://doc.nuxeo.com/x/DgAz)
+  </div>
+###VCS and Database Analysis
+####Database: VCS &amp; Audit Service
+- VCS
+  - `Hierarchy` (id, parentId), `schema_name` table
+  - `schema_prefix_field` table if using complex list type
+  - `locks`
+- `nxp_tagging`
+- `localthemeconfig` 
+- Technical tables
+  - `acls`
+  - `fulltext`
+- Audit
+  - `nxp_logs`, `nxp_logs_mapextinfos`, `nxp_logs_extinfo`
+  - `extended_info`
+- Directories
+  - `Subject`
+  - `Continent`, `Country`
+  - `users`, `groups`, `user2group`
+  </section>
+
+  <section class="slide exercise" id="monitoring4">
+###System Tools
+####PostgreSQL
+    log_min_duration_statement = 100
+    vacuumdb  -fzv $DBNAME &> vacuum.log
+
+####pgfouine
+####Ksar, sysstat, atop
+####Graphite
+####Diamond
+####logstash
+####Kibana
+####Takipi (stack capture with memory context)
+####NewRelic
+
+####Use your own tools: Nagios, OpenNMS, Hyperic, RHQ, …
+</section>
+
+  <section class="slide exercise" id="monitoring5">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+  <div class="sticker" style="max-width: 100em;">[jmx-console](http://localhost:8080/jmx-console/)<br/>
+  [Jmxterm](http://wiki.cyclopsgroup.org/jmxterm)<br/>
+  [Memory Analyzer (MAT)](https://www.eclipse.org/mat/)</div>
+###Java Tools
+####Server-specific managers
+####JMX and JDMK
+    $ java -jar jmxterm-1.0-alpha-4-uber.jar
+    $ open localhost:1089
+    $ domains
+    $ bean org.nuxeo:formart=html,type=...
+    $ info
+    $ run start
+    # started OpenJDMK service (log Nuxeo INFO level to get URLs)
+    # user/password: operator/${server.status.key} (nuxeo.conf)
+    # URL usable in a JMX client (for instance JVisualVM)
+
+####Oracle
+- jconsole (enabling JMX remote), JVisualVM, JStack, ...
+- Mission Control (flight recorder, events, low impact)
+
+####Eclipse Memory Analyzer
+
+####JVM Garbage Collector
+    JAVA_OPTS=$JAVA_OPTS -Xloggc:${nuxeo.log.dir}/gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps
+    
+####GCViewer
+  </section>
+
+  <section class="slide" id="next">
+###Next?
+- Back to the [training agenda](index.html#day-1)
+- [Reporting, Support](3.2_Reporting.html)
+  </section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+  <label for="goto-slide">Go to slide:</label>
+  <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- JQuery tooltip library -->
+  <script src="../scripts/jquery.tools.tooltip.min.js"></script>
+
+<!-- Initialize the deck and tooltips -->
+  <script>
+      $(function() {
+        $.deck('.slide');
+      });
+jQuery(document).ready(function() {
+  jQuery(".tooltip-kat").tooltip({relative: true, position: 'top right'});
+});
+  </script>
+
+</body>
+</html>
