@@ -424,6 +424,38 @@ Workflow email notifications use HTML format. Eg:
 Click &lt;a href="${docUrl}"&gt;here&lt;/a&gt; to see the document.</code></pre>
 </section>
 
+<section class="slide exercise" id="exercise-simple-task">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Tasks
+#### Update the workflow to add a validation system
+- Replace the `Node` node with an `accept/reject` node
+- Assign the task to <code>Administrator</code>
+- Due date should be the current date
+- The assignee should receive a notification email (use the default notification template)
+- If the document is accepted, use the chain we created to publish the document and end the workflow.
+- If the document is rejected, end the workflow.
+- Commit and update your changes.
+- Run the workflow and delegate the validation task to Barbara.
+</section>
+
+<section class="slide" id="questions-wf-tasks">
+## Questions?
+</section>
+
+<section class="slide" id="workflows-tasks-variables-improvements-context">
+### Context <img src="img/frog-teacher.png" class="float-left" />
+<blockquote><p>
+Things are getting better.<br /><br />
+
+Still, there are further improvements we need to achieve. <br />
+For instance, the administrator would like to leave comments on the document, and make sure it is received by the worklow's initiator in case the document is rejected.
+</section>
+
+<section class="slide" id="forms-buttons">
+## Forms and buttons
+</section>
+
 <section class="slide" id="task-config-form">
 ### Task Configuration
 #### Form tab (1/2)
@@ -451,34 +483,6 @@ Click &lt;a href="${docUrl}"&gt;here&lt;/a&gt; to see the document.</code></pre>
 - Label of the button (supports i18n)
 - Filter (available since 5.7): Display the button depending on conditions
 - Generates the condition for transition: Creates a transition corresponding to the button in the Transitions tab
-</section>
-
-<section class="slide exercise" id="exercise-simple-task">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Tasks
-#### Update the workflow to add a validation system
-- Replace the `Node` node with an `accept/reject` node
-- Assign the task to <code>Administrator</code>
-- Due date should be the current date
-- The assignee should receive a notification email (use the default notification template)
-- If the document is accepted, use the chain we created to publish the document and end the workflow.
-- If the document is rejected, end the workflow.
-- Commit and update your changes.
-- Run the workflow and delegate the validation task to Barbara.
-</section>
-
-<section class="slide" id="questions-wf-tasks">
-## Questions?
-</section>
-
-<section class="slide" id="workflows-tasks-variables-improvements-context">
-### Context <img src="img/frog-teacher.png" class="float-left" />
-<blockquote><p>
-Things are getting better.<br /><br />
-
-Still, there are further improvements we need to achieve. <br />
-For instance, the administrator would like to leave comments on the document, and make sure it is received by the worklow's initiator in case the document is rejected.
 </section>
 
 <section class="slide" id="variables">
