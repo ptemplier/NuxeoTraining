@@ -190,6 +190,7 @@ public class ExampleBean implements Serializable {
 #### Syntax
 - Validators are beans with: 
   - A specific signature
+  
   - Throwing a <code>ValidatorException</code>
 
 #### Example
@@ -210,6 +211,7 @@ public class ExampleBean implements Serializable {
 #### Validators
 - The following file contains three errors: <a href="files/MyExerciseBean.java" target="_blank">My exercise bean</a>
 - can you find them?
+<div class="sticker"><a href="#help-exercise-validators">Need help?</a></div>
 </section>
 
 <section class="slide" id="questions-validators">
@@ -220,6 +222,26 @@ public class ExampleBean implements Serializable {
 ### Next?
 - Back to the [training agenda](0.0.1_Agenda.html#day-5)
 - [Services](4.5.0.20_Services.html)
+</section>
+
+<section class="slide" id="help-exercise-validators">
+### Help! <img src="img/frog-teacher.png" class="float-left" />
+#### Errors in the validators:
+
+##### Bean name
+The validator doesn't have a name defined with the <code>@name</code> annotation
+
+##### Bean scope
+Scope is incorrect, it shouldn't be <code>APPLICATION</code> but rather <code>STATELESS</code>
+
+##### Method's signature
+The validator's method should have a signature as following:<br /> 
+<code>checkNumeric(<span style="font-weight: bold;">FacesContext context, UIComponent component, Object value</span>)</code>
+
+##### Exception thrown  
+The validator should throw a <code>ValidatorException</code>, not a <code>ClientException</code>
+
+<div class="sticker"><a href="#exercise-validators">Back to the exercise</a></div>
 </section>
 
   <!-- deck.navigation snippet -->

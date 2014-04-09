@@ -17,7 +17,7 @@ import org.jboss.seam.annotations.Scope;
  * Exercise bean containing errors
  */
 
-@Scope(ScopeType.PAGE)
+@Scope(ScopeType.APPLICATION)
 public class MyValidatorBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
