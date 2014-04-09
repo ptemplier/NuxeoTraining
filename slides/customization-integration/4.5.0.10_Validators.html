@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo training - JSF / Seam validators</title>
+<title>Nuxeo training - Seam beans and validators</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -43,13 +43,15 @@
 <body class="deck-container">
 
 <section class="slide" id="title">
-# Nuxeo training - JSF / Seam validators
+# Nuxeo training - Seam beans and validators
 </section>
 
 <section class="slide" id="wherewego-context-validators">
 ### Context <img src="img/frog-teacher.png" class="float-left" />
 <blockquote><p>
-Filling metadata is great, but ensuring they are correctly formatted is even better. 
+JSF templates are great but what if we want to call our own server side logic ?<br /><br />
+
+Also, ensuring the metadata is correctly formatted is something we will need for our ISBN.
 Let's see how we can deal with it.
 </p></blockquote>
 </section>
@@ -57,14 +59,14 @@ Let's see how we can deal with it.
 <section class="slide" id="wherewego-validators">
 ###What we want to do
 ####At the end of the course:
+- A bean to get the number of children of a document
 - A validator to check the ISBN is made of numbers only
 </section>
 
 <section class="slide" id="validators-concepts">
 ### Seam beans
 #### Concepts
-- Schemas store the metadata without controlling it first
-- To ensure they are properly formatted, a validator can be added
+- JSF only generates static html
 - Seam beans are used in JSF templates to call server side logic from the UI:
   - <code>#{mySeamBean.property}</code>
   - <code>#{mySeamBean.method()}</code>
@@ -73,22 +75,118 @@ Let's see how we can deal with it.
 <section class="slide" id="beans-annotations">
 ### Seam beans
 #### Annotations
-##### Name
-- The <code>@name(myBeanName)</code> used before the class declaration defines the bean name
+- The <code>@name(<span style="font-weight:bold;">myBeanName</span>)</code> used before the class declaration defines the bean name, called in <code>#{<span style="font-weight:bold;">myBeanName</span>.property}</code>
+- The <code>@In</code> allows to inject elements into the context
 
-##### Scope
-- Seam beans are instanciated for every user
-- Beans are destroyed depending on their scope (<code>@scope</code> annotation) 
-  - Stateless: destroyed immediately 
-  - Event: one call
-  - Page: all calls within a page
-  - Conversation: destroyed by the developer
-  - Session: destroyed at user logout
-  - Application: shared by all users
+#### Inject these to...
+##### Get the CoreSession
+<code>
+	@In(create = true, required = false)<br />
+	protected transient CoreSession session;
+</code>
+
+##### Get the current document
+<code>
+	@In(create = true)<br />
+	protected NavigationContext navigationContext;
+</code>
+
+##### Display messages to the user
+<code>
+	@In(create = true, required = false)<br />
+	protected transient FacesMessages facesMessages;
+</code>
+
+##### Retrieve the current user
+<code>
+	@In(create = true, required = false)<br />
+	protected NuxeoPrincipal currentNuxeoPrincipal;
+</code>
+
+##### Fetch the selected documents in the UI
+<code>
+	@In(create = true)<br />
+	protected DocumentsListsManager documentsListsManager;
+</code>
 </section>
 
-<section class="slide" id="validators-example">
+<section class="slide" id="beans-scope">
+### Seam beans 
+#### Scope
+- Seam beans are instanciated for every user
+- Beans are destroyed depending on their scope (<code>@scope</code> annotation) 
+  - <code>Stateless</code>: destroyed immediately 
+  - <code>Event</code>: one call
+  - <code>Page</code>: all calls within a page
+  - <code>Conversation</code>: destroyed by the developer
+  - <code>Session</code>: destroyed at user logout
+  - <code>Application</code>: shared by all users
+
+#### Deploying your beans
+- Beans are deployed only if Seam finds a <code>seam.properties</code> file in the <code>src/main/resources</code> folder
+- Leave the file empty, no need to fill it !
+</section>
+
+<section class="slide" id="beans-example">
+### Seam beans 
+#### Example
+<pre><code>@Name("example")
+@Scope(ScopeType.EVENT)
+public class ExampleBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private static final Log log = LogFactory.getLog(ExampleBean.class);
+
+    // A specific String property
+    private String textProperty = "default text property value";
+
+    @In(create = true)
+    protected NavigationContext navigationContext;
+    
+    public void myMethod() {
+      log.info(textProperty);
+    }
+    
+    public String getTextProperty() {
+      return textProperty;
+    }
+    
+    public void setText(String theTextParameter) {
+      textProperty = theTextParameter;
+    }
+
+}
+</code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-beans">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice
+#### Seam beans
+##### Create your bean
+- Create a Seam bean including a method that returns the number of children of a document
+- Create a JSF template to call this method and display the result
+
+##### In Studio
+- Make sure <code>BookLibrary</code> documents can be created inside book libraries.
+- Update your <code>bookTableLayout</code> to include your template.
+
+##### Deployment
+- Deploy your result and see if it works.
+</section>
+
+<section class="slide" id="questions-beans">
+##Questions?
+</section>
+
+<section class="slide" id="validators-concepts">
 ### Validators
+#### Concepts
+- Schemas store the metadata without controlling it first
+- To ensure they are properly formatted, a validator can be added
+
 #### Syntax
 - Validators are beans with: 
   - A specific signature
@@ -98,11 +196,8 @@ Let's see how we can deal with it.
 <a href="files/MyValidatorBean.java" target="_blank">MyValidatorBean</a>
 </section>
 
-<section class="slide" id="jsftemplates-studio-usage">
-### Seam beans and validators
-#### Deploying your beans
-- Beans are deployed if Seam finds a <code>seam.properties</code> file in the <code>src/main/resources</code> folder
-
+<section class="slide" id="validators-studio-usage">
+### Validators
 #### Calling a validator
 - In Studio, use the validator field (found in widgets)
 - Call your validator using <code>#{myBeanName.myMethod}</code>

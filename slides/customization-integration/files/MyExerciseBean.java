@@ -17,7 +17,6 @@ import org.jboss.seam.annotations.Scope;
  * Exercise bean containing errors
  */
 
-@Name("myValidator")
 @Scope(ScopeType.PAGE)
 public class MyValidatorBean implements Serializable {
 
