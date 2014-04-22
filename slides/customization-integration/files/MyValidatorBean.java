@@ -39,7 +39,7 @@ public class MyValidatorBean implements Serializable {
         throw new ValidatorException(message);
     }
 
-    public static boolean isNumeric(String str) {
+    public boolean isNumeric(String str) {
         for (char c : str.toCharArray()) {
             if (!Character.isDigit(c)) {
                 return false;

@@ -82,7 +82,7 @@ Let's see how we can deal with it.
 ##### Get the CoreSession
 <code>
 	@In(create = true, required = false)<br />
-	protected transient CoreSession session;
+	protected transient CoreSession documentManager;
 </code>
 
 ##### Get the current document
@@ -152,7 +152,7 @@ public class ExampleBean implements Serializable {
       return textProperty;
     }
     
-    public void setText(String theTextParameter) {
+    public void setTextProperty(String theTextParameter) {
       textProperty = theTextParameter;
     }
 
@@ -209,7 +209,7 @@ public class ExampleBean implements Serializable {
       class="exercise-icon">
 ### Practice
 #### Validators
-- The following file contains three errors: <a href="files/MyExerciseBean.java" target="_blank">My exercise bean</a>
+- The following file contains four errors: <a href="files/MyExerciseBean.java" target="_blank">My exercise bean</a>
 - can you find them?
 <div class="sticker"><a href="#help-exercise-validators">Need help?</a></div>
 </section>
