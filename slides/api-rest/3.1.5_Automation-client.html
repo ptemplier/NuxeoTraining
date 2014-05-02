@@ -83,13 +83,17 @@ Now that we have an operation chain, we should call it and see if it works as in
 ##### <code>REST API</code> 
 - Is more suited for frameworks needing to map objects
 - Proposes different endpoints to call documents, users...
-- Is still in beta phase and under very active development
+- Is still under very active development
 - [Local documentation](http://localhost:8080/nuxeo/api/v1/doc)
 </section>
 
 <section class="slide" id="setting-automation-client">
 ### Automation client
 #### Setting up the automation client
+
+##### Javascript
+- Just copy the <code>lib/jquery/nuxeo.js</code> file in your application and include it in your page's <code>&lt;head></code> (or use it with node.js)
+- <a href="https://github.com/nuxeo/nuxeo-js-client" target="_blank">sources are available on github</a>
 
 ##### PHP
 - The automation client is called using an <code>include</code>
@@ -157,6 +161,54 @@ public static void main(String[] args) throws Exception {
 - Shutdown your client
 </section>
 
+<section class="slide" id="questions-automation-client-connection">
+##Questions?
+</section>
+
+<section class="slide" id="using-automation-client-docadapter">
+### Automation client - DocumentAdapter
+#### DocumentAdapter
+- Helps working on documents more easily
+
+##### Document creation <code><br/>Document myDoc = new Document(String name, String type)</code><br /><br />
+
+##### Setting metadata: <br /><code>myDoc.set(String xpath, Object value)</code> <br /> <code>myDoc.set(String xpath, "value1, value2, value3")</code><br /><br />
+  
+<code><strong>Warning</strong></code> The document is stored in memory unless you execute a <code>Create</code> operation
+
+##### Documents <br /> <code>new Documents()</code> <br /><br />
+</section>
+
+<section class="slide" id="using-automation-client-docservice">
+### Automation client - DocumentService
+#### DocumentService
+- Provides frequent operations on a document
+- Avoids having to look for the operation ids and parameters 
+<pre><code>DocumentService ds = new DocumentService(session);</pre></code>
+- <strong>Warning</strong> When fetching a document, make sure you get the schemas wanted:
+<pre><code>ds.getDocument(doc, "*");</pre></code>
+</section>
+
+<section class="slide exercise" id="exercise-automation-client2">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+#### Use the automation client to:
+- Create a <code>Meeting</code> under the communication service workspace containing the following information:
+  - Title: Weekly coordination meeting
+  - Participants: Barbara, Jenny
+  - Meeting date: today
+
+#### Execute your code
+- Right click on your class declaration
+- Choose run as, java application
+- Check the result in the UI
+</section>
+
+<section class="slide" id="questions-automation-client-docadapter">
+##Questions?
+</section>
+
 <section class="slide" id="using-automation-client-operations">
 ### Automation client
 #### Using the operations
@@ -176,45 +228,13 @@ public static void main(String[] args) throws Exception {
 ##### Launch the command with the <code>execute()</code> method
 </section>
 
-<section class="slide exercise" id="exercise-automation-client-connection">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-    class="exercise-icon">
-### Practice
-#### Get meetings in draft state
-- Use the <code>Document</code> > <code>Filter List</code> operation to filter meetings only in draft state
-</section>
-
-<section class="slide" id="using-automation-client-docadapter">
-### Automation client - DocumentService and adapter
-#### DocumentAdapter
-- Helps working on documents more easily
-
-##### Document
-- Creation: <code>Document myDoc = new Document(String name, String type)</code>
-- Setting metadata: <code>myDoc.set(String xpath, Object value)</code>
-- <strong>Warning</strong> The document is stored in memory unless you execute a <code>Create</code> operation
-
-##### Documents
-- <code>new Documents()</code>
-
-#### DocumentService
-- Provides frequent operations on a document
-- Avoids having to look for the operation ids and parameters 
-<pre><code>DocumentService ds = new DocumentService(session);</pre></code>
-- <strong>Warning</strong> When fetching a document, make sure you get the schemas wanted:
-<pre><code>ds.getDocument(doc, "*");</pre></code>
-</section>
-
-<section class="slide exercise" id="exercise-automation-client2">
+<section class="slide exercise" id="exercise-automation-client-operations">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
     class="exercise-icon">
 ### Practice
 #### Use the automation client to:
-- Create a <code>Meeting</code> under the communication service workspace containing the following information:
-  - Title: Weekly coordination meeting
-  - Participants: Barbara, Jenny
-  - Meeting date: today
-- Launch your <code>publishMeeting</code> chain on this document
+- Launch your <code>publishMeeting</code> chain on the document you created in the previous exercise
+- The chain needs a <code>targetSection</code> context variable with the section name
 
 #### Execute your code
 - Right click on your class declaration
