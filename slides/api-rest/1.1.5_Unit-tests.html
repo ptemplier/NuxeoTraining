@@ -135,7 +135,7 @@ Bundle-ManifestVersion: 2
 - <code>RuntimeFeature</code>
 - <code>CoreFeature</code>
 - <code>PlatformFeature</code>
-- <code>RestFeature</code>
+- <code>AutomationFeature</code>
 
 #### What do they bring ?
 - A feature exists for most of the platform's layers
@@ -212,31 +212,58 @@ Bundle-ManifestVersion: 2
 - Called when you need to create / update / delete a user or a user group
 </section>
 
-<section class="slide" id="useful-methods">
-### Useful methods
-#### CoreSession
-<code>DocumentModel createDocumentModel(String parentPath, String id, String typeName)</code><br />
-Creates the DocumentModel object. Not stored nor created in the repository.
+<section class="slide" id="creating-document">
+### API basics
+#### Creating a document
+<code>DocumentModel <strong>coreSession.createDocumentModel</strong>(String parentPath, String id, String typeName)</code><br />
+Creates the DocumentModel object.
 <div class="further-info">This method calls the EmptyDocumentCreated event we have seen previously in Studio.</div>
 
-<code>DocumentModel createDocument(DocumentModel model)</code><br />
-Create the document in the repository using the provided DocumentModel (instantiated with createDocumentModel).
+<code>DocumentModel <strong>coreSession.createDocument</strong>(DocumentModel model)</code><br />
+Create the document in the repository.
 <div class="further-info">This method calls both AboutToCreate and DocumentCreated events.</div>
 
+<code>void <strong>coreSession.save</strong>()</code><br />
+Flushes the information.
+
+<pre><code>DocumentModel <strong>doc = coreSession.createDocumentModel</strong>("/", "myDocName", "File");
+<strong>doc = coreSession.createDocument</strong>(doc);
+<strong>coreSession.save</strong>()</code></pre>
+
+Make sure you put your doc in a variable to get it updated ! Events will be called by these methods.
+</section>
+
+<section class="slide" id="fetching-document">
+### API basics
+#### Fetching a document
+<code>DocumentModel <strong>coreSession.getDocument</strong>(DocumentRef docRef)</code><br />
+
+#### 3 ways to get a DocumentRef from a document
+- From its ref: <code>DocumentRef docRef = doc.getRef();</code>
+- From its id: <code>docRef = new IdRef(doc.getId());</code>
+- From its path: <code>docRef = new PathRef(doc.getPathAsString());</code>
+
+#### Getting a metadata
+<code>Serializable <strong>doc.getPropertyValue</strong>(String xpath)</code><br />
+
+<pre><code><strong>doc = coreSession.getDocument</strong>(doc.getRef());
+<strong>doc.getPropertyValue</strong>("dc:title", "My new title");
+</section>
+
+<section class="slide" id="updating-document">
+### API basics
+#### Updating a document
 <code>DocumentModel saveDocument(DocumentModel docModel)</code><br />
-Save a doc from its model. Changes are not stored into the database yet, but marked for storage.
+Save a doc from its model.
 <div class="further-info">This method calls beforeDocumentModification and documentModified events.</div>
 
-<code>CoreSession save()</code><br />
-Calling this method stores in database all changes made to the documents.
-
-<code>DocumentModel getDocument(DocumentRef docRef)</code><br />
-Get a documentModel object from its ref (IdRef or PathRef).
-
 #### DocumentModel
-<code>Serializable getPropertyValue(String xpath)</code><br />
-For instance: <code>String title = (String) doc.getPropertyValue("dc:title");</code><br />
-<code>void setPropertyValue(String xpath, Serializable value)</code>
+<code>void setPropertyValue(String xpath, Serializable value)</code><br />
+Update a metadata using its xpath (schema:metadata)
+
+<pre><code><strong>doc.setPropertyValue</strong>("dc:title", "My new title");
+<strong>doc = coreSession.saveDocument</strong>(doc);
+<strong>coreSession.save()</strong></code></pre>
 </section>
 
 <section class="slide exercise" id="exercise-ide-doc-creation">
@@ -292,7 +319,7 @@ automationService.run(ctx, "chainId");</code></pre>
 <section class="slide" id="next">
 ###Next?
 - Back to the [training agenda](0.0.1_Agenda.html)
-- [Custom operations](4.4_Custom-operations.html)
+- [Custom operations](1.2.5_Custom-operations.html)
 </section>
 
   <!-- deck.navigation snippet -->

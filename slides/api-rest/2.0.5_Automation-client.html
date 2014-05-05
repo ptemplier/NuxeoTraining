@@ -55,7 +55,7 @@
 <section class="slide" id="wherewego-context-automation">
 ### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
 <blockquote><p>
-Now that we have an operation chain, we should call it and see if it works as intended before going further.
+Now that we have all the operations we need, we should see how to call them from another application.
 </p></blockquote>
 </section>
 
@@ -64,7 +64,7 @@ Now that we have an operation chain, we should call it and see if it works as in
 #### At the end of the course
 - Use the Java automation client to:
   - Create a meeting
-  - Call our operation chain
+  - Call an operation chain
 </section>
 
 <section class="slide" id="api-concepts">
@@ -103,7 +103,7 @@ Now that we have an operation chain, we should call it and see if it works as in
 - Add the nuxeo-automation-client jar into Nuxeo IDE's user libraries
   - Go to <a href="https://maven-eu.nuxeo.org/nexus/index.html#nexus-search;quick~nuxeo-automation-client" target="_blank">maven.nuxeo.org</a> and search for nuxeo-automation-client
   - Download the jar
-  - Declare it as a user library into Nuxeo IDE (<code>Window -> preferences -> Nuxeo -> User libraries</code>)
+  - Add it as an external jar when creating your Java project
   - A maven dependency needs to be declared in the project's <code>pom.xml</code> file using the following syntax<pre><code>&lt;dependency>
     &lt;groupId>org.nuxeo.ecm.automation&lt;/groupId>
     &lt;artifactId>nuxeo-automation-client&lt;/artifactId>
@@ -116,8 +116,8 @@ Now that we have an operation chain, we should call it and see if it works as in
     class="exercise-icon">
 ### Practice
 #### Setup your automation client
-- Declare your dependency in your Java project
-
+- Create a new Java project in eclipse called <code>bestbooksapi</code>
+- Add Nuxeo automation client as an external jar
 </section>
 
 <section class="slide" id="using-automation-client">
@@ -159,6 +159,10 @@ public static void main(String[] args) throws Exception {
 - Login to the server as Administrator
 - Get all meetings
 - Shutdown your client
+
+#### Test you code
+- Use a <code>System.out.println()</code> to show the documents listing in your console
+- To launch your commands, right click on your class and choose <code>run as, Java application</code>
 </section>
 
 <section class="slide" id="questions-automation-client-connection">
@@ -172,7 +176,7 @@ public static void main(String[] args) throws Exception {
 
 ##### Document creation <code><br/>Document myDoc = new Document(String name, String type)</code><br /><br />
 
-##### Setting metadata: <br /><code>myDoc.set(String xpath, Object value)</code> <br /> <code>myDoc.set(String xpath, "value1, value2, value3")</code><br /><br />
+##### Setting metadata: <br /><code>myDoc.set(String xpath, Object value)</code> <br /> <code>myDoc.set(String xpath, "value1, value2, value3")</code> (multivalued metadata)<br /><br />
   
 <code><strong>Warning</strong></code> The document is stored in memory unless you execute a <code>Create</code> operation
 
@@ -201,7 +205,7 @@ public static void main(String[] args) throws Exception {
 
 #### Execute your code
 - Right click on your class declaration
-- Choose run as, java application
+- Choose <code>run as, Java application</code>
 - Check the result in the UI
 </section>
 
@@ -238,7 +242,7 @@ public static void main(String[] args) throws Exception {
 
 #### Execute your code
 - Right click on your class declaration
-- Choose run as, java application
+- Choose <code>run as, Java application</code>
 - Check the result in the UI
 </section>
 
@@ -278,7 +282,7 @@ Errrrrm... publishing a meeting without a file attached will not be that useful.
 
 #### Execute your code
 - Right click on your class declaration
-- Choose run as, java application
+- Choose <code>run as, Java application</code>
 - Check the result in the UI
 </section>
 
@@ -310,7 +314,7 @@ Errrrrm... publishing a meeting without a file attached will not be that useful.
 <section class="slide" id="next">
 ### Next?
 - [Back to the training agenda](0.0.1_Agenda.html)
-- [Event handlers](3.2.5_Event-handlers.html)
+- [Secure your calls](2.1.5_Web-services-filtering.html)
 </section>
 
   <!-- deck.navigation snippet -->

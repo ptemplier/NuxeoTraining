@@ -55,8 +55,12 @@
 <section class="slide" id="wherewego-context-unit-tests">
 ### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
 <blockquote><p>
-We would like to setup a custom operation to archive one or several documents.<br />
-This operation should delete proxies (shortcuts to published versions), and set as archived the live documents.<br />
+We would like to setup custom operations:<br /><br />
+
+- To check a permission on a document.<br /><br />
+
+- To archive one or several documents.<br />
+This operation should delete proxies (shortcuts), and set as archived the live documents.<br />
 </p></blockquote>
 </section>
 
@@ -151,7 +155,7 @@ Setup a custom operation to check a permission
 </p></blockquote>
 #### Create your operation
 - Create a new operation using the wizard
-- Operation name should be HasUserPermission
+- Operation name should be CheckPermission
 - Will take a document as input and custom output (boolean)
 - Is **not** iterable
 - Will have two parameters : 
@@ -181,7 +185,7 @@ Setup a custom operation to check a permission
 <pre><code>&lt;extension
   target=&quot;org.nuxeo.ecm.core.operation.OperationServiceComponent&quot;
   point=&quot;operations&quot;&gt;
-  &lt;operation class=&quot;org.nuxeo.example.TestOperation&quot; /&gt;
+  &lt;operation class=&quot;org.nuxeo.example.CheckPermission&quot; /&gt;
 &lt;/extension&gt;</code></pre>
 
 #### Export the operation in Studio
@@ -193,7 +197,7 @@ Setup a custom operation to check a permission
       class="exercise-icon">
 ### Practice
 #### Export your operation
-- Using Nuxeo IDE, export your HasUserPermission operation
+- Using Nuxeo IDE, export your CheckPermission operation
 </section>
 
 <section class="slide exercise" id="exercise-custom-operation-set-archive">
@@ -207,8 +211,8 @@ Setup a custom operation to archive one or several documents.
 - Take a document as input and output
 - Be an iterable operation
 - Check if the input is a proxy
-  - If yes, remove the document
-  - If no follow a transition given as a parameter to put the document in the "archived" state
+  - If yes, delete the document
+  - If no, follow a transition given as a parameter to put the document in the "archived" state
 - Export your operation and see if you can use it in Studio
 </section>
 
@@ -219,7 +223,7 @@ Setup a custom operation to archive one or several documents.
 <section class="slide" id="next-advanced">
 ### What's next ?
 - [Back to the training agenda](0.0.1_Agenda.html)
-- [REST API](4.6.0_REST-API.html)
+- [Marketplace packages](1.3.5_Marketplace-packages.html)
 </section>
 
   <!-- deck.navigation snippet -->

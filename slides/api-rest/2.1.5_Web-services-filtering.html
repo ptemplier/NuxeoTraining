@@ -9,10 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo training - Bundles and extension points</title>
+<title>Nuxeo Training - Web Services Filtering</title>
 
-<meta name="description"
-  content="Nuxeo Training - Bundles and extension points">
+<meta name="description" content="Nuxeo Training - Advanced automation Event Handlers">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -49,83 +48,30 @@
       class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide"
-  id="nuxeo-training-bundles">
-# Nuxeo training - Bundles and extension points
+<section class="slide" id="ws-filtering">
+# Nuxeo training - Web Services Filtering
 </section>
 
-<section class="slide" id="nuxeo-runtime">
-### A few words about Nuxeo design concepts
-#### Nuxeo runtime
-- The Nuxeo runtime is a small core component that:
-    - Deploys bundles (modules) to add functionalities to the platform
-    - Generates the web application that will be used by the server (Tomcat or JBoss)
-
-#### Bundles
-- Every Nuxeo module is a bundle
-- A bundle:
-  - Is a jar file
-  - Defined in the META-INF/MANIFEST.MF
-  - Has a unique ID (bundle-symbolicName)
-  - Declares a set of components
-  - Exposes extension points that allow to configure or extend them
-
-Extension point are inspired by the Equinox project (OSGI implementation used in Eclipse)
+<section class="slide" id="wherewego-ws-filtering">
+### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
+<blockquote><p>Security is a main concern, especially when calling an application remotely. What can we do about it ? 
+</p></blockquote>
 </section>
 
-<section class="slide" id="manifest.mf">
-### Inside a bundle
-#### MANIFEST.MF
-Contains OSGi entries:
-<pre><code>Bundle-ManifestVersion: 1
-Bundle-Name: Your bundle name
-Bundle-Version: 1.0.0
-Bundle-Vendor: Your company name</code></pre>
-
-The unique name representing your bundle:
-<pre><code>Bundle-SymbolicName: a.unique.name</code></pre>
-
-Nuxeo specific: Component registration:
-<pre><code>Nuxeo-Component: OSGI-INF/one-component.xml, OSGI-INF/another-one.xml</code></pre>
-
-#### Notes 
-- Be careful with spaces and commas
-- Pay attention to your SymbolicName - it has to be unique. A good choice is the package you are providing
-- Always leave a new line at the end of the file
-</section>
-
-<section class="slide" id="components">
-###Components
+<section class="slide" id="ws-filtering-concepts">
+### Web Services Filtering
 #### Concepts
-- Defined in XML descriptors
-- Declared in the MANIFEST bundle
-- Provides:
-  - One or more services
-  - One or more Extension Points
-  - One or more Extension Points xml contribution
+- Almost all operations and chains are open by default to non-admins
+- To restrict or disable their usage, we need to setup filters
+- Filters can be created in the <code>Advanced Settings > Web services filtering</code> option in Studio
 </section>
 
-<section class="slide" id="extension-points-1">
-###Extension points
-<img class="float-right" src="../customization-integration/img/extension-points/extension-points.png" alt="image" />
-
-#### Concepts
-- Contribute configuration to existing EPs 
-- Contribute code and behavior to existing EPs 
-- Other components extend / customize your service
-
-#### What we code
-##### In Nuxeo studio
-- Contributions to implement business logic 
-
-##### In Nuxeo IDE
-- Contributions
-- Java components that can be extensible too
-</section>
-
-<section class="slide" id="xp-example-actions-service">
-###XP Example: Actions service
-<img src="../customization-integration/img/extension-points/extension-point-example.png" alt="image" />
+<section class="slide exercise" id="practice-ws-filtering">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
+### Practice
+#### Restrict the <code>publishMeeting</code> chain
+- Define a web services filtering
+- Add the <code>publishMeeting</code> chain and restrict it to the administrators
 </section>
 
 <section class="slide" id="questions">
@@ -133,9 +79,9 @@ Nuxeo specific: Component registration:
 </section>
 
 <section class="slide" id="next">
-###Next?
-- Back to the [training agenda](0.0.1_Agenda.html)
-- [Unit testing](4.3_Unit-tests.html)
+### Next?
+- [Back to the training agenda](0.0.1_Agenda.html)
+- [REST API](2.2.5_REST-API.html)
 </section>
 
   <!-- deck.navigation snippet -->
