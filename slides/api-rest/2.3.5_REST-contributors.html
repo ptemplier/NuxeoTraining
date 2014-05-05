@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo training - REST Contributors</title>
+
+<meta name="description" content="Nuxeo training - Custom operations">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide" id="nuxeo-training-rest-api">
+# Nuxeo Training - REST Contributors
+</section>
+
+<section class="slide" id="wherewego-context-rest-api">
+### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
+<blockquote><p>
+One of the strengths of the Nuxeo REST API is its modularity. <br />
+We could use it to get our own cuztomized objects, and that's exactly what we will do !
+</p></blockquote>
+</section>
+
+<section class="slide" id="wherewego">
+### What we want to do
+#### At the end of the course
+- Contribute custom contributors to get the navigation breadcrumbs of a document
+- Optionally, use a parameter to limit the number of levels returned
+</section>
+
+<section class="slide" id="contributors-concepts">
+### Contributors
+#### Concepts
+- Java classes defining custom information to be returned
+- Belong to a category
+- When making a REST call, REST contributors categories can be added using the <code>X-NXContext-Category</code> header
+</section>
+
+<section class="slide" id="contributors-concepts">
+### Contributors
+#### Concepts
+- Java classes implementing <code>RestContributor</code> 
+- Defining custom information to be returned
+- Belonging to a category
+- REST contributors categories can be called using the <code>X-NXContext-Category</code> header
+- Custom properties show up in the context parameters returned by the call
+- JSON is written using the <code>org.codehaus.jackson</code> library
+</section>
+
+<section class="slide" id="contributors-example">
+### Contributors - Example
+<pre><code>public class HasWritePermissionContributor implements RestContributor {
+
+  @Override
+  public void contribute(JsonGenerator jg, RestEvaluationContext ec) {
+    <strong>// RestEvaluationContext contains the doc, the URL parameters, the headers</strong>
+    DocumentModel doc = ec.getDocumentModel();
+    
+    <strong>// The contributor has to write some JSON to be returned</strong>
+    ObjectNode myJsonObject = buildMyObject(doc);
+    jg.writeObject(myJsonObject);
+  }
+
+  private ObjectNode buildMyObject(doc) {
+    <strong>// JSON needs to be put in an ObjectNode, let's create it</strong>
+    ObjectMapper o = new ObjectMapper();
+    ObjectNode myObjectNode = o.createObjectNode();
+
+    <strong>// Get the information and put it in the ObjectNode
+    // ObjectNodes can be nested </strong>
+    CoreSession documentManager = doc.getCoreSession();
+    boolean hasWritePermission = documentManager.hasPermission(doc.getRef(), "Write");
+    myObjectNode.put("hasWritePermission", String.valueOf(hasWritePermission));
+
+    return myObjectNode;
+  }
+}</code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-contributors">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice
+<blockquote><p>
+Create a contributor to retrieve the navigation breadcrumbs of a document.
+</p></blockquote>
+#### Setup your environment
+- Create a new Nuxeo plugin project in eclipse, named <code>bestbooksrest</code>
+ 
+#### Code
+- Create a new class named <code>myBreadcrumbContributor</code>
+- Take the <a href="files/ContributorSkeleton.java" target="_blank">contributor skeleton</a> to get you started
+- Get the CoreSession and use it to get the document's parents: <code>getParentDocuments(docRef)</code>
+- For each parent, create a node containing the doc id and its title
+</section>
+
+<section class="slide" id="questions-contributors-code">
+## Questions?
+</section>
+
+<section class="slide" id="wherewego-context-contributors-declaration">
+### Context <img src="../customization-integration/img/frog-teacher.png" class="float-left" />
+<blockquote><p>
+Now that the code is ready, we have to call it somehow.<br />
+But how ?
+</p></blockquote>
+</section>
+
+<section class="slide" id="contributors-declaration">
+### Contributors
+#### Declaring your contributor
+##### In Nuxeo Studio
+- Go to the <code>Advanced settings, XML extensions</code> menu
+
+##### Or in eclipse
+- Add a XML file in the src/main/resources/OSGI-INF/extensions folder
+- In the src/main/resources/META-INF/manifest.mf file, declare your XML extension:<br />
+<code>Nuxeo-Component: OSGI-INF/extensions/myFile.xml</code>
+
+#### XML extension code
+<pre><code>&lt;extension target="org.nuxeo.ecm.automation.io.services.contributor.RestContributorService" point="contributor">
+      &lt;contributor name="mybreadcrumb" class="org.nuxeo.sample.MyBreadcrumbContributor">
+        &lt;category>mybc&lt;/category>
+      &lt;/contributor>
+&lt;/extension></pre></code>
+</section>
+
+<section class="slide exercise" id="exercise-contributors">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice
+<blockquote><p>
+Declare your REST contributor
+</p></blockquote>
+#### Do the declaration
+- Declare your REST contributor in Nuxeo Studio 
+- Refresh and reload your changes, then try to call your contributor!
+</section>
+
+<section class="slide" id="questions-contributors-declaration">
+## Questions?
+</section>
+
+<section class="slide" id="next-contributors-noparameter">
+### What's next ?
+- [Back to the training agenda](0.0.1_Agenda.html)
+- [(optional) Using parameters in REST contributors](#contributors-parameters)
+- [Ending](99_Ending.html)
+</section>
+
+<section class="slide" id="contributors-parameters">
+### Contributors
+#### Parameters
+RestEvaluationContext provides a way to retrieve parameters
+
+##### URL parameters
+<code>String myParam = ec.getRequest().getParameter("myParam"));</code>
+
+##### Header parameters
+<code>String myHeader = ec.getHeaders().getRequestHeader("myHeader").get(0);</code>
+
+<pre><code>@Override
+public void contribute(JsonGenerator jg, RestEvaluationContext ec) throws ClientException, IOException {
+  DocumentModel doc = ec.getDocumentModel();
+  <strong>String myParam = ec.getRequest().getParameter("myParam");
+  String myHeader = ec.getHeaders().getRequestHeader("myHeader").get(0);</strong>
+
+  ObjectNode myJsonObject = buildMyObject(doc, <strong>myParam</strong>, <strong>myHeader</strong>);
+  jg.writeObject(myJsonObject);
+}</code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-contributors-parameters">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice
+<blockquote><p>
+Limit the numbers of parents returned using a parameter
+</p></blockquote>
+#### Update your contributor
+- Default number of levels should be 5
+- If the <code>levels</code> parameter is provided in the URL, then it should override this value
+- Reload your changes, and try them out!
+</section>
+
+<section class="slide" id="questions-contributors-parameters">
+## Questions?
+</section>
+
+<section class="slide" id="next-rest-api">
+### What's next ?
+- [Back to the training agenda](0.0.1_Agenda.html)
+- [Ending](99_Ending.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+</body>
+</html>

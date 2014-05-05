@@ -22,14 +22,13 @@ public class MyBreadcrumbContributor implements RestContributor {
     public void contribute(JsonGenerator jg, RestEvaluationContext ec)
             throws ClientException, IOException {
         DocumentModel doc = ec.getDocumentModel();
-        int requestLevels = Integer.parseInt(ec.getRequest().getParameter("levels"));
-        if(ec.getRequest().getParameter("levels") != null) {
-            maxLevels = requestLevels;
+        String requestLevels = ec.getRequest().getParameter("levels");
+        if(requestLevels != null) {
+            maxLevels = Integer.parseInt(ec.getRequest().getParameter("levels"));
         }
 
         ObjectNode breadcrumbJsonObject = getJsonBreadcrumb(doc);
         jg.writeObject(breadcrumbJsonObject);
-
     }
 
     private ObjectNode getJsonBreadcrumb(DocumentModel doc)
