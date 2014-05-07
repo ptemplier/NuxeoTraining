@@ -1,0 +1,6 @@
+<div  xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:nxu="http://nuxeo.org/nxweb/util">
+      <c:if test="#{nxu:userIsMemberOf('administrators')}">
+        #{currentDocument.getPathAsString()}
+      </c:if>
+</div>

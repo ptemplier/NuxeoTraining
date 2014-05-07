@@ -1,0 +1,9 @@
+<div xmlns:c="http://java.sun.com/jstl/core">
+  <c:if test="#{not field_0.isFolder()}">
+    #{field_1}
+  </c:if>
+  
+  <c:if test="#{field_0.isFolder()}">
+    #{docChildren.countChildren(field_0.getRef())} enfant(s)
+  </c:if>
+</div>
