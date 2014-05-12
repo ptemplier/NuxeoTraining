@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.sample.QRGenService" version="1.0">
+  <implementation class="org.nuxeo.sample.QRGenService" />
+  
+  <service>
+    <provide interface="org.nuxeo.sample.QRGenService" />
+  </service>
+  
+  <extension-point name="qrcontent">
+    <object class="org.nuxeo.sample.QRGenDescriptor" />
+  </extension-point>
+  
+</component>
