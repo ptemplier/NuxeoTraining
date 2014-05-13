@@ -65,28 +65,154 @@ Our users would appreciate to have QR codes for their books in order to get spec
 ### Extension points
 #### Concepts
 - Allow to configure and/or add entries to make your business logic pluggable
-- Is created with 4 steps:
-  1. <strong>Create a deserialization class</strong> (also called a <code>descriptor</code>)
-    - To read the XML contributions added to your extension point
-  1. <strong>Update the service definition</strong>
-    - To link your extension point to the descriptor
-  1. <strong>Update your service logic</strong>
-    - To use your contributions
-  1. <strong>Add XML contributions</strong> and enjoy :)
+
+#### Why Use An Extension Point?
+- Provides configurability: add  your own contributions
+- Easy to maintain
 </section>
 
-<section class="slide exercise" id="exercise-services">
+<section class="slide" id="extension-points-howtobuild">
+### Extension points
+#### How To Build It?
+1. <strong>Create a deserialization class</strong> (also called a <code>descriptor</code>)
+  - To read the XML contributions added to your extension point
+1. <strong>Update the service definition</strong>
+  - To link your extension point to the descriptor
+1. <strong>Update your service logic</strong>
+  - To use your contributions
+1. <strong>Add XML contributions</strong> and enjoy :)
+</section>
+
+<section class="slide" id="extension-points-deserialization">
+### Extension points
+#### Descriptor Concepts 
+- Handles reading the XML contribution
+- Fetches tags and their properties to map them into class attributes
+- Uses specific Nuxeo annotations, called <code>XMap</code>
+
+#### XMap annotations
+- <code>@XObject("tag")</code>: <strong>Mandatory</strong>. Placed before class declaration. Fetches the root tag.
+- <code>@XNode("@tag")</code>: Fetches a tag.
+- <code>@XNode("property@tag")</code>: Fetches a tag's property. 
+- <code>@XNodeList(value = "parentTag/childrenTags", type = String[].class, componentType = String.class)</code>: Fetches children tags of the parent tag and puts them into a String array.
+- <code>@XParent("tag")</code>: Fetches a tag's parent.
+</section>
+
+<section class="slide" id="extension-points-deserialization-example">
+### Extension points
+#### Descriptor Example
+<pre><code>&lt;?xml version="1.0"?>
+&lt;component name="org.nuxeo.book.upcoming.doctype">
+  &lt;extension target="org.nuxeo.ecm.core.schema.TypeService" point="doctype">
+    &lt;<span style="font-weight:bold; color:orange;">doctype</span> name="Upcoming" <span style="font-weight:bold; color:green;">extends="Document"</span>>
+      <span style="font-weight:bold; color:purple;">&lt;facet name="Commentable" />
+      &lt;facet name="Versionable" />
+      &lt;facet name="Indexable" /></span>
+    &lt;/doctype>
+  &lt;/extension>
+&lt;/component></code></pre>
+
+<pre><code><span style="font-weight:bold; color:orange;">@XObject("doctype")</span>
+public class DocumentTypeDescriptor {
+    <span style="font-weight:bold; color:green;">@XNode("@extends")</span>
+    public String superTypeName;
+
+    <span style="font-weight:bold; color:purple;">@XNodeList(value = "facet@name", type = String[].class, componentType = String.class)</span>
+    public String[] facets;
+}</code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-descriptors">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
       class="exercise-icon">
 ### Practice
-#### Services
-##### Create a service
-- Create a new component using Nuxeo IDE's template and expose it as a service
-- Refactor your code to move out the logic from your bean to your service
+#### Descriptors
+
+<blockquote>Our goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
+
+##### Create a Descriptor
+- Given the following contribution extract, create a descriptor named <code>QrContentDescriptor</code>:
+<pre><code>&lt;qrcontent id="titleVersion">
+  &lt;separator value=";" />
+  &lt;xpath value="dc:title" />
+  &lt;xpath value="uid:major_version" />
+  &lt;xpath value="uid:minor_version" />
+&lt;/qrcontent></code></pre>
+    
+- It should map these tags to the corresponding attributes:
+  - The <code>id</code> > <code>id</code> (String)
+  - The <code>separator value</code> > <code>separator</code> (String)
+  - The <code>xpath values</code> > <code>values</code> (String Array)
 </section>
 
-<section class="slide" id="questions-services">
+<section class="slide" id="questions-descriptors">
 ##Questions?
+</section>
+
+<section class="slide" id="extension-points-step2">
+### Extension points
+#### What's Next?
+1. Create a descriptor
+  - Done
+1. <strong>Update the service definition</strong>
+  - To link your extension point to the descriptor
+1. <strong>Update your service logic</strong>
+  - To use your contributions
+1. <strong>Add XML contributions</strong> and enjoy :)
+</section>
+
+<section class="slide" id="extension-points-service-update">
+### Extension points
+#### Declaring Your Extension Point
+- Your service is declared:
+  - With a XML contribution
+  - Located in <code>src/main/resources/OSGI-INF/extensions</code>
+  - When you add it through Nuxeo IDE
+- To declare an extension point:
+  - Update the XML contribution
+  - Use autocomplete to make things easier!
+<pre><code>&lt;extension-point name="myExtensionPoint">
+  &lt;object class="org.nuxeo.sample.MyDescriptorClassname" />
+&lt;/extension-point></code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-extension-point-declaration">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice
+#### Extension Point Declaration
+
+<blockquote>Our goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
+
+##### Declare Your Extension Point
+- Add a <code>qrcontent</code> extension point to your bestbooks service
+- Link it to your <code>QrContentDescriptor</code> class
+</section>
+
+<section class="slide" id="questions-descriptors">
+##Questions?
+</section>
+
+<section class="slide" id="extension-points-step2">
+### Extension points
+#### What's Next?
+1. Create a descriptor
+  - Done
+1. Update the service definition
+  - Done
+1. <strong>Update your service logic</strong>
+  - To use your contributions
+1. <strong>Add XML contributions</strong> and enjoy :)
+</section>
+
+<section class="slide" id="questions-service-update">
+##Questions?
+</section>
+
+<section class="slide" id="extension-points-logic">
+### Extension points
+#### Adding The Logic To Your Service
+// TODO
 </section>
 
 <section class="slide" id="next">
