@@ -86,7 +86,7 @@ Our users would appreciate to have QR codes for their books in order to get spec
 <section class="slide" id="extension-points-deserialization">
 ### Extension points
 #### Descriptor Concepts 
-- Handles reading the XML contribution
+- Maps a XML contribution to an object
 - Fetches tags and their properties to map them into class attributes
 - Uses specific Nuxeo annotations, called <code>XMap</code>
 
@@ -209,10 +209,59 @@ public class DocumentTypeDescriptor {
 ##Questions?
 </section>
 
-<section class="slide" id="extension-points-logic">
+<section class="slide" id="extension-points-logic-activation">
 ### Extension points
-#### Adding The Logic To Your Service
-// TODO
+#### Adding The Service Side Logic - What's Needed (1/2)
+- Complete the <code>activate</code> method to instanciate listings holding your contributed objects
+<pre><code>@Override
+public void activate(ComponentContext context) {
+  bundle = context.getRuntimeContext().getBundle();
+  myContributedItems = new HashMap<String, MyDescriptorClassname>();
+}</code></pre>
+
+- Complete the <code>deactivate</code> method to nullify them
+<pre><code>@Override
+public void deactivate(ComponentContext context) {
+  bundle = null;
+  myContributedItems = null;
+}</code></pre>
+</section>
+
+<section class="slide" id="extension-points-logic-activation">
+### Extension points
+#### Adding The Service Side Logic - What's Needed (2/2)
+- Register the contributions
+<pre><code>@Override
+public void registerContribution(Object contribution, 
+String extensionPoint, ComponentInstance contributor) {
+  
+  <strong>// We could have several extension points, a check is needed</strong>
+  if (contribution instanceof MyDescriptorClassname) { 
+  
+    MyDescriptorClassname anItem = (MyDescriptorClassname) contribution;
+    
+    <strong>// Supposing the object contains an "id" field mapped from the XML</strong>
+    myContributedItems.put(anItem.id, anItem); 
+  }
+}</code></pre>
+
+- Then add your methods using these contributions
+<pre><code>public void doSomethingWithContribution(String itemId) {
+  doSomething(myContributedItems.get(itemId));
+}</code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-activation">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice
+#### Adding The Service Logic (1/)
+
+<blockquote>Our goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
+
+##### Activation / Deactivation
+- Upon activation, instanciate a <code>new HashMap&lt;String, QrContentDescriptor>()</code>.
+- Upon deactivation, nullify it.
 </section>
 
 <section class="slide" id="next">
