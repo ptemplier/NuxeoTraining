@@ -80,7 +80,7 @@ Our users would appreciate to have QR codes for their books in order to get spec
   - To link your extension point to the descriptor
 1. <strong>Update your service logic</strong>
   - To use your contributions
-1. <strong>Add XML contributions</strong> and enjoy :)
+1. <strong>Add XML contributions and call your service</strong>
 </section>
 
 <section class="slide" id="extension-points-deserialization">
@@ -128,7 +128,7 @@ public class DocumentTypeDescriptor {
 ### Practice
 #### Descriptors
 
-<blockquote>Our goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
+<blockquote>Our final goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
 
 ##### Create a Descriptor
 - Given the following contribution extract, create a descriptor named <code>QrContentDescriptor</code>:
@@ -158,7 +158,7 @@ public class DocumentTypeDescriptor {
   - To link your extension point to the descriptor
 1. <strong>Update your service logic</strong>
   - To use your contributions
-1. <strong>Add XML contributions</strong> and enjoy :)
+1. <strong>Add XML contributions and call your service</strong>
 </section>
 
 <section class="slide" id="extension-points-service-update">
@@ -182,7 +182,7 @@ public class DocumentTypeDescriptor {
 ### Practice
 #### Extension Point Declaration
 
-<blockquote>Our goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
+<blockquote>Our final goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
 
 ##### Declare Your Extension Point
 - Add a <code>qrcontent</code> extension point to your bestbooks service
@@ -202,11 +202,7 @@ public class DocumentTypeDescriptor {
   - Done
 1. <strong>Update your service logic</strong>
   - To use your contributions
-1. <strong>Add XML contributions</strong> and enjoy :)
-</section>
-
-<section class="slide" id="questions-service-update">
-##Questions?
+1. <strong>Add XML contributions and call your service</strong>
 </section>
 
 <section class="slide" id="extension-points-logic-activation">
@@ -255,13 +251,114 @@ String extensionPoint, ComponentInstance contributor) {
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
       class="exercise-icon">
 ### Practice
-#### Adding The Service Logic (1/)
+#### Adding The Service Logic (1/3)
 
-<blockquote>Our goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
+<blockquote>Our final goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
 
 ##### Activation / Deactivation
-- Upon activation, instanciate a <code>new HashMap&lt;String, QrContentDescriptor>()</code>.
+- Upon activation, instanciate a <code>new HashMap&lt;String, QrContentDescriptor>()</code> named <code>QrGenerators</code>.
 - Upon deactivation, nullify it.
+
+##### Registering The Contributions
+- Add a method to register the contributions and put them into the <code>QrGenerators</code> hashmap.
+</section>
+
+<section class="slide exercise" id="exercise-external-libs">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice
+#### Adding The Service Logic (2/3)
+
+<blockquote>To generate the QR code, we need to make use of external libraries.</blockquote>
+
+##### Adding External Libraries
+- In Nuxeo IDE, go to <code>Window > Preferences</code>. Add the <a href="files/QRCode/libs" target="_blank">zxing core + java and qrgen</a> libs into <code>Nuxeo > User Libraries</code>.
+- In the Nuxeo Server central tab, update your deployment configuration to add these libraries.
+- Restart your server.
+
+##### Expressing The Dependencies
+- Into your project's pom.xml file, add <a href="files/QRCode/dependencies.txt" target="_blank">the corresponding dependencies</a> into the <code>&lt;dependencies></code> tag.
+</section>
+
+<section class="slide exercise" id="exercise-qr-generation">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice
+#### Adding The Service Logic (3/3)
+
+<blockquote>Now it's time to implement the QR code generation.</blockquote>
+
+##### Add And Complete The Following Method:
+<pre><code>public void addQR(DocumentModel doc, String xpath, String generatorName) {
+<strong>// Get the generator and put it in a variable (if it exists), or throw a ClientException</strong> 
+
+String qrValues = "";
+
+<strong>// Add a loop here to complete the qrValues variable
+// Each value should be separated using the contribution's separator</strong>
+
+File file = QRCode.from(doc.getId() + qrValues).file(); // net.glxn.qrgen.QRCode
+
+<strong>// Transform the file into a FileBlob for Nuxeo storage
+// Store the FileBlob into the given xpath 
+// Save the document (CoreSession can be retrieved from the document)</strong>
+}</code></pre>
+</section>
+
+<section class="slide" id="questions-qr-generation-logic">
+##Questions?
+</section>
+
+<section class="slide" id="extension-points-step3">
+### Extension points
+#### What's Next?
+1. Create a descriptor
+  - Done
+1. Update the service definition
+  - Done
+1. Update your service logic
+  - Done
+1. <strong>Add XML contributions and call your service</strong>
+</section>
+
+<section class="slide exercise" id="exercise-call-qr-generation">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice
+#### Calling Your Service (1/2)
+
+<blockquote>Our service is ready! Let's use it. We will contribute a button calling a Seam bean, that will make use of our service.</blockquote>
+
+##### Add Contributions
+- Copy/Paste the following files into <code>src/main/resources/OSGI-INF/extensions</code>
+- Check them, adapt them if needed, and reference them into your <code>manifest.mf</code> file
+  - <a href="files/QRCode/QRGenActions-contrib.xml" target="_blank">QRGenActions-contrib.xml</a>
+  - <a href="files/QRCode/QRGen-generators-contrib.xml" target="_blank">QRGen-generators-contrib.xml</a>
+
+##### Add a Seam Bean Called By The Button
+- Copy/Paste the following file into a package, in <code>src/main/java</code>: 
+- Check it, adapt it if needed.
+  - <a href="files/QRCode/QRGenActionsBean.java" target="_blank">QRGenActionsBean.java</a>
+</section>
+
+<section class="slide exercise" id="exercise-call-qr-generation2">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
+      class="exercise-icon">
+### Practice
+#### Calling Your Service (2/2)
+
+<blockquote>We will need some adaptations in order to store the QR code.</blockquote>
+##### Adapt Your Studio Project
+- In Nuxeo Studio, add a <code>qrcode</code> field (Blob) in your <code>book</code> schema
+- Make sure this metadata appears in the Book's view layout
+
+##### Run Your Test
+- Reload your changes on the server
+- A button should appear in the contextual tools: try it and see if your QR code is generated, and what it contains (if you can ;-)
+</section>
+
+<section class="slide" id="questions-extension-points-end">
+##Questions?
 </section>
 
 <section class="slide" id="next">

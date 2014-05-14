@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.training.bestbooks.QRGenActionsBean">
+
+  <extension target="org.nuxeo.ecm.platform.actions.ActionService"
+    point="actions">
+
+    <action id="org.nuxeo.training.bestbooks.QRGenActionsBean.CtxButton" link="#{qrGenActions.generateQR()}"
+      order="0" label="Generate QR code">
+      <category>DOCUMENT_UPPER_ACTION</category>
+      <filter id="canAddQRCode">
+        <rule grant="true">
+          <permission>Write</permission>
+          <type>Book</type>
+        </rule>
+      </filter>
+    </action>
+  </extension>
+
+</component>
