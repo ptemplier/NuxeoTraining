@@ -114,7 +114,7 @@ He has put you in charge to implement something covering his request. Quickly.
 ####Summary tab
 - Shows available workflows or started workflows
 
-<img alt="workflow-summary-availables" src="img/workflow-summary-availables.png" />
+<img alt="workflow-summary-availables" src="img/workflows/workflow-summary-availables.png" />
 </section>
 
 <section class="slide" id="innuxeo-2">
@@ -124,7 +124,7 @@ He has put you in charge to implement something covering his request. Quickly.
     - Running workflows
     - All waiting tasks for this document, form and possible actions
 
-<img alt="workflow-dashboard" src="img/workflow-summary-task.png" />
+<img alt="workflow-dashboard" src="img/workflows/workflow-summary-task.png" />
 </section>
 
 <section class="slide" id="innuxeo-3">
@@ -132,7 +132,7 @@ He has put you in charge to implement something covering his request. Quickly.
 ####Dashboard
 - Shows waiting tasks for the user with a link to the document
 
-<img alt="workflow-dashboard" src="img/workflow-dashboard.png" class="float-right" />
+<img alt="workflow-dashboard" src="img/workflows/workflow-dashboard.png" class="float-right" />
 </section>
 
 <section class="slide" id="innuxeo-admin">
@@ -140,7 +140,7 @@ He has put you in charge to implement something covering his request. Quickly.
 #### Admin Center: Workflow menu
 - Shows existing workflow models
 
-<img alt="workflow-admincenter" src="img/workflow-admincenter.png" class="float-right" />
+<img alt="workflow-admincenter" src="img/workflows/workflow-admincenter.png" class="float-right" />
 </section>
 
 <section class="slide" id="workflow-config">
@@ -150,7 +150,7 @@ He has put you in charge to implement something covering his request. Quickly.
 <section class="slide" id="new-workflow">
 ###Creating a new Workflow in Studio
 
-<img alt="workflow-definition" src="img/workflow-creation.png" class="float-right" />
+<img alt="workflow-definition" src="img/workflows/workflow-creation.png" class="float-right" />
 ####New Workflow Definition
 - Template that will be used in DM to start workflows on documents
 
@@ -168,7 +168,7 @@ He has put you in charge to implement something covering his request. Quickly.
 ###Definition Tab
 #### To display and edit general information
 
-<img alt="workflow-definition" class="float-right" src="img/workflow-definition.png"/>
+<img alt="workflow-definition" class="float-right" src="img/workflows/workflow-definition.png"/>
 
 - Label
 - Description
@@ -183,14 +183,14 @@ He has put you in charge to implement something covering his request. Quickly.
 - Available for any workflow node using the predefined object WorkflowVariables[]
 - *Similarly, we can define node variables available only for that specific node using the predefined object NodeVariables[]*
 
-<img alt="workflow-variables" src="img/workflow-variables.png" />
+<img alt="workflow-variables" src="img/workflows/workflow-variables.png" />
 </section>
 
 
 <section class="slide" id="enablements">
 ### Availability Tab
 #### Conditions for the workflow to be available
-<img alt="workflow-availability" src="img/workflow-availability.png" class="float-right" />
+<img alt="workflow-availability" src="img/workflows/workflow-availability.png" class="float-right" />
 
 - A workflow can be enabled according to
      - document types
@@ -205,7 +205,7 @@ He has put you in charge to implement something covering his request. Quickly.
 ### Graph editor Tab
 #### Graphical drag and drop workflow editor
 
-<img alt="workflow-availability" src="img/workflow-graph-editor.png" class="float-right" />
+<img alt="workflow-availability" src="img/workflows/workflow-graph-editor.png" class="float-right" />
 
 - Defines the workflow nodes
 - Configures their logic
@@ -214,7 +214,7 @@ He has put you in charge to implement something covering his request. Quickly.
 <section class="slide" id="main-concepts">
 ### Graph main concepts
 
-#### Graph  <img alt="workflow-graph-node" src="img/workflow-graph-node.png" class="float-right" />
+#### Graph  <img alt="workflow-graph-node" src="img/workflows/workflow-graph-node.png" class="float-right" />
 - The graph is the definition of your process, it contains:
     - A start node
     - One or more end nodes
@@ -255,7 +255,7 @@ He has put you in charge to implement something covering his request. Quickly.
 <section class="slide" id="node-configuration">
 ###Node Configuration
 
-<img alt="Studio node edition form" class="float-right" src="img/workflow-node-general-tab.png" />
+<img alt="Studio node edition form" class="float-right" src="img/workflows/workflow-node-general-tab.png" />
 
 ####General tab
 - General information: Title, directive
@@ -291,7 +291,7 @@ These chains are executed using an unrestricted session!
     - Condition: Condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.
     - Chain: The automation chain will be executed when the workflow engine goes into this transition
 
-<img alt="workflow-transition-arrow" src="img/workflow-transition-arrow.png"/>
+<img alt="workflow-transition-arrow" src="img/workflows/workflow-transition-arrow.png"/>
  </section>
 
 <section class="slide exercise" id="workshop-nodes-transition">
@@ -344,7 +344,7 @@ Eg. accept/reject task.
 <section class="slide" id="task-config">
 ### Task Configuration
 #### General Tab (1/5)
-<img alt="Studio node edition form" src="img/workflow-node-general.png" class="float-right" />
+<img alt="Studio node edition form" src="img/workflows/workflow-node-general.png" class="float-right" />
 
 - General information: Title, directive
 - Due date
@@ -361,7 +361,7 @@ Eg. accept/reject task.
 #### General tab (2/5)
 #### Assignees
 
-<img alt="Studio node edition form" src="img/workflow-node-assignee.png" class="float-right" />
+<img alt="Studio node edition form" src="img/workflows/workflow-node-assignee.png" class="float-right" />
 
 - Assignees
     - You can add here static assignees, either users or groups, one per input field (click on "add" to add more than one)
@@ -460,7 +460,7 @@ For instance, the administrator would like to leave comments on the document, an
 ### Task Configuration
 #### Form tab (1/2)
 
-<img alt="workflow-task-form" src="img/workflow-task-form.png" class="float-right" />
+<img alt="workflow-task-form" src="img/workflows/workflow-task-form.png" class="float-right" />
 
 - Works as a usual form layout
 - Defines the form that will be displayed to the user processing the task
@@ -472,7 +472,7 @@ For instance, the administrator would like to leave comments on the document, an
 #### Form tab (2/2)
 #### Buttons
 
-<img alt="workflow-task-form" src="img/workflow-task-buttons.png" class="float-right" />
+<img alt="workflow-task-form" src="img/workflows/workflow-task-buttons.png" class="float-right" />
 
 - Configures the buttons displayed for submitting the task form
 - Buttons can be linked to transitions
@@ -539,7 +539,7 @@ http://doc.nuxeo.com/x/EQGw
 - Using *Workflow Context > Set Workflow Variable* <code>SetWorkflowVar</code> and *Set Node Var* <code>SetNodeVar</code> operations
 - For instance when the task form should display some pre-initialized variables
 
-![A task form with a preinitialized field](img/workflow-preinit-var.png)
+![A task form with a preinitialized field](img/workflows/workflow-preinit-var.png)
 </section>
 
 <section class="slide exercise" id="exercise-workflow-tasks-variables-normal-1">
