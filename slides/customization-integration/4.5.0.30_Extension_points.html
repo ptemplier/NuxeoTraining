@@ -92,8 +92,8 @@ Our users would appreciate to have QR codes for their books in order to get spec
 
 #### XMap annotations
 - <code>@XObject("tag")</code>: <strong>Mandatory</strong>. Placed before class declaration. Fetches the root tag.
-- <code>@XNode("@tag")</code>: Fetches a tag.
-- <code>@XNode("property@tag")</code>: Fetches a tag's property. 
+- <code>@XNode("@property")</code>: Fetches a property.
+- <code>@XNode("tag@property")</code>: Fetches a tag's property. 
 - <code>@XNodeList(value = "parentTag/childrenTags", type = String[].class, componentType = String.class)</code>: Fetches children tags of the parent tag and puts them into a String array.
 - <code>@XParent("tag")</code>: Fetches a tag's parent.
 </section>
