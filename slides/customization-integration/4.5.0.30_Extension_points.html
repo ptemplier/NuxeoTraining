@@ -208,14 +208,16 @@ public class DocumentTypeDescriptor {
 <section class="slide" id="extension-points-logic-activation">
 ### Extension points
 #### Adding The Service Side Logic - What's Needed (1/2)
-- Complete the <code>activate</code> method to instanciate listings holding your contributed objects
+<blockquote>We may end up with several contributions, so they should be saved into a list with a specific id.</blockquote>
+
+- Complete the <code>activate</code> method to instanciate the listing holding your contributed objects
 <pre><code>@Override
 public void activate(ComponentContext context) {
   bundle = context.getRuntimeContext().getBundle();
   myContributedItems = new HashMap<String, MyDescriptorClassname>();
 }</code></pre>
 
-- Complete the <code>deactivate</code> method to nullify them
+- Complete the <code>deactivate</code> method to nullify it
 <pre><code>@Override
 public void deactivate(ComponentContext context) {
   bundle = null;
@@ -223,9 +225,12 @@ public void deactivate(ComponentContext context) {
 }</code></pre>
 </section>
 
-<section class="slide" id="extension-points-logic-activation">
+<section class="slide" id="extension-points-logic-activation-registercontrib">
 ### Extension points
 #### Adding The Service Side Logic - What's Needed (2/2)
+
+<blockquote>We may end up with several contributions, so they should be saved into a list with a specific id.</blockquote>
+
 - Register the contributions
 <pre><code>@Override
 public void registerContribution(Object contribution, 
