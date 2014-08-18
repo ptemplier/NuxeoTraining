@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<component name="org.nuxeo.training.bestbooks.QRGenActionsBean">
+<component name="org.nuxeo.training.bestbooks.QRGen-contrib">
 
+  <!-- Button to generate the QR code -->
   <extension target="org.nuxeo.ecm.platform.actions.ActionService"
     point="actions">
-
     <action id="org.nuxeo.training.bestbooks.QRGenActionsBean.CtxButton" link="#{qrGenActions.generateQR()}"
       order="0" label="Generate QR code">
       <category>DOCUMENT_UPPER_ACTION</category>
@@ -14,6 +14,16 @@
         </rule>
       </filter>
     </action>
+  </extension>
+  
+  <!-- QR code contribution for title and version -->
+  <extension target="org.nuxeo.training.bestbooks.BestBooksService" point="qrcontent">
+    <qrcontent id="titleVersion">
+      <separator value="||" />
+      <xpath value="dc:title" />
+      <xpath value="uid:major_version" />
+      <xpath value="uid:minor_version" />
+    </qrcontent>
   </extension>
 
 </component>

@@ -34,7 +34,7 @@ import org.nuxeo.ecm.webapp.documentsLists.DocumentsListsManager;
 import org.nuxeo.ecm.webapp.helpers.ResourcesAccessor;
 import org.nuxeo.runtime.api.Framework;
 
-@Name("qrGenTest")
+@Name("qrGenActions")
 @Scope(ScopeType.EVENT)
 public class QRGenActionsBean implements Serializable {
 

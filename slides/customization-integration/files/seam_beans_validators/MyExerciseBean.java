@@ -22,9 +22,6 @@ public class MyValidatorBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @In(create = true)
-    protected Map<String, String> messages;
-
     public void checkNumeric() {
         if (isNumeric(value.toString())) {
             return;

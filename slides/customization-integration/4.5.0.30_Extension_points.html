@@ -131,7 +131,7 @@ public class DocumentTypeDescriptor {
 <blockquote>Our final goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
 
 ##### Create a Descriptor
-- Given the following contribution extract, create a descriptor named <code>QrContentDescriptor</code>:
+- Given the following contribution extract, create a descriptor named <code>QRContentDescriptor</code>:
 <pre><code>&lt;qrcontent id="titleVersion">
   &lt;separator value=";" />
   &lt;xpath value="dc:title" />
@@ -186,7 +186,7 @@ public class DocumentTypeDescriptor {
 
 ##### Declare Your Extension Point
 - Add a <code>qrcontent</code> extension point to your bestbooks service
-- Link it to your <code>QrContentDescriptor</code> class
+- Link it to your <code>QRContentDescriptor</code> class
 </section>
 
 <section class="slide" id="questions-descriptors">
@@ -261,11 +261,11 @@ String extensionPoint, ComponentInstance contributor) {
 <blockquote>Our final goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
 
 ##### Activation / Deactivation
-- Upon activation, instanciate a <code>new HashMap&lt;String, QrContentDescriptor>()</code> named <code>QrGenerators</code>.
+- Upon activation, instanciate a <code>new HashMap&lt;String, QRContentDescriptor>()</code> named <code>qrGenerators</code>.
 - Upon deactivation, nullify it.
 
 ##### Registering The Contributions
-- Add a method to register the contributions and put them into the <code>QrGenerators</code> hashmap.
+- Add a method to register the contributions and put them into the <code>qrGenerators</code> hashmap.
 </section>
 
 <section class="slide exercise" id="exercise-external-libs">
@@ -332,13 +332,14 @@ File file = QRCode.from(doc.getId() + qrValues).file(); // net.glxn.qrgen.QRCode
 ### Practice
 #### Calling Your Service (1/2)
 
-<blockquote>Our service is ready! Let's use it. We will contribute a button calling a Seam bean, that will make use of our service.</blockquote>
+<blockquote>Our service is ready! Let's use it. We will contribute: <br />
+- a button calling a Seam bean, that will make use of our service<br />
+- a QR code definition.</blockquote>
 
-##### Add Contributions
-- Copy/Paste the following files into <code>src/main/resources/OSGI-INF/extensions</code>
-- Check them, adapt them if needed, and reference them into your <code>manifest.mf</code> file
-  - <a href="files/QRCode/QRGenActions-contrib.xml" target="_blank">QRGenActions-contrib.xml</a>
-  - <a href="files/QRCode/QRGen-generators-contrib.xml" target="_blank">QRGen-generators-contrib.xml</a>
+##### Add Contribution
+- Copy/Paste the following file into <code>src/main/resources/OSGI-INF/extensions</code>
+- Check it, and reference it into your <code>manifest.mf</code> file
+  - <a href="files/QRCode/QRGen-contrib.xml" target="_blank">QRGen-contrib.xml</a>
 
 ##### Add a Seam Bean Called By The Button
 - Copy/Paste the following file into a package, in <code>src/main/java</code>: 
@@ -355,7 +356,7 @@ File file = QRCode.from(doc.getId() + qrValues).file(); // net.glxn.qrgen.QRCode
 <blockquote>We will need some adaptations in order to store the QR code.</blockquote>
 ##### Adapt Your Studio Project
 - In Nuxeo Studio, add a <code>qrcode</code> field (Blob) in your <code>book</code> schema
-- Make sure this metadata appears in the Book's view layout
+- Make sure this metadata appears in the Book's view layout (use an <code>image</code> widget)
 
 ##### Run Your Test
 - Reload your changes on the server
