@@ -1,6 +1,6 @@
 <div xmlns:c="http://java.sun.com/jstl/core">
-  <c:if test="#{field_0.isProxy()}">
-  <c:if test="#{not field_0.isImmutable()}">
+  <c:if test="#{currentDocument.isProxy()}">
+  <c:if test="#{not currentDocument.isImmutable()}">
     Ce document est un raccourci. Vous pouvez le supprimer en toute sécurité.
   </c:if>
   </c:if>
