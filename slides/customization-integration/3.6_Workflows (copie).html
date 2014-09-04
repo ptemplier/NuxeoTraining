@@ -537,6 +537,81 @@ Now, we still need to implement some business logic in order to publish the docu
 ## Questions?
 </section>
 
+<section class="slide" id="context-workflows-escalation">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote><p>
+In case the approval task is not done in time, we should forcefully end the workflow.
+</section>
+
+<section class="slide" id="escalation">
+## Escalation rules
+</section>
+
+<section class="slide" id="escalation-concepts">
+### Escalation rules
+#### Concepts
+- Used to process automatic tasks on workflows depending on conditions
+- A scheduler checks periodically the rules conditions and executes the corresponding chains when evaluated to true
+- Escalation rules can be executed once or multiple times
+- Escalation rules are only available on suspended task nodes, awaiting for a user action
+
+#### Why do I need them ?
+- Common use cases include :
+    - Sending friendly reminders by email periodically
+    - Close automatically a task / follow a transition if the task due time is over
+</section>
+
+<section class="slide" id="escalation-usage">
+### Escalation rules
+#### Usage
+- In task nodes edition, escalation rules are accessible using the corresponding tab.
+
+#### Properties
+- Id: unique id for the escalation rule
+- Condition: condition to be checked. For example:<br />
+<code>@{CurrentDate.calendar.compareTo(Context["taskDueTime"])>0}</code><br />
+means "as soon as task due time is over".
+- Chain: automation chain to be executed if condition is evaluated to true.
+- Multiple execution: chain will be launched only once unless you check that option.
+</section>
+
+<section class="slide" id="escalation-chain">
+### Escalation rules
+#### Related automation chain operations
+Operations are available in the <code>workflow context</code> category in order to be used with escalation rules:
+
+#### <code>Get open tasks</code>
+- After having fetched the context document, this allows to get open tasks for a specific workflow instance.
+- To be used with:
+    - The node id (available from the node's general tab)
+    - The <code>Context["workflowInstanceId"]</code> variable in order to fetch the workflow instance id.
+
+#### <code>Complete task</code>
+- Once open tasks have been fetched, allows to simulate the click of a button by the user in order to follow a transition.
+
+#### <code>Resume workflow</code>
+- Once open tasks have been fetched, forces the workflow engine to evaluate conditions for transitions to follow.
+</section>
+
+<section class="slide exercise" id="exercise-escalation-rules">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Escalation rules
+
+<blockquote><p>If the due time is over, we need to follow a specific hidden transition to end the workflow.</p></blockquote>
+
+#### Completing a task as soon as due time is over
+- In the <code>approval</code> task:
+    - add a new transition, having the condition to click on a <code>timeout</code> button
+    - add an escalation rule with id <code>closeOnDueTime</code>
+    - Set a condition for the rule to be executed as soon as due task time is over
+    - The chain should complete the task as if the user had clicked on the <code>timeout</code> button
+</section>
+
+<section class="slide" id="questions-escalation-rules">
+## Questions?
+</section>
+
 <section class="slide" id="context-workflows-variables">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
@@ -692,74 +767,6 @@ When this transition is followed:
 - Back to the [training agenda](0.0.1_Agenda.html#day-3)
 - [Ending](99_Ending.html)
 - [Extension points](4.0_Extension-points.html)
-</section>
-
-<section class="slide" id="workflows-escalation-context">
-### Context <img src="../themes/frog-teacher.png" class="float-left" />
-<blockquote><p>
-Our workflow is almost perfect. One last detail is that in case people from the communication service do not process the task in time, it should be considered that the document is refused by default. Let's handle it.
-</section>
-
-<section class="slide" id="escalation">
-## Escalation rules
-</section>
-
-<section class="slide" id="escalation-concepts">
-### Escalation rules
-#### Concepts
-- Used to process automatic tasks on workflows depending on conditions
-- A scheduler checks periodically the rules conditions and executes the corresponding chains when evaluated to true
-- Escalation rules can be executed once or multiple times
-- Escalation rules are only available on suspended task nodes, awaiting for a user action
-
-#### Why do I need them ?
-- Common use cases include :
-    - Sending friendly reminders by email periodically
-    - Close automatically a task / follow a transition if the task due time is over
-</section>
-
-<section class="slide" id="escalation-usage">
-### Escalation rules
-#### Usage
-- In task nodes edition, escalation rules are accessible using the corresponding tab.
-
-#### Properties
-- Id: unique id for the escalation rule
-- Condition: condition to be checked. For example:<br />
-<code>@{CurrentDate.calendar.compareTo(Context["taskDueTime"])>0}</code><br />
-means "as soon as task due time is over".
-- Chain: automation chain to be executed if condition is evaluated to true.
-- Multiple execution: chain will be launched only once unless you check that option.
-</section>
-
-<section class="slide" id="escalation-chain">
-### Escalation rules
-#### Related automation chain operations
-Operations are available in the <code>workflow context</code> category in order to be used with escalation rules:
-
-#### <code>Get open tasks</code>
-- After having fetched the context document, this allows to get open tasks for a specific workflow instance.
-- To be used with:
-    - The node id (available from the node's general tab)
-    - The <code>Context["workflowInstanceId"]</code> variable in order to fetch the workflow instance id.
-
-#### <code>Complete task</code>
-- Once open tasks have been fetched, allows to simulate the click of a button by the user in order to follow a transition.
-</section>
-
-<section class="slide exercise" id="exercise-escalation-rules">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Escalation rules
-#### Completing a task as soon as due time is over
-- In the communication service validation task:
-    - add an escalation rule with id <code>closeOnDueTime</code>
-    - Set a condition for the rule to be executed as soon as due task time is over
-    - The chain should complete the task by following a refusal transition
-</section>
-
-<section class="slide" id="questions-wf-tasks-variables">
-## Questions?
 </section>
 
 <section class="slide" id="fork-wf-advanced">
