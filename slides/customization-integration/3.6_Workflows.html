@@ -175,18 +175,6 @@ He has put you in charge to implement something covering his request. Quickly.
 - Icons
 </section>
 
-<section class="slide" id="workflow-var">
-###Variables Tab
-####Information that can be accessed during the workflow
-
-- Stores data that comes from user forms or computed by automation chains
-- Available for any workflow node using the predefined object WorkflowVariables[]
-- *Similarly, we can define node variables available only for that specific node using the predefined object NodeVariables[]*
-
-<img alt="workflow-variables" src="img/workflows/workflow-variables.png" />
-</section>
-
-
 <section class="slide" id="enablements">
 ### Availability Tab
 #### Conditions for the workflow to be available
@@ -224,13 +212,8 @@ He has put you in charge to implement something covering his request. Quickly.
 #### Nodes
 - A node is a step of your workflow
 - Can be an automated node not requiring a user action, or a task assigned to one or several users
-- Any node can also be a structural node.
+- Any node can also be a structural node
 - Can be added by drag and drop using the node library
-
-#### Transitions
-- Two nodes are linked by a transition
-- A condition set on the transition filters the possibility to follow it
-- A node can contain one or several transitions
 </section>
 
 <section class="slide exercise" id="workshop-simple-workflow">
@@ -238,112 +221,62 @@ He has put you in charge to implement something covering his request. Quickly.
       class="exercise-icon">
 ### Practice - Start designing a workflow
 - Create a simple workflow having for id <code>bookValidationWorkflow</code>
-- Make sure this workflow can be started only on documents of type <code>Book</code>, and only if the user has the Read and Write permissions on the current document
-- In the graph, drag and drop a <code>Start</code> and a <code>Stop</code> node using the node library
+- Make sure this workflow can be started only on documents of type <code>Book</code>, and only if the user has the <code>Read and Write</code> permissions on the current document
+- In the graph, drag and drop a <code>Start</code> and a <code>Stop</code> node using the node library, link them together
 - Commit and deploy your changes
 - In Nuxeo, check that your workflow model exists
 </section>
 
 <section class="slide" id="questions-wf-concepts">
 ##Questions?
+
+<a href="0.0.1_Agenda.html"><img src="img/icons/home.svg" width="64" height="64" border="0" style="position: absolute; bottom: 0; right: 0;" /></a>
 </section>
 
-<section class="slide" id="nodes-and-transitions">
-## Nodes and transitions configuration
-</section>
-
-<section class="slide" id="node-configuration">
-###Node Configuration
-
-<img alt="Studio node edition form" class="float-right" src="img/workflows/workflow-node-general-tab.png" />
-
-####General tab
-- General information: Title, directive
-- Input operation chain
-    - The automation chain you specify here will be executed just before the workflow engine enters the node
-- Output operation chain
-    - The automation chain you specify here will be executed just before the workflow engine leaves the node, and follows the transition(s) if any.
-- The documents following the workflow are set by the engine as the input documents when these chains are invoked.
-These chains are executed using an unrestricted session!
-</section>
-
-<section class="slide" id="node-variable">
-###Node Configuration
-####Variables tab
-- Stores information that can be accessed in the context of the current node during the workflow
-- Stores data that comes from user forms or computed by automation chains
-- Available in the predefined object
-    - <code>NodeVariables["nodeVariableName"]</code>
-- A predefined variable called “assignees” exists on every task node
-    - Used by <code>Compute Additional Assignees = NodeVariables["assignees"]</code>
-- Node variables are available:
-    - In the task layouts
-    - In the email notification templates
-</section>
-
-<section class="slide" id="Transition">
-###Node Configuration
-####Transition Tab
-
-- Every transition creates an endpoint with the name of the transition, from which you will be able to pull the arrow to connect nodes
-- Transition
-    - Name: Only displayed in the graph, and used internally by the engine
-    - Condition: Condition the workflow engine evaluates in order to know which are the next nodes to be executed after the current one is done.
-    - Chain: The automation chain will be executed when the workflow engine goes into this transition
-
-<img alt="workflow-transition-arrow" src="img/workflows/workflow-transition-arrow.png"/>
- </section>
-
-<section class="slide exercise" id="workshop-nodes-transition">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Nodes and transitions
-
-- Retrieve your <code>bookValidationWorkflow</code>
-- Add a new node of <code>Node</code> type
-    - Edit the node's general information
-    - Add a transition named <code>validation</code> and leave the default condition.
-    - Upon following this transition, an automation chain named `acceptBook` should be launched.
-    - The chain should publish the document in the existing internal Books section: export the document as XML if you need to double-check its path.
-- Connect the node to the start and stop nodes
-- Commit and deploy your changes
-- Create a Book and launch your workflow on it, then check the result
-</section>
-
-<section class="slide" id="questions-wf-nodes">
-##Questions?
-</section>
-
-<section class="slide" id="workflows-initial-context">
+<section class="slide" id="workflows-nodes-context">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
-So we did a first attempt at designing a workflow, but that's not really what was expected yet.<br /><br />
-We should improve it by implementing correctly the decision process.
+Our workflow can now be started only when we want to.<br /> 
+But we should add some functionalities.
+</p></section>
+
+<section class="slide" id="nodes-and-transitions">
+## Nodes and Tasks
 </section>
 
-<section class="slide" id="tasks">
-## Tasks
+<section class="slide" id="node-types">
+### Node Library - Node Types
+<blockquote><p>The node library contains templates, that can be customized to your needs.</p></blockquote>
+
+<img class="float-right" src="img/workflows/workflow-node-library.png">
+
+#### Automated tasks
+- Is entirely automatic, no user intervention
+- Usually used to follow a specific transition depending on metadatas / variables
+
+#### User tasks
+- Require one or several users to do something
+  - **Simple task**: no button
+  - **Approve**: one "approve" button 
+  - **Accept/Reject**: two buttons ("accept" and "reject")
+  - **Multiple tasks**: allows to create one task per assignee (one for everybody with the other nodes)
+  
+#### Structural nodes
+- Used to force forking, merging or reusing other workflows
 </section>
 
 <section class="slide" id="node-Task">
-### A special Node: Task
+### A Special Node: Task
 #### Concepts
-- Used when the system requires a user intervention to resume the workflow,<br />
+- Used when the system requires a user intervention,<br />
 Eg. accept/reject task.
 - Can have one or multiple assignees
-- Waits for an assignee action before going into a transition
-
-#### Task form
-- A form can be shown for the assignee to fill it
-- The form sets values to
-  - Workflow variables
-  - Node variables
-- User actions (buttons) can be displayed, leading to corresponding transitions
+- Waits for an assignee action before resuming the workflow
 </section>
 
 <section class="slide" id="task-config">
 ### Task Configuration
-#### General Tab (1/5)
+#### General Tab (1/4)
 <img alt="Studio node edition form" src="img/workflows/workflow-node-general.png" class="float-right" />
 
 - General information: Title, directive
@@ -353,12 +286,11 @@ Eg. accept/reject task.
 - Assignment: Static or dynamic
 - Security: Grant specific permissions to the task assignees on the document following the workflow (automatically removed by the workflow engine once the task is completed)
 - Notification: Send a custom notification when a task is assigned
-- Plugin in custom business logic: Input & output automation chains
 </section>
 
 <section class="slide" id="task-config-assignees">
 ### Task Configuration
-#### General tab (2/5)
+#### General tab (2/4)
 #### Assignees
 
 <img alt="Studio node edition form" src="img/workflows/workflow-node-assignee.png" class="float-right" />
@@ -371,22 +303,9 @@ Eg. accept/reject task.
     - You have access to some useful variables in the context, like the <code>workflowInitiator</code>, <code>nodeLastActor</code>, <code>WorkflowVariables</code>, <code>NodeVariables</code>, <code>CurrentUser</code> and others.
 </section>
 
-<section class="slide" id="multiple-tasks">
-### Task Configuration
-#### General tab (3/5)
-#### Multiple tasks
-- By default one task will be created for all assignees.
-    - The first user completing the task will close it for all other assignees as well.
-
-- When using the <code>multiple tasks</code> node, it is possible to create a task per assignee, by checking the corresponding option.
-    - If this option is checked :
-        - the engine waits for all users to complete the task before going into a transition
-        - specific conditions can be defined for transitions, for example depending on the percentage of approval
-</section>
-
 <section class="slide" id="task-config-delegation">
 ### Task Configuration
-#### General tab (4/5)
+#### General tab (3/4)
 #### Delegation and reassignment
 
 Tasks in Nuxeo can be delegated or potentially reassigned.
@@ -405,7 +324,7 @@ Tasks in Nuxeo can be delegated or potentially reassigned.
 
 <section class="slide" id="task-config-notifications">
 ### Task Configuration
-#### General tab (5/5)
+#### General tab (4/4)
 #### Email notification
 - Specify the mail template used for generating the mail sent to the task assignees
 - If no template is selected, the task assignees are not notified
@@ -424,65 +343,300 @@ Workflow email notifications use HTML format. Eg:
 Click &lt;a href="${docUrl}"&gt;here&lt;/a&gt; to see the document.</code></pre>
 </section>
 
-<section class="slide exercise" id="exercise-simple-task">
+<section class="slide exercise" id="workshop-nodes">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Tasks
-#### Update the workflow to add a validation system
-- Replace the `Node` node with an `accept/reject` node
-- Assign the task to <code>Administrator</code>
-- Due date should be the current date
-- The assignee should receive a notification email (use the default notification template)
-- If the document is accepted, use the chain we created to publish the document and end the workflow.
-- If the document is rejected, end the workflow.
-- Commit and update your changes.
-- Run the workflow and delegate the validation task to Barbara.
+### Practice - Nodes
+
+<blockquote><p>Add a node so that people can approve the document.</p></blockquote>
+
+- Retrieve your <code>bookValidationWorkflow</code>
+- Add a new <code>Approve</code> node
+    - Edit the node's general information (title: <code>Approval</code>)
+    - Assign the <code>Administrator</code> user and the <code>communication</code> group
+- Connect the node to the start and stop nodes
+- Commit and deploy your changes
+- Create a Book and launch your workflow on it, then check the result
 </section>
 
-<section class="slide" id="questions-wf-tasks">
+<section class="slide" id="questions-wf-nodes">
+##Questions?
+
+<a href="0.0.1_Agenda.html"><img src="img/icons/home.svg" width="64" height="64" border="0" style="position: absolute; bottom: 0; right: 0;" /></a>
+</section>
+
+<section class="slide" id="transitions">
+## Transitions
+</section>
+
+<section class="slide" id="transitions-concepts">
+### Transitions
+#### Concepts
+- Two nodes are linked by a transition
+- A condition set on the transition filters the possibility to follow it
+- A node can contain one or several transitions
+</section>
+
+<section class="slide" id="transitions-tab">
+###Node Configuration
+####Transition Tab
+
+- Every transition creates an endpoint with the transition's name
+    - **Name**: only displayed in the graph, and used internally by the engine.
+    - **Condition**: MVEL expression. Evaluated by the workflow engine when the user has finished his task.
+    - **Chain**: used to execute some business logic when following a specific transition.
+
+<img alt="workflow-transition-arrow" src="img/workflows/workflow-transition-arrow.png"/>
+</section>
+
+<section class="slide" id="adding-button">
+###Node Configuration
+#### Adding a Transition
+- A transition can be added:
+  - Manually in the transitions tab
+  - Automatically when adding a button
+
+#### Adding a Button With its Corresponding Transition
+- In the node's '**Form** tab, scroll to the bottom
+- Add a task button, leave the condition generation checked
+
+<img src="img/workflows/workflow-adding-button.png" />
+</section>
+
+<section class="slide exercise" id="workshop-nodes-transition">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Nodes and transitions
+<blockquote><p>Complete the workflow to implement a basic rejection process</p></blockquote>
+
+<img class="float-right" src="img/workflows/workflow-exercise-transitions.png" />
+
+- Retrieve your <code>bookValidationWorkflow</code>
+- In the <code>approbation</code> node, add a <code>reject</code> button
+- When the document is rejected, assign a task to the document's creator (title: <code>correction</code>)
+- The document creator should correct the document and send it back to approval
+- Commit and deploy your changes
+- Create a Book and test you workflow on it !
+</section>
+
+<section class="slide" id="questions-wf-nodes">
+##Questions?
+
+<a href="0.0.1_Agenda.html"><img src="img/icons/home.svg" width="64" height="64" border="0" style="position: absolute; bottom: 0; right: 0;" /></a>
+</section>
+
+<section class="slide" id="workflows-form-context">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote><p>
+Users reported that they would like to add a comment when rejecting a workflow. We need to add this functionality.
+</p></section>
+
+<section class="slide" id="workflow-forms-variables">
+## Task Forms
+</section>
+
+<section class="slide" id="wf-vars">
+###Workflow and Node Variables
+####Concepts
+- Store data that comes from user forms or computed by automation chains
+- Two kinds of variables can be defined:
+  - **Workflow** variables
+  - **Node** variables
+
+#### Scope
+- **Workflow variables** can be accessed **anytime** during the workflow
+- **Node variables** can be accessed **only during the node they are defined in**
+</section>
+
+<section class="slide" id="setting-wf-vars">
+###Workflow and Node Variables
+#### Creating the Variables
+- **Workflow variables**: variables tab of the workflow
+- **Node variables**: variables tab of a node
+
+#### Filling the Variables Value
+- Value is **automatically filled when proposed into a task form**
+- Value **can be set using an automation chain** with specific operations (Workflow Context > Set Workflow/Node Variable)
+
+#### Fetching the Variables
+- In an MVEL expression, you can use:
+  - @{WorkflowVariables["myVarName"]}
+  - @{NodeVariables["myVarName"]}
+</section>
+
+<section class="slide" id="wf-vars-task-form">
+###Node Configuration
+#### Task form
+- A form can be shown for the assignee to fill it
+- The form sets automatically the values filled by the user
+- Configuration is similar to a regular layout
+- **Only node and workflow variables are suggested**
+
+<img src="img/workflows/workflow-variables-task-form.png" />
+</section>
+
+<section class="slide exercise" id="exercise-task-form">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Task forms
+
+<blockquote><p>Implement a comment mechanism</p></blockquote>
+
+- Create a variable named <code>approvalComment</code>
+- Make sure:
+  - It can be filled on the <code>approval</code> node
+  - It can be **seen as read-only** on the <code>correction</code> node
+</section>
+
+<section class="slide" id="questions-task-forms">
 ## Questions?
+
+<a href="0.0.1_Agenda.html"><img src="img/icons/home.svg" width="64" height="64" border="0" style="position: absolute; bottom: 0; right: 0;" /></a>
 </section>
 
-<section class="slide" id="workflows-tasks-variables-improvements-context">
+<section class="slide" id="context-workflows-automation-chains">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
 Things are getting better.<br /><br />
 
-Still, there are further improvements we need to achieve. <br />
-For instance, the administrator would like to leave comments on the document, and make sure it is received by the worklow's initiator in case the document is rejected.
+Now, we still need to implement some business logic in order to publish the document when approved. Let's do so.
 </section>
 
-<section class="slide" id="forms-buttons">
-## Forms and buttons
+<section class="slide" id="workflows-automation-chains">
+## Automation Chains In Workflows
 </section>
 
 <section class="slide" id="task-config-form">
-### Task Configuration
-#### Form tab (1/2)
+### Automation Chains In Workflows
+#### Automation chains can be plugged at several moments
 
-<img alt="workflow-task-form" src="img/workflows/workflow-task-form.png" class="float-right" />
+- - - - -
 
-- Works as a usual form layout
-- Defines the form that will be displayed to the user processing the task
-- The fields to display can be node or workflow variables
+#### Input automation chain
+- **Just before the workflow engine enters the node**
+- Found in a node > general tab
+
+#### Output automation chain 
+- **Just before the workflow engine leaves the node, and follows the transition(s) if any.**
+- Found in a node > general tab
+
+#### Transition automation chain
+- **When the workflow engine follows a specific transition**
+- Found in a node > transitions tab
+
+- - - - - 
+**All chains are executed with administrator privileges during a workflow**
 </section>
 
-<section class="slide" id="task-config-buttons">
-### Task Configuration
-#### Form tab (2/2)
-#### Buttons
+<section class="slide exercise" id="exercise-automation-chains">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Automation Chains
 
-<img alt="workflow-task-form" src="img/workflows/workflow-task-buttons.png" class="float-right" />
+<blockquote><p>Publish a book when it is approved</p></blockquote>
 
-- Configures the buttons displayed for submitting the task form
-- Buttons can be linked to transitions
+- Create a section named <code>published books</code>
+- Add an automation chain to publish the document in this section when approved
+- Commit and deploy your changes
+- Create a book and launch your workflow on it
+</section>
 
-- Id:
-    - Stored in the  built-in NodeVariable called "button"
-    - Can be used for instance to express conditions for knowing which transition the workflow engine should follow once the current node is done
-- Label of the button (supports i18n)
-- Filter (available since 5.7): Display the button depending on conditions
-- Generates the condition for transition: Creates a transition corresponding to the button in the Transitions tab
+<section class="slide" id="questions-workflows-automation-chains">
+## Questions?
+
+<a href="0.0.1_Agenda.html"><img src="img/icons/home.svg" width="64" height="64" border="0" style="position: absolute; bottom: 0; right: 0;" /></a>
+</section>
+
+<section class="slide" id="context-workflows-escalation">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote><p>
+In case the approval task is not done in time, we should forcefully end the workflow.
+</section>
+
+<section class="slide" id="escalation">
+## Escalation rules
+</section>
+
+<section class="slide" id="escalation-concepts">
+### Escalation rules
+#### Concepts
+- Used to process automatic tasks on workflows depending on conditions
+- A scheduler checks periodically the rules conditions and executes the corresponding chains when evaluated to true
+- Escalation rules can be executed once or multiple times
+- Escalation rules are only available on suspended task nodes, awaiting for a user action
+
+#### Why do I need them ?
+- Common use cases include :
+    - Sending friendly reminders by email periodically
+    - Close automatically a task / follow a transition if the task due time is over
+</section>
+
+<section class="slide" id="escalation-usage">
+### Escalation rules
+#### Usage
+- In task nodes edition, escalation rules are accessible using the corresponding tab.
+
+#### Properties
+- Id: unique id for the escalation rule
+- Condition: condition to be checked. For example:<br />
+<code>@{CurrentDate.calendar.compareTo(Context["taskDueTime"])>0}</code><br />
+means "as soon as task due time is over".
+- Chain: automation chain to be executed if condition is evaluated to true.
+- Multiple execution: chain will be launched only once unless you check that option.
+</section>
+
+<section class="slide" id="escalation-chain">
+### Escalation rules
+#### Related automation chain operations
+Operations are available in the <code>workflow context</code> category in order to be used with escalation rules:
+
+#### <code>Get open tasks</code>
+- After having fetched the context document, this allows to get open tasks for a specific workflow instance.
+- To be used with:
+    - The node id (available from the node's general tab)
+    - The <code>Context["workflowInstanceId"]</code> variable in order to fetch the workflow instance id.
+
+#### <code>Complete task</code>
+- Once open tasks have been fetched, allows to simulate the click of a button by the user in order to follow a transition.
+
+#### <code>Resume workflow</code>
+- Once open tasks have been fetched, forces the workflow engine to evaluate conditions for transitions to follow.
+</section>
+
+<section class="slide exercise" id="exercise-escalation-rules">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Escalation rules
+
+<blockquote><p>If the due time is over, we need to follow a hidden transition to end the workflow.</p></blockquote>
+
+#### Completing a task as soon as due time is over
+- Add this XML extension to your Studio project: <a href="files/workflows/escalation-rules-frequency.txt" target="_blank">escalationRulesFrequency</a>
+
+- In the <code>approval</code> task:
+  - Set the task due time to 30 seconds
+  - add a new transition, having the condition to click on a <code>timeout</code> button
+  - add an escalation rule with id <code>timeoutRule</code>
+  - Set a condition for the rule to be executed as soon as due task time is over
+  - The chain should: 
+    - add an audit entry to the document saying the workflow has ended because of timeout (Services > Log event in audit)
+    - complete the task as if the user had clicked on the <code>timeout</code> button
+    
+</section>
+
+<section class="slide" id="questions-escalation-rules">
+## Questions?
+
+<a href="0.0.1_Agenda.html"><img src="img/icons/home.svg" width="64" height="64" border="0" style="position: absolute; bottom: 0; right: 0;" /></a>
+</section>
+
+<section class="slide" id="context-workflows-variables">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote><p>
+Now that we have our workflow set up, we could add further refinment.<br /><br />
+
+For instance, assigning the correction task to the workflow initiator, sending emails...
+</p></blockquote>
 </section>
 
 <section class="slide" id="variables">
@@ -536,173 +690,129 @@ http://doc.nuxeo.com/x/EQGw
 - The engine will automatically save them when the form is submitted
 
 ####From automation chains
-- Using *Workflow Context > Set Workflow Variable* <code>SetWorkflowVar</code> and *Set Node Var* <code>SetNodeVar</code> operations
-- For instance when the task form should display some pre-initialized variables
-
-![A task form with a preinitialized field](img/workflows/workflow-preinit-var.png)
+- Using <code>Workflow Context</code> > <code>Set Workflow Variable</code> and <code>Set Node Variable</code> operations
 </section>
 
 <section class="slide exercise" id="exercise-workflow-tasks-variables-normal-1">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Task form, workflow variables
-#### Implement a validation comment
-- Add a workflow variable named <code>validatorsComment</code>, of string type.
-- In the accept/reject node's form, add the <code>validatorsComment</code> as a required field so that the validators (in this case the Administrator) can fill his comment.
-- In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment.<br /> Your email template can be created in Studio into the <code>Templates > Mail templates</code> menu.
-</section>
-
-<section class="slide" id="questions-wf-tasks-variables-1">
-## Questions?
-</section>
-
-<section class="slide" id="fork-task-variables">
-###Want to go deeper?
-- (optional) [Advanced exercise](3.6_Workflows.html#workflows-variables-exercise-2-context)
-- Back to the [training agenda](0.0.1_Agenda.html#day-3)
-- [Ending](99_Ending.html)
-- [Extension points](4.0_Extension-points.html)
-</section>
-
-<section class="slide" id="workflows-variables-exercise-2-context">
-### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
-The administrator ends up validating every Book, and loses too much time.<br />
-He asks you to let the workflow initiator choose who should validate his book.
+Assign the correction task to the workflow initiator instead of the document creator.
+</p></blockquote>
+
+#### Assigning the Correction Task
+- In your workflow, edit the <code>correction</code> task
+- Change the assignee from the document creator to the workflow initiator
 </section>
 
 <section class="slide exercise" id="exercise-workflow-tasks-variables-normal-2">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Task form, workflow variables (optional)
-#### Let the user choose who will validate the doc
-- Add a workflow variable named <code>validators</code>.
-- Between the start node and the accept/reject node, add a task node so the workflow initiator can choose who should validate the doc. This should be mandatory.
-- The form should fill in the <code>validators</code> workflow variable.
-- In the accept/reject node, remove the administrator as an assignee and make sure the <code>validators</code> workflow variable is used instead.
+### Practice - Task form, workflow variables (optional exercise)
+<blockquote><p>
+Send an email to the workflow initiator if the document is rejected.
+</p></blockquote>
+
+#### Sending a notification email
+- In Studio, go to <code>Templates > Email Templates</code>
+- Create a template containing the following text:
+<blockquote><p>Hello <code>workflowInitiator</code>,<br />
+Your document <code>document title</code> has been rejected with the following comment:<br />
+<code>approvalComment workflow variable</code><br />
+Please fix it by following this link: <code>doc url</code>
+</p></blockquote>
+- Send this template when entering the <code>correction</code> task
+- Commit and deploy your changes
+- Create a book and test your workflow
 </section>
 
-<section class="slide" id="questions-wf-tasks-variables-2">
+<section class="slide" id="questions-wf-tasks-variables-1">
 ## Questions?
+
+<a href="0.0.1_Agenda.html"><img src="img/icons/home.svg" width="64" height="64" border="0" style="position: absolute; bottom: 0; right: 0;" /></a>
 </section>
 
 <section class="slide" id="fork-task-variables">
 ###Want to go deeper?
-- (optional) [Advanced exercise](3.6_Workflows.html#workflows-advanced-tasks-variables-context)
-- (optional) [Escalation rules](3.6_Workflows.html#workflows-escalation-context)
+- (optional) [Advanced exercise](3.6_Workflows.html#workflows-advanced-practice-context)
 - (optional) [Advanced information](3.6_Workflows-advanced.html)
 - Back to the [training agenda](0.0.1_Agenda.html#day-3)
 - [Ending](99_Ending.html)
 - [Extension points](4.0_Extension-points.html)
 </section>
 
-<section class="slide" id="workflows-advanced-tasks-variables-context">
+<section class="slide" id="workflows-advanced-practice-context">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
-There is one optional request the administrator would like to see implemented.<br /><br />
+There is one optional request the users would like to see implemented.<br /><br />
 
-He realised that the validation task often ends up in the hands of the communication service and would like a button to do it quicker.<br /><br />
-The communication service, on its side, wants to validate the document only if the majority approves it.
+They would like to be able to "lock" the task in order to avoid having several people starting to work on it at the same time.
+</p></blockquote>
 </section>
 
-<section class="slide exercise" id="exercise-workflow-tasks-variables-2">
+<section class="slide exercise" id="exercise-workflows-advanced-practice-context">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Task form, workflow variables (2/2)
-#### Implement a delegate task button
-- When the workflow initiator chooses its validators, make this form entry optional.
-- Add a button so that the workflow initiator can send the validation task directly to the communication service. This button should generate a transition leading to new nodes.
-When this transition is followed:
-    - Each group member of the <code>communicationservice</code> group has to be assigned the task.
-    - They need temporary access to the document.
-    - They should validate or refuse the document within 3 minutes (they're quick !).
-    - Add a button and transition for them to potentially refuse the validation.
-    - Using transition conditions and variables, make sure the document is approved only if the majority votes for it.
-    - If the document is approved, publish it. If not end the workflow.
+### Practice - Advanced Exercise
+<blockquote><p>
+Add the logic in order to implement a task lock mechanism.
+</p></blockquote>
+
+#### Implement a Task Lock Mechanism
+- Add a workflow variable named <code>approvalTaskLocker</code>, of String type
+- Add a node right after the start node:
+  - Assign the task to the Administrator user and communication group
+  - People should have a "Lock task" button
+  - When clicking on the button, store the username that clicked on the button into the workflow variable
+- Update the <code>approval</code> node
+  - Remove the assignees and assign it dynamically from the workflow variable
 </section>
 
-<section class="slide" id="questions-exercise-tasks-variables-2">
+<section class="slide" id="questions-exercise-workflows-advanced-practice-context">
 ## Questions?
+
+<a href="0.0.1_Agenda.html"><img src="img/icons/home.svg" width="64" height="64" border="0" style="position: absolute; bottom: 0; right: 0;" /></a>
 </section>
 
-<section class="slide" id="fork-advanced-task-variables">
+<section class="slide" id="fork-advanced-exercise">
 ###Want to go deeper?
-- (optional) [Escalation rules](3.6_Workflows.html#workflows-escalation-context)
+- (optional) [Another advanced exercise](3.6_Workflows.html#exercise-workflows-multiple-tasks-context)
 - (optional) [Advanced information](3.6_Workflows-advanced.html)
 - Back to the [training agenda](0.0.1_Agenda.html#day-3)
 - [Ending](99_Ending.html)
 - [Extension points](4.0_Extension-points.html)
 </section>
 
-<section class="slide" id="workflows-escalation-context">
-### Context <img src="../themes/frog-teacher.png" class="float-left" />
-<blockquote><p>
-Our workflow is almost perfect. One last detail is that in case people from the communication service do not process the task in time, it should be considered that the document is refused by default. Let's handle it.
-</section>
-
-<section class="slide" id="escalation">
-## Escalation rules
-</section>
-
-<section class="slide" id="escalation-concepts">
-### Escalation rules
-#### Concepts
-- Used to process automatic tasks on workflows depending on conditions
-- A scheduler checks periodically the rules conditions and executes the corresponding chains when evaluated to true
-- Escalation rules can be executed once or multiple times
-- Escalation rules are only available on suspended task nodes, awaiting for a user action
-
-#### Why do I need them ?
-- Common use cases include :
-    - Sending friendly reminders by email periodically
-    - Close automatically a task / follow a transition if the task due time is over
-</section>
-
-<section class="slide" id="escalation-usage">
-### Escalation rules
-#### Usage
-- In task nodes edition, escalation rules are accessible using the corresponding tab.
-
-#### Properties
-- Id: unique id for the escalation rule
-- Condition: condition to be checked. For example:<br />
-<code>@{CurrentDate.calendar.compareTo(Context["taskDueTime"])>0}</code><br />
-means "as soon as task due time is over".
-- Chain: automation chain to be executed if condition is evaluated to true.
-- Multiple execution: chain will be launched only once unless you check that option.
-</section>
-
-<section class="slide" id="escalation-chain">
-### Escalation rules
-#### Related automation chain operations
-Operations are available in the <code>workflow context</code> category in order to be used with escalation rules:
-
-#### <code>Get open tasks</code>
-- After having fetched the context document, this allows to get open tasks for a specific workflow instance.
-- To be used with:
-    - The node id (available from the node's general tab)
-    - The <code>Context["workflowInstanceId"]</code> variable in order to fetch the workflow instance id.
-
-#### <code>Complete task</code>
-- Once open tasks have been fetched, allows to simulate the click of a button by the user in order to follow a transition.
-</section>
-
-<section class="slide exercise" id="exercise-escalation-rules">
+<section class="slide exercise" id="exercise-workflows-multiple-tasks-context">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Escalation rules
-#### Completing a task as soon as due time is over
-- In the communication service validation task:
-    - add an escalation rule with id <code>closeOnDueTime</code>
-    - Set a condition for the rule to be executed as soon as due task time is over
-    - The chain should complete the task by following a refusal transition
+### Practice - Multiple Tasks Advanced Exercise
+<blockquote><p>
+Create a workflow to validate a document if the majority of users approve it.
+</p></blockquote>
+
+#### Implement a Validation By Vote Workflow
+- Create a new workflow named <code>validationByVoteWorkflow</code>
+- It should contain a node allowing to create one task for every assignee
+- The task should be done within 2 days
+- Assignees should be:
+  - Barbara
+  - Jenny
+  - Lucy
+- The node should contain two buttons to accept or reject the document
+- The document should be approved only if more than 50% of the voters approve the document, rejected otherwise
+- Add an escalation rule to force the evaluation of transitions when due date is over
+- Commit and deploy your changes, then try them out !
 </section>
 
-<section class="slide" id="questions-wf-tasks-variables">
+<section class="slide" id="questions-exercise-workflows-multiple-tasks-context">
 ## Questions?
+
+<a href="0.0.1_Agenda.html"><img src="img/icons/home.svg" width="64" height="64" border="0" style="position: absolute; bottom: 0; right: 0;" /></a>
 </section>
 
-<section class="slide" id="fork-wf-advanced">
+<section class="slide" id="fork-wf-exercise-multiple-tasks">
 ###Want to go deeper?
 - (optional) [Advanced information](3.6_Workflows-advanced.html)
 - Back to the [training agenda](0.0.1_Agenda.html#day-3)

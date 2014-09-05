@@ -1,0 +1,10 @@
+<extension
+ target="org.nuxeo.ecm.platform.scheduler.core.service.SchedulerRegistryService"
+ point="schedule">
+ <!-- Check escalation rules conditions every 10 seconds -->
+ <schedule id="escalationScheduler">
+ <eventId>executeEscalationRules</eventId>
+ <eventCategory>escalation</eventCategory>
+ <cronExpression>0/10 * * * * ?</cronExpression>
+ </schedule>
+</extension>
