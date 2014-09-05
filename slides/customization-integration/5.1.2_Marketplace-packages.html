@@ -153,35 +153,30 @@ More details in the <a href="http://doc.nuxeo.com/x/94Wo">marketplace package cr
 &lt;/install></code></pre>
 </section>
 
-<section class="slide exercise" id="exercise-marketplace-package">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Marketplace packages (1/2)
-#### Prepare your package
-- On your local disk, create a `BestBooks` folder that will contain the marketplace zip content
-- Inside it, create the following folder and files:
-    - `install.xml`
-    - `package.xml` *Hint: Refer to the previous slides if you need help!*
-    - `install` (folder)
-        - `templates` (empty folder)</li>
-        - `lib` (empty folder) </li>
-        - `bundles` (folder)
-            - Copy your Nuxeo studio project jar inside
-- Compress your folder as a zip file<br />
+<section class="slide" id="mp-generation">
+### Marketplace Packages
+#### How To Generate a Marketplace Package
+#### Compile Your Development Projects
+- Synchronise your pom.xml file to declare your dependencies<br /> (<code>right click on your project -> Nuxeo -> synchronise pom</code>)
+- Using a command line, compile your project with maven from the project directory<br /> (<code>mvn clean install</code>)
+
+#### Generate a Marketplace Package Project 
+- In Nuxeo IDE, use the wizard to create a marketplace package project
+- Using a command line, generate the marketplace package with maven from the project directory<br /> (<code>mvn clean package</code>)
+- The package will be located in the <code>marketplace -> target</code> folder of your marketplace project
 </section>
 
 <section class="slide exercise" id="exercise-marketplace-package">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Marketplace packages (2/2)
-#### Install your package
-- Remove the `bestbooks` template defined in the nuxeo.conf
-- Install the market place package
-    - From the update center
-    - **Or** with the nuxeoctl commands
-        - Type a command to add your package
-        - Type a command to install it <br /> *Hint: Refer to the previous slides if you need help!*
-- Restart your server and check that your package is deployed
+### Practice - Marketplace packages
+
+<blockquote><p>Create a marketplace package for your development project.</p></blockquote>
+
+- Synchronise your development project's pom file
+- Compile your project with maven
+- Create a marketplace project in Nuxeo IDE named <code>bestbooksmp</code>
+- Build your marketplace package with maven
 </section>
 
 <section class="slide" id="questions-marketplace">
