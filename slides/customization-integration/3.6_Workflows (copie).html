@@ -598,12 +598,12 @@ Operations are available in the <code>workflow context</code> category in order 
       class="exercise-icon">
 ### Practice - Escalation rules
 
-<blockquote><p>If the due time is over, we need to follow a specific hidden transition to end the workflow.</p></blockquote>
+<blockquote><p>If the due time is over, we need to follow a hidden transition to end the workflow.</p></blockquote>
 
 #### Completing a task as soon as due time is over
 - In the <code>approval</code> task:
     - add a new transition, having the condition to click on a <code>timeout</code> button
-    - add an escalation rule with id <code>closeOnDueTime</code>
+    - add an escalation rule with id <code>timeoutRule</code>
     - Set a condition for the rule to be executed as soon as due task time is over
     - The chain should complete the task as if the user had clicked on the <code>timeout</code> button
 </section>
@@ -615,9 +615,10 @@ Operations are available in the <code>workflow context</code> category in order 
 <section class="slide" id="context-workflows-variables">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
-Things are getting better.<br /><br />
+Now that we have our workflow set up, we could add further refinment.<br /><br />
 
-Now, we still need to implement some business logic in order to publish the document when approved. Let's do so.
+For instance, assigning the correction task to the workflow initiator, sending emails...
+</p></blockquote>
 </section>
 
 <section class="slide" id="variables">
@@ -681,10 +682,34 @@ http://doc.nuxeo.com/x/EQGw
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Task form, workflow variables
-#### Implement a validation comment
-- Add a workflow variable named <code>validatorsComment</code>, of string type.
-- In the accept/reject node's form, add the <code>validatorsComment</code> as a required field so that the validators (in this case the Administrator) can fill his comment.
-- In case the document is rejected, send a notification email to the workflow initiator. The email should contain the validator's comment.<br /> Your email template can be created in Studio into the <code>Templates > Mail templates</code> menu.
+<blockquote><p>
+Assign the correction task to the workflow initiator instead of the document creator.
+</p></blockquote>
+
+#### Assigning the Correction Task
+- In your workflow, edit the <code>correction</code> task
+- Change the assignee from the document creator to the workflow initiator
+</section>
+
+<section class="slide exercise" id="exercise-workflow-tasks-variables-normal-2">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Task form, workflow variables (optional exercise)
+<blockquote><p>
+Send an email to the workflow initiator if the document is rejected.
+</p></blockquote>
+
+#### Sending a notification email
+- In Studio, go to <code>Templates > Email Templates</code>
+- Create a template containing the following text:
+<blockquote><p>Hello <code>workflowInitiator</code>,<br />
+Your document <code>document title</code> has been rejected with the following comment:<br />
+<code>approvalComment workflow variable</code><br />
+Please fix it by following this link: <code>doc url</code>
+</p></blockquote>
+- Send this template when entering the <code>correction</code> task
+- Commit and deploy your changes
+- Create a book and test your workflow
 </section>
 
 <section class="slide" id="questions-wf-tasks-variables-1">
@@ -693,45 +718,14 @@ http://doc.nuxeo.com/x/EQGw
 
 <section class="slide" id="fork-task-variables">
 ###Want to go deeper?
-- (optional) [Advanced exercise](3.6_Workflows.html#workflows-variables-exercise-2-context)
-- Back to the [training agenda](0.0.1_Agenda.html#day-3)
-- [Ending](99_Ending.html)
-- [Extension points](4.0_Extension-points.html)
-</section>
-
-<section class="slide" id="workflows-variables-exercise-2-context">
-### Context <img src="../themes/frog-teacher.png" class="float-left" />
-<blockquote><p>
-The administrator ends up validating every Book, and loses too much time.<br />
-He asks you to let the workflow initiator choose who should validate his book.
-</section>
-
-<section class="slide exercise" id="exercise-workflow-tasks-variables-normal-2">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Task form, workflow variables (optional)
-#### Let the user choose who will validate the doc
-- Add a workflow variable named <code>validators</code>.
-- Between the start node and the accept/reject node, add a task node so the workflow initiator can choose who should validate the doc. This should be mandatory.
-- The form should fill in the <code>validators</code> workflow variable.
-- In the accept/reject node, remove the administrator as an assignee and make sure the <code>validators</code> workflow variable is used instead.
-</section>
-
-<section class="slide" id="questions-wf-tasks-variables-2">
-## Questions?
-</section>
-
-<section class="slide" id="fork-task-variables">
-###Want to go deeper?
-- (optional) [Advanced exercise](3.6_Workflows.html#workflows-advanced-tasks-variables-context)
-- (optional) [Escalation rules](3.6_Workflows.html#workflows-escalation-context)
+- (optional) [Advanced exercise](3.6_Workflows.html#workflows-advanced-practice-context)
 - (optional) [Advanced information](3.6_Workflows-advanced.html)
 - Back to the [training agenda](0.0.1_Agenda.html#day-3)
 - [Ending](99_Ending.html)
 - [Extension points](4.0_Extension-points.html)
 </section>
 
-<section class="slide" id="workflows-advanced-tasks-variables-context">
+<section class="slide" id="workflows-advanced-practice-context">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
 There is one optional request the administrator would like to see implemented.<br /><br />
