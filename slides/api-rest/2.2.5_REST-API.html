@@ -55,8 +55,8 @@
 <section class="slide" id="wherewego-context-rest-api">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
-The REST API in Nuxeo is not limited to the automation client. <br />
-Let's discover some complementary tools we could make use of.
+The REST API in Nuxeo can help us take advantage of the platform from an external application. <br />
+Let's try it out !
 </p></blockquote>
 </section>
 
@@ -64,38 +64,25 @@ Let's discover some complementary tools we could make use of.
 ### What we want to do
 #### At the end of the course
 - Use the REST API to:
-  - Upload a batch of files and bind them to a document
+  - Upload a Word/LibreOffice file 
+  - Bind it to a document
+  - Get the file back as a PDF
 </section>
 
-<section class="slide" id="automation-vs-rest">
-### Automation client VS pure REST API calls
-<div class="split-box split-50">
-    <h4>Automation client</h4>
-    <ul>
-        <li><strong>Command oriented</strong></li>
-        <li>Integrated in many languages</li>
-        <li>A single endpoint, used to call operations and chains</li>
-        <li>Returns objects depending on the operation / chain's output</li>
-        <li>Perfect for server-side oriented calls</li>
-    </ul>
-</div>
-
-<div class="split-box split-50">
-<h4>Pure REST API calls</h4>
-    <ul>
-        <li><strong>Resources oriented</strong></li>
-        <li>Versatile (call a URL, send / get JSON)</li>
-        <li>Different endpoints available, complementary to the automation client (ex: users, groups)</li>
-        <li>Very useful for client-side calls (ex: javascript)</li>
-    </ul>
-</div>
+<section class="slide" id="rest-api-concepts1">
+### REST API concepts
+#### REST API calls
+- Resources oriented
+- Versatile (call a URL, send / get JSON)
+- Different endpoints available (documents, users, automation...)
+- Very useful for client-side calls (ex: javascript)
 </section>
 
-<section class="slide" id="rest-api-concepts">
+<section class="slide" id="rest-api-concepts2">
 ### REST API concepts
 #### Endpoints
 - Called to fetch a resource
-- Available endpoints can be found in the <a href="http://localhost:8080/nuxeo/api/v1/doc" target="_blank">local api documentation</a>
+- Available endpoints can be found in the <a href="http://localhost:8080/nuxeo/api/v1/doc" target="_blank">local api documentation</a> or the <a href="http://nuxeo.github.io/api-playground/" target="_blank">API playground</a>
 - Try it out: <a href="http://localhost:8080/nuxeo/site/api/v1/user/Administrator">http://localhost:8080/nuxeo/site/api/v1/user/Administrator</a>
 
 #### Adapters
@@ -107,6 +94,21 @@ Let's discover some complementary tools we could make use of.
 #### Contributors
 - To get custom properties in the answer
 - Contributors can be added through Java code
+</section>
+
+<section class="slide exercise" id="exercise-rest-api-get">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice
+<blockquote><p>
+Use the REST API to get document information.
+</p></blockquote>
+#### Setup your environment
+- In firefox, install the RESTClient extension (or POSTMAN in chrome)
+- Download and install <a href="http://curl.haxx.se/dlwiz/?type=bin" target="_blank">cUrl</a>
+ 
+#### Get the default domain ACLs
+- <strong>Using RESTClient</strong> get the <code>default-domain</code> ACLs
 </section>
 
 <section class="slide" id="rest-api-crud">
