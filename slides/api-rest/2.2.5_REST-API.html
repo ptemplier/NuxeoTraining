@@ -96,21 +96,21 @@ Let's try it out !
 - Contributors can be added through Java code
 </section>
 
-<section class="slide exercise" id="exercise-rest-api-get">
+<section class="slide exercise" id="exercise-rest-api-acls">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice
 <blockquote><p>
-Use the REST API to get document information.
+Use the REST API to get and update ACLs.
 </p></blockquote>
 #### Setup your environment
 - In firefox, install the RESTClient extension (or POSTMAN in chrome)
 - Download and install <a href="http://curl.haxx.se/dlwiz/?type=bin" target="_blank">cUrl</a>
  
 #### Get the default domain ACLs
-- <strong>Using RESTClient
+- <strong>Using RESTClient</strong>
   - Get the sections root (<code>default-domain/sections</code>) ACLs
-  - Launch the <code>denyMembersPublishingChain</code> on the sections root
+  - Launch the <code>setPublishingRightsChain</code> on the sections root
   - Check the sections root ACLs
 </section>
 
@@ -126,6 +126,24 @@ Use the REST API to get document information.
 
 ##### Deleting
 - Delete does not need JSON in the request body 
+</section>
+
+<section class="slide exercise" id="exercise-rest-api-crud">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice
+<blockquote><p>
+Use the REST API to create and update documents.
+</p></blockquote>
+#### Setup your environment
+- In firefox, install the RESTClient extension (or POSTMAN in chrome)
+- Download and install <a href="http://curl.haxx.se/dlwiz/?type=bin" target="_blank">cUrl</a>
+ 
+#### Get the default domain ACLs
+- <strong>Using RESTClient</strong>
+  - Get the sections root (<code>default-domain/sections</code>) ACLs
+  - Launch the <code>setPublishingRightsChain</code> on the sections root
+  - Check the sections root ACLs
 </section>
 
 <section class="slide" id="rest-api-blobs">
