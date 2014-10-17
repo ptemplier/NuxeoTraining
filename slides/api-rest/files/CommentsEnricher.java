@@ -8,15 +8,15 @@ import java.util.List;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
-import org.nuxeo.ecm.automation.io.services.contributor.RestContributor;
-import org.nuxeo.ecm.automation.io.services.contributor.RestEvaluationContext;
+import org.nuxeo.ecm.automation.io.services.enricher.ContentEnricher;
+import org.nuxeo.ecm.automation.io.services.enricher.RestEvaluationContext;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.ecm.platform.comment.api.CommentManager;
 import org.nuxeo.runtime.api.Framework;
 
-public class CommentsContributor implements RestContributor {
+public class CommentsContributor implements ContentEnricher {
 
     @Override
     public void contribute(JsonGenerator jg, RestEvaluationContext ec)
