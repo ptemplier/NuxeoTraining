@@ -55,7 +55,7 @@
 <section class="slide" id="wherewego-context-rest-api">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
-The REST API in Nuxeo can help us take advantage of the platform from an external application. <br />
+The REST API in Nuxeo can help us take advantage of the platform from an external application. <br /><br />
 Let's try it out !
 </p></blockquote>
 </section>
@@ -63,25 +63,30 @@ Let's try it out !
 <section class="slide" id="wherewego">
 ### What we want to do
 #### At the end of the course
-- Use the REST API to:
-  - Upload a Word/LibreOffice file 
-  - Bind it to a document
-  - Get the file back as a PDF
+
+#### Manage users
+- Create / update users and groups
+
+#### Handle meetings publication
+- Upload a Word/LibreOffice file 
+- Bind it to a document
+- Publish the document and get the file back as a PDF
 </section>
 
 <section class="slide" id="rest-api-concepts1">
 ### REST API concepts
-#### REST API calls
-- Resources oriented
+#### REST API
+- Provides <code>resources</code> endpoints 
+- And a <code>command</code> endpoint
 - Versatile (call a URL, send / get JSON)
-- Different endpoints available (documents, users, automation...)
 - Very useful for client-side calls (ex: javascript)
+- Integrated since 5.9, optional before
 </section>
 
 <section class="slide" id="rest-api-concepts2">
 ### REST API concepts
 #### Endpoints
-- Called to fetch a resource
+- Called to fetch a resource or launch a command
 - Available endpoints can be found in the <a href="http://localhost:8080/nuxeo/api/v1/doc" target="_blank">local api documentation</a> or the <a href="http://nuxeo.github.io/api-playground/" target="_blank">API playground</a>
 - Try it out: <a href="http://localhost:8080/nuxeo/site/api/v1/user/Administrator">http://localhost:8080/nuxeo/site/api/v1/user/Administrator</a>
 
@@ -91,9 +96,9 @@ Let's try it out !
   - Add /@AdapterName 
   - Try it out: <a href="http://localhost:8080/nuxeo/site/api/v1/path///@acl">http://localhost:8080/nuxeo/site/api/v1/path///@acl</a>
 
-#### Contributors
+#### Content Enrichers
 - To get custom properties in the answer
-- Contributors can be added through Java code
+- Content enrichers can be added through Java code
 </section>
 
 <section class="slide exercise" id="exercise-rest-api-acls">
@@ -106,12 +111,19 @@ Use the REST API to get and update ACLs.
 #### Setup your environment
 - In firefox, install the RESTClient extension (or POSTMAN in chrome)
 - Download and install <a href="http://curl.haxx.se/dlwiz/?type=bin" target="_blank">cUrl</a>
- 
-#### Get the default domain ACLs
+
+#### Update the sections root ACLs
 - <strong>Using RESTClient</strong>
   - Get the sections root (<code>default-domain/sections</code>) ACLs
   - Launch the <code>setPublishingRightsChain</code> on the sections root
   - Check the sections root ACLs
+</section>
+
+<section class="slide" id="wherewego-context-crud">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote><p>
+Now that the sections have the correct rights, we can setup a basis for our publishing mechanism: documents, users and groups.
+</p></blockquote>
 </section>
 
 <section class="slide" id="rest-api-crud">
@@ -119,7 +131,7 @@ Use the REST API to get and update ACLs.
 #### Create Read Update Delete tips and tricks
 ##### Entity type
 - <code>entity-type</code> is often required for <code>POST</code> (create) or <code>PUT</code> (update)
-- Use the <code>GET</code> request to know the expected entity-type
+- Use the <code>GET</code> request to know the expected entity-type or lookup the <a href="http://doc.nuxeo.com/x/-gEuAQ">documentation</a>
 
 ##### Updating a user or a document
 - Username / document id are needed both in the URL and in the parameters
@@ -133,17 +145,24 @@ Use the REST API to get and update ACLs.
       class="exercise-icon">
 ### Practice
 <blockquote><p>
-Use the REST API to create and update documents.
+Use the REST API to setup the meeting publishing environment.
 </p></blockquote>
-#### Setup your environment
-- In firefox, install the RESTClient extension (or POSTMAN in chrome)
-- Download and install <a href="http://curl.haxx.se/dlwiz/?type=bin" target="_blank">cUrl</a>
- 
-#### Get the default domain ACLs
-- <strong>Using RESTClient</strong>
-  - Get the sections root (<code>default-domain/sections</code>) ACLs
-  - Launch the <code>setPublishingRightsChain</code> on the sections root
-  - Check the sections root ACLs
+#### Create the documents
+- Use <code>POST</code> to create:
+  - A <code>Section</code> named <code>meetings</code> under <code>/default-domain/sections</code>
+  - A <code>Workspace</code> named <code>communication service</code> under <code>/default-domain/workspaces</code>
+  
+#### Create the users
+- Use <code>POST</code> to create:
+  - Users: <code>Lucy</code> and <code>Mary</code>
+  - Groups: <code>managers</code> (includes <code>Lucy</code>) and <code>communication</code> (includes both users)
+</section>
+
+<section class="slide" id="wherewego-context-automation">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote><p>
+We're all set. We can now upload a file, bind it to a document and launch the publishing.
+</p></blockquote>
 </section>
 
 <section class="slide" id="rest-api-blobs">
@@ -239,15 +258,15 @@ Header <code>Content-Type: application/json</code><br /><br />
       class="exercise-icon">
 ### Practice
 <blockquote><p>
-Use the REST API to batch upload files.
+Use the REST API to create and publish a meeting.
 </p></blockquote>
-#### Setup your environment
-- In firefox, install the RESTClient extension (or POSTMAN in chrome)
-- Download and install <a href="http://curl.haxx.se/dlwiz/?type=bin" target="_blank">cUrl</a>
- 
 #### Do a batch upload
-- <strong>Using cUrl</strong> Create a batch upload for two files: <a href="files" target="_blank">myFile.zip and myOtherFile.zip</a>
-- <strong>Using RESTClient</strong> Create a <code>File</code> document at the domain level and bind your batch to it 
+- <strong>Using cUrl</strong> Create a batch upload for the file: <a href="files" target="_blank">weekly-meeting.odt</a>
+- <strong>Using RESTClient</strong> Create a <code>Meeting</code> document into the communication service workspace and bind your batch to it
+
+#### Execute the business logic 
+- Launch the <code>publishMeetingChain</code>
+  - Make sure to send the section's path into the <code>targetSection</code> context variable
 </section>
 
 <section class="slide" id="questions-context">
@@ -257,7 +276,7 @@ Use the REST API to batch upload files.
 <section class="slide" id="next-rest-api">
 ### What's next ?
 - [Back to the training agenda](0.0.1_Agenda.html)
-- [REST contributors](2.3.5_REST-contributors.html)
+- [Content enrichers](2.3.5_content-enrichers.html)
 </section>
 
   <!-- deck.navigation snippet -->
