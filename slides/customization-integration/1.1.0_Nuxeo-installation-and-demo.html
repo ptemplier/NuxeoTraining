@@ -9,10 +9,10 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Nuxeo DM Installation and Demo</title>
+<title>Nuxeo Training - Nuxeo Platform Installation and Demo</title>
 
 <meta name="description"
-  content="Nuxeo Training - Nuxeo DM Installation and Demo">
+  content="Nuxeo Training - Nuxeo Platform Installation and Demo">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -51,7 +51,7 @@
 
 
   <section class="slide" id="nuxeo-installWS-opening-slide">
-# Nuxeo training - Installation Workshop and Introduction to Nuxeo DM
+# Nuxeo training - Installation Workshop and Introduction to Nuxeo Platform
   </section>
 
 <section class="slide" id="installation-workshop">
@@ -125,32 +125,28 @@ Configures
     -[http://localhost:8080](http://localhost:8080)
 - Complete the wizard, including filling the registration form on Connect
     - id/password will be useful for using Nuxeo Studio
-- Install Nuxeo DM module
 - (Optional) install OpenOffice or LibreOffice + pdftohtml, then restart Nuxeo
-    - See http://doc.nuxeo.com/x/zgJc
+    - See <a href="http://doc.nuxeo.com/x/zgJc" target="_blank">installing related tools documentation</a>
 </section>
 
 <section class="slide" id="Nuxeo-tour">
-##Nuxeo DM 5.8 Functional tour http://doc.nuxeo.com/x/hY31
+## <a href="http://doc.nuxeo.com/x/6ICo" target="_blank">Nuxeo Platform Functional tour</a>
 </section>
 
 <section class="slide" id="Nuxeo-demo">
-###Nuxeo DM Main tabs
+###Nuxeo Platform Main tabs
 ####Main tabs
 - Home
-- Document Management
+- Workspace
+- Search
 - Admin Center
-
-####Addons tabs
-- DAM
-- Collaboration
 </section>
 
-<section class="slide" id="DocumentManagement">
+<section class="slide" id="home-tab">
 ## Home tab
 </section>
 
-<section class="slide" id="home">
+<section class="slide" id="home-tab-concepts">
 ###Home tab
 <div class="further-info">Users have a Home tab, that offers user-centric information</div>
 
@@ -164,26 +160,26 @@ Configures
 http://doc.nuxeo.com/x/KQBz
 </section>
 
-<section class="slide" id="DocumentManagement">
-## Document management tab
+<section class="slide" id="workspace-tab">
+## Workspace tab
 </section>
 
-<section class="slide" id="DocumentManagement-structure-navigation">
-## Document management tab - Structure and navigation
+<section class="slide" id="workspace-tab-structure-navigation">
+## Workspace tab - Structure and navigation
 </section>
 
-<section class="slide" id="DMUI">
-### Nuxeo DM UI
-![Nuxeo DM UI](img/installation_demo/dm-ui.png)
+<section class="slide" id="nxp-ui">
+### Nuxeo Platform UI
+![Nuxeo Platform UI](img/installation_demo/nuxeo-interface.png)
 
-http://doc.nuxeo.com/x/X4Wo
+<a href="http://doc.nuxeo.com/x/UIEk" target="_blank">Browsing content documentation</a>
 <div class="further-info">
 Current tab of the current document: the current document can be a folder (In Nuxeo, folders are documents)
 </div>
 </section>
 
-<section class="slide" id="dm-domains">
-###DM Domain
+<section class="slide" id="nxp-domains">
+### Domains
 
 - `Sections`, `workspaces` and `templates` are grouped in `domains`
 - A domain can be considered as a mini-application in Nuxeo or a root in the application.
@@ -194,8 +190,8 @@ Current tab of the current document: the current document can be a folder (In Nu
     http://doc.nuxeo.com/x/XoWo
 </section>
 
-<section class="slide" id="DMDomain">
-### DM Domain default structure
+<section class="slide" id="domain-structure">
+### Domain default structure
 <img class="float-right" alt="domain" src="img/installation_demo/domain.png">
 ####Workspaces
 A workspace is for a group of users that work together, usually preferences (security, notifications) are set on workspaces
@@ -212,7 +208,7 @@ Pre-initialize a workspace structure.
 - Available only for `Folderish` documents
 - Shows children documents
 
-![content tab](img/installation_demo/DM-ordered-folder-content-updated.png)
+![content tab](img/installation_demo/content-tab.png)
 </section>
 
 <section class="slide" id="doctabs-summary">
@@ -432,43 +428,9 @@ Pre-initialize a workspace structure.
 <section class="slide" id="advanced-search">
 ###Searching the Nuxeo Platform
 #### Several ways to search the content of the application
-- Simple search, can be accessed from any site page
-- Advanced search
-- Faceted search (Document Management module only)
-- Search form can be customized in Studio
-- Search results are displayed depending on user rights
-
-![Advanced search link](img/installation_demo/search-box.png)
-![Advanced search form](img/installation_demo/DM-advanced_search_filter.png)
-</section>
-
-<section class="slide" id="faceted-search">
-###Faceted Search
-<img alt="Faceted search" src="img/installation_demo/DM-faceted-search-tab.png" class="float-right"/>
-
-- Easy way to browse the content of your application
-    - By creating filters on the content of the application
-- You can filter content using:
-    - Keywords (full text search based on stemming)
-    - Dates (creation and last modification dates)
-    - Author
-    - Documents categorization (nature, coverage, subjects of documents)
-    - Location of the documents in the folders
-
-- Faceted search is available on the Document Management module of the Platform, on the left hand side of the page
-
-http://doc.nuxeo.com/x/YIEk
-</section>
-
-<section class="slide" id="fulltext">
-###Fulltext search
-<img alt="Full text Search" src="img/installation_demo/search-box.png" class="float-right"/>
-
-- Any text metadata indexed
-- Office, pdf, text, html files are full-text indexed <div class="further-info">thanks to a text extraction from the document itself</div>
-- Relies on the database (Oracle, Postgres or MSSQL Server) full text capabilities
-  - Linguistic support <div class="further-info">Searching for the word "satisfies", will match the documents containing "satisfy"</div>
-  - Optimized for searching
+- Quick search, can be accessed from any site page
+- Search tab
+![Advanced search form](img/installation_demo/search-tab.png)
 </section>
 
 <section class="slide" id="DocumentManagement-doc-other-services">
@@ -479,11 +441,9 @@ http://doc.nuxeo.com/x/YIEk
 ###Other document services
 - Relations
 - Comments
-- Annotations
 - Tags
 - Notifications
 - Workflows
-- Pictures
 - Export
 
     http://doc.nuxeo.com/x/MoEk
@@ -550,7 +510,7 @@ http://doc.nuxeo.com/x/YIEk
 http://doc.nuxeo.com/x/UYEk
 </section>
 
-<section class="slide" id="acl-DM">
+<section class="slide" id="acl-nxp">
 ###Access rights
 ![Access rights](img/installation_demo/access-rights-interface.png)
 </section>
@@ -561,7 +521,7 @@ http://doc.nuxeo.com/x/UYEk
 - Read
 - Version (manage versioning + Read)
 - Write (+ Delete + Read)
-- Remove (usually denied to users having write permission to avoid them deleting documents)
+- Remove
 - Manage Everything
 
 ####Default user groups
