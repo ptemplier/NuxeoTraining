@@ -63,7 +63,7 @@ We could use it to get our own cuztomized objects, and that's exactly what we wi
 <section class="slide" id="wherewego">
 ### What we want to do
 #### At the end of the course
-- Contribute custom contributors to get the navigation breadcrumbs of a document
+- Contribute custom content enrichers to get the navigation breadcrumbs of a document
 - Optionally, use a parameter to limit the number of levels returned
 </section>
 
@@ -78,16 +78,16 @@ We could use it to get our own cuztomized objects, and that's exactly what we wi
 - JSON is written using the <code>org.codehaus.jackson</code> library
 </section>
 
-<section class="slide" id="contributors-example">
-### Contributors - Example
-<pre><code>public class HasWritePermissionContributor implements ContentEnricher {
+<section class="slide" id="enrichers-example">
+### Content Enrichers - Example
+<pre><code>public class HasWritePermissionEnricher implements ContentEnricher {
 
   @Override
   public void contribute(JsonGenerator jg, RestEvaluationContext ec) {
     <strong>// RestEvaluationContext contains the doc, the URL parameters, the headers</strong>
     DocumentModel doc = ec.getDocumentModel();
     
-    <strong>// The contributor has to write some JSON to be returned</strong>
+    <strong>// The enricher has to write some JSON to be returned</strong>
     ObjectNode myJsonObject = buildMyObject(doc);
     jg.writeObject(myJsonObject);
   }
@@ -108,24 +108,24 @@ We could use it to get our own cuztomized objects, and that's exactly what we wi
 }</code></pre>
 </section>
 
-<section class="slide exercise" id="exercise-contributors">
+<section class="slide exercise" id="exercise-enrichers">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice
 <blockquote><p>
-Create a contributor to retrieve the navigation breadcrumbs of a document.
+Create a content enricher to retrieve the navigation breadcrumbs of a document.
 </p></blockquote>
 #### Setup your environment
 - Create a new Nuxeo plugin project in eclipse, named <code>bestbooksrest</code>
  
 #### Code
-- Create a new class named <code>myBreadcrumbContributor</code>
-- Take the <a href="files/ContributorSkeleton.java" target="_blank">contributor skeleton</a> to get you started
+- Create a new class named <code>myBreadcrumbEnricher</code>
+- Take the <a href="files/EnricherSkeleton.java" target="_blank">content enricher skeleton</a> to get you started
 - Get the CoreSession and use it to get the document's parents: <code>getParentDocuments(docRef)</code>
 - For each parent, create a node containing the doc id and its title
 </section>
 
-<section class="slide" id="questions-contributors-code">
+<section class="slide" id="questions-enrichers-code">
 ## Questions?
 </section>
 
@@ -150,13 +150,13 @@ But how ?
 
 #### XML extension code
 <pre><code>&lt;extension target="org.nuxeo.ecm.automation.io.services.enricher.ContentEnricherService" point="enricher">
-      &lt;contributor name="mybreadcrumb" class="org.nuxeo.sample.MyBreadcrumbContributor">
+      &lt;enricher name="mybreadcrumb" class="org.nuxeo.sample.MyBreadcrumbEnricher">
         &lt;category>mybc&lt;/category>
-      &lt;/contributor>
+      &lt;/enricher>
 &lt;/extension></pre></code>
 </section>
 
-<section class="slide exercise" id="exercise-enrichers">
+<section class="slide exercise" id="exercise-enrichers-declaration">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice
