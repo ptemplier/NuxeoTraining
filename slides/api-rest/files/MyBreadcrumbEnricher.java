@@ -5,8 +5,8 @@ import java.io.IOException;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
-import org.nuxeo.ecm.automation.io.services.contributor.RestContributor;
-import org.nuxeo.ecm.automation.io.services.contributor.RestEvaluationContext;
+import org.nuxeo.ecm.automation.io.services.enricher.ContentEnricher;
+import org.nuxeo.ecm.automation.io.services.enricher.RestEvaluationContext;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -14,7 +14,7 @@ import org.nuxeo.ecm.core.api.DocumentRef;
 import org.nuxeo.ecm.core.api.model.PropertyException;
 import org.nuxeo.runtime.api.Framework;
 
-public class MyBreadcrumbContributor implements RestContributor {
+public class MyBreadcrumbContributor implements ContentEnricher {
 
     private int maxLevels = 5;
 

@@ -9,9 +9,9 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo training - REST Contributors</title>
+<title>Nuxeo training - Content Enrichers</title>
 
-<meta name="description" content="Nuxeo training - Custom operations">
+<meta name="description" content="Nuxeo training - Content Enrichers">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -48,11 +48,11 @@
       class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide" id="nuxeo-training-rest-api">
-# Nuxeo Training - REST Contributors
+<section class="slide" id="nuxeo-training-content-enrichers">
+# Nuxeo Training - Content Enrichers
 </section>
 
-<section class="slide" id="wherewego-context-rest-api">
+<section class="slide" id="wherewego-context-content-enrichers">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
 One of the strengths of the Nuxeo REST API is its modularity. <br />
@@ -67,28 +67,20 @@ We could use it to get our own cuztomized objects, and that's exactly what we wi
 - Optionally, use a parameter to limit the number of levels returned
 </section>
 
-<section class="slide" id="contributors-concepts">
-### Contributors
+<section class="slide" id="enrichers-concepts">
+### Content Enrichers
 #### Concepts
-- Java classes defining custom information to be returned
-- Belong to a category
-- When making a REST call, REST contributors categories can be added using the <code>X-NXContext-Category</code> header
-</section>
-
-<section class="slide" id="contributors-concepts">
-### Contributors
-#### Concepts
-- Java classes implementing <code>RestContributor</code> 
+- Java classes implementing <code>ContentEnricher</code> 
 - Defining custom information to be returned
 - Belonging to a category
-- REST contributors categories can be called using the <code>X-NXContext-Category</code> header
+- Content enrichers categories can be called using the <code>X-NXContext-Category</code> header
 - Custom properties show up in the context parameters returned by the call
 - JSON is written using the <code>org.codehaus.jackson</code> library
 </section>
 
 <section class="slide" id="contributors-example">
 ### Contributors - Example
-<pre><code>public class HasWritePermissionContributor implements RestContributor {
+<pre><code>public class HasWritePermissionContributor implements ContentEnricher {
 
   @Override
   public void contribute(JsonGenerator jg, RestEvaluationContext ec) {
@@ -137,7 +129,7 @@ Create a contributor to retrieve the navigation breadcrumbs of a document.
 ## Questions?
 </section>
 
-<section class="slide" id="wherewego-context-contributors-declaration">
+<section class="slide" id="wherewego-context-enrichers-declaration">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
 Now that the code is ready, we have to call it somehow.<br />
@@ -145,9 +137,9 @@ But how ?
 </p></blockquote>
 </section>
 
-<section class="slide" id="contributors-declaration">
-### Contributors
-#### Declaring your contributor
+<section class="slide" id="enricher-declaration">
+### Content Enrichers
+#### Declaring your content enricher
 ##### In Nuxeo Studio
 - Go to the <code>Advanced settings, XML extensions</code> menu
 
@@ -157,38 +149,38 @@ But how ?
 <code>Nuxeo-Component: OSGI-INF/extensions/myFile.xml</code>
 
 #### XML extension code
-<pre><code>&lt;extension target="org.nuxeo.ecm.automation.io.services.contributor.RestContributorService" point="contributor">
+<pre><code>&lt;extension target="org.nuxeo.ecm.automation.io.services.enricher.ContentEnricherService" point="enricher">
       &lt;contributor name="mybreadcrumb" class="org.nuxeo.sample.MyBreadcrumbContributor">
         &lt;category>mybc&lt;/category>
       &lt;/contributor>
 &lt;/extension></pre></code>
 </section>
 
-<section class="slide exercise" id="exercise-contributors">
+<section class="slide exercise" id="exercise-enrichers">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice
 <blockquote><p>
-Declare your REST contributor
+Declare your content enricher
 </p></blockquote>
 #### Do the declaration
-- Declare your REST contributor in Nuxeo Studio 
-- Refresh and reload your changes, then try to call your contributor!
+- Declare your content enricher in Nuxeo Studio 
+- Refresh and reload your changes, then try to call your enricher!
 </section>
 
-<section class="slide" id="questions-contributors-declaration">
+<section class="slide" id="questions-enrichers-declaration">
 ## Questions?
 </section>
 
-<section class="slide" id="next-contributors-noparameter">
+<section class="slide" id="next-enrichers-noparameter">
 ### What's next ?
 - [Back to the training agenda](0.0.1_Agenda.html)
-- [(optional) Using parameters in REST contributors](#contributors-parameters)
+- [(optional) Using parameters in content enrichers](#enrichers-parameters)
 - [Ending](99_Ending.html)
 </section>
 
-<section class="slide" id="contributors-parameters">
-### Contributors
+<section class="slide" id="enrichers-parameters">
+### Content Enrichers
 #### Parameters
 RestEvaluationContext provides a way to retrieve parameters
 
@@ -209,20 +201,20 @@ public void contribute(JsonGenerator jg, RestEvaluationContext ec) throws Client
 }</code></pre>
 </section>
 
-<section class="slide exercise" id="exercise-contributors-parameters">
+<section class="slide exercise" id="exercise-enrichers-parameters">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice
 <blockquote><p>
 Limit the numbers of parents returned using a parameter
 </p></blockquote>
-#### Update your contributor
+#### Update your enricher
 - Default number of levels should be 5
 - If the <code>levels</code> parameter is provided in the URL, then it should override this value
 - Reload your changes, and try them out!
 </section>
 
-<section class="slide" id="questions-contributors-parameters">
+<section class="slide" id="questions-enrichers-parameters">
 ## Questions?
 </section>
 
