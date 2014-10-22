@@ -92,25 +92,6 @@ Choose your package: ZIP, JAR, EXE, APP, Debian, VM, …
 - Desktop integration (Nuxeo Drive)
 </section>
 
-<section class="slide exercise" id="install3">
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-###Architecture
-<p class="further-info">ZIP distribution is pre-configured with default paths<br/>
-VM distribution is pre-configured with recommended paths<br/>
-Other installers marry common usages and Nuxeo recommendations</p>
-- Server (`NUXEO_HOME`)
-  - `/home/nuxeo/nuxeo-dm/` or `/opt/nuxeo/`
-- Configuration (`NUXEO_CONF`)
-  - `$NUXEO_HOME/bin/nuxeo.conf` (default)
-  - `/etc/nuxeo/nuxeo.conf` (recommended)
-- Data (`nuxeo.data.dir`)
-  - `$NUXEO_HOME/nxserver/data` (default)
-  - `/var/lib/nuxeo` (recommended)
-- Logs (`nuxeo.log.dir`)
-  - `$NUXEO_HOME/log/` (default)
-  - `/var/log/nuxeo` (recommended)
-</section>
-
 <section class="slide exercise" id="install4">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
   <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/display/ADMINDOC/Server+start+and+stop" target="_blank">ADMINDOC/Server+start+and+stop</a></div>
@@ -132,6 +113,31 @@ Other installers marry common usages and Nuxeo recommendations</p>
 ####Setup Wizard at first start
 
 ![wizard](../img/tech/wizard.png)
+</section>
+
+<section class="slide" id="install3">
+###Architecture
+<ul class="further-info" style="font-size:24pt;"><strong>
+<li>ZIP distribution is pre-configured with default paths</li>
+<li>VM distribution is pre-configured with recommended paths</li>
+<li>Other installers marry common usages and Nuxeo recommendations</li>
+</strong></ul>
+- Server (`NUXEO_HOME`)
+  - `/home/nuxeo/nuxeo-dm/` or `/opt/nuxeo/`
+- Configuration (`NUXEO_CONF`)
+  - `$NUXEO_HOME/bin/nuxeo.conf` (default)
+  - `/etc/nuxeo/nuxeo.conf` (recommended)
+- Data (`nuxeo.data.dir`)
+  - `$NUXEO_HOME/nxserver/data` (default)
+  - `/var/lib/nuxeo` (recommended)
+- Logs (`nuxeo.log.dir`)
+  - `$NUXEO_HOME/log/` (default)
+  - `/var/log/nuxeo` (recommended)
+</section>
+
+<section class="slide" id="distrib">
+### Nuxeo - Packaged modules and configuration tools
+<img src="../customization-integration/img/introduction/modules-and-tools.png" />
 </section>
 
 <section class="slide exercise" id="install6">
