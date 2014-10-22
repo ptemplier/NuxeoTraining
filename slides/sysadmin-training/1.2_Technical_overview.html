@@ -53,6 +53,7 @@
 <section class="slide" id="nuxeo-platform-core-technologies">
 ### Nuxeo – The Platform
 #### Standard technologies
+- <strong>100% Java based</strong>
 - <strong>Based on Java standards</strong>: Java, OSGi, JTA, JAAS, JMS, EJB3, JAX-RS, JAX-WS, CMIS, …
 - <strong>Uses many open source frameworks / libraries</strong>: JBoss Seam / Hibernate / Apache commons
 - Can run in any Servlet container, Java EE Application server, bare JVM or OSGI container, typically: Tomcat, JBoss, Jetty
@@ -60,22 +61,9 @@
 #### Easy to customize, extend and plug
 - No need to rewrite the source code
 - Offers content oriented APIs
+- Ability to deploy and integrate in complex environments
 </section>
 
-<section class="slide" id="tech-core">
-###Core Technologies
-- 100% Java based
-- Can run as POJO or JEE components (Bare JVM, Servlet container or JEE server)
-- OSGi-based Bundle and Component system
-- Integrate world-class Open Source components (JBoss Seam, JBPM, Apache Shindig, Jena RDF, …)
-- Advanced Extension technology offering a highly dynamic plugin model
-- Extensibility & Modularity at heart
-  - at all levels
-  - loose coupling for building large systems
-  - configure, extend, integrate, … don't hack around !
-- Agility to deploy and integrate in complex environments
-  - Highly modular & adaptable
-</section>
 <section class="slide" id="tech-bundles">
 ###Bundles
 - 1 bundle = 1 Nuxeo plugin/addon = 1 JAR
@@ -84,6 +72,7 @@
 - Loaded by Nuxeo Runtime
 - More than 220 bundles in Nuxeo CAP
 </section>
+
 <section class="slide" id="tech-ext1">
 ###Extension Points
 #### What are they used for?
@@ -100,43 +89,30 @@
 - Allow the use of Nuxeo Studio!
 - <strong>One model for the whole platform</strong>
 </section>
+
 <section class="slide" id="tech-ext2">
 ###Extension Points
-<img src="../img/tech/xp.png" />
+#### Native Functionalities
+<img src="img/technical-intro/xp-mechanism-1.png" />
 </section>
+
 <section class="slide" id="tech-ext3">
 ###Extension Points
-<img src="../img/tech/xp2.png" />
+#### Extending the Nuxeo Platform
+<img src="img/technical-intro/xp-mechanism-2.png" />
 </section>
+
 <section class="slide" id="tech-custo1">
 ###Customization possibilities
 ####Nuxeo EP is easily configurable
 - Almost all services are configurable 
-- Actual UI (DM, DAM) is also very modular
+- Actual UI is also very modular
 
-####Clean customizations that can be upgraded
-
-####Use Nuxeo Studio 
+####Clean customizations that can be upgraded:
+####use Nuxeo Studio 
 - to save time in your implementation projects
 - to make customization easier
 - to do quick prototyping
-</section>
-<section class="slide" id="tech-custo2">
-###Customization Example
-Customize the page layout, define the style, set custom tabs, views, content views, buttons, ...
-<img src="../img/tech/custo-parts.png" />
-But also doc types, forms, life-cycles, workflows, policy, ...
-</section>
-<section class="slide" id="tech-custo3">
-###Easy, Elegant Integration Model
-####Thanks to this integration model
-- There is no need to touch Nuxeo's source code
-- Quick and efficient implementation of business requirements
-- Clean and sustainable technical integration in the SI
-
-####We think it matters 
-- A lot of external applications may need to produce or consume content from the ECM repository
-- ECM repositories usually needs to be integrated in the SI environment (Security, Audit, Monitoring, ...)
 </section>
 
 <section class="slide" id="tech-studio1">
@@ -151,11 +127,19 @@ But also doc types, forms, life-cycles, workflows, policy, ...
 - save time, money 
 - <strong>ensure long-term maintenance of applications</strong>
 </section>
+
 <section class="slide" id="tech-studio2">
 ###Nuxeo Studio Screenshots
 <img class="float-left" src="../img/tech/studio3.png" />
 <img src="../img/tech/studio1.png" />
 <img src="../img/tech/studio2.png" />
+</section>
+
+<section class="slide" id="tech-custo2">
+###Customization Example
+Customize the page layout, define the style, set custom tabs, views, content views, buttons, ...
+<img src="../img/tech/custo-parts.png" />
+But also doc types, forms, life-cycles, workflows, policy, ...
 </section>
 
 <section class="slide" id="tech-core1">
@@ -209,6 +193,7 @@ Facets can be associated with schema or Business Object adapter
 ####Transaction management
 - Exposes JCA connector 
 - Support for operations and manual tx management
+
 ####Pluggable event system
 
 ####Efficient storage
