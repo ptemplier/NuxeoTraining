@@ -145,20 +145,20 @@ But also doc types, forms, life-cycles, workflows, policy, ...
 <section class="slide" id="tech-core1">
 ##About Nuxeo Core: Advanced Content Repository
 </section>
+
 <section class="slide" id="tech-core2">
 ###Nuxeo Document
 ####Not a simple « file ».
 
-####An instance of a Document type (File, Note, Folder, Invoice, Contract…)
-- Contains `metadata`  
-Metadata can be filled automatically (creation date, name of the file…) or manually (description, subject...)
-- Type is defined by `XSD schemas`.  
-A document can have many different schemas, and schemas can be shared between document types.  
-- Has a specific `lifecycle` (ie Draft->Valid->Archived)
-- Has `facets` defining its behavior and what you can do with it (Folderish, Hidden, Versionable, Commentable...)  
-Facets can be associated with schema or Business Object adapter
-- Can inherit facets and schemas from another document type: `Mixins`
+####An instance of a Document type (File, Note, Folder, Invoice, Contract…) having
+- a unique name, eg: <code>File</code>, <code>Note</code> or <code>Book</code>
+- a set of schemas to define its storage structure 
+  - a document can have many schemas, schemas can be applied to many document types
+- a set of facets which defines the document behavior or capabilities
+- a parent type: the document type will inherit its schemas and facets
+- a lifecycle (ie: <code>draft -> validated -> archived</code>)
 </section>
+
 <section class="slide" id="tech-core3">
 ###Nuxeo Document
 ![doc](../customization-integration/img/installation_demo/whatisadoc.png)
@@ -204,16 +204,19 @@ Facets can be associated with schema or Business Object adapter
 <section class="slide" id="tech-connectors1">
 ##APIs, connectors and integration
 </section>
-<section class="slide" id="tech-connectors2">
+
+<section class="slide" id="tech-clients">
 ###Clients
-![clients](../img/tech/clients.png)
+![clients](img/technical-intro/clients.png)
 </section>
-<section class="slide" id="tech-connectors3">
+
+<section class="slide" id="tech-services-apis">
 ###Service APIs
 ####Services can also be exposed via WebServices (with various granularity)
-![services-api](../img/tech/services-api.png)
+![services-api](img/technical-intro/services-api.png)
 </section>
-<section class="slide" id="tech-connectors3">
+
+<section class="slide" id="tech-automation-apis">
 ###Automation APIs
 ####Flexible and pluggable Rest API
 - Contribute custom operation
@@ -221,7 +224,8 @@ Facets can be associated with schema or Business Object adapter
 - Generic marshaling
 ![automation-api](../img/tech/automation-api.png)
 </section>
-<section class="slide" id="tech-connectors3">
+
+<section class="slide" id="tech-content-apis">
 ###Content Oriented APIs
 ####Access Nuxeo Repository
 - via CMIS (uses Apache Chemistry)
@@ -229,23 +233,7 @@ Facets can be associated with schema or Business Object adapter
 - Via WebDav
 ![content-api](../img/tech/content-api.png)
 </section>
-<section class="slide" id="tech-connectors4">
-###Events
-####Events are triggered for each operation
-- can be extended for business specific events
-- events can be relayed on JMS Topic
 
-####EventHandlers
-- Synchronous / PostCommit / Asynchronous
-- Easily contribuable (Java / Script / MDB)
-- Great solution for
-  - Enforcing business rules (synchronous inline)
-  - Pushing/getting data to/from external systems 
-</section>
-<section class="slide" id="tech-connectors5">
-###Nuxeo Event bus
-![event-bus](../img/tech/event-bus.png)
-</section>
 <section class="slide" id="tech-connectors6">
 ###Accessing Nuxeo Data
 ####Direct access to data auditing (SQL)
@@ -258,6 +246,7 @@ Facets can be associated with schema or Business Object adapter
 - Audit data
 - Relations
 </section>
+
 <section class="slide" id="tech-connectors7">
 ###Importing data into Nuxeo
 ####CMIS, WebDAV & WSS
@@ -272,12 +261,14 @@ Facets can be associated with schema or Business Object adapter
 
 ####Low level SQL batch insert
 </section>
-<section class="slide" id="tech-connectors5">
+
+<section class="slide" id="tech-integration-examples">
 ###Integration examples
 ####Security system, SSO, user's management
 ![integration-ex1](../img/tech/integration-ex1.png)
 </section>
-<section class="slide" id="tech-connectors5">
+
+<section class="slide" id="tech-integration-examples2">
 ###Integration examples
 ####Authentication and User management stack is completely pluggable
 ![integration-ex2](../img/tech/integration-ex2.png)

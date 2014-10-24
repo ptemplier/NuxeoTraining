@@ -43,12 +43,42 @@
     <span class="sub-part training">Trainings</span>
   </div>
 
-  <section class="slide" id="summary">
+<section class="slide" id="summary">
 ###Deployment
+####Concepts
 ####Samples
 ####Clustering
 ####Replication
-  </section>
+</section>
+  
+<section class="slide" id="deployment-concepts">
+### Deployment Concepts
+#### What Nuxeo handles
+- Clustering
+- Multiple deployment options
+
+#### What you may need to set up
+- A reverse proxy: Nuxeo should never be exposed directly
+- A load balancer with sticky sessions
+</section>
+  
+<section class="slide" id="reverse-proxy">
+  <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/GAFc" target="_blank">ADMINDOC/HTTP+and+HTTPS+reverse-proxy+configuration</a></div>
+### HTTP Server Configuration
+
+####Virtual hosting (Apache, IIS...)
+- Support for HTTPS
+- URL filtering
+- Handle HTTP cache for static resources
+
+####After reverse-proxy configuration:
+- Update the bind adress to 127.0.0.1 in the nuxeo.conf file to avoid it being exposed
+
+####HTTPS Configuration Template
+- Quick and easy configuration
+- Not optimized
+- Not recommended for production
+</section>
 
   <section class="slide" id="deployment1">
 ###Agile deployment
@@ -102,7 +132,7 @@
 
   <section class="slide" id="next">
 ###Next?
-- Back to the [training agenda](index.html#day-1)
+- Back to the [training agenda](index.html#day-2)
 - [Monitoring, Analysis, Supervision, Benchmark](3.1_Monitoring.html)
   </section>
 

@@ -43,25 +43,6 @@
     <span class="sub-part training">Trainings</span>
   </div>
 
-  <section class="slide" id="day-3">
-### Agenda − Day 3
-####Goals
-- Monitoring
-- Reporting
-- Optimization
-
-####Agenda
-- [Monitoring, Analysis, Supervision, Benchmark](3.1_Monitoring.html)
-  - Logs
-  - Nuxeo Tools (Shell, Admin Center, FunkLoad)
-  - VCS and Database Analysis
-  - System Tools (Linux)
-  - Java Tools
-- [Reporting, Support](3.2_Reporting.html)
-  - nuxeoctl
-  - Connect
-  </section>
-
   <section class="slide" id="summary">
   <div class="sticker" style="max-width: 100em;">[ADMINDOC/Monitoring+and+Maintenance](http://doc.nuxeo.com/x/LoAO)</div>
 ###Monitoring, Analysis, Supervision, Benchmark
@@ -102,7 +83,6 @@
 ####Raw performances
 - Admin Center activity (sessions, events, charts)
 - Admin Center monitoring (status, probes, event bus, Shell)
-![probes](../img/tech/probes.png)
 - Server and components statuses (Launcher, Runtime and Core)
 - Nuxeo Shell
   - Technical administration, Mass operations, Testing
@@ -110,6 +90,26 @@
   - Batch mode (scripting)
 - JS Automation Shell
   </section>
+  
+<section class="slide" id="tech-events">
+###Events
+####Events are triggered for each operation
+- can be extended for business specific events
+- events can be relayed on JMS Topic
+
+####EventHandlers
+- Synchronous / PostCommit / Asynchronous
+- Easily contribuable (Java / Script / MDB)
+- Great solution for
+  - Enforcing business rules (synchronous inline)
+  - Pushing/getting data to/from external systems 
+</section>
+
+<section class="slide" id="tech-connectors5">
+###Nuxeo Event bus
+![event-bus](../img/tech/event-bus.png)
+</section>
+  
   <section class="slide exercise" id="monitoring2.2">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
   <div class="sticker" style="max-width: 100em;">
@@ -122,6 +122,48 @@
 ![MonitorCPU](../img/tech/MonitorCPU.png)
   </section>
   
+  <section class="slide exercise" id="using-funkload">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+  <div class="sticker" style="max-width: 100em;">
+  <a href="https://github.com/nuxeo/nuxeo-distribution">nuxeo-distribution</a>
+  <a href="https://github.com/nuxeo/nuxeo-distribution/tree/5.8/nuxeo-distribution-dm/ftest/funkload">funkload tests</a>
+  </div>
+###Funkload
+####Getting funkload
+- <a href="http://funkload.nuxeo.org">Install funkload and related tools</a>
+- Clone the nuxeo-distribution repo
+- Checkout the wanted branch
+
+####Using Funkload - Basic Benchmark
+- <code>make</code>
+- <code>make bench</code>
+
+####Partial Tests
+- <code>make</code>
+- <code>make start</code>
+- <code>make bench-reader</code>
+- <code>make bench-writer</code>
+  </section>
+
+  <section class="slide exercise" id="using-funkload-options">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+  <div class="sticker" style="max-width: 100em;">
+  <a href="http://funkload.nuxeo.org">Funkload documentation</a>
+  </div>
+###Funkload
+####Some options
+- Use <code>make -n bench-writer</code> to see corresponding options
+
+- -c 1:4:8:10:12:14 
+  - Cycles with 1, 4, 8 concurrent threads (virtual users)
+- -D 60 
+  - Cycle duration
+- -m 0.2 -M 1 
+  - Send requests with 0.2 to 1 second interval
+- -s 1
+  - Wait 1 second between every thread creation
+  </section>
+
   <section class="slide exercise" id="monitoring3">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
   <div class="sticker" style="max-width: 100em;">
@@ -197,7 +239,7 @@
 
   <section class="slide" id="next">
 ###Next?
-- Back to the [training agenda](index.html#day-1)
+- Back to the [training agenda](index.html#day-3)
 - [Reporting, Support](3.2_Reporting.html)
   </section>
 
