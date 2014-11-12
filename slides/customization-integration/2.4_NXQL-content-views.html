@@ -9,10 +9,10 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Content views, NXQL, Search forms</title>
+<title>Nuxeo Training - NXQL & Content Views</title>
 
 <meta name="description"
-  content="Nuxeo Training - NXQL, Search forms, content view">
+  content="Nuxeo Training - NXQL & Content Views">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -61,22 +61,20 @@
   </p>
 
 <section class="slide">
-# Nuxeo training - Content views, NXQL, Search forms
+# Nuxeo training - NXQL & Content Views
 </section>
 
 <section class="slide" id="wherewego-context-lifecycle">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>Now that they can organise their books collection,
 the "Best books" library would be interested in finer tuning of their display and search.
-Especially having the right information when browsing a book library,
-and a customized advanced search form.</p></blockquote>
+Especially having the right information when browsing a book library.</p></blockquote>
 </section>
 
 <section class="slide" id="wherewego">
 ###What we want to do
 ####At the end of the course:
 - A custom listing of books when browsing a book library
-- A custom advanced search form
 </section>
 
 <section class="slide" id="content-view">
@@ -89,23 +87,21 @@ and a customized advanced search form.</p></blockquote>
 
 - Content of a folderish node
 - Trash folder
-- Advanced search
-- Simple search
-- Faceted search
-- Virtual navigation
+- Search forms
 - Custom business content listing on some projects
 </section>
 
 <section class="slide" id="content-view-definition">
 ###Content views
 #### Concepts
-- Divided in two tabs:
+- Divided in several tabs:
     - <code>Query and form</code>: <strong>Which</strong> documents will be displayed
     - <code>Results</code>: <strong>How</strong> they should be displayed
 - Listed documents are the result of a query
 - Query language used in Nuxeo is NXQL, a variant of SQL integrating specific options
 - Fields can be added to let the user sub-filter the query results
 - A layout defines the columns displayed for the result
+- Content views can either query the DB or elasticsearch
 </section>
 
 <section class="slide" id="NXQLTitle">
@@ -199,6 +195,33 @@ SELECT * FROM Book WHERE ecm:fulltext = 'world'
 - Blue: <strong>Results</strong>. Defines the metadata to be displayed for the resulting documents.
 </section>
 
+<section class="slide" id="cv-where-to-use">
+### Where / how can I use my content view ?
+
+- To change the content display of a `Folderish` document
+- To change the content display of the `Trash` tab
+- As the default or an alternative search
+- In a custom tab (more details on this later :)
+</section>
+
+<section class="slide" id="when-to-use-es">
+### When Is elasticsearch useful ?
+
+#### elasticsearch Key Points
+- Better performances
+- But accurate data is <em>not guaranteed immediately</em>
+
+#### Use elasticsearch For 
+- Content views not requiring immediate exact results
+- Costly queries
+- Fulltext searches
+- Advanced search features
+
+#### Not Always Recommended For
+- Document content listings
+- Any query requiring guaranteed up to date information 
+</section>
+
 <section class="slide" id="queryFilter">
 ### Content views
 #### How it is configured in Studio
@@ -266,16 +289,6 @@ Parameters
         - Select the table layout you have created
 </section>
 
-<section class="slide" id="cv-where-to-use">
-### Where / how can I use my content view ?
-
-- To change the content display of a `Folderish` document
-- To change the content display of the `Trash` tab
-- As a faceted search
-- As the default or an alternative advanced search
-- In a custom tab (more details on this later :)
-</section>
-
 <section class="slide exercise" id="exercise-content-view">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
@@ -312,34 +325,9 @@ Parameters
 ## Questions?
 </section>
 
-<section class="slide" id="custom-search-form">
-### Custom advanced search form
-#### Concepts
-- Nuxeo studio provides easy access to advanced search form customization <br /> (Listing and views > Advanced search)
-- More advanced searches can be configured by creating content views with the "advanced search" flag
-- Specific advanced searches can be setup at Domain/Workspace level <br /> (manage tab, local configuration subtab)
-</section>
-
-<section class="slide exercise" id="exercise-advanced-search">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice
-#### Advanced Search
-- Create a custom search form that searches through...
-    - The title (using ILIKE operator)
-    - The path (using STARTSWITH operator)
-    - Creation time (using BETWEEN operator)
-
-- The results should use the `bookTableLayout`
-</section>
-
-<section class="slide" id="questions">
-##Questions?
-</section>
-
 <section class="slide" id="next">
 ###Next?
-- [Lifecycle](2.6_Lifecycle.html)
+- [elasticsearch](2.5_elasticsearch.html)
 </section>
 
   <!-- deck.goto snippet -->

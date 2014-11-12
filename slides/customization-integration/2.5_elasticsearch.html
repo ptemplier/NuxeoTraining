@@ -9,9 +9,10 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo Training - Structure Templates</title>
+<title>Nuxeo Training - Using elasticsearch in Content Views</title>
 
-<meta name="description" content="Nuxeo Training - Structure Templates">
+<meta name="description"
+  content="Nuxeo Training - Using elasticsearch in Content Views">
 <meta name="author" content="Nuxeo">
 <meta name="viewport" content="width=1024, user-scalable=no">
 
@@ -48,95 +49,6 @@
       class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide" id="datastructure">
-# Nuxeo training - Structure templates
-</section>
-
-<section class="slide" id="wherewego-context-structure-template">
-### Context <img src="../themes/frog-teacher.png" class="float-left" />
-<blockquote><p>The custom documents we created are perfect.
-The "Best books" library now decides they should be used all over; to do so they would like a simpler domain structure, in which mostly books and book libraries would be created. Easy :)</p></blockquote>
-</section>
-
-<section class="slide" id="wherewego-structure-template">
-###What we want to do
-####At the end of the course:
-<img src="img/structure_templates/structure-template-booklibrary.png" class="float-right" />
-
-#### A new structure for the Domain doctype
-- Book Library
-- "Sandbox" (Workspace)
-- Sections
-    - Internal memos
-
-#### Instead of
-- Sections
-- Templates
-- Workspaces
-</section>
-
-<section class="slide" id="structuretemplates">
-###Structure template
-#### Concepts
-- Pre-built structures
-- «Per document type» basis
-- Defines what documents have to be generated when a document is
-    created 
-- Useful to setup the default structure of your repository
-- Can also define the default set of permissions
-- Can override the existing structure template for a doc type
-
-Ex: Each time you create a Domain, nodes templates, Sections and Workspaces are created
-</section>
-
-<section class="slide" id="choose-type">
-### Structure template
-#### Choose the type
-The created structure will apply to the chosen document type
-
-![Choose the type in Studio](img/structure_templates/structure-template-choose.png)
-</section>
-
-
-<section class="slide" id="structuretemplate2">
-###Structure template
-#### Configuration
-<img alt="Configure your structure" class="float-right" src="img/structure_templates/structure-template-configure.png">
-
-- The structure of Domain will be overriden with this one
-- This structure will be used
-  - Each time a document of type Domain will be created
-  - At startup if the database is empty
-- Existing documents of type Domain will keep their old structure
-</section>
-
-<section class="slide exercise" id="exercise-structure-template">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
-      class="exercise-icon">
-###Practice - Structure template
-
-- Create a new structure template `bestBooksDomain` with the `Domain` target document type containing:
-    - A <code>BookLibrary</code> named "Book library",
-    - A <code>Workspace</code> named "Sandbox"
-    - A <code>SectionRoot</code> named "Sections"
-
-- Create a new structure template `bestBooksSectionRoot` with the `SectionRoot` target document type containing:
-    - A <code>Section</code> named "Internal memos"
-
-- Commit your changes
-- Deploy your changes
-- Create a domain named "BestBooks" and see what appears
-</section>
-
-<section class="slide" id="questions">
-##Questions?
-</section>
-
-<section class="slide" id="next">
-###Next?
-- Back to the [training agenda](0.0.1_Agenda.html#day-1)
-- [Content views, Search forms](2.4_NXQL-content-views.html)
-</section>
 
   <!-- deck.navigation snippet -->
   <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
@@ -147,6 +59,74 @@ The created structure will apply to the chosen document type
     <span class="deck-status-current"></span> / <span
       class="deck-status-total"></span>
   </p>
+
+<section class="slide">
+# Nuxeo training - Using elasticsearch in Content Views
+</section>
+
+<section class="slide" id="wherewego-context-lifecycle">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote><p>This is time to add a nice book search form to our application. Leveraging elasticsearch features could be a great idea!</p></blockquote>
+</section>
+
+<section class="slide" id="wherewego">
+###What we want to do
+####At the end of the course:
+- A custom search form leveraging elasticsearch features
+
+<img alt="Custom ES Search Form" src="img/nxql_search_forms_content_views/es-search-form.png" />
+</section>
+
+<section class="slide" id="custom-search-form">
+### Custom Search Forms
+#### Where To Create Custom Search Forms
+- Default search form: <code>Listing and views > Search</code>
+- Alternate search forms: <code>Listing and views > Content views</code> with <code>Search content view</code> flag
+</section>
+
+<section class="slide" id="elasticsearch-aggregates">
+### Leveraging elasticsearch
+
+<div class="sticker">elasticsearch aggregates available since 6.0</div>
+
+#### elasticsearch Specific Widgets: Aggregates
+##### Ranges Widgets
+- Ranges are calculated automatically (date or number)
+
+##### Histogram Widgets
+- You define ranges by yourself (date or number)
+
+##### Terms
+- Frequent words are proposed automatically
+</section>
+
+<section class="slide exercise" id="exercise-advanced-search">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice
+#### Leveraging elasticsearch
+<blockquote>
+Create an alternate search form to search for books
+</blockquote>
+
+##### What To Search For
+- Their publication date (using a <code>date histogram</code> widget, <code>day</code> interval)
+- Their category (using a <code>terms</code> widget)
+
+##### Results display
+- Checkboxes should be shown on screen
+- The results should use the `bookTableLayout`
+</section>
+
+<section class="slide" id="questions">
+##Questions?
+</section>
+
+<section class="slide" id="next">
+###Next?
+- [Training Agenda](0.0.1_Agenda.html#day2)
+- [Lifecycle](2.6_Lifecycle.html)
+</section>
 
   <!-- deck.goto snippet -->
   <form action="." method="get" class="goto-form">
@@ -178,10 +158,10 @@ The created structure will apply to the chosen document type
   <script src="../deck.js/extensions/scale/deck.scale.js"></script>
   <!-- Initialize the deck -->
   <script>
-			$(function() {
-				$.deck('.slide');
-			});
-		</script>
+            $(function() {
+                $.deck('.slide');
+            });
+        </script>
 
 </body>
 </html>
