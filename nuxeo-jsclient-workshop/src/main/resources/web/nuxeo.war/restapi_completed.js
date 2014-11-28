@@ -5,12 +5,17 @@ var RestAPI = {};
 // Configure Nuxeo Client
 RestAPI.config = function () {
   //Instantiate Nuxeo Client below
-  
-  
+  var client = new nuxeo.Client({
+  baseURL: 'http://localhost:8080/nuxeo',
+  username: 'Administrator',
+  password: 'Administrator'
+  });
+
   // Make sure:
   // - That the client will return the dublincore and file schemas
   // - To return the client afterwards
-  
+  client.schema('dublincore,file');
+  return client;
 }
 
 ////////////////////////////// CURRENT USER
@@ -18,7 +23,7 @@ RestAPI.config = function () {
 // Use a GET request to get the user: Administrator
 // Callback: callbackCurrentUser
 RestAPI.getCurrentUser = function () {
-  
+  this.client.request('user/Administrator').get(callbackCurrentUser);
 }
 
 ////////////////////////////// EXECUTE QUERY
@@ -27,7 +32,7 @@ RestAPI.getCurrentUser = function () {
 // Make sure to include the query parameter in the called URL
 // Callback: callbackQuery
 RestAPI.executeQuery = function (query) {
-  
+  this.client.request('query/?query=' + query).get(callbackQuery);
 }
 
 ////////////////////////////// DISPLAY WORKSPACE CHILDREN
@@ -36,7 +41,7 @@ RestAPI.executeQuery = function (query) {
 // Callback: callbackRootChildren
 var documentRoot = "/default-domain/workspaces/IT";
 RestAPI.getRootChildren = function () {
-  
+  this.client.document(documentRoot).children(callbackRootChildren);
 }
 
 
@@ -45,7 +50,9 @@ RestAPI.getRootChildren = function () {
 // Use the high level document API to get a document using its id 
 // Callback: callbackFetchDocument
 RestAPI.fetchDocument = function (id) {
-  
+  this.client.document(id).fetch(callbackFetchDocument);
+  //this.client.document(id).schemas(["common","dublincore"]).fetch(callbackFetchDocument);
+  //this.client.document(id).header('X-NXContext-Category', 'acls').fetch(callbackFetchDocument);
 }
 
 ////////////////////////////// UPDATE DOCUMENT
@@ -54,7 +61,7 @@ RestAPI.fetchDocument = function (id) {
 // And save it afterwards
 // Callback: callbackUpdateDocument
 RestAPI.updateDocument = function (map) {
-  
+  this.currentDocument.set(map).save(callbackUpdateDocument)
 }
 
 ////////////////////////////// CREATE DOCUMENT
@@ -65,7 +72,17 @@ RestAPI.updateDocument = function (map) {
 // Callback: callbackCreateDocument
 var creationRoot = "/default-domain/workspaces/IT";
 RestAPI.createDocument = function (map) {
-  
+  this.client.document(creationRoot)
+    .create({
+      type: 'File',
+      name: map["dc:title"],
+      properties: {
+        "dc:title": map["dc:title"],
+        "dc:description": map["dc:description"],
+        "dc:nature": map["dc:nature"],
+        "dc:language": map["dc:language"]
+      }
+    }, callbackCreateDocument);
 }
 
 ////////////////////////////// DELETE DOCUMENT
@@ -73,7 +90,7 @@ RestAPI.createDocument = function (map) {
 // Use the high level document API to delete the current document
 // Callback: callbackDeleteDocument
 RestAPI.deleteDocument = function () {
-  
+  this.currentDocument.delete(callbackDeleteDocument);
 }
 
 ////////////////////////////// FILE IMPORT
@@ -83,7 +100,10 @@ RestAPI.deleteDocument = function () {
 // Callback: callbackImportFile
 var importRoot = "/default-domain/workspaces/IT";
 RestAPI.importFile = function (file) {
-  
+  var uploader = this.client.operation("FileManager.Import").context({ currentDocument: importRoot }).uploader();
+  uploader.uploadFile(file, function () {
+    uploader.execute(callbackImportFile);
+  });
 }
 
 ////////////////////////////// ATTACH BLOB
@@ -93,7 +113,12 @@ RestAPI.importFile = function (file) {
 // Operation to call: Blob.Attach
 // Callback: callbackAttachBlob
 RestAPI.attachBlob = function (file) {
-  
+  var uploader = this.client.operation("Blob.Attach")
+    .params({ document: this.currentDocument.uid, save: true,
+      xpath: "file:content"}).uploader();
+  uploader.uploadFile(file, function () {
+    uploader.execute(callbackAttachBlob)
+  });
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
