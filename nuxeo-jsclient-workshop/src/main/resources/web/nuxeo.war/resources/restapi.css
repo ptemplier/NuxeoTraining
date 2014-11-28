@@ -1,0 +1,108 @@
+/*******************************
+            Global
+*******************************/
+
+html,
+body {
+  font-size: 15px;
+  height: 100%;
+}
+
+body {
+  font-family: "Open Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  background: #FFFFFF;
+  margin: 0px;
+  padding: 0px;
+  color: #555555;
+  text-rendering: optimizeLegibility;
+  min-width: 320px;
+}
+
+.ui.header {
+  font-family: 'Source Sans Pro', "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+/*******************************
+            Global
+*******************************/
+
+/*-------------------
+        Sidebar
+--------------------*/
+
+#restapi .sidebar {
+  overflow: visible;
+}
+
+/*-------------------
+        Grid
+--------------------*/
+
+#restapi .grid {
+  height: 100%;
+}
+
+#restapi > .grid > .column {
+  height: 100%;
+}
+
+/*-------------------
+       Inbox
+--------------------*/
+
+.item:hover{
+   background-color: lightgrey;
+}
+
+#restapi .inbox.tab {
+  background-color: #FFFFFF;
+}
+
+#restapi .inbox.tab .item {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#restapi .inbox.tab .item .rating {
+  margin-top: 0.2rem;
+}
+
+#restapi .inbox.tab .item .description {
+  margin-left: 2em;
+}
+
+#restapi .page {
+  float: right;
+  margin-top: 0.9em;
+}
+
+#restapi .middle.column {
+  padding: 1em 2em;
+}
+
+#restapi .middle.column h2 {
+  margin-top: 0em;
+}
+/*rtl:ignore*/
+#restapi .right.column {
+  padding: 1em 2em;
+  background-color: #FAFAFA;
+}
+
+/*******************************
+          Responsive
+*******************************/
+
+@media only screen and (max-width : 1000px) {
+  #restapi .inbox .date {
+    float: none;
+    margin-bottom: 0.5em;
+  }
+}
+
+@media only screen and (max-width : 1250px) {
+  /*rtl:ignore*/
+  #restapi .left.column > .menu .item {
+    font-size: 1rem;
+  }
+}
