@@ -90,14 +90,31 @@
 <div class="sticker">elasticsearch aggregates available since 6.0</div>
 
 #### elasticsearch Specific Widgets: Aggregates
-##### Ranges Widgets
+##### Histogram Widgets
 - Ranges are calculated automatically (date or number)
 
-##### Histogram Widgets
+##### Range Widgets
 - You define ranges by yourself (date or number)
 
 ##### Terms
 - Frequent words are proposed automatically
+- Metadata can be mapped to a vocabulary, users, documents
+</section>
+
+<section class="slide" id="elasticsearch-range">
+### Using Range Widgets
+
+#### How To Use Range Widgets
+- <code>Format</code> is mandatory (ex: dd-MM-yyyy)
+- <code>From</code> and <code>to</code> fields 
+  - Need an expression
+  - But can be left empty to mean "anywhere in the past (or future)"
+
+#### Date Ranges Examples
+- Past: From (empty) to <code>now</code>
+- Future: From <code>now</code> to (empty)
+- Last week: From <code>now-7d</code> to <code>now</code>
+- Yesterday: From <code>now-24H</code> to <code>now</code>
 </section>
 
 <section class="slide exercise" id="exercise-advanced-search">
@@ -110,12 +127,16 @@ Create an alternate search form to search for books
 </blockquote>
 
 ##### What To Search For
-- Their publication date (using a <code>date histogram</code> widget, <code>day</code> interval)
-- Their category (using a <code>terms</code> widget)
+- Their <code>publication date</code> using a <code>date range</code> widget, with the following ranges:
+  - Last month
+  - Last week
+  - Future
+- Their <code>category</code> (using a <code>terms</code> widget)
 
 ##### Results display
 - Checkboxes should be shown on screen
 - The results should use the `bookTableLayout`
+- Add a title to your search form using the `advanced configuration` zone in the `results` tab
 </section>
 
 <section class="slide" id="questions">
