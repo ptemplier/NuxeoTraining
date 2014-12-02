@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo Training - JavaScript Client</title>
+
+<meta name="description" content="Nuxeo Training - JavaScript Client">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet"
+  href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet alternate" title="with comments"
+  href="../nuxeo-slide-template/themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet"
+  href="../nuxeo-slide-template/themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span> <span class="slash">/</span> <span
+      class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide">
+# Nuxeo training - JavaScript Client
+</section>
+
+<section class="slide" id="wherewego-context-automation">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote><p>
+Now that we know the basics of the Nuxeo REST API, let's build a custom interface !
+</p></blockquote>
+</section>
+
+<section class="slide" id="wherewego">
+### What We Want To Do
+#### At The End Of The Course
+- Use the JavaScript client to build a dedicated interface for Nuxeo.
+</section>
+
+<section class="slide" id="js-client-concepts">
+### JavaScript Client
+#### Concepts
+##### Two Ways To Use It
+- Directly in the browser (web / mobile applications)
+- Server side using node.js (batch, e.g. mass import)
+
+##### Contains All Tools Needed
+- Calls to ressources, automation chains and operations
+- High level document API
+- Uploader API for blobs
+
+[Documentation](https://github.com/nuxeo/nuxeo-js-client)
+</section>
+
+<section class="slide" id="js-client-creation">
+### JavaScript Client
+#### Creating a Client
+<pre><code>var client = new nuxeo.Client({
+  baseURL: 'http://localhost:8080/nuxeo/',
+  restPath: 'site/api/v1/',
+  automationPath: 'site/automation/',
+  username: 'Administrator',
+  password: 'Administrator',
+  timeout: 3000
+});</code></pre>
+
+#### Testing The Connection
+<pre><code>client.connect(function(error, client) {
+  if (error) {
+    // cannot connect
+    throw error;
+  }
+
+  // OK, the returned client is connected
+  console.log('Client is connected: ' + client.connected);
+});</code></pre>
+</section>
+
+<section class="slide" id="js-client-creation-useful">
+### JavaScript Client
+#### Useful Properties
+##### Add Schemas To Returned Metadata
+<pre><code>client.schema('dublincore,schema2');</code></pre> 
+OR 
+<pre><code>client.schemas(['dublincore','schema2']);</code></pre>
+
+<br />
+##### Set Timeout
+<pre><code>client.timeout('10000');</code></pre>
+
+These properties can be set for each request as well !
+</section>
+
+<section class="slide exercise" id="exercise-js-client1">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+<blockquote>Use the JavaScript client to implement a user profile view and a NXQL query search form</blockquote>
+- Open [our custom interface](http://localhost:8080/nuxeo/restapi.html)
+- Using a file explorer, go to your server, <strong>nxserver/nuxeo.war</strong> folder
+- Edit the <strong>restapi.js</strong> file to complete exercises 1 to 3
+- Reload the interface when exercises are finished to see your result
+</section>
+
+<section class="slide" id="questions-exercise-js-client1">
+##Questions?
+</section>
+
+<section class="slide" id="js-client-resources">
+### JavaScript Client
+#### Calling ressources
+##### GET
+<pre><code>client.request('path/default-domain').get(callbackSampleFunction);</code></pre>
+
+##### POST
+<pre><code>var requestOptions = <strong>{</strong> 
+  data: <strong>{</strong>
+    "entity-type": "directoryEntry",
+    "directoryName": "subject",
+    "properties": <strong>{</strong> "id": "myCustomEntryId", 
+                    "obsolete": 0, 
+                    "ordering": 100, 
+                    "label": "myCustomEntryLabel" <strong>}</strong>
+  <strong>}</strong>
+<strong>}</strong>;
+client.request('directory/subject').post(requestOptions, callbackSampleFunction);</code></pre>
+
+##### Callback
+<pre><code>function callbackSampleFunction(error, data) {
+  if (error) {
+    throw error;
+  }
+  console.log("All OK");
+}</code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-js-client2">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+<blockquote>Use the JavaScript client to implement an interface for basic document management</blockquote>
+- Open [our custom interface](http://localhost:8080/nuxeo/restapi.html)
+- Using a file explorer, go to your server, <strong>nxserver/nuxeo.war</strong> folder
+- Edit the <strong>restapi.js</strong> file to complete exercises 4 to 8
+- Reload the interface when exercises are finished to see your result
+</section>
+
+<section class="slide" id="questions-exercise-js-client2">
+##Questions?
+</section>
+
+<section class="slide" id="next">
+### Next?
+- [Back to the training agenda](0.0.1_Agenda.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+    <span class="deck-status-current"></span> / <span
+      class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+    <label for="goto-slide">Go to slide:</label> <input type="text"
+      name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script
+    src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!-- script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script -->
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- Initialize the deck -->
+  <script>
+			$(function() {
+				$.deck('.slide');
+			});
+		</script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 var RestAPI = {};
 
-////////////////////////////// NUXEO JS CONFIGURATION
+////////////////////////////// EXERCISE 1 - NUXEO JS CONFIGURATION
 
 // Configure Nuxeo Client
 RestAPI.config = function () {
@@ -18,34 +18,35 @@ RestAPI.config = function () {
   return client;
 }
 
-////////////////////////////// CURRENT USER
+////////////////////////////// EXERCISE 2 - CURRENT USER
 
 // Use a GET request to get the user: Administrator
+// You can use the client using this.client.doSomething
 // Callback: callbackCurrentUser
 RestAPI.getCurrentUser = function () {
   this.client.request('user/Administrator').get(callbackCurrentUser);
 }
 
-////////////////////////////// EXECUTE QUERY
+////////////////////////////// EXERCISE 3 - EXECUTE QUERY
 
 // Use a GET request to execute the query typed 
 // Make sure to include the query parameter in the called URL
 // Callback: callbackQuery
-RestAPI.executeQuery = function (query) {
-  this.client.request('query/?query=' + query).get(callbackQuery);
+RestAPI.executeQuery = function (NXQLQuery) {
+  this.client.request('query').query(NXQLQuery).get(callbackQuery);
 }
 
-////////////////////////////// DISPLAY WORKSPACE CHILDREN
+////////////////////////////// EXERCISE 4 - DISPLAY WORKSPACE CHILDREN
 
 // Use the high level document API to get the "documentRoot" children
 // Callback: callbackRootChildren
-var documentRoot = "/default-domain/workspaces/IT";
+var documentRoot = "/default-domain/workspaces/Meetings";
 RestAPI.getRootChildren = function () {
   this.client.document(documentRoot).children(callbackRootChildren);
 }
 
 
-////////////////////////////// DISPLAY DOCUMENT PROPERTIES
+////////////////////////////// EXERCISE 5 - DISPLAY DOCUMENT PROPERTIES
 
 // Use the high level document API to get a document using its id 
 // Callback: callbackFetchDocument
@@ -55,7 +56,7 @@ RestAPI.fetchDocument = function (id) {
   //this.client.document(id).header('X-NXContext-Category', 'acls').fetch(callbackFetchDocument);
 }
 
-////////////////////////////// UPDATE DOCUMENT
+////////////////////////////// EXERCISE 6 - UPDATE DOCUMENT
 
 // Use the high level document API to update the current document
 // And save it afterwards
@@ -64,13 +65,13 @@ RestAPI.updateDocument = function (map) {
   this.currentDocument.set(map).save(callbackUpdateDocument)
 }
 
-////////////////////////////// CREATE DOCUMENT
+////////////////////////////// EXERCISE 7 - CREATE DOCUMENT
 
 // Use the high level document API to create a document
 // Form data can be accessed through map["schema-prefix:metadata"]
 // e.g.: map["dc:title"]
 // Callback: callbackCreateDocument
-var creationRoot = "/default-domain/workspaces/IT";
+var creationRoot = "/default-domain/workspaces/Meetings";
 RestAPI.createDocument = function (map) {
   this.client.document(creationRoot)
     .create({
@@ -85,7 +86,7 @@ RestAPI.createDocument = function (map) {
     }, callbackCreateDocument);
 }
 
-////////////////////////////// DELETE DOCUMENT
+////////////////////////////// EXERCISE 8 - DELETE DOCUMENT
 
 // Use the high level document API to delete the current document
 // Callback: callbackDeleteDocument
@@ -93,12 +94,12 @@ RestAPI.deleteDocument = function () {
   this.currentDocument.delete(callbackDeleteDocument);
 }
 
-////////////////////////////// FILE IMPORT
+////////////////////////////// EXERCISE 9 - FILE IMPORT
 
 // Use the uploader API to import a file
 // Operation to call: FileManager.Import (Create document from file)
 // Callback: callbackImportFile
-var importRoot = "/default-domain/workspaces/IT";
+var importRoot = "/default-domain/workspaces/Meetings";
 RestAPI.importFile = function (file) {
   var uploader = this.client.operation("FileManager.Import").context({ currentDocument: importRoot }).uploader();
   uploader.uploadFile(file, function () {
@@ -106,7 +107,7 @@ RestAPI.importFile = function (file) {
   });
 }
 
-////////////////////////////// ATTACH BLOB
+////////////////////////////// EXERCISE 10 - ATTACH BLOB
 
 // Use the uploader API to attach a file in an existing document
 // File is to be saved into the "file:content" xpath
@@ -168,7 +169,7 @@ function callbackImportFile(error, data) {
     throw error;
   }
   location.reload();
-  console.log("Files has been imported");
+  console.log("Files have been imported");
 }
 
 function save() {
