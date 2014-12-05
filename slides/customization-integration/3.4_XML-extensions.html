@@ -55,15 +55,13 @@
 <section class="slide" id="wherewego-context-xml-extensions">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
-The library will soon be recruiting new staff.<br /><br />
-The management team has decided to setup strict procedures to make sure everyone works the same way.<br /><br />
-In application of these new rules, you are requested to simplify the user interface by deactivating a few features.<br />
+Users are facing a challenge: they want to give people write access without letting them remove documents.
 </section>
 
 <section class="slide" id="xml-contribs-wherewego">
 ### What we want to do
 #### At the end of the course
-- Deactivate the "by coverage" and "by subject" navigations
+- Create a new "ReadWriteWithoutRemove" permission and show it into the UI.
 </section>
 
 <section class="slide" id="xml-contribs-concepts">
@@ -82,9 +80,9 @@ In application of these new rules, you are requested to simplify the user interf
 <ul><li> Go to <a href="http://explorer.nuxeo.org" target="_blank">explorer.nuxeo.org</a> </li>
     <li> Select your platform version</li>
     <li> Go to the extension points</li>
-    <li> Retrieve the component name (the long one)</li>
-    <li> Search for its extension points</li>
-    <li> Look at the extension point XML source</li>
+    <li> Search for a relevant term</li>
+    <li> Look at the proposed extension points, each has its documentation</li>
+    <li> Look at the existing contributions to see the default behavior</li>
 </div>
 
 <div class="split-box split-63">
@@ -94,29 +92,24 @@ In application of these new rules, you are requested to simplify the user interf
 </div>
 </section>
 
-<section class="slide" id="xml-contribs-example">
-### XML extensions
-#### How does it work? (2/2)
-In studio, go to the <code>Advanced settings > XML extensions</code> menu and add your XML code
-<pre><code>&lt;extension target="org.nuxeo.ecm.webapp.directory.DirectoryTreeService"
-  point="trees">
-  &lt;directoryTree name="bySubjectsNavigation" enabled="false" />
-  &lt;directoryTree name="byCoverageNavigation" enabled="false" />
-&lt;/extension>
-</code></pre>
-
-- Target is the component name
-- Point is the extension point
-</section>
-
 <section class="slide exercise" id="xml-contribs-exercise">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice
-#### XML extensions
-- Create an XML extension to deactivate the "by coverage" and "by subject" navigations
-- Commit and deploy your changes
-- Check that these navigations have been removed
+<blockquote>Create a new permission "ReadWriteWithoutRemove" and show it into the UI</blockquote>
+
+#### Check for the existing
+- Look for the <code>permission</code> keyword in the existing extension points
+- Have a look at what the <code>securityService</code> offers
+- Check the existing XML contributions built into Nuxeo core
+
+#### Build your own permission
+- Create some XML for a new permission containing the following permissions:
+  - <code>Read</code>
+  - All permissions included into the <code>Write</code> permission except the <code>Remove</code> permission
+  
+#### Show it into the UI
+- Create some XML to show your new permission into the UI, just before the <code>Write</code> permission
 </section>
 
 <section class="slide" id="questions-xml-contribs">
