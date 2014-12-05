@@ -64,7 +64,7 @@ Let's see how we can deal with it.
 </section>
 
 <section class="slide" id="validators-concepts">
-### Seam beans
+### Seam Beans
 #### Concepts
 - JSF only generates static html
 - Seam beans are used in JSF templates to call server side logic from the UI:
@@ -73,10 +73,28 @@ Let's see how we can deal with it.
 </section>
 
 <section class="slide" id="beans-annotations">
-### Seam beans
+### Seam Beans
 #### Annotations
-- The <code>@name(<span style="font-weight:bold;">myBeanName</span>)</code> used before the class declaration defines the bean name, called in <code>#{<span style="font-weight:bold;">myBeanName</span>.property}</code>
+##### @Name
+- The <code>@Name(<span style="font-weight:bold;">myBeanName</span>)</code> used before the class declaration defines the bean name, called in <code>#{<span style="font-weight:bold;">myBeanName</span>.property}</code>
+
+##### @Scope
+- Seam beans are instanciated for every user
+- Beans are destroyed depending on their scope (<code>@Scope</code> annotation) 
+  - <code>Stateless</code>: destroyed immediately 
+  - <code>Event</code>: one call
+  - <code>Page</code>: all calls within a page
+  - <code>Conversation</code>: destroyed by the developer
+  - <code>Session</code>: destroyed at user logout
+  - <code>Application</code>: shared by all users
+</section>
+
+<section class="slide" id="beans-annotations-in">
+### Seam Beans
+#### Annotations
+##### @In
 - The <code>@In</code> allows to inject elements into the context
+- Keep the variable name as shown here!
 
 #### Inject these to...
 ##### Get the CoreSession
@@ -110,32 +128,20 @@ Let's see how we can deal with it.
 </code>
 </section>
 
-<section class="slide" id="beans-scope">
-### Seam beans 
-#### Scope
-- Seam beans are instanciated for every user
-- Beans are destroyed depending on their scope (<code>@scope</code> annotation) 
-  - <code>Stateless</code>: destroyed immediately 
-  - <code>Event</code>: one call
-  - <code>Page</code>: all calls within a page
-  - <code>Conversation</code>: destroyed by the developer
-  - <code>Session</code>: destroyed at user logout
-  - <code>Application</code>: shared by all users
-
+<section class="slide" id="beans-deployment">
+### Seam Beans
 #### Deploying your beans
 - Beans are deployed only if Seam finds a <code>seam.properties</code> file in the <code>src/main/resources</code> folder
 - Leave the file empty, no need to fill it !
 </section>
 
 <section class="slide" id="beans-example">
-### Seam beans 
+### Seam Beans 
 #### Example
 <pre><code>@Name("example")
 @Scope(ScopeType.EVENT)
 public class ExampleBean implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     private static final Log log = LogFactory.getLog(ExampleBean.class);
 
     // A specific String property
@@ -155,7 +161,6 @@ public class ExampleBean implements Serializable {
     public void setTextProperty(String theTextParameter) {
       textProperty = theTextParameter;
     }
-
 }
 </code></pre>
 </section>
@@ -164,7 +169,7 @@ public class ExampleBean implements Serializable {
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
       class="exercise-icon">
 ### Practice
-#### Seam beans
+#### Seam Beans
 ##### Create your bean
 - Create a Seam bean including a method that returns the number of children of a document
 - Create a JSF template to call this method and display the result
@@ -229,7 +234,7 @@ public class ExampleBean implements Serializable {
 #### Errors in the validators:
 
 ##### Bean name
-The validator doesn't have a name defined with the <code>@name</code> annotation
+The validator doesn't have a name defined with the <code>@Name</code> annotation
 
 ##### Bean scope
 Scope is incorrect, it shouldn't be <code>APPLICATION</code> but rather <code>STATELESS</code>
