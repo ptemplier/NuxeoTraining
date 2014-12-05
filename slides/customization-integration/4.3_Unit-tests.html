@@ -207,20 +207,32 @@ Bundle-ManifestVersion: 2
 <section class="slide" id="creating-document">
 ### API basics
 #### Creating a document
-<code>DocumentModel <strong>coreSession.createDocumentModel</strong>(String parentPath, String id, String typeName)</code><br />
+<code>DocumentModel doc = <strong>coreSession.createDocumentModel</strong>(parentPath, id, typeName);</code><br />
 Creates the DocumentModel object.
 <div class="further-info">This method calls the EmptyDocumentCreated event we have seen previously in Studio.</div>
 
-<code>DocumentModel <strong>coreSession.createDocument</strong>(DocumentModel model)</code><br />
+<code>doc.setPropertyValue(String xpath, Serializable value);</code><br />
+Set a metadata using its xpath (schemaprefix:metadata)
+
+<code>doc = <strong>coreSession.createDocument</strong>(doc);</code><br />
 Create the document in the repository.
 <div class="further-info">This method calls both AboutToCreate and DocumentCreated events.</div>
 
-<code>void <strong>coreSession.save</strong>()</code><br />
+<code><strong>coreSession.save</strong>();</code><br />
 Flushes the information.
 
-<pre><code>DocumentModel <strong>doc = coreSession.createDocumentModel</strong>("/", "myDocName", "File");
+<pre><code>// Create document in memory
+DocumentModel <strong>doc = coreSession.createDocumentModel</strong>("/", "myDocName", "File");
+
+// Set some metadata values
+<strong>doc.setPropertyValue</strong>("dc:title", "No coffee, no code");
+<strong>doc.setPropertyValue</strong>("dc:description", "Understood ?");
+
+// Save in database
 <strong>doc = coreSession.createDocument</strong>(doc);
-<strong>coreSession.save</strong>()</code></pre>
+
+// Flush
+<strong>coreSession.save</strong>();</code></pre>
 
 Make sure you put your doc in a variable to get it updated ! Events will be called by these methods.
 </section>
@@ -228,34 +240,37 @@ Make sure you put your doc in a variable to get it updated ! Events will be call
 <section class="slide" id="fetching-document">
 ### API basics
 #### Fetching a document
-<code>DocumentModel <strong>coreSession.getDocument</strong>(DocumentRef docRef)</code><br />
+<code>DocumentModel doc = <strong>coreSession.getDocument</strong>(docRef);</code><br />
 
 #### 3 ways to get a DocumentRef from a document
-- From its ref: <code>DocumentRef docRef = doc.getRef();</code>
-- From its id: <code>docRef = new IdRef(doc.getId());</code>
-- From its path: <code>docRef = new PathRef(doc.getPathAsString());</code>
+- <strong>Ref</strong>: <code>DocumentRef docRef = <strong>doc.getRef()</strong>;</code>
+- <strong>Id</strong>: <code>DocumentRef idRef = <strong>new IdRef(doc.getId())</strong>;</code>
+- <strong>Path</strong>: <code>DocumentRef pathRef = <strong>new PathRef(doc.getPathAsString())</strong>;</code>
 
 #### Getting a metadata
-<code>Serializable <strong>doc.getPropertyValue</strong>(String xpath)</code><br />
+<code>Serializable docMetadata = <strong>doc.getPropertyValue</strong>(String xpath);</code><br />
 
-<pre><code><strong>doc = coreSession.getDocument</strong>(doc.getRef());
-<strong>doc.getPropertyValue</strong>("dc:title");
+<pre><code><strong>// Get a document</strong>
+doc = <strong>coreSession.getDocument</strong>(doc.getRef());
+
+<strong>// Get the title and description</strong>
+String docTitle= <strong>doc.getTitle</strong>();
+String docDescription = <strong>doc.getPropertyValue</strong>("dc:description");
 </section>
 
 <section class="slide" id="updating-document">
 ### API basics
 #### Updating a document
-<code>DocumentModel saveDocument(DocumentModel docModel)</code><br />
+<code>DocumentModel doc = saveDocument(doc);</code><br />
 Save a doc from its model.
 <div class="further-info">This method calls beforeDocumentModification and documentModified events.</div>
 
-#### DocumentModel
-<code>void setPropertyValue(String xpath, Serializable value)</code><br />
-Update a metadata using its xpath (schema:metadata)
+<code>doc.setPropertyValue(String xpath, Serializable value);</code><br />
+Update a metadata using its xpath (schemaprefix:metadata)
 
 <pre><code><strong>doc.setPropertyValue</strong>("dc:title", "My new title");
 <strong>doc = coreSession.saveDocument</strong>(doc);
-<strong>coreSession.save()</strong></code></pre>
+<strong>coreSession.save</strong>();</code></pre>
 </section>
 
 <section class="slide exercise" id="exercise-ide-doc-creation">
