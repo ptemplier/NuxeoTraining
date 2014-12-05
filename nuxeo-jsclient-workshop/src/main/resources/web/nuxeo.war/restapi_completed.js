@@ -1,10 +1,10 @@
 var RestAPI = {};
 
-////////////////////////////// EXERCISE 1 - NUXEO JS CONFIGURATION
+// //////////////////////////// EXERCISE 1 - NUXEO JS CONFIGURATION
 
 // Configure Nuxeo Client
 RestAPI.config = function () {
-  //Instantiate Nuxeo Client below
+  // Instantiate Nuxeo Client below
   var client = new nuxeo.Client({
   baseURL: 'http://localhost:8080/nuxeo',
   username: 'Administrator',
@@ -18,7 +18,7 @@ RestAPI.config = function () {
   return client;
 }
 
-////////////////////////////// EXERCISE 2 - CURRENT USER
+// //////////////////////////// EXERCISE 2 - CURRENT USER
 
 // Use a GET request to get the user: Administrator
 // You can use the client using this.client.doSomething
@@ -27,16 +27,20 @@ RestAPI.getCurrentUser = function () {
   this.client.request('user/Administrator').get(callbackCurrentUser);
 }
 
-////////////////////////////// EXERCISE 3 - EXECUTE QUERY
+// ////////////////////////////EXERCISE 3 - EXECUTE QUERY
 
-// Use a GET request to execute the query typed 
-// Make sure to include the query parameter in the called URL
+// Use a GET request to execute the query typed
+// Make sure to include the NXQLQuery parameter in the called URL
+// Hint: to do that you will need to build a request var, 
+// and add it your parameter afterwards as a JSON object
 // Callback: callbackQuery
 RestAPI.executeQuery = function (NXQLQuery) {
-  this.client.request('query').query(NXQLQuery).get(callbackQuery);
+  var request = this.client.request('query/');
+  request.query({"query": NXQLQuery});
+  request.get(callbackQuery);
 }
 
-////////////////////////////// EXERCISE 4 - DISPLAY WORKSPACE CHILDREN
+// //////////////////////////// EXERCISE 4 - DISPLAY WORKSPACE CHILDREN
 
 // Use the high level document API to get the "documentRoot" children
 // Callback: callbackRootChildren
@@ -46,17 +50,18 @@ RestAPI.getRootChildren = function () {
 }
 
 
-////////////////////////////// EXERCISE 5 - DISPLAY DOCUMENT PROPERTIES
+// //////////////////////////// EXERCISE 5 - DISPLAY DOCUMENT PROPERTIES
 
-// Use the high level document API to get a document using its id 
+// Use the high level document API to get a document using its id
 // Callback: callbackFetchDocument
 RestAPI.fetchDocument = function (id) {
   this.client.document(id).fetch(callbackFetchDocument);
-  //this.client.document(id).schemas(["common","dublincore"]).fetch(callbackFetchDocument);
-  //this.client.document(id).header('X-NXContext-Category', 'acls').fetch(callbackFetchDocument);
+  // this.client.document(id).schemas(["common","dublincore"]).fetch(callbackFetchDocument);
+  // this.client.document(id).header('X-NXContext-Category',
+  // 'acls').fetch(callbackFetchDocument);
 }
 
-////////////////////////////// EXERCISE 6 - UPDATE DOCUMENT
+// //////////////////////////// EXERCISE 6 - UPDATE DOCUMENT
 
 // Use the high level document API to update the current document
 // And save it afterwards
@@ -65,7 +70,7 @@ RestAPI.updateDocument = function (map) {
   this.currentDocument.set(map).save(callbackUpdateDocument)
 }
 
-////////////////////////////// EXERCISE 7 - CREATE DOCUMENT
+// //////////////////////////// EXERCISE 7 - CREATE DOCUMENT
 
 // Use the high level document API to create a document
 // Form data can be accessed through map["schema-prefix:metadata"]
@@ -86,7 +91,7 @@ RestAPI.createDocument = function (map) {
     }, callbackCreateDocument);
 }
 
-////////////////////////////// EXERCISE 8 - DELETE DOCUMENT
+// //////////////////////////// EXERCISE 8 - DELETE DOCUMENT
 
 // Use the high level document API to delete the current document
 // Callback: callbackDeleteDocument
@@ -94,7 +99,7 @@ RestAPI.deleteDocument = function () {
   this.currentDocument.delete(callbackDeleteDocument);
 }
 
-////////////////////////////// EXERCISE 9 - FILE IMPORT
+// //////////////////////////// EXERCISE 9 - FILE IMPORT
 
 // Use the uploader API to import a file
 // Operation to call: FileManager.Import (Create document from file)
@@ -107,7 +112,7 @@ RestAPI.importFile = function (file) {
   });
 }
 
-////////////////////////////// EXERCISE 10 - ATTACH BLOB
+// //////////////////////////// EXERCISE 10 - ATTACH BLOB
 
 // Use the uploader API to attach a file in an existing document
 // File is to be saved into the "file:content" xpath
@@ -122,11 +127,12 @@ RestAPI.attachBlob = function (file) {
   });
 }
 
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////// DO NOT EDIT THE CODE BELOW //////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////// DO NOT EDIT THE CODE BELOW
+// //////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////
 
 function callbackCreateDocument(error, file) {
   if (error) {
@@ -287,7 +293,7 @@ function toggle() {
 
 $(document)
   .ready(function () {
-    //Build Nuxeo Client
+    // Build Nuxeo Client
     RestAPI.client = RestAPI.config();
 
     // Call and display default domain children
@@ -343,8 +349,9 @@ $(document)
   }
 )
 ;
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////// DO NOT EDIT THE CODE ABOVE //////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////// DO NOT EDIT THE CODE ABOVE
+// //////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////////////

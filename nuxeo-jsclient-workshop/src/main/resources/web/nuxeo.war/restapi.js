@@ -24,8 +24,10 @@ RestAPI.getCurrentUser = function () {
 
 ////////////////////////////// EXERCISE 3 - EXECUTE QUERY
 
-// Use a GET request to execute the query typed 
-// Make sure to include the query parameter in the called URL
+// Use a GET request to execute the query typed
+// Make sure to include the NXQLQuery parameter in the called URL
+// Hint: to do that you will need to build a request var, 
+// and add it your parameter afterwards as a JSON object
 // Callback: callbackQuery
 RestAPI.executeQuery = function (NXQLQuery) {
   
