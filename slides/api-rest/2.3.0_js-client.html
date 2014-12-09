@@ -134,32 +134,22 @@ These properties can be set for each request as well !
 ##Questions?
 </section>
 
-<section class="slide" id="js-client-resources">
+<section class="slide" id="js-client-document-api">
 ### JavaScript Client
-#### Calling ressources
-##### GET
-<pre><code>client.request('path/default-domain').get(callbackSampleFunction);</code></pre>
+#### High Level Document API
+##### Retrieve a Document
+<pre><code>client.document(docId).fetch(callbackSampleFunction);</code></pre>
 
-##### POST
-<pre><code>var requestOptions = <strong>{</strong> 
-  data: <strong>{</strong>
-    "entity-type": "directoryEntry",
-    "directoryName": "subject",
-    "properties": <strong>{</strong> "id": "myCustomEntryId", 
-                    "obsolete": 0, 
-                    "ordering": 100, 
-                    "label": "myCustomEntryLabel" <strong>}</strong>
-  <strong>}</strong>
-<strong>}</strong>;
-client.request('directory/subject').post(requestOptions, callbackSampleFunction);</code></pre>
+Can be combined with other options !
+<pre><code>var doc = client.document(docId);
+doc.schemas(["common","dublincore"]);
+doc.header('X-NXContext-Category', 'acls');
+doc.fetch(callbackSampleFunction);</code></pre>
 
-##### Callback
-<pre><code>function callbackSampleFunction(error, data) {
-  if (error) {
-    throw error;
-  }
-  console.log("All OK");
-}</code></pre>
+<br />
+##### Update a Document
+<pre><code>var metadataEntries = { "dc:title": "My Title", "dc:description": "This space for rent" }; 
+this.currentDocument.set(metadataEntries).save(callbackSampleFunction);</code></pre>
 </section>
 
 <section class="slide exercise" id="exercise-js-client2">
