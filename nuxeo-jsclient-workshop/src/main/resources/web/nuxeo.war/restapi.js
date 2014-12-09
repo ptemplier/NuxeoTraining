@@ -65,6 +65,11 @@ RestAPI.updateDocument = function (map) {
 // Use the high level document API to create a document
 // Form data can be accessed through map["schema-prefix:metadata"]
 // e.g.: map["dc:title"]
+// Form fields:
+// dc:title
+// dc:description
+// dc:language
+// dc:nature
 // Callback: callbackCreateDocument
 var creationRoot = "/default-domain/workspaces/Meetings";
 RestAPI.createDocument = function (map) {
@@ -83,6 +88,7 @@ RestAPI.deleteDocument = function () {
 
 // Use the uploader API to import a file
 // Operation to call: FileManager.Import (Create document from file)
+// Also see http://doc.nuxeo.com/x/IYwZAQ to customize the document type created
 // Callback: callbackImportFile
 var importRoot = "/default-domain/workspaces/Meetings";
 RestAPI.importFile = function (file) {
