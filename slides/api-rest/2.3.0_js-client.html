@@ -152,14 +152,51 @@ doc.fetch(callbackSampleFunction);</code></pre>
 this.currentDocument.set(metadataEntries).save(callbackSampleFunction);</code></pre>
 </section>
 
-<section class="slide exercise" id="exercise-js-client2">
+<section class="slide exercise" id="exercise-js-client-fetch-update">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
     class="exercise-icon">
 ### Practice
 <blockquote>Use the JavaScript client to implement an interface for basic document management</blockquote>
 - Open [our custom interface](http://localhost:8080/nuxeo/restapi.html)
 - Using a file explorer, go to your server, <strong>nxserver/nuxeo.war</strong> folder
-- Edit the <strong>restapi.js</strong> file to complete exercises 4 to 8
+- Edit the <strong>restapi.js</strong> file to complete exercises 4 to 6
+- Reload the interface when exercises are finished to see your result
+</section>
+
+<section class="slide" id="questions-exercise-js-client-fetch-update">
+##Questions?
+</section>
+
+<section class="slide" id="js-client-document-api-create-delete">
+### JavaScript Client
+#### High Level Document API
+##### Create a Document
+<pre><code>var parentDocPath = "/default-domain/workspaces/myWorkspace";
+var doc = {
+  type: 'File',
+  name: 'myFile',
+  properties: {
+    "dc:title": "Will Code For Beer",
+    "dc:description": "Or maybe not, actually"
+  }
+}
+
+this.client.document(parentDocPath).create(doc, callbackSampleFunction);</code></pre>
+
+<br />
+##### Delete a Document
+<pre><code>var doc = client.document("/default-domain/workspaces/myWorkspace/myFile");
+doc.delete(callbackSampleFunction);</code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-js-client-create-delete">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+<blockquote>Use the JavaScript client to implement an interface for basic document management</blockquote>
+- Open [our custom interface](http://localhost:8080/nuxeo/restapi.html)
+- Using a file explorer, go to your server, <strong>nxserver/nuxeo.war</strong> folder
+- Edit the <strong>restapi.js</strong> file to complete exercises 7 and 8
 - Reload the interface when exercises are finished to see your result
 </section>
 
