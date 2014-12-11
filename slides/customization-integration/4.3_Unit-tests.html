@@ -152,7 +152,7 @@ Bundle-ManifestVersion: 2
 ### Using test methods
 - Every test method needs to be annotated with <code>@Test</code>
 - Your method should contain one or more <code>assertions</code>
-- To declare an assertion, use JUnit's <code>assert...</code> methods, ex: <code>assertNotNull(MyObject)</code>
+- To declare an assertion, use JUnit's <code>Assert.assert...</code> methods, ex: <code>assertNotNull(MyObject)</code>
 </section>
 
 <section class="slide exercise" id="exercise-unit-test-feature">
@@ -211,7 +211,7 @@ Bundle-ManifestVersion: 2
 Creates the DocumentModel object.
 <div class="further-info">This method calls the EmptyDocumentCreated event we have seen previously in Studio.</div>
 
-<code>doc.setPropertyValue(String xpath, Serializable value);</code><br />
+<code>doc.setPropertyValue(xpath, value);</code><br />
 Set a metadata using its xpath (schemaprefix:metadata)
 
 <code>doc = <strong>coreSession.createDocument</strong>(doc);</code><br />
@@ -244,11 +244,11 @@ Make sure you put your doc in a variable to get it updated ! Events will be call
 
 #### 3 ways to get a DocumentRef from a document
 - <strong>Ref</strong>: <code>DocumentRef docRef = <strong>doc.getRef()</strong>;</code>
-- <strong>Id</strong>: <code>DocumentRef idRef = <strong>new IdRef(doc.getId())</strong>;</code>
-- <strong>Path</strong>: <code>DocumentRef pathRef = <strong>new PathRef(doc.getPathAsString())</strong>;</code>
+- <strong>Id</strong>: <code>DocumentRef idRef = <strong>new IdRef("someDocumentID")</strong>;</code>
+- <strong>Path</strong>: <code>DocumentRef pathRef = <strong>new PathRef("someDocumentPath")</strong>;</code>
 
 #### Getting a metadata
-<code>Serializable docMetadata = <strong>doc.getPropertyValue</strong>(String xpath);</code><br />
+<code>Serializable docMetadata = <strong>doc.getPropertyValue</strong>(xpath);</code><br />
 
 <pre><code><strong>// Get a document</strong>
 doc = <strong>coreSession.getDocument</strong>(doc.getRef());
@@ -263,7 +263,6 @@ String docDescription = <strong>doc.getPropertyValue</strong>("dc:description");
 #### Updating a document
 <code>DocumentModel doc = saveDocument(doc);</code><br />
 Save a doc from its model.
-<div class="further-info">This method calls beforeDocumentModification and documentModified events.</div>
 
 <code>doc.setPropertyValue(String xpath, Serializable value);</code><br />
 Update a metadata using its xpath (schemaprefix:metadata)
@@ -271,11 +270,12 @@ Update a metadata using its xpath (schemaprefix:metadata)
 <pre><code><strong>doc.setPropertyValue</strong>("dc:title", "My new title");
 <strong>doc = coreSession.saveDocument</strong>(doc);
 <strong>coreSession.save</strong>();</code></pre>
+
 </section>
 
 <section class="slide exercise" id="exercise-ide-doc-creation">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
+      class="exercise-icon" />
 ### Practice - Nuxeo IDE
 #### Document creation and modification
 - Deploy your Nuxeo Studio bundle (In Studio, bundle symbolicname is in the Settings and versioning > project settings menu > manifest tab)
