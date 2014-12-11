@@ -204,6 +204,43 @@ doc.delete(callbackSampleFunction);</code></pre>
 ##Questions?
 </section>
 
+<section class="slide" id="js-client-uploader-file-import-attach">
+### JavaScript Client
+#### Uploader API
+##### Import a File
+<pre><code>var parentDocPath = "/default-domain/workspaces/myWorkspace";
+var uploader = client.operation("FileManager.Import").context({ currentDocument: parentDocPath }).uploader();
+uploader.uploadFile(file, function () {
+  uploader.execute(callbackSampleFunction);
+});</code></pre>
+
+<br />
+##### Attach a File To a Document
+<pre><code>var docUid = "a-doc-id";
+<strong>// Define what to do when file will be uploaded</strong>
+var uploader = client.operation("Blob.Attach").params({ document: docUid, save: true, xpath: "file:content"}).uploader();
+<strong>// Upload file</strong>
+uploader.uploadFile(file, function () {
+  <strong>// When upload is finished, launch what was defined, then a callback</strong>
+  uploader.execute(callbackSampleFunction); 
+});</code></pre>
+</section>
+
+<section class="slide exercise" id="exercise-js-client-file-import-attach">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+    class="exercise-icon">
+### Practice
+<blockquote>Use the JavaScript client to implement an interface for basic document management</blockquote>
+- Open [our custom interface](http://localhost:8080/nuxeo/restapi.html)
+- Using a file explorer, go to your server, <strong>nxserver/nuxeo.war</strong> folder
+- Edit the <strong>restapi.js</strong> file to complete exercises 9 and 10
+- Reload the interface when exercises are finished to see your result
+</section>
+
+<section class="slide" id="questions-exercise-js-client-file-import-attach">
+##Questions?
+</section>
+
 <section class="slide" id="next">
 ### Next?
 - [Back to the training agenda](0.0.1_Agenda.html)
