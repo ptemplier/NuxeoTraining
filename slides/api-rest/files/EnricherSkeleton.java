@@ -1,4 +1,4 @@
-package org.nuxeo.sample;
+package org.nuxeo.training.myenrichers;
 
 import java.io.IOException;
 

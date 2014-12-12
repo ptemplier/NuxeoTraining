@@ -116,7 +116,7 @@ We could use it to get our own cuztomized objects, and that's exactly what we wi
 Create a content enricher to retrieve the navigation breadcrumbs of a document.
 </p></blockquote>
 #### Setup your environment
-- Create a new Nuxeo plugin project in eclipse, named <code>bestbooksrest</code>
+- Create a new Nuxeo plugin project in eclipse, named <code>myenrichers</code>
  
 #### Code
 - Create a new class named <code>myBreadcrumbEnricher</code>
@@ -148,12 +148,15 @@ But how ?
 - In the src/main/resources/META-INF/manifest.mf file, declare your XML extension:<br />
 <code>Nuxeo-Component: OSGI-INF/extensions/myFile.xml</code>
 
-#### XML extension code
+##### XML extension code
 <pre><code>&lt;extension target="org.nuxeo.ecm.automation.io.services.enricher.ContentEnricherService" point="enricher">
       &lt;enricher name="mybreadcrumb" class="org.nuxeo.sample.MyBreadcrumbEnricher">
         &lt;category>mybc&lt;/category>
       &lt;/enricher>
 &lt;/extension></pre></code>
+
+#### Calling your content enricher
+- Add your category into the <code>X-NXContext-Category</code> header
 </section>
 
 <section class="slide exercise" id="exercise-enrichers-declaration">
@@ -161,7 +164,7 @@ But how ?
       class="exercise-icon">
 ### Practice
 <blockquote><p>
-Declare your content enricher
+Declare and use your content enricher
 </p></blockquote>
 #### Do the declaration
 - Declare your content enricher in Nuxeo Studio 

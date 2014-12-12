@@ -55,12 +55,7 @@
 <section class="slide" id="wherewego-context-unit-tests">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
 <blockquote><p>
-We would like to setup custom operations:<br /><br />
-
-- To check a permission on a document.<br /><br />
-
-- To archive one or several documents.<br />
-This operation should delete proxies (shortcuts), and set as archived the live documents.<br />
+We would like to setup a custom operation to check a permission on a document for a specific user.<br /><br />
 </p></blockquote>
 </section>
 
@@ -155,10 +150,11 @@ Setup a custom operation to check a permission
 </p></blockquote>
 #### Create your operation
 - Create a new operation using the wizard
-- Operation name should be CheckPermission
-- Will take a document as input and custom output (boolean)
+- Operation name should be CheckUserPermission
+- Will take void as input and custom output (boolean)
 - Is **not** iterable
-- Will have two parameters : 
+- Will have three parameters : 
+  - docId (String, required)
   - username (String, required)
   - permission (String, required)
 
@@ -200,6 +196,13 @@ Setup a custom operation to check a permission
 - Using Nuxeo IDE, export your CheckPermission operation
 </section>
 
+<section class="slide" id="next-advanced">
+### What's next ?
+- (Optional) [An operation to archive meetings](#exercise-custom-operation-set-archive)
+- [Back to the training agenda](0.0.1_Agenda.html)
+- [Marketplace Packages](1.3.5_Marketplace-packages.html)
+</section>
+
 <section class="slide exercise" id="exercise-custom-operation-set-archive">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
@@ -223,7 +226,7 @@ Setup a custom operation to archive one or several documents.
 <section class="slide" id="next-advanced">
 ### What's next ?
 - [Back to the training agenda](0.0.1_Agenda.html)
-- [Automation client](2.0.5_Automation-client.html)
+- [Marketplace Packages](1.3.5_Marketplace-packages.html)
 </section>
 
   <!-- deck.navigation snippet -->
