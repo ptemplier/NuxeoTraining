@@ -83,7 +83,7 @@
 <section class="slide" id="deploying-bundles-without-features-runner">
 ### Deploying components
 #### XML contributions
-<code>@LocalDeploy({"bundle.name:/OSGI-INF/file.xml"})</code>
+<code>@Deploy({"bundle.name:/OSGI-INF/file.xml"})</code>
 
 #### Bundles
 <code>@Deploy({"an.existing.bundle","another.one"})</code>
@@ -279,8 +279,7 @@ Update a metadata using its xpath (schemaprefix:metadata)
 ### Practice - Nuxeo IDE
 #### Document creation and modification
 - Deploy your Nuxeo Studio bundle (In Studio, bundle symbolicname is in the Settings and versioning > project settings menu > manifest tab)
-- Deploy the <code>org.nuxeo.ecm.automation.core</code> bundle
-- Inject a <code>CoreSession</code> (make sure you deploy the correct feature !)
+- Inject a <code>CoreSession</code> (make sure you deploy the <code>AutomationFeature</code>)
 
 - Create a unit test named `shouldHaveAPublicationDate()` that:
     - Creates a `Book` document located in the root directory
@@ -307,9 +306,7 @@ OperationContext ctx = new OperationContext();
 ctx.setCoreSession(session);
 ctx.setInput(myInputDocument);
 automationService.run(ctx, "chainId");</code></pre>
-      </li>
-    </ul>
-  </section>
+</section>
 
 <section class="slide exercise" id="exercise-ide-automation">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
