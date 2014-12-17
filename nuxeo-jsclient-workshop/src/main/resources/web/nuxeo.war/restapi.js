@@ -51,28 +51,42 @@ RestAPI.fetchDocument = function (id) {
   
 }
 
-////////////////////////////// EXERCISE 6 - UPDATE DOCUMENT
+//  //////////////////////////// EXERCISE 6 - CREATE DOCUMENT
 
-// Use the high level document API to update the current document
-// And save it afterwards
-// Callback: callbackUpdateDocument
-RestAPI.updateDocument = function (map) {
-  
+//  Use the high level document API to create a document
+//
+//  Form data can be accessed through map["schema-prefix:metadata"]
+//  e.g.: map["dc:title"]
+//  Form fields:
+//  dc:title
+//  meeting:participants
+//  meeting:publisherFirstName
+//  meeting:publisherLastName
+//
+//  Make sure to split the participants properly:
+//  myString.replace(/ /g, '');
+//  myString.split(',');
+//
+//  Callback: callbackCreateDocument
+var creationRoot = "/default-domain/workspaces/Meetings";
+var xpathParticipants = "meeting:participants";
+var xpathPublisherFirstName = "meeting:meetingPublisher/firstName";
+var xpathPublisherLastName = "meeting:meetingPublisher/lastName";
+RestAPI.createDocument = function (map) {
+
 }
 
-////////////////////////////// EXERCISE 7 - CREATE DOCUMENT
+////////////////////////////// EXERCISE 7 - UPDATE DOCUMENT
 
-// Use the high level document API to create a document
-// Form data can be accessed through map["schema-prefix:metadata"]
-// e.g.: map["dc:title"]
-// Form fields:
-// dc:title
-// dc:description
-// dc:language
-// dc:nature
-// Callback: callbackCreateDocument
-var creationRoot = "/default-domain/workspaces/Meetings";
-RestAPI.createDocument = function (map) {
+//  Use the high level document API to update the current document
+//  And save it afterwards
+//
+//  Make sure to split the participants properly:
+//  myString.replace(/ /g, '');
+//  myString.split(',');
+//
+//  Callback: callbackUpdateDocument
+RestAPI.updateDocument = function (map) {
   
 }
 

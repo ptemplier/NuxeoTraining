@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -125,18 +125,17 @@
             <h2>Description: {{dc:description}}</h2>
             <h4>Creator: {{dc:creator}}</h4>
             <h4>Creation Date: {{dc:created}}</h4>
-            <h4>Language: {{dc:language}}</h4>
-            <h4>Nature: {{dc:nature}}</h4>
             {{#file:content}}<h4>Main file: <a href="{{data}}">{{name}}</a>{{/file:content}}</h4>
         {{/doc.properties}}
         <h4>State: {{doc.state}}</h4>
         <h4>Version: {{doc.versionLabel}}</h4>
         <h4>Path:</h4> <pre> {{doc.path}}</pre>
         {{#doc.properties}}
-            <h4>Icon: {{common:icon}}</h4>
+            <h4>Participants: {{meeting:participants}}</h4>
+            <h4>Meeting publisher: {{meeting:publisherFirstName}} {{meeting:publisherLastName}}</h4>
         {{/doc.properties}}
-        <h4>Rights:</h4>
         {{#ace}}
+            <h4>Rights:</h4>
             <ul>
                 <li>Granted: {{granted}}</li>
                 <li>Username: {{username}}</li>
@@ -172,22 +171,22 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label>Description:</label>
-                    <input type="text" name="dc:description" value="{{dc:description}}"/>
+                    <label>Participants:</label>
+                    <input type="text" name="meeting:participants" value="{{meeting:participants}}"/>
+                    <div class="ui pointing label">
+                        User1, User2...
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Publisher first name:</label>
+                    <input type="text" name="meeting:publisherFirstName" value="{{meeting:publisherFirstName}}"/>
                     <div class="ui pointing label">
                         Please enter a value
                     </div>
                 </div>
                 <div class="field">
-                    <label>Language:</label>
-                    <input type="text" name="dc:language" value="{{dc:language}}"/>
-                    <div class="ui pointing label">
-                        Please enter a value
-                    </div>
-                </div>
-                <div class="field">
-                    <label>Nature:</label>
-                    <input type="text" name="dc:nature" value="{{dc:nature}}"/>
+                    <label>Publisher last name:</label>
+                    <input type="text" name="meeting:publisherLastName" value="{{meeting:publisherLastName}}"/>
                     <div class="ui pointing label">
                         Please enter a value
                     </div>
@@ -268,34 +267,34 @@
         <div class="content">
             <div id="createDocForm" class="ui form segment">
                 <div class="two fields">
-                    <div class="field">
-                        <label>Title:</label>
-                        <input type="text" name="dc:title" value=""/>
-                        <div class="ui pointing label">
-                            Please enter a value
-                        </div>
+                  <div class="field">
+                    <label>Title:</label>
+                    <input type="text" name="dc:title" value=""/>
+                    <div class="ui pointing label">
+                        Please enter a value
                     </div>
-                    <div class="field">
-                        <label>Description:</label>
-                        <input type="text" name="dc:description" value=""/>
-                        <div class="ui pointing label">
-                            Please enter a value
-                        </div>
+                  </div>
+                  <div class="field">
+                    <label>Participants:</label>
+                    <input type="text" name="meeting:participants" value=""/>
+                    <div class="ui pointing label">
+                        User1, User2...
                     </div>
-                    <div class="field">
-                        <label>Language:</label>
-                        <input type="text" name="dc:language" value=""/>
-                        <div class="ui pointing label">
-                            Please enter a value
-                        </div>
+                  </div>
+                  <div class="field">
+                    <label>Publisher first name:</label>
+                    <input type="text" name="meeting:publisherFirstName" value=""/>
+                    <div class="ui pointing label">
+                        Please enter a value
                     </div>
-                    <div class="field">
-                        <label>Nature:</label>
-                        <input type="text" name="dc:nature" value=""/>
-                        <div class="ui pointing label">
-                            Please enter a value
-                        </div>
+                  </div>
+                  <div class="field">
+                    <label>Publisher last name:</label>
+                    <input type="text" name="meeting:publisherLastName" value=""/>
+                    <div class="ui pointing label">
+                        Please enter a value
                     </div>
+                  </div>
                 </div>
             </div>
         </div>

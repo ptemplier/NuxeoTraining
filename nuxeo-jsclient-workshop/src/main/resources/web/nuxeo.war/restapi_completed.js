@@ -12,9 +12,9 @@ RestAPI.config = function () {
   });
 
   // Make sure:
-  // - That the client will return the dublincore and file schemas
+  // - That the client will return the dublincore, file, and meeting specific schemas
   // - To return the client afterwards
-  client.schema('dublincore,file');
+  client.schema('dublincore,file,meeting');
   return client;
 }
 
@@ -61,39 +61,58 @@ RestAPI.fetchDocument = function (id) {
   // 'acls').fetch(callbackFetchDocument);
 }
 
-// //////////////////////////// EXERCISE 6 - UPDATE DOCUMENT
-
-// Use the high level document API to update the current document
-// And save it afterwards
-// Callback: callbackUpdateDocument
-RestAPI.updateDocument = function (map) {
-  this.currentDocument.set(map).save(callbackUpdateDocument)
-}
-
-// //////////////////////////// EXERCISE 7 - CREATE DOCUMENT
+// //////////////////////////// EXERCISE 6 - CREATE DOCUMENT
 
 // Use the high level document API to create a document
+//
 // Form data can be accessed through map["schema-prefix:metadata"]
 // e.g.: map["dc:title"]
 // Form fields:
 // dc:title
-// dc:description
-// dc:language
-// dc:nature
+// meeting:participants
+// meeting:publisherFirstName
+// meeting:publisherLastName
+//
+// Make sure to split the participants properly:
+// myString.replace(/ /g, '');
+// myString.split(',');
+//
 // Callback: callbackCreateDocument
 var creationRoot = "/default-domain/workspaces/Meetings";
+var xpathParticipants = "meeting:participants";
+var xpathPublisherFirstName = "meeting:meetingPublisher/firstName";
+var xpathPublisherLastName = "meeting:meetingPublisher/lastName";
 RestAPI.createDocument = function (map) {
+  map["meeting:participants"] = map["meeting:participants"].replace(/ /g, '');
+  map["meeting:participants"] = map["meeting:participants"].split(',');
   this.client.document(creationRoot)
     .create({
-      type: 'File',
+      type: 'Meeting',
       name: map["dc:title"],
       properties: {
         "dc:title": map["dc:title"],
         "dc:description": map["dc:description"],
-        "dc:nature": map["dc:nature"],
-        "dc:language": map["dc:language"]
+        "meeting:participants": map["meeting:participants"],
+        "meeting:meetingPublisher/firstName": map["meeting:publisherFirstName"],
+        "meeting:meetingPublisher/lastName": map["meeting:publisherLastName"]
       }
     }, callbackCreateDocument);
+}
+
+// //////////////////////////// EXERCISE 7 - UPDATE DOCUMENT
+
+// Use the high level document API to update the current document
+// And save it afterwards
+//
+// Make sure to split the participants properly:
+// myString.replace(/ /g, '');
+// myString.split(',');
+//
+// Callback: callbackUpdateDocument
+RestAPI.updateDocument = function (map) {
+  map["meeting:participants"] = map["meeting:participants"].replace(/ /g, '');
+  map["meeting:participants"] = map["meeting:participants"].split(',');
+  this.currentDocument.set(map).save(callbackUpdateDocument);
 }
 
 // //////////////////////////// EXERCISE 8 - DELETE DOCUMENT
@@ -243,6 +262,11 @@ function callbackFetchDocument(error, doc) {
   if (doc.contextParameters.acls != undefined) {
     var ace = doc.contextParameters.acls[0].ace;
   }
+  var arrayPublisherFirstName = xpathPublisherFirstName.split('/');
+  var arrayPublisherLastName = xpathPublisherLastName.split('/');
+  doc.properties['meeting:participants'] = doc.properties[xpathParticipants];
+  doc.properties['meeting:publisherFirstName'] = doc.properties[arrayPublisherFirstName[0]][arrayPublisherFirstName[1]];
+  doc.properties['meeting:publisherLastName'] = doc.properties[arrayPublisherLastName[0]][arrayPublisherLastName[1]];
   console.log('Selecting ' + doc.title);
   var template = $('#displayMetadata').html();
   Mustache.parse(template);
