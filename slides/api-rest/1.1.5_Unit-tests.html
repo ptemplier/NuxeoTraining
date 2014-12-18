@@ -324,6 +324,28 @@ automationService.run(ctx, "chainId");</code></pre>
   - Asserts that the document's lifecycle state is `validated`
 </section>
 
+<!-- 
+<section class="slide exercise" id="exercise-ide-automation2">
+<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
+      class="exercise-icon">
+### Practice - Nuxeo IDE
+#### Testing automation chains
+
+##### Launching the chain
+- Deploy the <code>org.nuxeo.ecm.platform.convert</code> bundle
+- Create a unit test named `shouldBePubishedWithPDFCopy()` that:
+  - Creates a `Meeting` document located in the workspaces root (<code>/default-domain/workspaces/</code>)
+  - Saves the meeting in the repository
+  - Calls the `publishMeeting` chain on the meeting
+    - Make sure you pass the context variable for the target section !
+    
+##### Assertions
+- The published document's lifecycle state should be <code>validated</code>
+- The section in which you published the doc (<code>/default-domain/sections/yourtargetSectionName</code>) should have one child document
+- The published document should have a non null pdf copy metadata
+</section>
+-->
+
 <section class="slide" id="questions-ide-test-automation">
 ## Questions?
 </section>
