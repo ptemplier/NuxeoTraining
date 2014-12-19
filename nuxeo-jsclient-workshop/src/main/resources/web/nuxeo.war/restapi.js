@@ -130,7 +130,7 @@ function callbackCreateDocument(error, file) {
     throwError("Cannot create document -> " + error);
     throw error;
   }
-  console.log('Created ' + file.title + ' file')
+  console.log('Created ' + file.title + ' document')
   location.reload();
 }
 
