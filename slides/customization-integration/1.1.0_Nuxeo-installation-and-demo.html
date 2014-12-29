@@ -73,11 +73,11 @@ According to your options:
 
 - Multi-platform: just unzip
 - Debian or Ubuntu
-  - [http://doc.nuxeo.com/x/94RH](http://doc.nuxeo.com/x/94RH)
-  - `apt-get install nuxeo`
+  - [http://doc.nuxeo.com/x/3oON](http://doc.nuxeo.com/x/3oON)
 - Windows installer
   - Launch .exe file
-  - Let default values
+  - Leave default values
+  - [http://doc.nuxeo.com/x/2YON](http://doc.nuxeo.com/x/2YON)
 </section>
 
 <section class="slide" id="startstop">
@@ -122,7 +122,7 @@ Configures
 - Download Nuxeo SDK from http://community.nuxeo.com/static/releases website
 - Start Nuxeo: nuxeoctl start
 - Connect to
-    -[http://localhost:8080](http://localhost:8080)
+    - [http://localhost:8080](http://localhost:8080)
 - Complete the wizard, including filling the registration form on Connect
     - id/password will be useful for using Nuxeo Studio
 - (Optional) install OpenOffice or LibreOffice + pdftohtml, then restart Nuxeo
@@ -306,6 +306,18 @@ Pre-initialize a workspace structure.
 - Import the <a href="https://github.com/nuxeo/NuxeoTraining/tree/master/slides/customization-integration/files/nuxeo-drive-press-release.odt" target="_blank">nuxeo drive press release</a> into the "Communication service" workspace.
 </section>
 
+<section class="slide" id="DocumentManagement-doc-search">
+## Document management tab - Document search
+</section>
+
+<section class="slide" id="advanced-search">
+###Searching the Nuxeo Platform
+#### Several ways to search the content of the application
+- Quick search, can be accessed from any site page
+- Search tab
+![Advanced search form](img/installation_demo/search-tab.png)
+</section>
+
 <section class="slide" id="DocumentManagement-doc-edition">
 ## Document management tab - Document edition
 </section>
@@ -314,26 +326,6 @@ Pre-initialize a workspace structure.
 ###Editing a document - Document edit tab
 ####Edit the metadata of the document
 ![Edit tab](img/installation_demo/workspace_edit_form.png)
-</section>
-
-<section class="slide" id="DocumentManagement-doc-deletion">
-## Document management tab - Document deletion
-</section>
-
-<section class="slide" id="deletion">
-###Deleting a document
-- Check one or several document(s) from a folder or workspace and hit `delete`
-- Deleted documents are put in the trash
-- Trash is accessible from the `manage` tab, `trash` subtab
-- Deleted documents can be restored or permanently deleted
-</section>
-
-<section class="slide" id="deletion-img">
-###Deleting a document
-#### Content tab: document deletion
-![deletion 001](img/installation_demo/deletion001.png)
-#### Manage tab, trash subtab: restore or permanently delete the document
-![deletion 002](img/installation_demo/deletion002.png)
 </section>
 
 <section class="slide" id="DocumentManagement-doc-versioning">
@@ -390,7 +382,7 @@ Pre-initialize a workspace structure.
 ###Publishing a document - Publication workflow
 #### Built-in publishing workflow
 
-- User with only Read permission on the Section needs approval from section manager to validate the publishing
+- User with Ask For Publishing permission on the Section needs approval from section manager to validate the publishing
 - User with the Write permission on the Section will publish without approval
 - Permission for ability to publish is managed from the section
 
@@ -419,16 +411,25 @@ Pre-initialize a workspace structure.
 - Publish the internal memo into the internal memos section. What can you see?
 </section>
 
-<section class="slide" id="DocumentManagement-doc-search">
-## Document management tab - Document search
+<section class="slide" id="DocumentManagement-doc-deletion">
+## Document management tab - Document deletion
 </section>
 
-<section class="slide" id="advanced-search">
-###Searching the Nuxeo Platform
-#### Several ways to search the content of the application
-- Quick search, can be accessed from any site page
-- Search tab
-![Advanced search form](img/installation_demo/search-tab.png)
+<section class="slide" id="deletion">
+###Deleting a document
+- Check one or several document(s) from a folder or workspace and hit `delete`
+- Deleted documents are put in the trash
+- Trash is accessible from the `manage` tab, `trash` subtab
+- Deleted documents can be restored or permanently deleted
+- Trash deletes the metadata. Orphan files can be deleted from the admin center 
+</section>
+
+<section class="slide" id="deletion-img">
+###Deleting a document
+#### Content tab: document deletion
+![deletion 001](img/installation_demo/deletion001.png)
+#### Manage tab, trash subtab: restore or permanently delete the document
+![deletion 002](img/installation_demo/deletion002.png)
 </section>
 
 <section class="slide" id="DocumentManagement-doc-other-services">
@@ -517,10 +518,10 @@ http://doc.nuxeo.com/x/UYEk
 ###Access rights
 ####Default permissions
 - Read
-- Version (manage versioning + Read)
 - Write (+ Delete + Read)
-- Remove
+- Remove (+ Read)
 - Manage Everything
+- Ask For Publishing (specific to sections)
 
 ####Default user groups
 - Members: includes everyone, have read access by default
@@ -529,7 +530,7 @@ http://doc.nuxeo.com/x/UYEk
 
 ####Access rights priority
 - Local rights have the prority over inherited rights
-- Denied rights have priority over granted rights
+- Access rights are read sequentially. A granted right cannot be denied afterwards.
 
 <div class="further-info">Some permissions are composed of sub permissions. See http://explorer.nuxeo.org/nuxeo/site/distribution/current/viewExtensionPoint/org.nuxeo.ecm.core.security.SecurityService--permissions for existing permissions.</div>
 </section>
@@ -538,10 +539,18 @@ http://doc.nuxeo.com/x/UYEk
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ###Exercise
-#### Access rights
+#### Workspace Access Rights
 - Block permissions inheritance on the communication service workspace
 - Grant write access to the "communication service" user group on the "communication service" workspace
 - Save your changes
+
+#### Sections Access Rights
+- Grant the <code>communication service group</code> the right to <code>ask for publishing</code> on the <code>Press releases</code> section
+- Grant <code>Jenny</code> the right to <code>validate publishing requests</code> on this section
+- Grant <code>Barbara</code> the right to <code>edit access rights</code> on this section
+
+#### Editing Default Permissions
+- Make sure the <code>members</code> group <code>cannot ask for publishing</code> in any section
 </section>
 
 <section class="slide" id="questions">

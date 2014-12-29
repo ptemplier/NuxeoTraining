@@ -82,7 +82,7 @@
 - Easy deployment of your development on your local server
 - Allows to launch the server in debug mode
 
-<a href="http://doc.nuxeo.com/x/monZ">http://doc.nuxeo.com/x/monZ</a>
+<a href="http://doc.nuxeo.com/x/DhU5AQ">http://doc.nuxeo.com/x/DhU5AQ</a>
 </section>
 
 <section class="slide exercise" id="exercise-connect-ide-studio">
@@ -112,7 +112,7 @@ Now that your connect account is linked, let's start a project!
 - On top of your screen search for the Nuxeo wizard's NX icon <img alt="NX icon" src="img/development_environment/eclipse-nx-icon.png" style="display:inline; margin-top:5px; vertical-align:top;" />
 - Choose Nuxeo plugin project
 - Fill in the necessary information:
-    - Project id: `best-books`
+    - Project id: `bestbooks`
     - Root package: `org.nuxeo.training.bestbooks`
 - Click on `next`, then `finish`
 </section>
@@ -121,6 +121,8 @@ Now that your connect account is linked, let's start a project!
     <h3>Project structure</h3>
       <div class="split-box split-50">
     <ul>
+        <li> src/test/java: JUnit tests</li>
+        <li> src/test/resources: JUnit tests associated resources</li>
         <li> src/main/java: Java files and packages</li>
         <li> src/main/resources: Resource files</li>
             <ul>
@@ -128,7 +130,7 @@ Now that your connect account is linked, let's start a project!
                 <li>OSGI-INF/extensions: Lists components to deploy, and allows to express dependencies between them</li>
                 <li>OSGI-INF/deployment-fragment.xml: Contains bundle installation instructions, including bundle's dependencies</li>
             </ul>
-        <li> src/test/java: Junit tests</li>
+        <li>pom.xml: Maven configuration file</li>
     </ul>
     </div>
   <div class="split-box split-50"><img src="img/development_environment/eclipse-project-structure.png" alt="image" /></div>
@@ -190,7 +192,7 @@ Now that your connect account is linked, let's start a project!
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
 ### Practice - Nuxeo IDE
-#### Studio / IDE / platform interaction
+#### Studio / IDE / Platform interaction
 ##### In Nuxeo studio
 - Change the logo in your branding with the <a href="https://github.com/nuxeo/NuxeoTraining/blob/master/slides/customization-integration/files/bestBooksLogoIDE.png" target="_blank">Nuxeo IDE best books logo</a>
 

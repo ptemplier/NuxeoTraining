@@ -77,17 +77,18 @@ Nuxeo - Technical overview
 ###Bundles
 - 1 bundle = 1 Nuxeo plugin
 - located in <code>nxserver/bundles</code> as jar files
-- extension mechanism: Extension point (xml files)
 - loaded by Nuxeo Runtime
 - more than 200 plugins in Nuxeo CAP
 </section>
 
+<section class="slide" id="nuxeo-runtime-schema">
+###Bundles Deployment Mechanism
+<img alt="bundles deployment mechanism" src="img/technical_overview/xp-mechanism-1.png" />
+</section>
+
 <section class="slide" id="extension-points">
 ###Extension points
-#### What are they used for?
-- To configure services and components (XML contributions)
-- To extend services and components (Java code or scripting)
-- To dynamically bind components together
+<img alt="bundles deployment mechanism" src="img/technical_overview/xp-mechanism-2.png" class="float-right" />
 
 #### Where and why?
 - Nuxeo Platform uses extension points everywhere
@@ -95,6 +96,10 @@ Nuxeo - Technical overview
 - Makes configuration easy (no need to touch the source code)
 - Allows « clean » contributions easy to maintain (XML)
 - Allows the use of Nuxeo Studio!
+
+#### What are they used for?
+- To configure services and components (XML contributions using Nuxeo Studio)
+- To extend services and components (XML and / or Java code using Nuxeo IDE)
 </section>
 
 <section class="slide" id="administering">
