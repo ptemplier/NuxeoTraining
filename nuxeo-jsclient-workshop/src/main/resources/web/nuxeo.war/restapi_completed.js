@@ -91,7 +91,6 @@ RestAPI.createDocument = function (map) {
       name: map["dc:title"],
       properties: {
         "dc:title": map["dc:title"],
-        "dc:description": map["dc:description"],
         "meeting:participants": map["meeting:participants"],
         "meeting:meetingPublisher/firstName": map["meeting:publisherFirstName"],
         "meeting:meetingPublisher/lastName": map["meeting:publisherLastName"]
@@ -108,8 +107,18 @@ RestAPI.createDocument = function (map) {
 // myString.replace(/ /g, '');
 // myString.split(',');
 //
+// You need to create an object for the meetingPublisher (complex) metadata
+// and put in it the firstName and lastName properties
+// then delete the values from the map using delete map["meeting:publisherFirstName"];
+//
 // Callback: callbackUpdateDocument
 RestAPI.updateDocument = function (map) {
+  map["meeting:meetingPublisher"] = {};
+  map["meeting:meetingPublisher"].firstName = map["meeting:publisherFirstName"];
+  map["meeting:meetingPublisher"].lastName = map["meeting:publisherLastName"];
+  delete map["meeting:publisherFirstName"];
+  delete map["meeting:publisherLastName"];
+  
   map["meeting:participants"] = map["meeting:participants"].replace(/ /g, '');
   map["meeting:participants"] = map["meeting:participants"].split(',');
   this.currentDocument.set(map).save(callbackUpdateDocument);
