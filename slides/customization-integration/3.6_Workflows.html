@@ -413,8 +413,8 @@ Click &lt;a href="${docUrl}"&gt;here&lt;/a&gt; to see the document.</code></pre>
 
 - Retrieve your <code>bookValidationWorkflow</code>
 - In the <code>approbation</code> node, add a <code>reject</code> button
-- When the document is rejected, assign a task to the document's creator (title: <code>correction</code>)
-- The document creator should correct the document and send it back to approval
+- When the document is rejected, assign a task to the workflow initiator (title: <code>correction</code>)
+- The workflow initiator should correct the document and send it back to approval
 - Commit and deploy your changes
 - Create a Book and test you workflow on it !
 </section>
@@ -525,7 +525,8 @@ Now, we still need to implement some business logic in order to publish the docu
 - Found in a node > transitions tab
 
 - - - - - 
-**All chains are executed with administrator privileges during a workflow**
+**All chains are executed with administrator privileges during a workflow**<br />
+**All chains are executed on a document list, even if the workflow is launched on a single document**
 </section>
 
 <section class="slide exercise" id="exercise-automation-chains">
@@ -578,9 +579,10 @@ In case the approval task is not done in time, we should forcefully end the work
 
 #### Properties
 - Id: unique id for the escalation rule
-- Condition: condition to be checked. For example:<br />
-<code>@{CurrentDate.calendar.compareTo(Context["taskDueTime"])>0}</code><br />
-means "as soon as task due time is over".
+- Condition: condition to be checked. Example:<br />
+<code>@{WorkflowFn.timeSinceDueDateIsOver() > 0}</code><br />
+means "as soon as task due time is over". <br /><br />
+Use the <code>WorkflowFn</code> options in the editor to setup your rules easily.<br /><br />
 - Chain: automation chain to be executed if condition is evaluated to true.
 - Multiple execution: chain will be launched only once unless you check that option.
 </section>
@@ -601,6 +603,9 @@ Operations are available in the <code>workflow context</code> category in order 
 
 #### <code>Resume workflow</code>
 - Once open tasks have been fetched, forces the workflow engine to evaluate conditions for transitions to follow.
+- Usually used along with the <code>exclusive node</code> option (in the node's general tab) 
+  - To force sequential evaluation 
+  - To follow a single transition, being a default choice
 </section>
 
 <section class="slide exercise" id="exercise-escalation-rules">
@@ -608,20 +613,26 @@ Operations are available in the <code>workflow context</code> category in order 
       class="exercise-icon">
 ### Practice - Escalation rules
 
-<blockquote><p>If the due time is over, we need to follow a hidden transition to end the workflow.</p></blockquote>
+<blockquote><p>If the due time is over, we need to follow a specific transition to end the workflow.</p></blockquote>
 
-#### Completing a task as soon as due time is over
+##### Force Escalation Rules Evaluation Frequency
 - Add this XML extension to your Studio project: <a href="files/workflows/escalation-rules-frequency.txt" target="_blank">escalationRulesFrequency</a>
 
+##### Update Task
 - In the <code>approval</code> task:
   - Set the task due time to 30 seconds
-  - add a new transition, having the condition to click on a <code>timeout</code> button
+  - Check the <code>exclusive node</code> option
+  - add a new transition, having the condition set to <code>true</code>
   - add an escalation rule with id <code>timeoutRule</code>
   - Set a condition for the rule to be executed as soon as due task time is over
+  
+##### Create a Chain For Your Escalation Rule
   - The chain should: 
     - add an audit entry to the document saying the workflow has ended because of timeout (Services > Log event in audit)
-    - complete the task as if the user had clicked on the <code>timeout</code> button
-    
+    - force the workflow to be resumed in order to evaluate the transitions
+
+##### Update Your Workflow
+- Make sure to use your new transition to end the workflow
 </section>
 
 <section class="slide" id="questions-escalation-rules">
@@ -635,81 +646,14 @@ Operations are available in the <code>workflow context</code> category in order 
 <blockquote><p>
 Now that we have our workflow set up, we could add further refinment.<br /><br />
 
-For instance, assigning the correction task to the workflow initiator, sending emails...
+For instance, sending notification emails.
 </p></blockquote>
-</section>
-
-<section class="slide" id="variables">
-## Workflow Variables
-</section>
-
-<section class="slide" id="built-variables">
-### Built-in Variables
-#### Available in
-
-- Chains launched within the nodes (Input chain, output chain, transition chains)
-- The condition of a transition
-- Additional task assignees (if the expression is resolved to a user or group)
-- Due date expression (if the expression is resolved to a date)
-</section>
-
-<section class="slide" id="built-variables2">
-### Built-in Variables
-####List of built-in variables
-##### <code>WorkflowVariables</code> and <code>NodeVariables</code> (hashmaps)
-- Can store your own variables
-- Used like this: <code>NodeVariables[“myNodeVar”]</code> <code>WorkflowVariables[“myWfVar”]</code>
-
-##### <code>NodeVariables["button"]</code>
-- Button id that was clicked for processing the task, if the current node is a task node
-
-##### <code>NodeVariables["tasks"].getNumberEndedWithStatus("MyStatus")</code> : how many people have approved / rejected a document for instance
-##### <code>NodeVariables["numberOfTasks"]</code> : total number of tasks created (useful to calculate an approval percentage)
-##### <code>NodeVariables["numberOfProcessedTasks"]</code>
-- When using multiple tasks, these variables are usually combined to calculate approval percentage for instance
- </section>
-
-<section class="slide" id="built-variables3">
-### Built-in Variables
-####List of built-in variables
-##### Context variables
-- <code>nodeStartTime</code>
-- <code>workflowInitiator</code>
-- <code>workflowStartTime</code>
-  - Time when the workflow was started
-  - Useful for exemple when computing a due date (Due date expression: workflowStartTime.days(8))
-- <code>workflowInstanceId</code> and <code>taskDueTime</code>
-  - Useful for getting open tasks on a document, and possibly close them using an escalation rule (more details later)
-
-http://doc.nuxeo.com/x/EQGw
-</section>
-
-<section class="slide" id="set-workflow">
-###How to set workflow and node variables
-####From the task form
-- The engine will automatically save them when the form is submitted
-
-####From automation chains
-- Using <code>Workflow Context</code> > <code>Set Workflow Variable</code> and <code>Set Node Variable</code> operations
-</section>
-
-<section class="slide exercise" id="exercise-workflow-tasks-variables-normal-1">
-<img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
-      class="exercise-icon">
-### Practice - Task form, workflow variables
-<blockquote><p>
-Assign the correction task to the workflow initiator instead of the document creator.
-</p></blockquote>
-
-#### Assigning the Correction Task
-- In your workflow, edit the <code>correction</code> task
-- Change the assignee from the document creator to the workflow initiator
 </section>
 
 <section class="slide exercise" id="exercise-workflow-tasks-variables-normal-2">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
-### Practice - Task form, workflow variables (optional exercise)
+### Practice - Task form, workflow variables
 <blockquote><p>
 Send an email to the workflow initiator if the document is rejected.
 </p></blockquote>
@@ -751,6 +695,15 @@ They would like to be able to "lock" the task in order to avoid having several p
 </p></blockquote>
 </section>
 
+<section class="slide" id="built-variables-nodelastactor">
+### Built-in Variables
+####Useful built-in variables<br /><br />
+
+##### <code>nodeLastActor</code>
+- Stores the username of the person completing the task
+- Can be used in an output chain to store the information in a workflow variable and reuse it later
+</section>
+
 <section class="slide exercise" id="exercise-workflows-advanced-practice-context">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
       class="exercise-icon">
@@ -777,12 +730,33 @@ Add the logic in order to implement a task lock mechanism.
 
 <section class="slide" id="fork-advanced-exercise">
 ###Want to go deeper?
-- (optional) [Another advanced exercise](3.6_Workflows.html#exercise-workflows-multiple-tasks-context)
+- (optional) [Another advanced exercise](3.6_Workflows.html#workflows-multiple-tasks-context)
 - (optional) [Advanced information](3.6_Workflows-advanced.html)
 - Back to the [training agenda](0.0.1_Agenda.html#day-3)
 - [Ending](99_Ending.html)
 - [Extension points](4.0_Extension-points.html)
 </section>
+
+<section class="slide" id="workflows-multiple-tasks-context">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote><p>
+It is time to create a new workflow. People would like a workflow to validate a document only if the majority approves it.
+</p></blockquote>
+</section>
+
+<section class="slide" id="built-variables-nodetasks">
+### Built-in Variables
+####Useful built-in variables<br /><br />
+
+##### <code>NodeVariables["tasks"].getNumberEndedWithStatus("MyStatus")</code><br />
+How many people have approved / rejected a document for instance<br /><br />
+
+##### <code>NodeVariables["numberOfTasks"]</code><br />
+Total number of tasks created (useful to calculate an approval percentage)<br /><br />
+
+##### <code>NodeVariables["numberOfProcessedTasks"]</code><br />
+When using multiple tasks, these variables are usually combined to calculate approval percentage for instance
+ </section>
 
 <section class="slide exercise" id="exercise-workflows-multiple-tasks-context">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise"
