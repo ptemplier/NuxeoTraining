@@ -94,6 +94,10 @@ We are not limited to using default Nuxeo widgets for display in documents or li
 - Check the result by going into a <code>Book</code>'s summary tab
 </section>
 
+<section class="slide" id="questions-jsftemplates-basics">
+##Questions?
+</section>
+
 <section class="slide" id="jsftemplates-jstl-libraries">
 ### JSF templates
 #### JSTL libraries
@@ -116,22 +120,35 @@ We are not limited to using default Nuxeo widgets for display in documents or li
 
 <pre><code>&lt;!-- Show version only if non folderish -->
 &lt;div xmlns:c="http://java.sun.com/jstl/core">
-  &lt;c:if test="#{not currentDocument.hasFacet('Folderish')}">
-    #{currentDocument.uid.major_version}.#{currentDocument.uid.minor_version}
+  &lt;c:if test="#{not currentDocument.isFolder()}">
+    #{currentDocument.versionLabel}
   &lt;/c:if>
 &lt;/div></code></pre>
 </section>
 
-<section class="slide exercise" id="exercise-jsftemplates-jstl-libraries">
+<section class="slide exercise" id="exercise-jsftemplates-jstl-libraries1">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise-bk-library"
       class="exercise-icon">
 ### Practice
 #### Using JSTL libraries
+
+<blockquote>We want to create live proxies in order to let people work on the same document from different workspaces. To do so, we need a chain, and a template to give a visual indication.</blockquote>
+
+##### In Nuxeo Studio
+- Create a <code>createLiveProxy</code> user action in the <code>Contextual Tools</code> category
+- Link it to a <code>createLiveProxyChain</code> automation chain
+- It should create a live proxy in the document's parent path
+
+##### Creating The Corresponding Template
 - Create a <code>bestbooks_isproxy.xhtml</code> file
-- Use it to check if the current document is <code>mutable</code> and a <code>proxy</code>, if so add a specific message
+- Use it to check if the current document is <code>mutable</code> and a <code>proxy</code>, if so add a specific message saying the document can be safely deleted
 - Add it using a `template` widget in your Book's view layout
-- Commit and deploy your changes
-- Check the result by going into a <code>Book</code>'s summary tab
+- Refresh your Studio project in Nuxeo IDE and deploy your changes
+- Check the result by creating a proxy and going into its summary tab
+</section>
+
+<section class="slide" id="questions-jsftemplates-jstl">
+##Questions?
 </section>
 
 <section class="slide" id="jsftemplates-nxlibraries">
@@ -153,12 +170,19 @@ We are not limited to using default Nuxeo widgets for display in documents or li
       class="exercise-icon">
 ### Practice
 #### Nuxeo libraries
+
+<blockquote>Seeing the document path would help us frequently, especially while developing.</blockquote>
+
 - Create a <code>bestbooks_docpath.xhtml</code> file
 - Use it to show the document path
   - Only if the user is in the <code>administrators</code> group
 - Add it using a `template` widget in your Book's view layout
 - Commit and deploy your changes
 - Check the result by going into a <code>Book</code>'s summary tab
+</section>
+
+<section class="slide" id="questions-jsftemplates-nxlibraries">
+##Questions?
 </section>
 
 <section class="slide" id="jsftemplates-doclisting">
