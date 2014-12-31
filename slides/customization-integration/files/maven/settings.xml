@@ -1,26 +1,11 @@
 <?xml version="1.0"?>
 <settings>
   <servers>
+    <!-- See http://maven.apache.org/guides/mini/guide-encryption.html for password encryption -->
     <server>
       <id>nuxeo-studio</id>
       <username>yourConnectLogin</username>
       <password>yourConnectPassword</password>
-    </server>
-    <!-- public releases -->
-    <server>
-      <id>public-releases</id>
-    </server>
-    <!-- vendor releases -->
-    <server>
-      <id>vendor-releases</id>
-    </server>
-    <!-- public snapshots -->
-    <server>
-      <id>public-snapshots</id>
-    </server>
-    <!-- vendor snapshots -->
-    <server>
-      <id>vendor-snapshots</id>
     </server>
   </servers>
   <profiles>
@@ -29,7 +14,7 @@
       <repositories>
         <repository>
           <id>public</id>
-          <url>http://maven-eu.nuxeo.org/nexus/content/groups/public</url>
+          <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -39,13 +24,13 @@
         </repository>
         <repository>
           <id>public-snapshot</id>
-          <url>http://maven-eu.nuxeo.org/nexus/content/groups/public-snapshot</url>
+          <url>http://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
           <releases>
             <enabled>false</enabled>
           </releases>
           <snapshots>
-            <updatePolicy>daily</updatePolicy>
             <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
           </snapshots>
         </repository>
         <repository>
@@ -65,4 +50,7 @@
   <activeProfiles>
     <activeProfile>NXP</activeProfile>
   </activeProfiles>
+  <pluginGroups>
+    <pluginGroup>org.nuxeo.build</pluginGroup>
+  </pluginGroups>
 </settings>
