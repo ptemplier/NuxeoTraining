@@ -1,22 +1,35 @@
 <?xml version="1.0"?>
 <settings>
-<servers>
-  <server>
-    <id>nuxeo-studio</id>
-    <username>yourConnectLogin</username>
-    <password>yourConnectPassword</password>
-  </server>
-</servers>
-<profiles>
- <profile>
-      <id>qa</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
+  <servers>
+    <server>
+      <id>nuxeo-studio</id>
+      <username>yourConnectLogin</username>
+      <password>yourConnectPassword</password>
+    </server>
+    <!-- public releases -->
+    <server>
+      <id>public-releases</id>
+    </server>
+    <!-- vendor releases -->
+    <server>
+      <id>vendor-releases</id>
+    </server>
+    <!-- public snapshots -->
+    <server>
+      <id>public-snapshots</id>
+    </server>
+    <!-- vendor snapshots -->
+    <server>
+      <id>vendor-snapshots</id>
+    </server>
+  </servers>
+  <profiles>
+    <profile>
+      <id>NXP</id>
       <repositories>
         <repository>
-          <id>internal-releases</id>
-          <url>http://maven.in.nuxeo.com/nexus/content/groups/internal-releases</url>
+          <id>public</id>
+          <url>http://maven-eu.nuxeo.org/nexus/content/groups/public</url>
           <releases>
             <enabled>true</enabled>
           </releases>
@@ -25,10 +38,21 @@
           </snapshots>
         </repository>
         <repository>
-          <id>internal-snapshots</id>
-          <url>http://maven.in.nuxeo.com/nexus/content/groups/internal-snapshots</url>
+          <id>public-snapshot</id>
+          <url>http://maven-eu.nuxeo.org/nexus/content/groups/public-snapshot</url>
           <releases>
             <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <updatePolicy>daily</updatePolicy>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+        <repository>
+          <id>nuxeo-studio</id>
+          <url>https://connect.nuxeo.com/nuxeo/site/studio/maven</url>
+          <releases>
+            <enabled>true</enabled>
           </releases>
           <snapshots>
             <enabled>true</enabled>
@@ -36,9 +60,9 @@
           </snapshots>
         </repository>
       </repositories>
-      <properties>
-        <connect.password>testingwizardregistrationandinstallation</connect.password>
-      </properties>
     </profile>
-</profiles>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>NXP</activeProfile>
+  </activeProfiles>
 </settings>
