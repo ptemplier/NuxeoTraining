@@ -63,6 +63,9 @@ RestAPI.fetchDocument = function (id) {
 //  meeting:publisherFirstName
 //  meeting:publisherLastName
 //
+//  You need to create an object for the meetingPublisher (complex) metadata
+//  and put in it the firstName and lastName properties
+// 
 //  Make sure to split the participants properly:
 //  myString.replace(/ /g, '');
 //  myString.split(',');
@@ -81,13 +84,13 @@ RestAPI.createDocument = function (map) {
 //  Use the high level document API to update the current document
 //  And save it afterwards
 //
-//  Make sure to split the participants properly:
-//  myString.replace(/ /g, '');
-//  myString.split(',');
-//
 //  You need to create an object for the meetingPublisher (complex) metadata
 //  and put in it the firstName and lastName properties
 //  then delete the values from the map using delete map["meeting:publisherFirstName"];
+// 
+//  Make sure to split the participants properly:
+//  myString.replace(/ /g, '');
+//  myString.split(',');
 //
 //  Callback: callbackUpdateDocument
 RestAPI.updateDocument = function (map) {

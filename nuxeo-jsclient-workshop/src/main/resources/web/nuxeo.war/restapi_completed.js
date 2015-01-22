@@ -73,6 +73,9 @@ RestAPI.fetchDocument = function (id) {
 // meeting:publisherFirstName
 // meeting:publisherLastName
 //
+// You need to create an object for the meetingPublisher (complex) metadata
+// and put in it the firstName and lastName properties
+//
 // Make sure to split the participants properly:
 // myString.replace(/ /g, '');
 // myString.split(',');
@@ -92,8 +95,10 @@ RestAPI.createDocument = function (map) {
       properties: {
         "dc:title": map["dc:title"],
         "meeting:participants": map["meeting:participants"],
-        "meeting:meetingPublisher/firstName": map["meeting:publisherFirstName"],
-        "meeting:meetingPublisher/lastName": map["meeting:publisherLastName"]
+        "meeting:meetingPublisher": {
+          firstName: map["meeting:publisherFirstName"],
+          lastName: map["meeting:publisherLastName"]
+        }
       }
     }, callbackCreateDocument);
 }
@@ -113,9 +118,10 @@ RestAPI.createDocument = function (map) {
 //
 // Callback: callbackUpdateDocument
 RestAPI.updateDocument = function (map) {
-  map["meeting:meetingPublisher"] = {};
-  map["meeting:meetingPublisher"].firstName = map["meeting:publisherFirstName"];
-  map["meeting:meetingPublisher"].lastName = map["meeting:publisherLastName"];
+  map["meeting:meetingPublisher"] = {
+    firstName: map["meeting:publisherFirstName"], 
+    lastName: map["meeting:publisherLastName"]
+  };
   delete map["meeting:publisherFirstName"];
   delete map["meeting:publisherLastName"];
   
