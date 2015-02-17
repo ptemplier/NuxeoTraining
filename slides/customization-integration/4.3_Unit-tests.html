@@ -184,7 +184,7 @@ Bundle-ManifestVersion: 2
 - Needs the <code>CoreFeature</code> or more
 
 #### How do I call it in a unit test ?
-- CoreSession can be injected with Google Guice injection mechanism
+- CoreSession can be injected with javax injection mechanism (javax.inject.Inject)
 <pre><code>@Inject CoreSession documentManager;</code></pre>
 </section>
 
@@ -299,7 +299,7 @@ Update a metadata using its xpath (schemaprefix:metadata)
 <section class="slide" id="test-existing-automation-chains">
 ### Testing existing automation chains
 - Use AutomationService 
-    - In JUnit4, Nuxeo services are injected with Google Guice <code>@Inject</code> annotation <pre><code>@Inject AutomationService automationService</code></pre>
+    - In JUnit4, Nuxeo services are injected with javax <code>@Inject</code> annotation <pre><code>@Inject AutomationService automationService</code></pre>
     - Or <pre><code>AutomationService automationService = Framework.getLocalService(AutomationService.class)</code></pre> (works also outside of a unit test)
 - Create an <code>OperationContext</code> with the <code>CoreSession</code> and a document input and call the operation with: <pre><code>AutomationService automationService = Framework.getLocalService(AutomationService.class);
 OperationContext ctx = new OperationContext();
