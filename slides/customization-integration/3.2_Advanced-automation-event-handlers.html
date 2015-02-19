@@ -351,15 +351,23 @@ Document > Update property
 <section class="slide" id="help-exercise2">
 ### Help!<img src="../themes/frog-teacher.png" class="float-left" />
 <div style="clear:both"></div>
-#### Automation chain:
-<pre><code>Fetch > UI selected documents
-  Document > Filter List
+#### Automation chain's YAML representation (to be used with the "Switch Editor" button):
+<pre><code>- Seam.GetSelectedDocuments
+- Context.SetVar:
+    name: nbDocs
+    value: "@{This.size()}"
+- Document.Filter:
+    class: Any
     lifecycle: inLibrary
-  Document > Follow Life Cycle Transition
-    transition: to_borrowed
-  User Interface > Refresh
-  User Interface > Add Info Message
-</code></pre>
+- Context.SetVar:
+    name: nbFilteredDocs
+    value: "@{This.size()}"
+- Context.RunOperation:
+    id: ua_borrowBookChain
+    isolate: "false"
+- Seam.AddInfoMessage:
+    message: "@{Context[\"nbFilteredDocs\"] > 0 ? Context[\"nbFilteredDocs\"] + 'borrowed book(s) out of ' + Context[\"nbDocs\"] : 'no book borrowed'}"
+- Seam.Refresh</code></pre>
 
 <div class="sticker"><a href="#exercise-automation2">Back to the exercise</a></div>
 </section>
