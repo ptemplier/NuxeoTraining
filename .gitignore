@@ -24,3 +24,4 @@ target
 slides/phantomjs*
 dependency-tree.log
 build.properties
+bower_components

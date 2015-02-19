@@ -6,9 +6,11 @@ var RestAPI = {};
 RestAPI.config = function () {
   // Instantiate Nuxeo Client below
   var client = new nuxeo.Client({
-  baseURL: 'http://localhost:8080/nuxeo',
-  username: 'Administrator',
-  password: 'Administrator'
+    baseURL: 'http://localhost:8080/nuxeo',
+    auth: {
+      username: 'Administrator',
+      password: 'Administrator'
+    }
   });
 
   // Make sure:
@@ -31,7 +33,7 @@ RestAPI.getCurrentUser = function () {
 
 // Use a GET request to execute the query typed
 // Make sure to include the NXQLQuery parameter in the called URL
-// Hint: to do that you will need to build a request var, 
+// Hint: to do that you will need to build a request var,
 // and add it your parameter afterwards as a JSON object
 // Callback: callbackQuery
 RestAPI.executeQuery = function (NXQLQuery) {
@@ -119,12 +121,12 @@ RestAPI.createDocument = function (map) {
 // Callback: callbackUpdateDocument
 RestAPI.updateDocument = function (map) {
   map["meeting:meetingPublisher"] = {
-    firstName: map["meeting:publisherFirstName"], 
+    firstName: map["meeting:publisherFirstName"],
     lastName: map["meeting:publisherLastName"]
   };
   delete map["meeting:publisherFirstName"];
   delete map["meeting:publisherLastName"];
-  
+
   map["meeting:participants"] = map["meeting:participants"].replace(/ /g, '');
   map["meeting:participants"] = map["meeting:participants"].split(',');
   this.currentDocument.set(map).save(callbackUpdateDocument);
