@@ -526,7 +526,7 @@ Now, we still need to implement some business logic in order to publish the docu
 
 - - - - - 
 **All chains are executed with administrator privileges during a workflow**<br />
-**All chains are executed on a document list, even if the workflow is launched on a single document**
+**All chains are executed on a document list, even if the workflow is launched on a single document**<br />
 **Workflow is handled at low level, UI operations like "Add Info Message" are of no use in the workflow context**
 </section>
 
@@ -537,8 +537,7 @@ Now, we still need to implement some business logic in order to publish the docu
 
 <blockquote><p>Publish a book when it is approved</p></blockquote>
 
-- Create a section named <code>published books</code>
-- Add an automation chain to publish the document in this section when approved
+- Add an automation chain to publish the document in the <code>showcase</code> section when approved
 - Commit and deploy your changes
 - Create a book and launch your workflow on it
 </section>
