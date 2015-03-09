@@ -1,0 +1,5 @@
+sudo -u postgres psql
+alter user postgres password 'mypassword';
+create user nuxeo createdb createuser password 'whateverpassword';
+create database nuxeo owner nuxeo;
+\q
