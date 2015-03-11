@@ -1,0 +1,5 @@
+sudo -u postgres psql
+ALTER USER postgres PASSWORD 'mypassword';
+CREATE ROLE nuxeo WITH PASSWORD 'nuxeo' LOGIN;
+CREATE DATABASE nuxeo ENCODING 'UTF8' OWNER nuxeo;
+\q
