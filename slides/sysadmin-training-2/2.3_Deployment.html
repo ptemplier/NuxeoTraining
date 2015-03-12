@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo SysAdmin Training - Introduction</title>
+<title>Nuxeo SysAdmin Training - Recommended Architecture</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -43,16 +43,28 @@
     <span class="sub-part training">Trainings</span>
   </div>
 
-<section class="slide" id="summary">
-###Deployment
-####Concepts
-####Samples
-####Clustering
-####Replication
+<section class="slide" id="index">
+<h1>Recommended Architecture</h1>
 </section>
   
 <section class="slide" id="deployment-concepts">
 ### Deployment Concepts
+
+<img src="img/archi/clustering.png" align="right" />
+
+#### Possibilities
+- Many specific architectures are possible 
+  - <a href="img/archi/dedicated-nodes.png" target="_blank">Dedicated nodes</a>
+  - <a href="img/archi/multi-repo.png" target="_blank">Multi repositories</a>
+  - <a href="img/archi/client-server.png" target="_blank">Client / Server mode...</a>
+
+#### What we recommend for a standard installation
+- Clustering with:
+  - A load balancer with sticky sessions
+  - A reverse proxy
+  - Nuxeo nodes
+  - A shared database, elasticsearch cluster and filesystem
+
 #### What Nuxeo handles
 - Clustering
 - Multiple deployment options
@@ -72,7 +84,7 @@
 - Handle HTTP cache for static resources
 
 ####After reverse-proxy configuration:
-- Update the bind adress to 127.0.0.1 in the nuxeo.conf file to avoid it being exposed
+- Update the bind adress in the nuxeo.conf file to avoid it being exposed
 
 ####HTTPS Configuration Template
 - Quick and easy configuration
@@ -80,47 +92,13 @@
 - Not recommended for production
 </section>
 
-  <section class="slide" id="deployment1">
-###Agile deployment
-####Only deploy the needed services
-- make your own distribution
-
-####Deploy on multiple servers
-- Use clusters for scale-out / availability
-- Split in layers for optimizations or security
-
-####Deployment transparency
-- Tomcat / OSGi / Standalone
-- Cloud integration
-  </section>
-
-  <section class="slide" id="deployment2">
-###Deployment examples
-  <div class="split-box split-50">
-    <h4 align="center">Easy clustering</h4>
-    ![depl1](../img/tech/depl1.png)
-  </div>
-  <div class="split-box split-50">
-    <h4 align="center">Several distributions and dedicated servers</h4>
-    ![depl2](../img/tech/depl2.png)
-  </div>
-</section>
-
-  <section class="slide" id="deployment3">
-###Deployment examples
-  <div class="split-box split-50">
-    <h4 align="center">Multiple repositories</h4>
-    ![depl3](../img/tech/depl3.png)
-  </div>
-  <div class="split-box split-50">
-    <h4 align="center">Client / Server mode</h4>
-    ![depl4](../img/tech/depl4.png)
-  </div>
-</section>
-
   <section class="slide" id="deployment4">
   <div class="sticker" style="max-width: 100em;">[ADMINDOC/Nuxeo+Clustering+Configuration](http://doc.nuxeo.com/x/34HZ)</div>
 ###Clustering & Replication
+
+<h4>Easy clustering</h4>
+<img src="img/archi/clustering.png" align="right" />
+
 ####Easy clustering: activate option with configuration parameters
 - Shared Filesystem Configuration
 - VCS Cluster Configuration
