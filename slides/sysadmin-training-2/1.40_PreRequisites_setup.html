@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo SysAdmin Training - Technical Overview</title>
+<title>Nuxeo SysAdmin Training - Pre Requisites Setup</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -43,119 +43,47 @@
     <span class="sub-part training">Trainings</span>
   </div>
 
+<section class="slide" id="index">
+<h1>Pre Requisites Setup</h1>
+</section>
+
   <section class="slide" id="summary">
-###Technical Overview
-####Extension Points, Contributions
-####Advanced Content Repository
-####APIs, Connectors and Integration
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote>Understanding principles => OK.<br />
+Architecture => OK.<br />
+We can start installing now. Nuxeo Platform depends on some third-party software, and of course needs a database. Let's take care of this first.</blockquote>
   </section>
-  
-<section class="slide" id="nuxeo-platform-core-technologies">
-### Nuxeo – The Platform
-#### Standard technologies
-- <strong>100% Java based</strong>
-- <strong>Based on Java standards</strong>: Java, OSGi, JTA, JAAS, JMS, EJB3, JAX-RS, JAX-WS, CMIS, …
-- <strong>Uses many open source frameworks / libraries</strong>: JBoss Seam / Hibernate / Apache commons
-- Can run in any Servlet container, Java EE Application server, bare JVM or OSGI container, typically: Tomcat, JBoss, Jetty
 
-#### Easy to customize, extend and plug
-- No need to rewrite the source code
-- Offers content oriented APIs
-- Ability to deploy and integrate in complex environments
+<section class="slide" id="install1"><div class="sticker"><a href="http://doc.nuxeo.com/x/zgJc">Installing Related Software</a></div>
+### Related Software
+#### To work with the Platform and Office Files
+- Java with JDK => To run the Nuxeo Platform
+- LibreOffice and poppler utils => To handle format conversions
+- ImageMagick and ghostscript => To generate thumbnails
+- Libpwd => For WordPerfect files
+
+#### To work with multimedia assets
+- ImageMagick and ghostscript
+- UFRaw => For raw files
+- Ffmpeg => For videos
 </section>
 
-<section class="slide" id="tech-bundles">
-###Bundles
-- 1 bundle = 1 Nuxeo plugin/addon = 1 JAR
-- Located in <code>nxserver/bundles</code> or <code>nxserver/plugins</code>
-- Configuration/Extension/Customization Mechanism: Extension Point/Contribution
-- Loaded by Nuxeo Runtime
-- More than 220 bundles in Nuxeo CAP
+<section class="slide exercise" id="install2">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+### Install Related Software
+<blockquote>Install pre requisites on the server</blockquote>
+<code>sudo apt-get install openjdk-7-jdk imagemagick ufraw poppler-utils libreoffice libwpd-tools ghostscript</code>
 </section>
 
-<section class="slide" id="tech-ext2">
-###Bundle deployment
-#### Native Functionalities
-<img src="img/technical-intro/xp-mechanism-1.png" />
+<section class="slide exercise" id="questions">
+## Questions?
 </section>
 
-<section class="slide" id="tech-ext1">
-###Configuring and Extending Functionalities
-#### Extension Points
-- Functionalities are built into "services"
-- Services expose extension points to make them configurable through XML
-- Allow to separate configuration from code => Makes upgrading easy
-- A bundle with XML configuration can be generated easily with Nuxeo Studio
-
-#### Creating New Functionalities
-- New functionalities are added through bundles containing code / services
-- Nuxeo IDE helps in generating them
-</section>
-
-<section class="slide" id="tech-ext3">
-###Extension Points
-#### Configuring / Extending the Nuxeo Platform
-<img src="img/technical-intro/xp-mechanism-2.png" />
-</section>
-
-<section class="slide" id="tech-core1">
-##About Nuxeo Core: Advanced Content Repository
-</section>
-
-<section class="slide" id="tech-core2">
-###Nuxeo Document
-####Not a simple « file ».
-
-####An instance of a Document type (File, Note, Folder, Invoice, Contract…) having
-- a unique name, eg: <code>File</code>, <code>Note</code> or <code>Book</code>
-- a set of schemas to define its storage structure 
-  - a document can have many schemas, schemas can be applied to many document types
-- a set of facets which defines the document behavior or capabilities
-- a parent type: the document type will inherit its schemas and facets
-- a lifecycle (ie: <code>draft -> validated -> archived</code>)
-</section>
-
-<section class="slide" id="tech-core3">
-###Nuxeo Document
-![doc](../customization-integration/img/installation_demo/whatisadoc.png)
-</section>
-
-<section class="slide" id="tech-core5">
-### Repository backend
-
-####Nuxeo Visible Content Store
-- Dedicated native SQL storage
-- Provides clean SQL mapping (ie: usable by a DBA or a BI tool)
-- Multiple database vendor support (PostgreSQL, Oracle, MySQL, MSSQL, H2, Derby)
-
-####Efficient storage
-- Storage adapters
-  - Meta-data and structure: SQL DB
-  - Binaries: Filesystem, SQLDB, S3 ...
-- Snapshotable, automatic deduplication, …
-- Support hot backup and GC
-</section>
-
-<section class="slide" id="tech-connectors1">
-##APIs, connectors and integration
-</section>
-
-<section class="slide" id="tech-clients">
-###Clients
-![clients](img/technical-intro/clients.png)
-</section>
-
-<section class="slide" id="tech-services-apis">
-###Service APIs
-####Services can also be exposed via WebServices (with various granularity)
-![services-api](img/technical-intro/services-api.png)
-</section>
-
-  <section class="slide" id="next">
+<section class="slide" id="next">
 ###Next?
 - Back to the [training agenda](0.0_Agenda.html#day-1)
-- [Installation Basics](1.30_Architecture.html)
-  </section>
+- [Database Setup](1.50_Database_setup.html)
+</section>
 
   <!-- deck.navigation snippet -->
   <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>

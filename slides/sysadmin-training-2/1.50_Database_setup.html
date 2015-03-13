@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo SysAdmin Training - Installation Basics</title>
+<title>Nuxeo SysAdmin Training - Database Setup</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -43,118 +43,55 @@
     <span class="sub-part training">Trainings</span>
   </div>
 
+<section class="slide" id="index">
+<h1>Database Setup</h1>
+</section>
+
   <section class="slide" id="summary">
-###Installation Basics
-####Install Nuxeo and Third-Parties
-####Server Architecture
-####Nuxeo Control Panel, Setup Wizard, Admin Center
-####Basic Configuration
-####HTTP server
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote>We're almost done with pre requisites.<br /> 
+Let's set up the database, and we will be good to go !</blockquote>
   </section>
 
-<section class="slide exercise" id="install1">
-  <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon"/>
-  <div class="sticker">[ADMINDOC](http://doc.nuxeo.com/display/ADMINDOC/)</div>
-###Install
-####Installation and administration guide
+<section class="slide" id="install1">
+<div class="sticker"><a href="http://doc.nuxeo.com/x/BAAz">Setting Up a Database</a></div>
+### Choosing a Database
+#### Nuxeo supports many database systems
+##### postgreSQL
+- Most recommended
+- Good performances, scalable to high volumes (tested with 100 million documents)
+- Free and open source
+- Well known by the Nuxeo dev and support team => Easier to report eventual difficulties
 
-####Download packaged distributions
-- http://www.nuxeo.com/downloads/  
-- https://community.nuxeo.com/static/releases/
-- https://community.nuxeo.com/static/snapshots/
+##### Oracle
+- Known for good performances too
+- Needs finer tuning than postgreSQL
 
-Choose your package: ZIP, JAR, EXE, APP, Debian, VM, …
+##### Microsoft SQL Server
+- Design limits performances
 
-####Install addons from Nuxeo Marketplace
-- https://marketplace.nuxeo.com/
-
-####Build distributions from sources
-- https://github.com/nuxeo/nuxeo-distribution/
-
-####Build addons from sources
-- http://nuxeo.github.io/
-
-####Download from Maven repository
-- https://maven.nuxeo.org/
+##### MySQL
+- Design limits performances
+- Many other limitations
+- Supported but not recommended
 </section>
 
-<section class="slide exercise" id="install2">
+<section class="slide exercise" id="install-postgre">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/OwA7" target="_blank">ADMINDOC/Hardware+and+Software+requirements</a></div>
-###Configuration requirements
-
-- OpenOffice/LibreOffice
-- ffmpeg
-- pdftohtml
-- ImageMagick
-- ghostscript
-- Database (PostgreSQL, Oracle, MySQL, …)
-- Desktop integration (Nuxeo Drive)
+### Install postgreSQL
+<blockquote>Install postgreSQL and tools on the server</blockquote>
+<code>sudo apt-get install postgresql pgadmin3</code>
 </section>
 
-<section class="slide exercise" id="install4">
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/display/ADMINDOC/Server+start+and+stop" target="_blank">ADMINDOC/Server+start+and+stop</a></div>
-###Configuration — Nuxeo Control Panel
-####Nuxeo Control Panel (aka nuxeoctl, Nuxeo Launcher)
-
-- Command line with Shell, Batch script or Java command
-- Graphical User Interface (GUI)
-
-<img class="float-left" src="../img/tech/nuxeoctl-gui.png" />
-<img class="float-left" src="../img/tech/nuxeoctl-gui2.png" />
-<img class="float-left" src="../img/tech/nuxeoctl-gui3.png" />
+<section class="slide exercise" id="questions-db-install">
+## Questions?
 </section>
 
-<section class="slide exercise" id="install5">
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/display/ADMINDOC/Setup" target="_blank">ADMINDOC/Setup</a></div>
-###Configuration – Setup Wizard
-####Setup Wizard at first start
-
-![wizard](img/technical-intro/wizard.png)
-</section>
-
-<section class="slide" id="install3">
-###Architecture
-<ul class="further-info" style="font-size:24pt;"><strong>
-<li>ZIP distribution is pre-configured with default paths</li>
-<li>VM distribution is pre-configured with recommended paths</li>
-<li>Other installers marry common usages and Nuxeo recommendations</li>
-</strong></ul>
-- Server (`NUXEO_HOME`)
-  - `/home/nuxeo/nuxeo-dm/` or `/opt/nuxeo/`
-- Configuration (`NUXEO_CONF`)
-  - `$NUXEO_HOME/bin/nuxeo.conf` (default)
-  - `/etc/nuxeo/nuxeo.conf` (recommended)
-- Data (`nuxeo.data.dir`)
-  - `$NUXEO_HOME/nxserver/data` (default)
-  - `/var/lib/nuxeo` (recommended)
-- Logs (`nuxeo.log.dir`)
-  - `$NUXEO_HOME/log/` (default)
-  - `/var/log/nuxeo` (recommended)
-</section>
-
-<section class="slide" id="distrib">
-### Nuxeo - Packaged modules and configuration tools
-<img src="img/install/modules-and-tools.png" />
-</section>
-
-<section class="slide exercise" id="install6">
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/lYFH" target="_blank">ADMINDOC/Admin+Center+overview</a></div>
-###Configuration – Admin Center
-####Administration features
-
-![admin-center](../img/tech/admin-center.png)
-</section>
-
-  <section class="slide" id="next">
+<section class="slide" id="next">
 ###Next?
-- Back to the [training agenda](index.html#day-1)
-- [Advanced Configuration](2.1_Advanced_configuration.html)
-  </section>
-
+- Back to the [training agenda](0.0_Agenda.html#day-1)
+- [Database Setup](1.50_Database_setup.html)
+</section>
 
   <!-- deck.navigation snippet -->
   <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
