@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo SysAdmin Training - Installation Basics</title>
+<title>Nuxeo SysAdmin Training - Nuxeo Platform Installation</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -44,75 +44,107 @@
   </div>
 
 <section class="slide" id="index">
-<h1>Installation Basics</h1>
+<h1>Nuxeo Platform Installation</h1>
 </section>
 
-  <section class="slide" id="summary">
-###Installation Basics
-####Install Nuxeo and Third-Parties
-####Server Architecture
-####Nuxeo Control Panel, Setup Wizard, Admin Center
-####Basic Configuration
-####HTTP server
-  </section>
+<section class="slide" id="summary">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote>Pre requisites are now handled.<br /> 
+We can go ahead and install the Nuxeo Platform this time.</blockquote>
+</section>
 
-<section class="slide exercise" id="install1">
-  <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon"/>
-  <div class="sticker">[ADMINDOC](http://doc.nuxeo.com/display/ADMINDOC/)</div>
-###Install
-####Installation and administration guide
+<section class="slide" id="download">
+<div class="sticker"><a href="http://doc.nuxeo.com/display/ADMINDOC" target="_blank">ADMINDOC</a></div>
+<h3>Downloading the Nuxeo Platform</h3>
 
-####Download packaged distributions
-- http://www.nuxeo.com/downloads/  
-- https://community.nuxeo.com/static/releases/
+<div>
+<h4>Packaged Distributions</h4>
+<p>
+<ul>
+  <li>http://www.nuxeo.com/downloads/</li>
+  <li>https://community.nuxeo.com/static/releases/</li>
+</ul>
 
 Choose your package: ZIP, JAR, EXE, APP, Debian, VM...
+</p>
+</div><br /><br />
 
-####Install addons from Nuxeo Marketplace
-- https://marketplace.nuxeo.com/
+<h4>Choose your version</h4>
+<div class="split-box split-50">
+<h5>Fast Track releases</h5>
+<ul>
+  <li>Are released every 2 months, between LTS releases</li>
+  <li>Have uneven numbers: 7.x, 9.x...</li>
+  <li>Contain the latest functionalities</li>
+  <li>Are not maintained, and only supported for 4 months => You need to migrate often</li>
+  <li><strong>Are fitted for testing and development, not for production use</strong></li>
+</ul>
+</div>
+<div class="split-box split-50">
+<h5>LTS releases</h5>
+<ul>
+  <li>Are released once a year, around november</li>
+  <li>Have even numbers: 6.0, 8.0...</li>
+  <li>Are maintained for 3 years</li>
+  <li><strong>Are fitted for production use</strong></li>
+</ul>
+</div>
 </section>
 
-<section class="slide exercise" id="install2">
+<section class="slide exercise" id="exercise-install1">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/OwA7" target="_blank">ADMINDOC/Hardware+and+Software+requirements</a></div>
-###Configuration requirements
+### Practice
+<blockquote>First, get the application and start it.</blockquote>
 
-- OpenOffice/LibreOffice
-- ffmpeg
-- pdftohtml
-- ImageMagick
-- ghostscript
-- Database (PostgreSQL, Oracle, MySQL, …)
-- Desktop integration (Nuxeo Drive)
+#### Download and Start the Nuxeo Server
+- Get the latest LTS release, as a multi platform zip file
+- Unzip it in the <code>home</code> directory
+- Start it using a terminal: <code>/path/to/server/bin/nuxeoctl start</code>
+- Go to <code>http://localhost:8080</code>
 </section>
 
-<section class="slide exercise" id="install5">
+<section class="slide" id="wizard">
+### Configuring the Nuxeo Platform
+#### Setup Wizard at first start
+![wizard](img/nxp-install/wizard.png)
+
+- Use it for common configuration (database, proxy, smtp, modules to install...)
+</section>
+
+<section class="slide" id="archi-folders">
+### Configuring the Nuxeo Platform
+#### Distributing The Application
+- ZIP distribution is pre-configured with default paths
+- VM distribution is pre-configured with recommended paths
+- Other installers marry common usages and Nuxeo recommendations
+
+##### Server (`NUXEO_HOME`)
+- `/home/nuxeo/nuxeo-dm/` or `/opt/nuxeo/`
+
+##### Configuration (`NUXEO_CONF`)
+- `$NUXEO_HOME/bin/nuxeo.conf` (default)
+- `/etc/nuxeo/nuxeo.conf` (recommended)
+
+##### Data (`nuxeo.data.dir`)
+- `$NUXEO_HOME/nxserver/data` (default)
+- `/var/lib/nuxeo` (recommended)
+
+##### Logs (`nuxeo.log.dir`)
+- `$NUXEO_HOME/log/` (default)
+- `/var/log/nuxeo` (recommended)
+</section>
+
+<section class="slide exercise" id="exercise-install2">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/display/ADMINDOC/Setup" target="_blank">ADMINDOC/Setup</a></div>
-###Configuration – Setup Wizard
-####Setup Wizard at first start
+### Practice
+<blockquote>Setup your application properly.</blockquote>
 
-![wizard](img/technical-intro/wizard.png)
-</section>
-
-<section class="slide" id="install3">
-###Architecture
-<ul class="further-info" style="font-size:24pt;"><strong>
-<li>ZIP distribution is pre-configured with default paths</li>
-<li>VM distribution is pre-configured with recommended paths</li>
-<li>Other installers marry common usages and Nuxeo recommendations</li>
-</strong></ul>
-- Server (`NUXEO_HOME`)
-  - `/home/nuxeo/nuxeo-dm/` or `/opt/nuxeo/`
-- Configuration (`NUXEO_CONF`)
-  - `$NUXEO_HOME/bin/nuxeo.conf` (default)
-  - `/etc/nuxeo/nuxeo.conf` (recommended)
-- Data (`nuxeo.data.dir`)
-  - `$NUXEO_HOME/nxserver/data` (default)
-  - `/var/lib/nuxeo` (recommended)
-- Logs (`nuxeo.log.dir`)
-  - `$NUXEO_HOME/log/` (default)
-  - `/var/log/nuxeo` (recommended)
+#### Fill In The Wizard
+- Paths
+- Database connection
+- Authentication: leave it default for now
+- SMTP server: leave it default
+- Register the instance with your connect account
 </section>
 
 <section class="slide" id="distrib">
@@ -120,19 +152,32 @@ Choose your package: ZIP, JAR, EXE, APP, Debian, VM...
 <img src="img/install/modules-and-tools.png" />
 </section>
 
-<section class="slide exercise" id="install6">
+<section class="slide exercise" id="exercise-install3">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/lYFH" target="_blank">ADMINDOC/Admin+Center+overview</a></div>
-###Configuration – Admin Center
+### Practice
+<blockquote>Choose your add-ons wisely.</blockquote>
+
+#### Select add-ons to install
+- We do not need modules for now, so let's uncheck them
+- We will add some later if needed
+</section>
+
+
+<section class="slide" id="admin-center-config">
+<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/lYFH" target="_blank">ADMINDOC/Admin+Center+overview</a></div>
+###Configuration – Admin Tab
 ####Administration features
 
-![admin-center](../img/tech/admin-center.png)
+- Configuration can be changed anytime in the Admin tab after installation
+- Or through the <code>nuxeo.conf</code> file
+
+![admin-center](img/nxp-install/admin-center.png)
 </section>
 
   <section class="slide" id="next">
 ###Next?
 - Back to the [training agenda](index.html#day-1)
-- [Advanced Configuration](2.1_Advanced_configuration.html)
+- [Authentication Mechanisms](1.70_Authentication.html)
   </section>
 
 
