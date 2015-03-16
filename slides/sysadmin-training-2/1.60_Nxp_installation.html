@@ -118,10 +118,10 @@ Choose your package: ZIP, JAR, EXE, APP, Debian, VM...
 - VM distribution is pre-configured with recommended paths
 - Other installers marry common usages and Nuxeo recommendations
 
-##### Server (`NUXEO_HOME`)
+##### Server (`NUXEO_HOME` environment variable)
 - `/home/nuxeo/nuxeo-dm/` or `/opt/nuxeo/`
 
-##### Configuration (`NUXEO_CONF`)
+##### Configuration (`NUXEO_CONF` environment variable)
 - `$NUXEO_HOME/bin/nuxeo.conf` (default)
 - `/etc/nuxeo/nuxeo.conf` (recommended)
 
@@ -162,7 +162,6 @@ Choose your package: ZIP, JAR, EXE, APP, Debian, VM...
 - We will add some later if needed
 </section>
 
-
 <section class="slide" id="admin-center-config">
 <div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/lYFH" target="_blank">ADMINDOC/Admin+Center+overview</a></div>
 ###Configuration – Admin Tab
@@ -174,11 +173,26 @@ Choose your package: ZIP, JAR, EXE, APP, Debian, VM...
 ![admin-center](img/nxp-install/admin-center.png)
 </section>
 
-  <section class="slide" id="next">
+<section class="slide exercise" id="envt-vars">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+###Configuration – Best Practices
+#### Good Practice For server Start
+- Stop the server
+- Move the nuxeo.conf file away into /etc
+- Use a script to
+  - export the <code>NUXEO_HOME</code> and <code>NUXEO_CONF</code> variables
+  - Start the server (<code>/$NUXEO_HOME/bin/nuxeoctl start</code>)
+</section>
+
+<section class="slide" id="questions">
+## Questions?
+</section>
+
+<section class="slide" id="next">
 ###Next?
 - Back to the [training agenda](index.html#day-1)
 - [Authentication Mechanisms](1.70_Authentication.html)
-  </section>
+</section>
 
 
   <!-- deck.navigation snippet -->

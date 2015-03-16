@@ -113,64 +113,95 @@
   </div>
 
 <section class="slide" id="index">
-<h1>Nuxeo Platform - Authentication Mechanisms</h1>
+<h1>Nuxeo Platform - Configuration Templates</h1>
 </section>
 
 <section class="slide" id="summary">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
-<blockquote>We performed a basic installation.<br /> 
-We should move on to deeper topics. Authenticating users should be a good start.</blockquote>
+<blockquote>Our LDAP is configured and running.<br />
+But configuration could be applied in a cleaner, easier to maintain way. Let's discover how.</blockquote>
 </section>
 
-<section class="slide" id="auth-concepts">
-### Authentication Mechanisms
+<section class="slide" id="conftpl-concepts">
+### Configuration Templates
 
-#### Concepts
-<img src="img/auth/auth-stack2.png" style="float:right" />
+#### What Configuration Templates Do
+- Deploy server-specific resources, configuration files and libraries
+- Bring default values to the nuxeo.conf file
+- Templates can inherit from each other
 
-- Nuxeo provides an <strong>authentication chain</strong>, not a single entry point
-- The authentication stack is completely pluggable
-- Differents authentication mechanisms can be used, several can be combined
-  - Local database
-  - LDAP / Active Directory
-  - CAS2
-  - OAuth
-  - Shibboleth
-  - ...
+#### Why You Need Them
+- Share configuration between different servers
+- The lighter the better: deploy only what you need
+- Deploy or remove configuration almost on the fly
+- Maintain your installation easily
 </section>
 
-<section class="slide" id="auth-concepts2">
+<section class="slide" id="conftpl-how">
+### Configuration Templates
 
-<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/TwFV">ADMINDOC/Using+a+LDAP+directory</a><br /> <a href="http://doc.nuxeo.com/x/iAGW">NXDOC/User+Management</a></div>
+#### How It Works
+- Templates are stored in the Nuxeo Platform's <code>templates</code> folder
+- Each folder is a template, containing what they need to deploy
+- You define which templates to deploy in the nuxeo.conf file, using <code>nuxeo.templates=tplfolder1,tplfolder2</code>
+- You can create your template by doing a copy of the <code>custom</code> template folder
 
-### Authentication Mechanisms
-#### Concepts
-<img src="img/auth/auth-stack2.png" style="float:right" />
+#### Each Template Contains
+- A nuxeo.defaults file with: 
+  - <code>foldername.target=.</code> Relative path from the server root to deploy files. Here, inside the root directly. (required)
+  - <code>nuxeo.template.includes=tplfoldername</code> To inherit another template (optional)
+  - Default nuxeo.conf options, overriden by the nuxeo.conf file.
+</section>
 
-- Users and Groups are manipulated through an abstraction layer: <code>Directories</code>
-- Directories offer an unified API
-- Different kinds of directories exist:
-  - SQL Directories
-  - LDAP Directories
-  - Multi Directories
-  - Connector based Directories
+<section class="slide" id="server-structure">
+<h3>Server Structure (Tomcat)</h3>
+<pre><code>$NUXEO_HOME
+|-- bin
+|   |-- nuxeo.conf                    =&gt; $NUXEO_CONF
+|   |-- nuxeoctl                      =&gt; script to handle the application
+|   |-- openofficectl
+|   '-- monitorctl.sh
+|-- client
+|-- conf                              =&gt; server.xml
+|   '-- Catalina
+|        '-- localhost                =&gt; nuxeo.xml
+|-- lib                               =&gt; log4j.xml (log configuration)
+|-- log                               =&gt; nuxeo.log.dir (/var/log/nuxeo)
+|-- nxserver
+|   |-- bundles                       =&gt; bundles deployed at server start
+|   |-- config                        =&gt; XML config files
+|   |-- data                          =&gt; nuxeo.data.dir (/var/lib/nuxeo)
+|   |   |-- binaries                  =&gt; repository.binary.store
+|   |   '-- packages                  =&gt; marketplace packages information
+|   |-- lib   
+|   '-- plugins
+|-- sdk
+|-- templates                         =&gt; default configuration templates
+|-- tmp
+'-- webapps</code></pre><br/>
+</section>
+
+<section class="slide" id="test-tpl">
+### Configuration Templates
+#### Test Your Configuration Template
+- All the configuration parameters are concatenated in the <code>nxserver/config/configuration.properties</code> file at server start
+
+- Use <code>$NUXEO_HOME/bin/nuxeoctl configure</code> and:
+  - Check which templates are deployed
+  - Check the result in the <code>nxserver/config/configuration.properties</code> file
 </section>
 
 <section class="slide exercise" id="exercise-ldap-config">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/TwFV">ADMINDOC/Using+a+LDAP+directory</a><br /> <a href="http://doc.nuxeo.com/x/iAGW">NXDOC/User+Management</a></div>
-
 ### Practice
-#### LDAP Configuration
-<blockquote>Our company uses a LDAP as its authentication mechanism.<br />
-Let's configure it in the Nuxeo Platform.</blockquote>
-
-- Copy the <a href="files/nxtraining-ldap-config.xml" target="_blank">files/nxtraining-ldap-config.xml</a> into the Nuxeo Platform's <code>nxserver/config</code> directory.
-- Restart the server and check that you can login with <code>nuxeo</code> / <code>nuxeo</code> instead of Administrator / Administrator
-- We will analyse this configuration together once you are finished. If you want to go ahead:
-  - Look at the <a href="files/nxtraining-ldap-config.xml" target="_blank">file</a>, 
-  - <a href="http://localhost/phpldapadmin/" target="_blank">PHPLDAPAdmin</a> (password is nuxeo),
-  - and the <a href="http://doc.nuxeo.com/x/TwFV" target="_blank">Using a LDAP directory</a> documentation to see how it is defined.
+#### Configuration Templates
+<blockquote>Let's put our LDAP configuration in a template to load it properly.</blockquote>
+- Stop the server
+- Create a <strong>copy</strong> of the <code>custom</code> template named <code>myldap</code>
+- Move the <code>nxtraining-ldap-config.xml</code> into it
+- Ensure that the template will deploy your LDAP configuration file in the <code>nxserver/config</code> directory
+- Test that your template is deployed
+- Start your server and check your LDAP connection is still OK
 </section>
 
 <section class="slide" id="questions">
