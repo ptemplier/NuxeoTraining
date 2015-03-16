@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo SysAdmin Training - Advanced Configuration</title>
+<title>Nuxeo SysAdmin Training - Authentication</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -112,175 +112,48 @@
     <span class="sub-part training">Trainings</span>
   </div>
 
+<section class="slide" id="index">
+<h1>Nuxeo Platform - Authentication Mechanisms</h1>
+</section>
+
 <section class="slide" id="summary">
-###Advanced Configuration
-####Authentication (LDAP)
-####Database
-####Other Services (mail, notifications, daemons, ...)
-####Templates
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote>We performed a basic installation.<br /> 
+We should move on to deeper topics. Authenticating users should be a good start.</blockquote>
 </section>
 
-<section class="slide" id="avanced-ports">
-###Protocols and Ports (Tomcat)
-<div align="center">
-<table class="tg">
-  <tr>
-    <th>Type</th>
-    <th>Protocol</th>
-    <th>Port</th>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged">Web</td>
-    <td class="tg-1 tg-merged">HTTP</td>
-    <td class="tg-1 tg-merged">8080</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged">HTTPS</td>
-    <td class="tg-1 tg-merged">8443</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged">AJP</td>
-    <td class="tg-1 tg-merged">8009</td>
-  </tr>
-  <tr>
-    <td class="tg-2">Server admin</td>
-    <td class="tg-2"></td>
-    <td class="tg-2">8005</td>
-  </tr>
-  <tr>
-    <td class="tg-1">JNDI</td>
-    <td class="tg-1">JNDI</td>
-    <td class="tg-1">1099</td>
-  </tr>
-  <tr>
-    <td class="tg-2">Runtime remoting et streaming</td>
-    <td class="tg-2">TCP</td>
-    <td class="tg-2">62474</td>
-  </tr>
-  <tr>
-    <td class="tg-1">JMS</td>
-    <td class="tg-1">TCP</td>
-    <td class="tg-1">8093</td>
-  </tr>
-  <tr>
-    <td class="tg-2">LDAP (if used)</td>
-    <td class="tg-2">LDAP</td>
-    <td class="tg-2">389</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged">DBMS</td>
-    <td class="tg-1 tg-merged">JDBC</td>
-    <td class="tg-1 tg-merged">3700 (DB2)</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged">5432 (PostgreSQL)</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged">3306 (MySQL)</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged">1521 (Oracle)</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged">1433 (MSSQL)</td>
-  </tr>
-  <tr>
-    <td class="tg-2">JODConverter</td>
-    <td class="tg-2">URP</td>
-    <td class="tg-2">8100 / 2003</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged">Mail</td>
-    <td class="tg-1 tg-merged">SMTP</td>
-    <td class="tg-1 tg-merged">25 (without authentication)</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged">587 (with authentication)</td>
-  </tr>
-  <tr>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged"></td>
-    <td class="tg-1 tg-merged">465 (SSL)﻿</td>
-  </tr>
-  <tr>
-    <td class="tg-2">Java Management Extensions</td>
-    <td class="tg-2">JMX</td>
-    <td class="tg-2">1089 (default: off)</td>
-  </tr>
-</table></div>
-<br/>
+<section class="slide" id="auth-concepts">
+### Authentication Mechanisms
+
+#### Concepts
+<img src="img/auth/auth-stack2.png" style="float:right" />
+
+- Nuxeo provides an <strong>authentication chain</strong>, not a single entry point
+- The authentication stack is completely pluggable
+- Differents authentication mechanisms can be used, several can be combined
+  - Local database
+  - LDAP / Active Directory
+  - CAS
+  - OAuth2
+  - Shibboleth
+  - ...
 </section>
 
-<section class="slide" id="avanced-structure">
-  <h3>Server structure (Tomcat)</h3>
-<pre><code>$NUXEO_HOME
-|-- bin
-|   |-- nuxeo.conf                    =&gt; $NUXEO_CONF
-|   |-- nuxeoctl
-|   |-- openofficectl
-|   '-- monitorctl.sh
-|-- client
-|-- conf                              =&gt; server.xml
-|   '-- Catalina
-|        '-- localhost                =&gt; nuxeo.xml
-|-- lib
-|-- log                               =&gt; nuxeo.log.dir (/var/log/nuxeo)
-|-- nxserver
-|   |-- bundles
-|   |-- config
-|   |-- data                          =&gt; nuxeo.data.dir (/var/lib/nuxeo)
-|   |   |-- binaries                  =&gt; repository.binary.store
-|   |   '-- packages
-|   |-- lib
-|   '-- plugins
-|-- sdk
-|-- templates                         =&gt; default configuration templates
-|-- tmp
-'-- webapps</code></pre><br/>
-</section>
+<section class="slide" id="auth-concepts2">
 
-<section class="slide" id="avanced-ldap">
-  <div class="sticker" style="max-width: 100em;">[ADMINDOC/Using+a+LDAP+directory](http://doc.nuxeo.com/x/TwFV)  
-[NXDOC/User+Management](http://doc.nuxeo.com/x/iAGW)</div>
-###Configuration — LDAP
+<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/TwFV">ADMINDOC/Using+a+LDAP+directory</a><br /> <a href="http://doc.nuxeo.com/x/iAGW">NXDOC/User+Management</a></div>
 
-####Nuxeo manipulates Users and Groups via the abstraction of Directories
-####Directories offer an unified API
-- SQL Directories
-- LDAP Directories
-- Multi Directories
-- Connector based Directories
- </section>
+### Authentication Mechanisms
+#### Concepts
+<img src="img/auth/auth-stack2.png" style="float:right" />
 
-<section class="slide" id="avanced-db">
-  <div class="sticker">[ADMINDOC/Database](http://doc.nuxeo.com/x/BAAz)</div>
-###Configuration — Database
-
-####Choose your database
-- PostgreSQL (recommended), Oracle, MySQL, MSSQL
-
-####JDBC libraries
-    $NUXEO_HOME/lib/ (Tomcat)
-
-####Related configuration
-    templates/common/config/sql.properties.nxftl
-    templates/common-base/nxserver/config/datasources-config.xml.nxftl
-    templates/common-base/nxserver/config/xadatasource-params.ftl
-    templates/common-base/nxserver/config/default-repository-config.xml.nxftl
-    templates/common-base/conf/server.xml.nxftl
-    templates/common-base/conf/Catalina/localhost/nuxeo.xml.nxftl
+- Users and Groups are manipulated through an abstraction layer: <code>Directories</code>
+- Directories offer an unified API
+- Different kinds of directories exist:
+  - SQL Directories
+  - LDAP Directories
+  - Multi Directories
+  - Connector based Directories
 </section>
 
 <section class="slide exercise" id="avanced-other">

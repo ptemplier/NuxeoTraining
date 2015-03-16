@@ -108,6 +108,10 @@
   
   <extension target="org.nuxeo.ecm.platform.usermanager.UserService" point="userManager">
     <userManager>
+      <disableDefaultAdministratorsGroup>
+        true
+      </disableDefaultAdministratorsGroup>
+      <administratorsGroup>managers</administratorsGroup> 
       <defaultAdministratorId>nuxeo</defaultAdministratorId>
       <defaultGroup>members</defaultGroup>
     </userManager>
