@@ -299,18 +299,24 @@ Up to now, they are doing this manually and would love to see this information p
      - Useful for external notification, when we want to be sure that the modifications are commited in the DB 
 </section>
 
+<section class="slide" id="main-document-events">
+###Event handlers - Main document events
+<img src="img/event_handlers/main-document-events.png">
+</section>
+
 <section class="slide" id="document-events">
 ###Event handlers - Main document events
-#### Document creation
-- `Empty document created`: Before the creation form is shown
-- `About to create`: When the user clicks on the "save" button
-- `Document created`: When the document has been persisted into the database
-- Don't save the document if the document is not created to avoid an error
 
-#### Document modification
-- `Before document modification`: Before the modifications are saved into the database
-- `Document modified`: When the modifications have been persisted into the database
-- Don't save the document if you deal with document modification events to avoid a possible infinite loop (if you have an event launched at document save)
+#### Document creation example usage
+- `Empty document created`: to pre fill information in the creation form
+- `About to create`: to store a business document id without having to write again in the repository (better for performances)
+- `Document created`: to update document acls, store a pdf copy of a file, update metadata or properties depending on the parent's properties
+- <strong>Don't save the document if the document is not in the repository</strong> to avoid an error
+
+#### Document modification example usage
+- `Before document modification`: to update metadata before modifications are written into the database
+- `Document modified`: to notify users that the document has been updated
+- <strong>Don't save the document</strong> if you use document modification events to avoid a possible infinite loop
 </section>
 
 <section class="slide" id="exercise-event-handlers">
@@ -320,7 +326,8 @@ Up to now, they are doing this manually and would love to see this information p
 <section class="slide exercise" id="what-we-want-to-do">
 <img src="../nuxeo-slide-template/themes/exercise.svg" alt="exercise" class="exercise-icon">
 ###What we want to do
-- Add an event handler `setPublicationDate` that will set the publicationDate to the current date
+- Add an event handler `setPublicationDate` that will set the publicationDate metadata to the current date
+- Note: You need to transform the date into a <code>calendar</code> to store it
 - The event handler should be called before we see the creation view
 - Commit and deploy your changes
 </section>
@@ -331,7 +338,8 @@ Up to now, they are doing this manually and would love to see this information p
 
 <section class="slide" id="next">
 ### Next?
-[Translations](3.3_Translations.html)
+- (optional) [Translations](3.3_Translations.html)
+- [Workflows](3.6_Workflows.html)
 </section>
 
 <section class="slide" id="help-exercise1">
