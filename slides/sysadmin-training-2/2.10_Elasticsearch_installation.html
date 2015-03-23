@@ -134,6 +134,114 @@
 - <strong>Security has to be handled at network level</strong>
 </section>
 
+<section class="slide" id="avanced-ports">
+###Protocols and Ports (Tomcat)
+<div align="center">
+<table class="tg">
+  <tr>
+    <th>Type</th>
+    <th>Protocol</th>
+    <th>Port</th>
+  </tr>
+  <tr>
+    <td class="tg-2"><strong>elasticsearch</strong></td>
+    <td class="tg-2">TCP</td>
+    <td class="tg-2">9200 to 9300 (http calls)<br /> 9300 to 9400 (transport)</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged">Web</td>
+    <td class="tg-1 tg-merged">HTTP</td>
+    <td class="tg-1 tg-merged">8080</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged">HTTPS</td>
+    <td class="tg-1 tg-merged">8443</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged">AJP</td>
+    <td class="tg-1 tg-merged">8009</td>
+  </tr>
+  <tr>
+    <td class="tg-2">Server admin</td>
+    <td class="tg-2"></td>
+    <td class="tg-2">8005</td>
+  </tr>
+  <tr>
+    <td class="tg-1">JNDI</td>
+    <td class="tg-1">JNDI</td>
+    <td class="tg-1">1099</td>
+  </tr>
+  <tr>
+    <td class="tg-2">Runtime remoting et streaming</td>
+    <td class="tg-2">TCP</td>
+    <td class="tg-2">62474</td>
+  </tr>
+  <tr>
+    <td class="tg-1">JMS</td>
+    <td class="tg-1">TCP</td>
+    <td class="tg-1">8093</td>
+  </tr>
+  <tr>
+    <td class="tg-2">LDAP (if used)</td>
+    <td class="tg-2">LDAP</td>
+    <td class="tg-2">389</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged">DBMS</td>
+    <td class="tg-1 tg-merged">JDBC</td>
+    <td class="tg-1 tg-merged">3700 (DB2)</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged">5432 (PostgreSQL)</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged">3306 (MySQL)</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged">1521 (Oracle)</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged">1433 (MSSQL)</td>
+  </tr>
+  <tr>
+    <td class="tg-2">JODConverter</td>
+    <td class="tg-2">URP</td>
+    <td class="tg-2">8100 / 2003</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged">Mail</td>
+    <td class="tg-1 tg-merged">SMTP</td>
+    <td class="tg-1 tg-merged">25 (without authentication)</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged">587 (with authentication)</td>
+  </tr>
+  <tr>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged"></td>
+    <td class="tg-1 tg-merged">465 (SSL)﻿</td>
+  </tr>
+  <tr>
+    <td class="tg-2">Java Management Extensions</td>
+    <td class="tg-2">JMX</td>
+    <td class="tg-2">1089 (default: off)</td>
+  </tr>
+</table></div>
+<br/>
+</section>
+
 <section class="slide exercise" id="es-install">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
 <div class="sticker"><a href="http://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html">es repositories documentation</a></div>

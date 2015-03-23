@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-<title>Nuxeo SysAdmin Training - Authentication</title>
+<title>Nuxeo SysAdmin Training - elasticsearch Configuration</title>
 
 <meta name="description" content="Nuxeo - Configuration and Integration">
 <meta name="author" content="Nuxeo">
@@ -113,44 +113,67 @@
   </div>
 
 <section class="slide" id="index">
-<h1>Nuxeo Platform - elasticsearch Installation</h1>
+<h1>Nuxeo Platform - elasticsearch Configuration</h1>
 </section>
 
 <section class="slide" id="summary">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
-<blockquote>Nuxeo Platform comes with an embedded elasticsearch installation, not suited for production use. That's one thing we absolutely need to take care of.</blockquote>
+<blockquote>elasticsearch has now to be linked to the Nuxeo Platform.</blockquote>
 </section>
 
-<section class="slide" id="es-concepts">
-### elasticsearch
-#### We Use elasticsearch (es) to
-- Reduce load on the database
-- Provide faster searches
-- Provide new search and reporting functionalities
-
-#### Concepts
-- es uses a set of nodes that replicate each other
-- All nodes on the same network and having the same cluster name will start replicating without authentication
-- <strong>Security has to be handled at network level</strong>
-</section>
-
-<section class="slide exercise" id="es-install">
+<section class="slide exercise" id="es-config-clustername">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-<div class="sticker"><a href="http://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html">es repositories documentation</a></div>
-### elasticsearch Installation
-<blockquote>Let's go ahead and start installing elasticsearch.</blockquote>
+### elasticsearch Configuration
+<blockquote>First thing to do is to define elasticsearch's cluster name and url.</blockquote>
 
-#### Add the es key
-<code>wget -qO - https://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -</code>
+#### Edit the es config file
+- <code>sudo nano /etc/elasticsearch/elasticsearch.yml</code>
+- Uncomment and change the <code>cluster.name</code> property's value
+- Restart the elasticsearch service: <code>sudo service elasticsearch restart</code>
 
-#### Add the es repository
-<code>sudo add-apt-repository "deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main"</code>
+#### Update the nuxeo.conf file
+- <code>elasticsearch.addressList=localhost:9300</code>
+- <code>elasticsearch.clusterName=your-cluster-name</code>
+</section>
 
-#### Install es
-<code>sudo apt-get update && sudo apt-get install elasticsearch</code>
+<section class="slide exercise" id="es-config-mapping">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+### elasticsearch Configuration
+<blockquote>Default fulltext configuration handles english language. It can be changed to french through a custom configuration template.</blockquote>
 
-#### Start es with the server
-<code>sudo update-rc.d elasticsearch defaults 95 10</code>
+#### Create a custom template
+- Make a copy of the <code>templates/custom</code> folder for your custom template
+- Ensure that it deploys the <a href="files/elasticsearch-config.xml.nxftl" target="_blank">elasticsearch-config.xml.nxftl</a> into the <code>nxserver/config</code> folder
+- Include it in your nuxeo.conf file. This template should be deployed <strong>after</strong> all others
+</section>
+
+<section class="slide exercise" id="es-config-mapping2">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+### elasticsearch Configuration
+<blockquote>When the template is ready, you can test it easily.</blockquote>
+#### Test the text analysis
+<code>curl -XPOST 'http://localhost:9200/nuxeo/_analyze?analyzer=fulltext&pretty' -d {"C'est génial"}</code>
+
+#### Drop the es index
+<code>curl -XDELETE 'http://localhost:9200/nuxeo/'</code>
+
+#### Restart with the updated configuration
+<code>./nuxeoctl restart</code>
+
+#### Test the text analysis again
+<code>curl -XPOST 'http://localhost:9200/nuxeo/_analyze?analyzer=fulltext&pretty' -d {"C'est génial"}</code>
+</section>
+
+<section class="slide exercise" id="es-config-mapping3">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+### elasticsearch Configuration
+<blockquote>Time for the final testing and reindexing.</blockquote>
+#### Test the text analysis again
+<code>curl -XPOST 'http://localhost:9200/nuxeo/_analyze?analyzer=fulltext&pretty' -d {"C'est génial"}</code>
+
+#### Reindex the documents
+- Go to <code>Admin > Elasticsearch > Admin</code>
+- Re-index documents matching the <code>SELECT * FROM Document</code> query
 </section>
 
 <section class="slide" id="questions-install">
@@ -159,7 +182,7 @@
 
 <section class="slide" id="next">
 ###Next?
-- Back to the [training agenda](index.html#day-1)
+- Back to the [training agenda](0.0_Agenda.html#day-2)
 - [elasticsearch Configuration](2.20_Elasticsearch_configuration.html)
 </section>
 
