@@ -135,9 +135,13 @@ But configuration could be applied in a cleaner, easier to maintain way. Let's d
 - The lighter the better: deploy only what you need
 - Deploy or remove configuration almost on the fly
 - Maintain your installation easily
+
+#### What Already Exists
+- Common templates for databases, existing add-ons...
 </section>
 
 <section class="slide" id="conftpl-how">
+<div class="sticker"><a href="http://doc.nuxeo.com/x/LANc" target="_blank">Adding a custom template</a></div>
 ### Configuration Templates
 
 #### How It Works
@@ -172,9 +176,9 @@ But configuration could be applied in a cleaner, easier to maintain way. Let's d
 |   |-- config                        =&gt; XML config files
 |   |-- data                          =&gt; nuxeo.data.dir (/var/lib/nuxeo)
 |   |   |-- binaries                  =&gt; repository.binary.store
-|   |   '-- packages                  =&gt; marketplace packages information
 |   |-- lib   
 |   '-- plugins
+|-- packages                          =&gt; marketplace packages information
 |-- sdk
 |-- templates                         =&gt; default configuration templates
 |-- tmp
@@ -202,6 +206,30 @@ But configuration could be applied in a cleaner, easier to maintain way. Let's d
 - Ensure that the template will deploy your LDAP configuration file in the <code>nxserver/config</code> directory
 - Test that your template is deployed
 - Start your server and check your LDAP connection is still OK
+</section>
+
+<section class="slide" id="marketplace-vs-config-template">
+### Marketplace VS config templates
+<div class="split-box split-50">
+    <h4>Configuration templates</h4>
+    <ul>
+        <li>Perfect for a one time configuration</li>
+        <li>No versioning</li>
+    </ul>
+</div>
+
+<div class="split-box split-50">
+<h4>Marketplace packages</h4>
+    <ul>
+        <li>Can be uninstalled</li>
+        <li>Can be versioned</li>
+        <li>Define a platform target version</li>
+        <li>Continuous integration compliant</li>
+        <li>Easy and user friendly interface</li>
+        <li>Can install bundles, libs and configuration templates</li>
+    </ul>
+    <strong>Require marketplace packages from your developers, not bundles !</strong>
+</div>
 </section>
 
 <section class="slide" id="questions">
