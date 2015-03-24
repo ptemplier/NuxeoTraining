@@ -44,61 +44,119 @@
   </div>
 
 <section class="slide" id="index">
-<h1>Nuxeo Platform - Maintaining Your Application</h1>
+<h1>Nuxeo Platform - Understanding Nuxeo Platform data storage engine (VCS)</h1>
 </section>
 
 <section class="slide" id="summary">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
-<blockquote>Our production server is ready. Cool! Now it's time to think about what comes next: backing up data, applying hotfixes and upgrading.</blockquote>
+<blockquote>To backup our application, we need to understand its mechanisms first.</blockquote>
 </section>
 
-<section class="slide" id="nuxeoctl-usage">
-### Maintenance - Using nuxeoctl
-#### nuxeoctl Script
-- Can be called to maintain the application while it is stopped
-  - Otherwise the same commands can be done through the interface in the admin tab
-- Is extremely useful for automating maintenance
-- Used to handle marketplace packages, hotfixes, application start and stop
+<section class="slide" id="maintenance-binaries">
+### Binaries Management
+#### Binaries Management In VCS
+- Binaries are renamed with their checksum (no more extension)
+- And placed in a hierarchy depending of their checksum
 
-#### Main nuxeoctl Commands
-- <strong><code>nuxeoctl help</code></strong> Lists all available commands
-- <code>nuxeoctl configure</code> To test configuration templates
-- <strong><code>nuxeoctl mp-hotfix --accept yes</code></strong> Quietly install all available hotfixes
-- <code>nuxeoctl mp-list</code> Lists local marketplace packages
-- <code>nuxeoctl mp-install</code> Install a marketplace package
+#### ex: 
+- A file <code>myFilename.pdf</code> whose checksum is <code>1b483afee0e28e4aacc5706b3d9a2236</code>
+- Will be renamed <code>1b483afee0e28e4aacc5706b3d9a2236</code>, placed in the <code>1b</code> folder, then <code>48</code> subfolder
+- File storage location is defined in the nuxeo.conf <code>repository.binary.store</code> parameter
 </section>
 
-<section class="slide" id="webui-usage">
-### Maintenance - Using the Web UI
-#### Update Center (Admin tab, Update Center menu)
-- Used to install, upgrade, remove marketplace packages or hotfixes
+<section class="slide" id="maintenance-vcs">
+<div class="sticker"><a href="http://doc.nuxeo.com/x/DgAz">VCS</a></div>
+### VCS
+#### Visible Content Store
+- VCS is the Nuxeo Platform data storing engine
+- By default, metadata is stored in the database, binaries on a filesystem
 
-##### Available Tabs
-<img src="img/maintenance/update-center.png" style="float:right;">
+#### Metadata is stored as following:
+- Document hierarchy is stored in the <code>hierarchy</code> table
+- Metadata is grouped into schemas (metadata groups)
+- Every schema corresponds to a table in the database with the same name
 
-- <strong><code>Nuxeo Studio</code></strong>: to install Studio releases
-- <strong><code>Nuxeo software updates</code></strong>: to apply hotfixes
-- <strong><code>Private packages</code></strong>: private marketplace packages you have access to with your account (Studio releases, privately shared marketplace packages between customers)
-- <strong><code>Packages from Nuxeo Marketplace</code></strong>: all marketplace packages, including the ones available from the marketplace
-- <strong><code>Local packages</code></strong>: already downloaded / installed marketplace packages, or manually imported.
+#### How To Check a File Name By Its Checksum
+- Checksum is in the <code>data</code> column of the <code>content</code> table
+- <code>id</code> column holds the document id
+- <code>id</code> can be found also in the <code>file</code>, <code>hierarchy</code> table... to gather more information on the document
 </section>
 
-<section class="slide exercise" id="practice-hotfixes">
+<section class="slide" id="maintenance-orphaned-binaries">
+<div class="sticker"><a href="http://doc.nuxeo.com/x/r4AlAQ">Deleting Documents</a></div>
+### Orphaned Binaries Management
+<img src="img/maintenance/orphaned-binaries.png" style="float:right;">
+
+#### Deleting Orphaned Binaries
+##### Binaries are not deleted immediately on document deletion, because: 
+- Other documents could still reference it !
+- And it is costly to check every document for that
+
+##### They can be deleted...
+- Manually in Admin, System Information, Repository Binaries
+- Through a groovy script
+- Using some Java code that can be triggered through a scheduled task or any kind of event
+<pre><code>import org.nuxeo.ecm.core.storage.sql.management.RepositoryStatus;
+
+RepositoryStatus status = new RepositoryStatus();
+if (!status.isBinariesGCInProgress()) {
+    status.gcBinaries(true);
+}</code></pre>
+</section>
+
+<section class="slide" id="questions-vcs">
+## Questions?
+</section>
+
+<section class="slide" id="maintenance-backup">
+
+<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/IoAO">ADMINDOC/Backup+and+Restore</a></div>
+
+###Backup/restore
+#### Hot backup
+##### Do a database backup first 
+- SQL dump can be done while the database is running with postgreSQL
+- elasticsearch index is fast to rebuild if needed
+  - Back it up only if it is really big
+  - It has to be backed up at the same time than the db for consistency
+  
+##### Save the Filesystem second (binary store)
+
+<br /><br />
+####VCS ensures backup consistency
+- No risk of file being in process of update
+- No risk of file referenced by the DB that has been removed from the filesystem
+</section>
+  
+  <section class="slide exercise" id="maintenance-backup2">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-### Applying Hotfixes
-<blockquote>Apply hotfixes on your application.</blockquote>
-- Either using the nuxeoctl if your application is stopped
-- Or using the Web UI if the application is running
+###Sample with PostgreSQL
+####Data Backup 
+- Save db: <code>pg_dump dbname | gzip > filename.gz</code>
+- Save data directory (archive, rsync or use your own filesystem backup tool)
+- Save log directory
+
+####Conf Backup
+- Save nuxeo.conf file and custom templates.
+
+####Data Restore
+- <code>createdb dbname</code>
+- Import db (see also <code>pg_restore</code>): <code>gunzip -c filename.gz | psql dbname</code>
+- Restore data directory
+
+####Upgrade
+- Backup data and configuration (see above)
+- Deploy new Nuxeo instance and reuse previous instance configuration
 </section>
 
-<section class="slide" id="questions-hotfixes">
+<section class="slide" id="questions-backup">
 ## Questions?
 </section>
 
   <section class="slide" id="next">
 ###Next?
-- Back to the [training agenda](index.html#day-2)
-- [VCS](2.40_Vcs.html)
+- Back to the [training agenda](0.0_Agenda.html#day-2)
+- [Upgrading](2.50_Upgrading.html)
   </section>
 
   <!-- deck.navigation snippet -->

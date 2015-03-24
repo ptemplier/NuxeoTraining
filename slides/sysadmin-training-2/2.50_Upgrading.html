@@ -44,61 +44,44 @@
   </div>
 
 <section class="slide" id="index">
-<h1>Nuxeo Platform - Maintaining Your Application</h1>
+<h1>Nuxeo Platform - Upgrading</h1>
 </section>
 
 <section class="slide" id="summary">
 ### Context <img src="../themes/frog-teacher.png" class="float-left" />
-<blockquote>Our production server is ready. Cool! Now it's time to think about what comes next: backing up data, applying hotfixes and upgrading.</blockquote>
+<blockquote>Maintaining an application also means upgrading versions.</blockquote>
 </section>
 
-<section class="slide" id="nuxeoctl-usage">
-### Maintenance - Using nuxeoctl
-#### nuxeoctl Script
-- Can be called to maintain the application while it is stopped
-  - Otherwise the same commands can be done through the interface in the admin tab
-- Is extremely useful for automating maintenance
-- Used to handle marketplace packages, hotfixes, application start and stop
-
-#### Main nuxeoctl Commands
-- <strong><code>nuxeoctl help</code></strong> Lists all available commands
-- <code>nuxeoctl configure</code> To test configuration templates
-- <strong><code>nuxeoctl mp-hotfix --accept yes</code></strong> Quietly install all available hotfixes
-- <code>nuxeoctl mp-list</code> Lists local marketplace packages
-- <code>nuxeoctl mp-install</code> Install a marketplace package
-</section>
-
-<section class="slide" id="webui-usage">
-### Maintenance - Using the Web UI
-#### Update Center (Admin tab, Update Center menu)
-- Used to install, upgrade, remove marketplace packages or hotfixes
-
-##### Available Tabs
-<img src="img/maintenance/update-center.png" style="float:right;">
-
-- <strong><code>Nuxeo Studio</code></strong>: to install Studio releases
-- <strong><code>Nuxeo software updates</code></strong>: to apply hotfixes
-- <strong><code>Private packages</code></strong>: private marketplace packages you have access to with your account (Studio releases, privately shared marketplace packages between customers)
-- <strong><code>Packages from Nuxeo Marketplace</code></strong>: all marketplace packages, including the ones available from the marketplace
-- <strong><code>Local packages</code></strong>: already downloaded / installed marketplace packages, or manually imported.
-</section>
-
-<section class="slide exercise" id="practice-hotfixes">
+  <section class="slide exercise" id="maintenance-upgrade2">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-### Applying Hotfixes
-<blockquote>Apply hotfixes on your application.</blockquote>
-- Either using the nuxeoctl if your application is stopped
-- Or using the Web UI if the application is running
-</section>
+  <div class="sticker" style="max-width: 100em;">[ADMINDOC/Upgrading+your+Nuxeo+Version](http://doc.nuxeo.com/x/rgc7)</div>
+###Upgrade distribution
+#### You can upgrade from
+- A LTS version to the next LTS
+- A Fast Track version to the next Fast Track
+- A Fast Track version to the next LTS if this is the latest Fast Track before the LTS
 
-<section class="slide" id="questions-hotfixes">
+####Before any upgrade
+- <strong>Read the Upgrade Notes</strong>
+- Backup database
+- Backup the data directory
+- Backup configuration and custom templates
+- Backup log directory
+
+####Upgrade
+- Deploy new Nuxeo
+- Adapt your configuration
+- Start Nuxeo
+  </section>
+
+<section class="slide" id="questions-upgrade">
 ## Questions?
 </section>
 
   <section class="slide" id="next">
 ###Next?
-- Back to the [training agenda](index.html#day-2)
-- [VCS](2.40_Vcs.html)
+- Back to the [training agenda](0.0_Agenda.html#day-2)
+- [Monitoring](2.60_Monitoring.html)
   </section>
 
   <!-- deck.navigation snippet -->
