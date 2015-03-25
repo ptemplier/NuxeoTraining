@@ -43,205 +43,126 @@
     <span class="sub-part training">Trainings</span>
   </div>
 
-  <section class="slide" id="summary">
-  <div class="sticker" style="max-width: 100em;">[ADMINDOC/Monitoring+and+Maintenance](http://doc.nuxeo.com/x/LoAO)</div>
-###Monitoring, Analysis, Supervision, Benchmark
-####Logs
-####Nuxeo Tools (Shell, Admin Center, FunkLoad)
-####VCS and Database Analysis
-####System Tools (Linux)
-####Java Tools
-  </section>
+<section class="slide" id="index">
+<h1>Nuxeo Platform - Monitoring</h1>
+</section>
 
-  <section class="slide exercise" id="monitoring1">
+<section class="slide" id="summary">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote>The final, but crucial, aspect we now need to ensure is that the application must keep running smoothly.</blockquote>
+</section>
+
+<section class="slide" id="monitoring-concepts">
+
+<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/LoAO" target="_blank">ADMINDOC/Monitoring+and+Maintenance</a></div>
+
+###Monitoring
+#### Concepts
+- Several tools can be used for monitoring:
+  - Logs
+  - Nuxeo Tools
+  - Java Tools
+  
+- Nuxeo provides the information through standard means (log files, JMX...)
+- You can use it to connect to your own usual tools (Nagios, ...)
+</section>
+
+<section class="slide exercise" id="monitoring-logs">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;">[ADMINDOC/Logs+Analysis](http://doc.nuxeo.com/x/mYDZ)<br/>
-  https://hg.nuxeo.org/tools/logchart
-  </div>
-###Logs
+  <div class="sticker" style="max-width: 100em;">[ADMINDOC/Logs+Analysis](http://doc.nuxeo.com/x/mYDZ)</div>
+###Monitoring - Logs
+#### Concepts
+- Logs are stored in the folder specified by the <code>nuxeo.log.dir</code> property
+- Using log4j, you can fine-tune logging configuration
+
+#### Existing Log Files
+##### Launcher logs
+- <strong><code>nuxeoctl.log</strong></code> Activity from NuxeoCtl.
+- <strong><code>console.log</strong></code> Output written to the console (stdout).
+
+##### Server logs
+- <strong><code>server.log</strong></code> Server logs.
+- <strong><code>nuxeo-error.log</strong></code> Errors raised to the user.
+- <strong><code>stderr.log</strong></code> Errors written to the console (stderr).
+- <strong><code>classloader.log</strong></code> Class loading errors from Catalina.
+- <strong><code>tomcat.log</strong></code> Tomcat logs. 
+</section>
+
+<section class="slide exercise" id="monitoring-log4j">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+###Monitoring - Logs
 ####Log4J configuration
 - <code>$NUXEO_HOME/lib/log4j.xml</code>
 - Filter log level (`ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`)
 - Increase logs for specific services
-
-####Analyze log files content
-- `nuxeoctl.log`, `console.log`, `server.log`, `nuxeo-error.log` and `stderr.log`
-- `DeploymentPreprocessor` pre-processing order
-- `FrameworkLoader` configuration summary
-- `OSGiRuntimeService` startup summary
-
-####logchart
-  </section>
-
-  <section class="slide exercise" id="monitoring2.1">
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;">
-  http://localhost:8080/nuxeo/runningstatus<br/>
-  https://github.com/tiry/nuxeo-automation-jsshell
-  </div>
-###Nuxeo Tools
-####Raw performances
-- Admin Center activity (sessions, events, charts)
-- Admin Center monitoring (status, probes, event bus, Shell)
-- Server and components statuses (Launcher, Runtime and Core)
-- Nuxeo Shell
-  - Technical administration, Mass operations, Testing
-  - Pluggable commands system (via automation or scripting)
-  - Batch mode (scripting)
-- JS Automation Shell
-  </section>
-  
-<section class="slide" id="tech-events">
-###Events
-####Events are triggered for each operation
-- can be extended for business specific events
-- events can be relayed on JMS Topic
-
-####EventHandlers
-- Synchronous / PostCommit / Asynchronous
-- Easily contribuable (Java / Script / MDB)
-- Great solution for
-  - Enforcing business rules (synchronous inline)
-  - Pushing/getting data to/from external systems 
+- Many configuration examples are commented, activate them depending on your needs (elasticsearch logging, sending logs through email, log rotation...)
 </section>
 
-<section class="slide" id="tech-connectors5">
-###Nuxeo Event bus
-![event-bus](../img/tech/event-bus.png)
-</section>
-  
-  <section class="slide exercise" id="monitoring2.2">
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;">
-  https://github.com/nuxeo/FunkLoad/
-  </div>
-###Nuxeo Tools
-####Performances via HTTP
-- FunkLoad, LoadRunner, OpenSTA, JMeter, ...
-
-![MonitorCPU](../img/tech/MonitorCPU.png)
-  </section>
-  
-  <section class="slide exercise" id="using-funkload">
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;">
-  <a href="https://github.com/nuxeo/nuxeo-distribution">nuxeo-distribution</a>
-  <a href="https://github.com/nuxeo/nuxeo-distribution/tree/5.8/nuxeo-distribution-dm/ftest/funkload">funkload tests</a>
-  </div>
-###Funkload
-####Getting funkload
-- <a href="http://funkload.nuxeo.org">Install funkload and related tools</a>
-- Clone the nuxeo-distribution repo
-- Checkout the wanted branch
-
-####Using Funkload - Basic Benchmark
-- <code>make</code>
-- <code>make bench</code>
-
-####Partial Tests
-- <code>make</code>
-- <code>make start</code>
-- <code>make bench-reader</code>
-- <code>make bench-writer</code>
-  </section>
-
-  <section class="slide exercise" id="using-funkload-options">
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;">
-  <a href="http://funkload.nuxeo.org">Funkload documentation</a>
-  </div>
-###Funkload
-####Some options
-- Use <code>make -n bench-writer</code> to see corresponding options
-
-- -c 1:4:8:10:12:14 
-  - Cycles with 1, 4, 8 concurrent threads (virtual users)
-- -D 60 
-  - Cycle duration
-- -m 0.2 -M 1 
-  - Send requests with 0.2 to 1 second interval
-- -s 1
-  - Wait 1 second between every thread creation
-  </section>
-
-  <section class="slide exercise" id="monitoring3">
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;">
-  [NXDOC/VCS+Architecture](http://doc.nuxeo.com/x/DgAz)
-  </div>
-###VCS and Database Analysis
-####Database: VCS &amp; Audit Service
-- VCS
-  - `Hierarchy` (id, parentId), `schema_name` table
-  - `schema_prefix_field` table if using complex list type
-  - `locks`
-- `nxp_tagging`
-- `localthemeconfig` 
-- Technical tables
-  - `acls`
-  - `fulltext`
-- Audit
-  - `nxp_logs`, `nxp_logs_mapextinfos`, `nxp_logs_extinfo`
-  - `extended_info`
-- Directories
-  - `Subject`
-  - `Continent`, `Country`
-  - `users`, `groups`, `user2group`
-  </section>
-
-  <section class="slide exercise" id="monitoring4">
-###System Tools
-####PostgreSQL
-    log_min_duration_statement = 100
-    vacuumdb  -fzv $DBNAME &> vacuum.log
-
-####pgfouine
-####Ksar, sysstat, atop
-####Graphite
-####Diamond
-####logstash
-####Kibana
-####Takipi (stack capture with memory context)
-####NewRelic
-
-####Use your own tools: Nagios, OpenNMS, Hyperic, RHQ, …
+<section class="slide" id="questions-logs">
+## Questions?
 </section>
 
-  <section class="slide exercise" id="monitoring5">
+<section class="slide" id="monitoring-nxtools">
+### Monitoring - Nuxeo Tools
+#### Application Status
+##### <a href="http://localhost:8080/nuxeo/runningstatus" target="_blank">http://localhost:8080/nuxeo/runningstatus</a>
+Gives bare application status
+##### <a href="http://localhost:8080/nuxeo/runningstatus?info=summary&key=server.status.key" target="_blank">http://localhost:8080/nuxeo/runningstatus?info=summary&key=<code>server.status.key</code></a> 
+Gives a more detailed overview. <code>server.status.key</code> can be found in the nuxeo.conf file.
+
+#### Raw performances
+- Admin Center, information menu (jvm, stats)
+- Admin Center, activity menu (sessions, events, charts)
+- Admin Center, monitoring menu (status, probes, event bus, Shell)
+</section>
+
+<section class="slide" id="questions-nxp-tools">
+## Questions?
+</section>
+
+<section class="slide" id="monitoring-java">
+  <div class="sticker" style="max-width: 100em;">[Metrics and Monitoring](http://doc.nuxeo.com/x/gBDF)</div>
+###Monitoring - Java Tools
+#### Concepts
+- Nuxeo exposes probes and metrics through JMX
+  - So you can get them through your usual Java monitoring tools and or standard tools like jvisualvm
+- Or with CSV files
+
+- But also using <a href="http://metrics.codahale.com/" target="_blank">Coda Hale Hammer</a> metrics
+  - So you can use a graphite backend
+  - We provide a default Nuxeo dashboard for graphite to get you started with it
+</section>
+
+<section class="slide exercise" id="monitoring-jvisualvm">
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-  <div class="sticker" style="max-width: 100em;">[jmx-console](http://localhost:8080/jmx-console/)<br/>
-  [Jmxterm](http://wiki.cyclopsgroup.org/jmxterm)<br/>
-  [Memory Analyzer (MAT)](https://www.eclipse.org/mat/)</div>
-###Java Tools
-####Server-specific managers
-####JMX and JDMK
-    $ java -jar jmxterm-1.0-alpha-4-uber.jar
-    $ open localhost:1089
-    $ domains
-    $ bean org.nuxeo:formart=html,type=...
-    $ info
-    $ run start
-    # started OpenJDMK service (log Nuxeo INFO level to get URLs)
-    # user/password: operator/${server.status.key} (nuxeo.conf)
-    # URL usable in a JMX client (for instance JVisualVM)
+###Monitoring - JVisualVM
+<img src="img/monitoring/jmx-probes-events.png" style="float:right;">
 
-####Oracle
-- jconsole (enabling JMX remote), JVisualVM, JStack, ...
-- Mission Control (flight recorder, events, low impact)
+#### Monitoring the JVM using jvisualvm 
+Launch <code>jvisualvm</code> in a terminal
 
-####Eclipse Memory Analyzer
+#### Use... 
+##### The <code>Monitor</code> and <code>VisualGC</code> tabs 
+- To monitor the JVM and garbage collector usage
 
-####JVM Garbage Collector
-    JAVA_OPTS=$JAVA_OPTS -Xloggc:${nuxeo.log.dir}/gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps
-    
-####GCViewer
-  </section>
+##### The <code>Sampler</code> tab 
+- To execute a CPU / memory dump for further analysis
 
-  <section class="slide" id="next">
+##### The <code>MBeans</code> tab 
+- Is where probes and events (WorkManager) are exposed
+- Also contains useful methods, for example to clear caches
+</section>
+
+<section class="slide" id="questions-jvm">
+## Questions?
+</section>
+
+<section class="slide" id="next">
 ###Next?
-- Back to the [training agenda](index.html#day-3)
-- [Reporting, Support](3.2_Reporting.html)
-  </section>
+- Back to the [training agenda](0.0_Agenda.html#day-2)
+- [Ending](99_Ending.html)
+- [Reporting, Support](3.10_Reporting.html)
+</section>
 
   <!-- deck.navigation snippet -->
   <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
