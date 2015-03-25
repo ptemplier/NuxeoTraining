@@ -88,23 +88,13 @@ Let's set up the database, and we will be good to go!</blockquote>
 ## Questions?
 </section>
 
-<section class="slide exercise" id="postgre-config">
-<div class="sticker"><a href="http://doc.nuxeo.com/x/fwQz">Setting Up PostgreSQL</a></div>
-<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
-### Practice
-#### PostgreSQL Configuration - First Connection
-<blockquote>Default authentication method "peer" may not be working, so we need to change it</blockquote>
-- <code>sudo nano /etc/postgresql/9.3/main/pg_hba.conf</code>
-- Set the connection to <code>trust</code> for user postgres, in database administrative login by Unix domain socket
-- Restart the service: <code>sudo service postgresql restart</code>
-</section>
-
 <section class="slide exercise" id="postgre-config2">
 <div class="sticker"><a href="http://doc.nuxeo.com/x/fwQz">Setting Up PostgreSQL</a></div>
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
 ### Practice
 #### PostgreSQL Configuration - Casts Settings
 <blockquote>Casts will be used by relations and comments on documents. We can configure casts in the template1 database to apply them on any further created database.</blockquote>
+<code>sudo su -l postgres</code><br />
 <code>psql -U postgres -d template1</code><br />
 <pre><code>CREATE FUNCTION pg_catalog.text(integer) RETURNS text STRICT IMMUTABLE LANGUAGE SQL AS 'SELECT textin(int4out($1));';
 CREATE CAST (integer AS text) WITH FUNCTION pg_catalog.text(integer) AS IMPLICIT;
@@ -135,14 +125,10 @@ CREATE DATABASE nuxeo ENCODING 'UTF8' OWNER nuxeo;
 <img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
 ### Practice
 #### PostgreSQL Configuration - Postgres password
-<blockquote>Last but not least, we need to ensure a better security. We will set a password for user postgres, and an according connection mode.</blockquote>
-- <code>psql -U postgres</code>
+<blockquote>Last but not least, we may need to be able to connect later through the network. We will set a password for user postgres.</blockquote>
+<code>psql -U postgres</code>
 <pre><code>ALTER user postgres ENCRYPTED password 'postgres';
 \q</code></pre>
-
-- <code>sudo nano /etc/postgresql/9.3/main/pg_hba.conf</code>
-- Set the connection to <code>md5</code> for user postgres, in database administrative login by Unix domain socket
-- Restart the service: <code>sudo service postgresql restart</code>
 </section>
 
 <section class="slide" id="performance-tuning">
