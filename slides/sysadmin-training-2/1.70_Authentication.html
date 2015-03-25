@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo SysAdmin Training - Authentication</title>
+
+<meta name="description" content="Nuxeo - Configuration and Integration">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet" href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet" href="../themes/style/nuxeo-theme.css">
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet" href="../themes/style/nuxeo-theme-with-comments.css">
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet" href="../themes/transition/nuxeo-transition.css">
+<script src="../deck.js/modernizr.custom.js"></script>
+<style type="text/css">
+.tg {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-color: #ccc;
+  background: #ffcc30;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #ffe930 0%, #ffcc30 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffe930), color-stop(100%, #ffcc30));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ffe930 0%, #ffcc30 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ffe930 0%, #ffcc30 100%);
+  /* Opera11.10+ */
+  background: -ms-linear-gradient(top, #ffe930 0%, #ffcc30 100%);
+  /* IE10+ */
+  background: linear-gradient(top, #ffe930 0%, #ffcc30 100%);
+  /* W3C */
+  border-radius: 10px;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  color: #7b5400;
+  font-size: .8em;
+  font-weight: bold;
+  margin: 0 0 .3em .5em;
+  padding: .6em;
+  text-align: center;
+  text-shadow: 1px 1px 1px #fff;
+}
+
+.tg td {
+  font-size: 0.7em;
+  padding: 10px 5px;
+  border-style: solid;
+  border-width: 2px;
+  overflow: hidden;
+  word-break: normal;
+  border-color: #ccc;
+  color: #333;
+  background-color: #fff;
+}
+
+.tg th {
+  font-size: 1.05em;
+  font-weight: bold;
+  padding: 10px 5px;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+  word-break: normal;
+  border-color: #ccc;
+  color: #1358ae;
+  background-color: #f0f0f0;
+}
+
+.tg .tg-1 {
+  background-color: #f8f8f8;
+  text-align: left;
+}
+
+.tg .tg-2 {
+/*   background-color: #f5f5f5 */
+  text-align: left;
+}
+
+.tg .tg-merged {
+  border-bottom-width: 0;
+  border-top-width: 0;
+}
+</style>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span>
+    <span class="slash">/</span>
+    <span class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide" id="index">
+<h1>Nuxeo Platform - Authentication Mechanisms</h1>
+</section>
+
+<section class="slide" id="summary">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote>We performed a basic installation.<br /> 
+We should move on to deeper topics. Authenticating users should be a good start.</blockquote>
+</section>
+
+<section class="slide" id="auth-concepts">
+### Authentication Mechanisms
+
+#### Concepts
+<img src="img/auth/auth-stack2.png" style="float:right" />
+
+- Nuxeo provides an <strong>authentication chain</strong>, not a single entry point
+- The authentication stack is completely pluggable
+- Differents authentication mechanisms can be used, several can be combined
+  - Local database
+  - LDAP / Active Directory
+  - CAS2
+  - OAuth
+  - Shibboleth
+  - ...
+</section>
+
+<section class="slide" id="auth-concepts2">
+
+<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/TwFV">ADMINDOC/Using+a+LDAP+directory</a><br /> <a href="http://doc.nuxeo.com/x/iAGW">NXDOC/User+Management</a></div>
+
+### Authentication Mechanisms
+#### Concepts
+<img src="img/auth/auth-stack2.png" style="float:right" />
+
+- Users and Groups are manipulated through an abstraction layer: <code>Directories</code>
+- Directories offer an unified API
+- Different kinds of directories exist:
+  - SQL Directories
+  - LDAP Directories
+  - Multi Directories
+  - Connector based Directories
+</section>
+
+<section class="slide exercise" id="exercise-ldap-config">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/TwFV">ADMINDOC/Using+a+LDAP+directory</a><br /> <a href="http://doc.nuxeo.com/x/iAGW">NXDOC/User+Management</a></div>
+
+### Practice
+#### LDAP Configuration
+<blockquote>Our company uses a LDAP as its authentication mechanism.<br />
+Let's configure it in the Nuxeo Platform.</blockquote>
+
+- Copy the <a href="files/nxtraining-ldap-config.xml" target="_blank">files/nxtraining-ldap-config.xml</a> into the Nuxeo Platform's <code>nxserver/config</code> directory.
+- Restart the server and check that you can login with <code>nuxeo</code> / <code>nuxeo</code> instead of Administrator / Administrator
+- We will analyse this configuration together once you are finished. If you want to go ahead:
+  - Look at the <a href="files/nxtraining-ldap-config.xml" target="_blank">file</a>, 
+  - <a href="http://localhost/phpldapadmin/" target="_blank">PHPLDAPAdmin</a> (password is nuxeo),
+  - and the <a href="http://doc.nuxeo.com/x/TwFV" target="_blank">Using a LDAP directory</a> documentation to see how it is defined.
+</section>
+
+<section class="slide" id="questions">
+## Questions?
+</section>
+
+<section class="slide" id="next">
+###Next?
+- Back to the [training agenda](index.html#day-1)
+- [Configuration Templates](1.80_Configuration_templates.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+  
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+  </p>
+  
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+  <label for="goto-slide">Go to slide:</label>
+  <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+  
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+  
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+  
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- JQuery tooltip library -->
+  <script src="../scripts/jquery.tools.tooltip.min.js"></script>
+<!-- Initialize the deck and tooltips -->
+  <script>
+      $(function() {
+        $.deck('.slide');
+      });
+jQuery(document).ready(function() {
+  jQuery(".tooltip-kat").tooltip({relative: true, position: 'top right'});
+});
+  </script>
+
+</body>
+</html>

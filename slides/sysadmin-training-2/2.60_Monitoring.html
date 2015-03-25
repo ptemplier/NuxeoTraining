@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo SysAdmin Training - Monitoring</title>
+
+<meta name="description" content="Nuxeo - Configuration and Integration">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet" href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet" href="../themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet" href="../themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet" href="../themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span>
+    <span class="slash">/</span>
+    <span class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide" id="index">
+<h1>Nuxeo Platform - Monitoring</h1>
+</section>
+
+<section class="slide" id="summary">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote>The final, but crucial, aspect we now need to ensure is that the application must keep running smoothly.</blockquote>
+</section>
+
+<section class="slide" id="monitoring-concepts">
+
+<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/LoAO" target="_blank">ADMINDOC/Monitoring+and+Maintenance</a></div>
+
+###Monitoring
+#### Concepts
+- Several tools can be used for monitoring:
+  - Logs
+  - Nuxeo Tools
+  - Java Tools
+  
+- Nuxeo provides the information through standard means (log files, JMX...)
+- You can use it to connect to your own usual tools (Nagios, ...)
+</section>
+
+<section class="slide exercise" id="monitoring-logs">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+  <div class="sticker" style="max-width: 100em;">[ADMINDOC/Logs+Analysis](http://doc.nuxeo.com/x/mYDZ)</div>
+###Monitoring - Logs
+#### Concepts
+- Logs are stored in the folder specified by the <code>nuxeo.log.dir</code> property
+- Using log4j, you can fine-tune logging configuration
+
+#### Existing Log Files
+##### Launcher logs
+- <strong><code>nuxeoctl.log</strong></code> Activity from NuxeoCtl.
+- <strong><code>console.log</strong></code> Output written to the console (stdout).
+
+##### Server logs
+- <strong><code>server.log</strong></code> Server logs.
+- <strong><code>nuxeo-error.log</strong></code> Errors raised to the user.
+- <strong><code>stderr.log</strong></code> Errors written to the console (stderr).
+- <strong><code>classloader.log</strong></code> Class loading errors from Catalina.
+- <strong><code>tomcat.log</strong></code> Tomcat logs. 
+</section>
+
+<section class="slide exercise" id="monitoring-log4j">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+###Monitoring - Logs
+####Log4J configuration
+- <code>$NUXEO_HOME/lib/log4j.xml</code>
+- Filter log level (`ERROR`, `WARN`, `INFO`, `DEBUG`, `TRACE`)
+- Increase logs for specific services
+- Many configuration examples are commented, activate them depending on your needs (elasticsearch logging, sending logs through email, log rotation...)
+</section>
+
+<section class="slide" id="questions-logs">
+## Questions?
+</section>
+
+<section class="slide" id="monitoring-nxtools">
+### Monitoring - Nuxeo Tools
+#### Application Status
+##### <a href="http://localhost:8080/nuxeo/runningstatus" target="_blank">http://localhost:8080/nuxeo/runningstatus</a>
+Gives bare application status
+##### <a href="http://localhost:8080/nuxeo/runningstatus?info=summary&key=server.status.key" target="_blank">http://localhost:8080/nuxeo/runningstatus?info=summary&key=<code>server.status.key</code></a> 
+Gives a more detailed overview. <code>server.status.key</code> can be found in the nuxeo.conf file.
+
+#### Raw performances
+- Admin Center, information menu (jvm, stats)
+- Admin Center, activity menu (sessions, events, charts)
+- Admin Center, monitoring menu (status, probes, event bus, Shell)
+</section>
+
+<section class="slide" id="questions-nxp-tools">
+## Questions?
+</section>
+
+<section class="slide" id="monitoring-java">
+  <div class="sticker" style="max-width: 100em;">[Metrics and Monitoring](http://doc.nuxeo.com/x/gBDF)</div>
+###Monitoring - Java Tools
+#### Concepts
+- Nuxeo exposes probes and metrics through JMX
+  - So you can get them through your usual Java monitoring tools and or standard tools like jvisualvm
+- Or with CSV files
+
+- But also using <a href="http://metrics.codahale.com/" target="_blank">Coda Hale Hammer</a> metrics
+  - So you can use a graphite backend
+  - We provide a default Nuxeo dashboard for graphite to get you started with it
+</section>
+
+<section class="slide exercise" id="monitoring-jvisualvm">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+###Monitoring - JVisualVM
+<img src="img/monitoring/jmx-probes-events.png" style="float:right;">
+
+#### Monitoring the JVM using jvisualvm 
+Launch <code>jvisualvm</code> in a terminal
+
+#### Use... 
+##### The <code>Monitor</code> and <code>VisualGC</code> tabs 
+- To monitor the JVM and garbage collector usage
+
+##### The <code>Sampler</code> tab 
+- To execute a CPU / memory dump for further analysis
+
+##### The <code>MBeans</code> tab 
+- Is where probes and events (WorkManager) are exposed
+- Also contains useful methods, for example to clear caches
+</section>
+
+<section class="slide" id="questions-jvm">
+## Questions?
+</section>
+
+<section class="slide" id="next">
+###Next?
+- Back to the [training agenda](0.0_Agenda.html#day-2)
+- [Ending](99_Ending.html)
+- [Reporting, Support](3.10_Reporting.html)
+</section>
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+  </p>
+
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+  <label for="goto-slide">Go to slide:</label>
+  <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- JQuery tooltip library -->
+  <script src="../scripts/jquery.tools.tooltip.min.js"></script>
+
+<!-- Initialize the deck and tooltips -->
+  <script>
+      $(function() {
+        $.deck('.slide');
+      });
+jQuery(document).ready(function() {
+  jQuery(".tooltip-kat").tooltip({relative: true, position: 'top right'});
+});
+  </script>
+
+</body>
+</html>

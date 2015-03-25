@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>Nuxeo SysAdmin Training - Nuxeo Platform Installation</title>
+
+<meta name="description" content="Nuxeo - Configuration and Integration">
+<meta name="author" content="Nuxeo">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Core and extension CSS files -->
+<link rel="stylesheet" href="../deck.js/core/deck.core.css">
+<link rel="stylesheet" href="../deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="../deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet" href="../deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="../deck.js/extensions/status/deck.status.css">
+<link rel="stylesheet" href="../deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="../deck.js/extensions/scale/deck.scale.css">
+
+<!-- Nuxeo Slide Default theme -->
+<link rel="stylesheet" href="../themes/style/nuxeo-theme.css">
+
+<!-- Nuxeo Slide with comments theme -->
+<link rel="stylesheet" href="../themes/style/nuxeo-theme-with-comments.css">
+
+<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+<link rel="stylesheet" href="../themes/transition/nuxeo-transition.css">
+
+<script src="../deck.js/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+  <!-- Nuxeo Logo Training -->
+  <div class="nuxeo-logo">
+    <span class="nuxeo">nuxeo</span>
+    <span class="slash">/</span>
+    <span class="sub-part training">Trainings</span>
+  </div>
+
+<section class="slide" id="index">
+<h1>Nuxeo Platform Installation</h1>
+</section>
+
+<section class="slide" id="summary">
+### Context <img src="../themes/frog-teacher.png" class="float-left" />
+<blockquote>Pre requisites are now handled.<br /> 
+We can go ahead and install the Nuxeo Platform this time.</blockquote>
+</section>
+
+<section class="slide" id="download">
+<div class="sticker"><a href="http://doc.nuxeo.com/display/ADMINDOC" target="_blank">ADMINDOC</a></div>
+<h3>Downloading the Nuxeo Platform</h3>
+
+<div>
+<h4>Packaged Distributions</h4>
+<p>
+<ul>
+  <li>http://www.nuxeo.com/downloads/</li>
+  <li>https://community.nuxeo.com/static/releases/</li>
+</ul>
+
+Choose your package: ZIP, JAR, EXE, APP, Debian, VM...
+</p>
+</div><br /><br />
+
+<h4>Choose your version</h4>
+<div class="split-box split-50">
+<h5>Fast Track releases</h5>
+<ul>
+  <li>Are released every 2 months, between LTS releases</li>
+  <li>Have uneven numbers: 7.x, 9.x...</li>
+  <li>Contain the latest functionalities</li>
+  <li>Are not maintained, and only supported for 4 months => You need to migrate often</li>
+  <li><strong>Are fitted for testing and development, not for production use</strong></li>
+</ul>
+</div>
+<div class="split-box split-50">
+<h5>LTS releases</h5>
+<ul>
+  <li>Are released once a year, around november</li>
+  <li>Have even numbers: 6.0, 8.0...</li>
+  <li>Are maintained for 3 years</li>
+  <li><strong>Are fitted for production use</strong></li>
+</ul>
+</div>
+</section>
+
+<section class="slide exercise" id="exercise-install1">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+### Practice
+<blockquote>First, get the application and start it.</blockquote>
+
+#### Download and Start the Nuxeo Server
+- Get the latest LTS release, as a multi platform zip file
+- Unzip it in the <code>home</code> directory
+- Start it using a terminal: <code>/path/to/server/bin/nuxeoctl start</code>
+- Go to <code>http://localhost:8080</code>
+</section>
+
+<section class="slide" id="wizard">
+### Configuring the Nuxeo Platform
+#### Setup Wizard at first start
+![wizard](img/nxp-install/wizard.png)
+
+- Use it for common configuration (database, proxy, smtp, modules to install...)
+</section>
+
+<section class="slide" id="archi-folders">
+### Configuring the Nuxeo Platform
+#### Distributing The Application
+- ZIP distribution is pre-configured with default paths
+- VM distribution is pre-configured with recommended paths
+- Other installers marry common usages and Nuxeo recommendations
+
+##### Server (`NUXEO_HOME` environment variable)
+- `/home/nuxeo/nuxeo-dm/` or `/opt/nuxeo/`
+
+##### Configuration (`NUXEO_CONF` environment variable)
+- `$NUXEO_HOME/bin/nuxeo.conf` (default)
+- `/etc/nuxeo/nuxeo.conf` (recommended)
+
+##### Data (`nuxeo.data.dir`)
+- `$NUXEO_HOME/nxserver/data` (default)
+- `/var/lib/nuxeo` (recommended)
+
+##### Logs (`nuxeo.log.dir`)
+- `$NUXEO_HOME/log/` (default)
+- `/var/log/nuxeo` (recommended)
+</section>
+
+<section class="slide exercise" id="exercise-install2">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+### Practice
+<blockquote>Setup your application properly.</blockquote>
+
+#### Fill In The Wizard
+- Paths
+- Database connection
+- Authentication: leave it default for now
+- SMTP server: leave it default
+- Register the instance with your connect account
+</section>
+
+<section class="slide" id="distrib">
+### Nuxeo - Packaged modules and configuration tools
+<img src="img/install/modules-and-tools.png" />
+</section>
+
+<section class="slide exercise" id="exercise-install3">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+### Practice
+<blockquote>Choose your add-ons wisely.</blockquote>
+
+#### Select add-ons to install
+- We do not need modules for now, so let's uncheck them
+- We will add some later if needed
+</section>
+
+<section class="slide" id="admin-center-config">
+<div class="sticker" style="max-width: 100em;"><a href="http://doc.nuxeo.com/x/lYFH" target="_blank">ADMINDOC/Admin+Center+overview</a></div>
+###Configuration – Admin Tab
+####Administration features
+
+- Configuration can be changed anytime in the Admin tab after installation
+- Or through the <code>nuxeo.conf</code> file
+
+![admin-center](img/nxp-install/admin-center.png)
+</section>
+
+<section class="slide exercise" id="envt-vars">
+<img src="../themes/exercise.svg" alt="exercise" class="exercise-icon">
+###Configuration - Server Start
+#### Alternative Server Start Mechanism
+- Stop the server
+- Move the nuxeo.conf file away into /etc
+- Use a script to
+  - export the <code>NUXEO_HOME</code> and <code>NUXEO_CONF</code> variables
+  - Start the server (<code>/$NUXEO_HOME/bin/nuxeoctl start</code>)
+</section>
+
+<section class="slide" id="questions">
+## Questions?
+</section>
+
+<section class="slide" id="next">
+###Next?
+- Back to the [training agenda](index.html#day-1)
+- [Authentication Mechanisms](1.70_Authentication.html)
+</section>
+
+
+  <!-- deck.navigation snippet -->
+  <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+  <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+  
+  <!-- deck.status snippet -->
+  <p class="deck-status">
+  <span class="deck-status-current"></span>
+  /
+  <span class="deck-status-total"></span>
+  </p>
+  
+  <!-- deck.goto snippet -->
+  <form action="." method="get" class="goto-form">
+  <label for="goto-slide">Go to slide:</label>
+  <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+    <datalist id="goto-datalist"></datalist>
+    <input type="submit" value="Go">
+  </form>
+  
+  <!-- deck.hash snippet -->
+  <a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+  
+  <!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../deck.js/jquery-1.7.2.min.js"><\/script>')</script>
+  
+  <!-- Deck Core and extensions -->
+  <script src="../deck.js/core/deck.core.js"></script>
+  <script src="../deck.js/extensions/hash/deck.hash.js"></script>
+  <script src="../deck.js/extensions/menu/deck.menu.js"></script>
+  <script src="../deck.js/extensions/goto/deck.goto.js"></script>
+  <script src="../deck.js/extensions/status/deck.status.js"></script>
+  <script src="../deck.js/extensions/navigation/deck.navigation.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/Markdown.Converter.js"></script>
+  <script src="../deck.js-markdown/deck.markdown.js/deck.markdown.js"></script>
+  <script src="../deck.js/extensions/scale/deck.scale.js"></script>
+  <!-- JQuery tooltip library -->
+  <script src="../scripts/jquery.tools.tooltip.min.js"></script>
+
+<!-- Initialize the deck and tooltips -->
+  <script>
+      $(function() {
+        $.deck('.slide');
+      });
+jQuery(document).ready(function() {
+  jQuery(".tooltip-kat").tooltip({relative: true, position: 'top right'});
+});
+  </script>
+
+</body>
+</html>
