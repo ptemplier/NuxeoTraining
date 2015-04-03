@@ -6,7 +6,7 @@
 <html class="no-js" lang="en">
 <!--<![endif]-->
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8">in
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
 <title>Nuxeo training - Extension points</title>
@@ -210,7 +210,7 @@ public class DocumentTypeDescriptor {
 #### Adding The Service Side Logic - What's Needed (1/2)
 <blockquote>We may end up with several contributions, so they should be saved into a list with a specific id.</blockquote>
 
-- Complete the <code>activate</code> method to instanciate the listing holding your contributed objects
+- Complete the <code>activate</code> method to instantiate the listing holding your contributed objects
 <pre><code>@Override
 public void activate(ComponentContext context) {
   bundle = context.getRuntimeContext().getBundle();
@@ -261,7 +261,7 @@ String extensionPoint, ComponentInstance contributor) {
 <blockquote>Our final goal: have an extension point to generate QR code configurations, containing metadata separated by a specific character.</blockquote>
 
 ##### Activation / Deactivation
-- Upon activation, instanciate a <code>new HashMap&lt;String, QRContentDescriptor>()</code> named <code>qrGenerators</code>.
+- Upon activation, instantiate a <code>new HashMap&lt;String, QRContentDescriptor>()</code> named <code>qrGenerators</code>.
 - Upon deactivation, nullify it.
 
 ##### Registering The Contributions
